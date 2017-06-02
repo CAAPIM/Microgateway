@@ -1,0 +1,61 @@
+version: '2'
+services:
+  ssg:
+    image: caapimcollab/microgateway:latest
+    mem_limit: 2048m
+  #  memswap_limit: 0m
+  #  expose:
+  #    - "2124"
+  #    - "8080"
+  #    - "8443"
+  #    - "9443"
+  # if you want to map the ports from the container onto the host, use this form instead.
+    ports:
+      - "8080"
+      - "8443"
+      - "9443"
+  # for the environment, we use a YAML dictionary instead of an array as this lets us use a quoted string with a space in it for SSG_INTERNAL_SERVICES
+    environment:
+  # SSG_ADMIN_USERNAME and SSG_ADMIN_PASSWORD are both required. They are the credential you need to access the Gateway API
+      SSG_ADMIN_USERNAME: "adminUser"
+      SSG_ADMIN_PASSWORD: "somepassword"
+  # export SSG_SSL_KEY="$(cat /c/x/ssl_key.12 | base64)"
+      SSG_SSL_KEY:
+      SSG_SSL_KEY_PASS: ""
+  # Example: OTK_SERVER_HOST: "myotkserverhostname.ca.com"
+      OTK_SERVER_HOST: ""
+  # Example: OTK_SERVER_SSL_PORT: "8443"
+      OTK_SERVER_SSL_PORT: ""
+
+  # for customers that already have a license, it is expected that the machine that runs docker-compose will already have SSG_LICENSE set and the value of it is passed to each Docker Machine to put it its environment."
+  # the variable is set by running something like:
+  # export SSG_LICENSE="$(cat /c/Users/JohnSmith/Desktop/license.xml | gzip | base64)"
+  # for convenience and demo purposes, a 3-month license is included below
+      SSG_LICENSE: "<LICENSE_BASE64_PLACEHOLDER>"
+      SSG_INTERNAL_SERVICES: "restman"
+  
+  # scaler storage connection info
+  # example here is for a database
+      SCALER_ENABLE: "true"
+      SCALER_STORAGE_TYPE: "db"
+      SCALER_DB_TYPE: "mysql"
+      SCALER_DB_HOST: "cadbhost"
+      SCALER_DB_PORT: "3306"
+      SCALER_DB_NAME: "qstr"
+      SCALER_DB_USER: "causer"
+      SCALER_DB_PASSWORD: "capassword"
+  
+    links:
+      - cadbhost
+  
+  cadbhost:
+    build:
+      context: .
+      dockerfile: Dockerfile.mysql
+    mem_limit: 512m
+    environment:
+      - MYSQL_ROOT_PASSWORD=capassword
+      - MYSQL_DATABASE=qstr
+      - MYSQL_USER=causer
+      - MYSQL_PASSWORD=capassword
+

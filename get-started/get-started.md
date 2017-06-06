@@ -41,8 +41,6 @@ This step will typically be done by a Gateway sysadmin.
 cd docker-compose/
 docker-compose up --build -d
 ```
-with:
-  - SSG_LICENSE: base64 of your Gateway license
 
 Deployment logs command: `docker-compose logs --follow`
 

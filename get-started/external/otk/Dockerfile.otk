@@ -1,0 +1,11 @@
+#
+#  Copyright (c) 2017 CA. All rights reserved.
+#
+#  This software may be modified and distributed under the terms
+#  of the MIT license. See the LICENSE file for details.
+#
+# Unlock OTK
+FROM caapimcollab/mobile-app-services:4.0.00-beta
+# FROM isl-dsdc.ca.com:5000/apim-mobile/otk:develop
+
+RUN mkdir -p /opt/docker/rc.d/bootstrap/ && touch /opt/docker/rc.d/bootstrap/restman && mkdir -p /opt/docker/rc.d/bootstrap/ && touch /opt/docker/rc.d/bootstrap/policyman

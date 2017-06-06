@@ -40,3 +40,6 @@ save and run `docker-compose up --build -d`
 
 ### Dockerfile.addon
 The Docker file that bake the custom policy template bundles from docker/add-ons/bundles/* into CA Microgateway container
+
+## get-started
+The folder contains instructions to get started with microgateway as a demo or exercise using basic auth and OAuth. Please read "get-started" document for details

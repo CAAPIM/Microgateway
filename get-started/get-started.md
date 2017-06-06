@@ -39,7 +39,6 @@ This step will typically be done by a Gateway sysadmin.
 
 ```
 cd docker-compose/
-export SSG_LICENSE="$(cat ~/LICENSE.xml | gzip | base64)"
 docker-compose up --build -d
 ```
 with:

@@ -1,5 +1,9 @@
 ## Get started
 
+Supported platforms:
+- Linux
+- MacOS
+
 We are going to deploy the Gateway for micro-services, OAuth Toolkit (OTK) and
 a micro-service that will be exposed on the Gateway and protected by OTK.
 
@@ -16,6 +20,7 @@ Steps:
 4. [Consume the API with Basic Authentication](#consume-basic)
 5. [Protect a micro-service API with OAuth](#expose-oauth)
 6. [Consume the API with OAuth](#consume-oauth)
+
 
 #### 1. Prerequisites <a name="prerequisites"></a>
 - A docker host
@@ -38,7 +43,7 @@ https://golang.org/doc/install
 This step will typically be done by a Gateway sysadmin.
 
 ```
-cd docker-compose/
+cd get-started/docker-compose
 docker-compose up --build -d
 ```
 
@@ -64,6 +69,9 @@ docker-compose up -d
 ```
 curl "http://localhost:8080/inventory?inDate=2015-04-09&outDate=2015-04-10"
 ```
+
+Refer to the micro-service repository for technical details and troubleshooting:
+https://github.com/harlow/go-micro-services.
 
 - Expose the micro-service to the Gateway
 
@@ -103,7 +111,7 @@ micro-service at the address http://IP:8000/inventory?inDate=a&outDate=b.
 curl --insecure \
      --user "admin:password" \
      --url https://localhost/quickstart/1.0/services/ \
-     --data @GatewayFile
+     --data @Gatewayfile
 ```
 Which should return:
 ```
@@ -153,7 +161,7 @@ curl --insecure \
 
   This step will typically be done by a Gateway sysadmin.
   ```
-  cd external/otk
+  cd get-started/external/otk
   docker-compose up --build -d
   ```
 
@@ -170,6 +178,8 @@ curl --insecure \
   the Policy Manager (doc: https://docops.ca.com/display/OTK40/Create%20FIP%20Authentication%20for%20Dual%20Gateways)
   but we are going to do using the REST API of the OTK Gateway (RESTMAN).
 
+  Note: Ensure the following line is fully copied.
+
   ```
   ./provision/add-otk-user.sh localhost:8443 "admin" 'password' "Gateway as a Client Identity Provider" "gw4ms.mycompany.com" "MIIDPjCCAiagAwIBAgIJAJxuJWOcosezMA0GCSqGSIb3DQEBCwUAMB4xHDAaBgNVBAMTE2d3NG1zLm15Y29tcGFueS5jb20wHhcNMTcwNTExMjE1OTA2WhcNMjIwNTEwMjE1OTA2WjAeMRwwGgYDVQQDExNndzRtcy5teWNvbXBhbnkuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArpHuSAMvbYHICJYWYsfhUYex67ioOEl9+rFnHJGg8v+ghSbeZ5uxuGCE/eTkI7aVFwSGRP1mDjvCPDqheQabFtVNZC/T815enQV33TAULBCz5YLKu/I0ie9+4cCwseIIT6x5kTCAla/Ex7qgWoicppROCAuNjpuSFc3F0nA4QY8h26qMwlMdupeCrHcSj76uDfS86Vn9lf7Y3hz6jC1bO8mp95mMBTVW1JDQKcJvmPfFbBjHs146uA6umkwNqDBSYiwr1oBWZiiMIdCg/bnIZgq/IdTdGKt8739MuW9j5scCZtnn1F28WGGpIncxbGFHoZS5cOGdEbyY80RutWpv/wIDAQABo38wfTAdBgNVHQ4EFgQUuiSIW6OeLqqKQOFc42lqVqt+gacwTgYDVR0jBEcwRYAUuiSIW6OeLqqKQOFc42lqVqt+gaehIqQgMB4xHDAaBgNVBAMTE2d3NG1zLm15Y29tcGFueS5jb22CCQCcbiVjnKLHszAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQBRwh37Aq6o82mZXEhxaqqIRlTvK2DYjYZZmbzjCA8BAKVfAZDjPZtL/bdbQmU2oQwDpry6OHOfcoaTcTX+ZeGsWQz/Kb3g9zF9GansleYkayGGf5er9Ife7Mx9ODDg8NVdgJN8iNKjwDWz9IE9E1pIOKFbW1v/qwCMtkwhrw6pBfq39etH3aT7+TKd6YPjYekO49rpk5EAhSucxRAyGPX8JFO+YTEACkjKGUB4bgiG/0wdS/XnPkPmP/LmbN/9Pk0oAAdod1KhQ3NktnPBHfUUZwKXNzAciCi0ag2H6F0X3gragkw6en7FfGVY+hspupXuuhsYSjl8PjDoXpBsIMGk"
   ```
@@ -182,7 +192,7 @@ curl --insecure \
 
   Move to the Gateway folder:
   ```
-  cd docker-compose/
+  cd get-started/docker-compose
   ```
 
   Update `docker-compose.yml` and add the following in `environment` block of
@@ -230,13 +240,13 @@ curl --insecure \
        --url https://localhost/quickstart/1.0/services/
   ```
 
-  Push the updated `GatewayFile`:
+  Push the updated `Gatewayfile`:
   ```
   curl --request PUT \
        --insecure \
        --user "admin:password" \
        --url https://localhost/quickstart/1.0/services/ID \
-       --data @GatewayFile
+       --data @Gatewayfile
   ```
   Where in the URL `ID` is your service ID.
 
@@ -308,6 +318,10 @@ Let's imagine that your partner `booking.com` wants to access your hotel invento
 - Access the exposed micro-service
   Run the following command:
   ```
+  cd get-started/external/oauth-clients/tiny-oauth-client
+  export GOPATH="$(pwd)"
+  cd src/client
+  go get
   go run client.go
   ```
   Which will ask you to open in your browser a URL like `https://localhost:8443/auth/oauth/v2/authorize?access_type=offline&client_id=f7c232ef-0da1-4de0-a14e-23704b0bc177&redirect_uri=http%3A%2F%2F10.137.227.88%3A8081%2Fcallback&response_type=code&scope=HOTELS_INVENTORY_READ&state=state_oauth`. That is
@@ -316,5 +330,4 @@ Let's imagine that your partner `booking.com` wants to access your hotel invento
   Login with the user `cgriffin` and password `StRonG5^)`
 
   After you granted the OAuth application the access to `HOTELS_INVENTORY_READ`
-  scope, you will see the JSON reply from `https://localhost/hotels/inventory`
-  service printed by the OAuth application.
+  scope, you will see in the OAuth application terminal the JSON reply from `https://localhost/hotels/inventory`.

@@ -6,9 +6,8 @@ services:
       resources:
         limits:
           memory: 2048m
-    ports:
-      - "80:8080"
-      - "443:8443"
+    networks:
+      - public
     environment:
       SSG_ADMIN_USERNAME: "admin"
       SSG_ADMIN_PASSWORD: "password"
@@ -36,8 +35,13 @@ services:
       resources:
         limits:
           memory: 512m
+    networks:
+      - public
     environment:
       - MYSQL_ROOT_PASSWORD=capassword
       - MYSQL_DATABASE=qstr
       - MYSQL_USER=causer
       - MYSQL_PASSWORD=capassword
+
+networks:
+  public:

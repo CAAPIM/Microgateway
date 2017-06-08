@@ -12,17 +12,19 @@ Three personas will be involved:
 - a micro-service developer
 - an external partner consuming the micro-service
 
-Steps:
-
 1. [Prerequisites](#prerequisites)
-2. [Deploy the APIM Gateway for micro-services](#deploy)
-3. [Expose a micro-service API with Basic Authentication](#expose-basic)
-4. [Consume the API with Basic Authentication](#consume-basic)
-5. [Protect a micro-service API with OAuth](#expose-oauth)
-6. [Consume the API with OAuth](#consume-oauth)
+2. [Secure a micro-service API with Basic Authentication](#api-basic-auth)
+  1. [Deploy the APIM Gateway for micro-services](#api-basic-auth-deploy)
+  2. [Expose a micro-service API with Basic Authentication](#api-basic-auth-expose)
+  3. [Consume the API with Basic Authentication](#api-basic-auth-consume)
+3. [Scale the APIM Gateway for micro-services](#scale-gateway)
+4. [Secure a micro-service API with OAuth](#api-oauth)
+  1. [Deploy the APIM Gateway for micro-services](#api-oauth-deploy)
+  2. [Expose a micro-service API with OAuth](#api-oauth-expose)
+  3. [Consume the API with OAuth](#api-oauth-consume)
 
 
-#### 1. Prerequisites <a name="prerequisites"></a>
+## Prerequisites <a name="prerequisites"></a>
 - A docker host
 
 You can use Docker on your laptop or in the Cloud. Docker-machine
@@ -38,22 +40,24 @@ docker info
 
 https://golang.org/doc/install
 
-#### 2. Deploy the APIM Gateway for micro-services <a name="deploy"></a>
+## Secure a micro-service API with Basic Authentication <a name="api-basic-auth"></a>
+### Deploy the APIM Gateway for micro-services <a name="api-basic-auth-deploy"></a>
 
 This step will typically be done by a Gateway sysadmin.
 
 ```
 cd get-started/docker-compose
 docker-compose up --build -d
+docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml up -d --build
 ```
 
-Deployment logs command: `docker-compose logs --follow`
+Deployment logs command: `docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml logs --follow`
 
-Deployment status command: `docker-compose ps`
+Deployment status command: `docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml ps`
 
-Deployment remove command: `docker-compose down --volume`
+Deployment remove command: `docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml down --volume`
 
-#### 3. Expose a micro-service API with Basic Authentication <a name="expose-basic"></a>
+### Expose a micro-service API with Basic Authentication <a name="api-basic-auth-expose"></a>
 
 This step will typically be done by a micro-service developer.
 
@@ -148,7 +152,7 @@ Which should return:
 }
 ```
 
-#### 4. Consume the API with Basic Authentication <a name="consume-basic"></a>
+### Consume the API with Basic Authentication <a name="api-basic-auth-consume"></a>
 This step will typically be done by an external user like a business partner.
 ```
 curl --insecure \
@@ -156,8 +160,19 @@ curl --insecure \
      --url "https://localhost/hotels/inventory?inDate=2017-06-09&outDate=2017-06-10"
 ```
 
-#### 5. Protect your service with OAuth <a name="expose-oauth"></a>
-- Deploy OTK
+## Scale the APIM Gateway for micro-services <a name="scale-gateway"></a>
+
+Based on the [Twelve-Factor App](https://12factor.net/), you can easily scale
+the Gateway with the following command.
+```
+docker-compose scale ssg=X
+```
+With:
+- X: the number of Gateway containers, e.g. 2
+
+## Secure a micro-service API with OAuth <a name="api-oauth"></a>
+### Deploy the APIM Gateway for micro-services <a name="api-oauth-deploy"></a>
+- Deploy OTK (OAuth server)
 
   This step will typically be done by a Gateway sysadmin.
   ```
@@ -210,6 +225,7 @@ curl --insecure \
   docker-compose up -d ssg
   ```
 
+### Expose a micro-service API with OAuth <a name="api-oauth-expose"></a>
 - Update your service
 
   This step will typically be done by a micro-service developer.
@@ -251,18 +267,11 @@ curl --insecure \
   Where in the URL `ID` is your service ID.
 
 
-#### 6. Consume the micro-service with OAuth <a name="consume-oauth"></a>
+### Consume the API with OAuth <a name="api-oauth-consume"></a>
 
 This step will typically be done by an external user like a business partner.
 
 Let's imagine that your partner `booking.com` wants to access your hotel inventory.
-
-<!-- - Set the OTK first login password
-
-  Connect on `localhost:8443` (user: admin, password: password) with the Policy
-  Manager v9.2.
-
-  A popup window will ask you to set the first login password. -->
 
 - Register an OAuth client on the OTK OAuth manager
 

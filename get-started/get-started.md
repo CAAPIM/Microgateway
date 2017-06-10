@@ -286,7 +286,8 @@ Let's imagine that your partner `booking.com` wants to access your hotel invento
 
 - Configure your OAuth client
 
-  Open the file `deploy/external/oauth-clients/tiny-oauth-client/client.go` and
+  Open the file `get-started/external/oauth-clients/tiny-oauth-client/src/client/client.go` and
+
   replace the variable `oauth` with the following content:
   ```
   var oauth = OAuthClient{

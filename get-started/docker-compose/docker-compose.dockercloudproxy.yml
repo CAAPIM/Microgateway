@@ -9,6 +9,7 @@ services:
 
   proxy:
     image: 'dockercloud/haproxy:latest'
+    restart: always
     # environment:
     #   - DEBUG="true"
     networks:

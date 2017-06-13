@@ -2,6 +2,7 @@ version: '3'
 services:
   ssg:
     image: caapimcollab/microgateway:beta1
+    restart: always
     deploy:
       resources:
         limits:
@@ -31,6 +32,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.mysql
+    restart: always
     deploy:
       resources:
         limits:

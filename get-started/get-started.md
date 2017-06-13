@@ -4,25 +4,26 @@ Supported platforms:
 - Linux
 - MacOS
 
-We are going to deploy the Gateway for micro-services, OAuth Toolkit (OTK) and
-a micro-service that will be exposed on the Gateway and protected by OTK.
+We are going to deploy the Gateway for microservices, OAuth Toolkit (OTK) and
+a microservice that will be exposed on the Gateway and protected by OTK.
 
 Three personas will be involved:
 - a Gateway sysadmin
-- a micro-service developer
-- an external partner consuming the micro-service
+- a microservice developer
+- an external partner consuming the microservice
+
+Steps:
 
 1. [Prerequisites](#prerequisites)
-2. [Secure a micro-service API with Basic Authentication](#api-basic-auth)
-  1. [Deploy the APIM Gateway for micro-services](#api-basic-auth-deploy)
-  2. [Expose a micro-service API with Basic Authentication](#api-basic-auth-expose)
+2. [Secure a microservice API with Basic Authentication](#api-basic-auth)
+  1. [Deploy the APIM Gateway for microservices](#api-basic-auth-deploy)
+  2. [Expose a microservice API with Basic Authentication](#api-basic-auth-expose)
   3. [Consume the API with Basic Authentication](#api-basic-auth-consume)
-3. [Scale the APIM Gateway for micro-services](#scale-gateway)
-4. [Secure a micro-service API with OAuth](#api-oauth)
-  1. [Deploy the APIM Gateway for micro-services](#api-oauth-deploy)
-  2. [Expose a micro-service API with OAuth](#api-oauth-expose)
+3. [Scale the APIM Gateway for microservices](#scale-gateway)
+4. [Secure a microservice API with OAuth](#api-oauth)
+  1. [Deploy the APIM Gateway for microservices](#api-oauth-deploy)
+  2. [Expose a microservice API with OAuth](#api-oauth-expose)
   3. [Consume the API with OAuth](#api-oauth-consume)
-
 
 ## Prerequisites <a name="prerequisites"></a>
 - A docker host
@@ -36,18 +37,27 @@ Run the following command to validate that you can reach your Docker host.
 docker info
 ```
 
+- Update your DNS server or hosts file
+
+`gateway.mycompany.com` and `otk.mycompany.com` should map to your docker host
+IP. For example, in your hosts file, add the following line:
+
+```
+DOCKER_HOST_IP  gateway.mycompany.com otk.mycompany.com
+```
+With DOCKER_HOST_IP, the IP address of your docker host
+
 - Golang to run the OAuth client
 
 https://golang.org/doc/install
 
-## Secure a micro-service API with Basic Authentication <a name="api-basic-auth"></a>
-### Deploy the APIM Gateway for micro-services <a name="api-basic-auth-deploy"></a>
+## Secure a microservice API with Basic Authentication <a name="api-basic-auth"></a>
+### Deploy the APIM Gateway for microservices <a name="api-basic-auth-deploy"></a>
 
 This step will typically be done by a Gateway sysadmin.
 
 ```
 cd get-started/docker-compose
-docker-compose up --build -d
 docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml up -d --build
 ```
 
@@ -57,11 +67,11 @@ Deployment status command: `docker-compose -f docker-compose.yml -f docker-compo
 
 Deployment remove command: `docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml down --volume`
 
-### Expose a micro-service API with Basic Authentication <a name="api-basic-auth-expose"></a>
+### Expose a microservice API with Basic Authentication <a name="api-basic-auth-expose"></a>
 
-This step will typically be done by a micro-service developer.
+This step will typically be done by a microservice developer.
 
-- Deploy a micro-service example
+- Deploy a microservice example
 ```
 git clone https://github.com/harlow/go-micro-services
 cd go-micro-services
@@ -69,18 +79,18 @@ touch .env
 docker-compose up -d
 ```
 
-- Test the micro-service is working
+- Test the microservice is working
 ```
-curl "http://localhost:8080/inventory?inDate=2015-04-09&outDate=2015-04-10"
+curl "http://gateway.mycompany.com:8080/inventory?inDate=2017-04-09&outDate=2017-04-10"
 ```
 
-Refer to the micro-service repository for technical details and troubleshooting:
+Refer to the microservice repository for technical details and troubleshooting:
 https://github.com/harlow/go-micro-services.
 
-- Expose the micro-service to the Gateway
+- Expose the microservice to the Gateway
 
-  Add the file `Gatewayfile` in the micro-service source code folder `go-micro-services`
-with the following content, where `IP` is your laptop ip:
+  Add the file `Gatewayfile` in the microservice source code folder `go-micro-services`
+with the following content, where `IP` is your Docker host IP:
 ```
 {
   "Service": {
@@ -108,13 +118,13 @@ with the following content, where `IP` is your laptop ip:
 This file will tell the Gateway to create a service `/hotels/inventory` that
 allows `GET` and `POST`, requires the OAuth scope `HOTELS_INVENTORY_READ` from
 the OAuth client registered on the OTK server, and forwards with a JWT to the
-micro-service at the address http://IP:8000/inventory?inDate=a&outDate=b.
+microservice at the address http://IP:8000/inventory?inDate=a&outDate=b.
 
   Push the Gatewayfile to the Gateway:
 ```
 curl --insecure \
      --user "admin:password" \
-     --url https://localhost/quickstart/1.0/services/ \
+     --url https://gateway.mycompany.com/quickstart/1.0/services/ \
      --data @Gatewayfile
 ```
 Which should return:
@@ -129,7 +139,7 @@ Wait for the service to be created:
 ```
 curl --insecure \
      --user "admin:password" \
-     --url https://localhost/quickstart/1.0/services/
+     --url https://gateway.mycompany.com/quickstart/1.0/services/
 ```
 Should return the following structure:
 ```
@@ -141,9 +151,9 @@ Should return the following structure:
 }]
 ```
 
-- Test the micro-service is exposed
+- Test the microservice is exposed
 ```
-curl --insecure "https://localhost/hotels/inventory?inDate=a&outDate=b"
+curl --insecure "https://gateway.mycompany.com/hotels/inventory?inDate=a&outDate=b"
 ```
 Which should return:
 ```
@@ -157,21 +167,22 @@ This step will typically be done by an external user like a business partner.
 ```
 curl --insecure \
      --user "admin:password" \
-     --url "https://localhost/hotels/inventory?inDate=2017-06-09&outDate=2017-06-10"
+     --url "https://gateway.mycompany.com/hotels/inventory?inDate=2017-06-09&outDate=2017-06-10"
 ```
 
-## Scale the APIM Gateway for micro-services <a name="scale-gateway"></a>
+## Scale the APIM Gateway for microservices <a name="scale-gateway"></a>
 
 Based on the [Twelve-Factor App](https://12factor.net/), you can easily scale
 the Gateway with the following command.
 ```
-docker-compose scale ssg=X
+cd get-started/docker-compose
+docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml scale ssg=X
 ```
 With:
-- X: the number of Gateway containers, e.g. 2
+- X: the number of Gateway containers, e.g. 10
 
-## Secure a micro-service API with OAuth <a name="api-oauth"></a>
-### Deploy the APIM Gateway for micro-services <a name="api-oauth-deploy"></a>
+## Secure a microservice API with OAuth <a name="api-oauth"></a>
+### Deploy the APIM Gateway for microservices <a name="api-oauth-deploy"></a>
 - Deploy OTK (OAuth server)
 
   This step will typically be done by a Gateway sysadmin.
@@ -196,7 +207,7 @@ With:
   Note: Ensure the following line is fully copied.
 
   ```
-  ./provision/add-otk-user.sh localhost:8443 "admin" 'password' "Gateway as a Client Identity Provider" "gw4ms.mycompany.com" "MIIDPjCCAiagAwIBAgIJAJxuJWOcosezMA0GCSqGSIb3DQEBCwUAMB4xHDAaBgNVBAMTE2d3NG1zLm15Y29tcGFueS5jb20wHhcNMTcwNTExMjE1OTA2WhcNMjIwNTEwMjE1OTA2WjAeMRwwGgYDVQQDExNndzRtcy5teWNvbXBhbnkuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArpHuSAMvbYHICJYWYsfhUYex67ioOEl9+rFnHJGg8v+ghSbeZ5uxuGCE/eTkI7aVFwSGRP1mDjvCPDqheQabFtVNZC/T815enQV33TAULBCz5YLKu/I0ie9+4cCwseIIT6x5kTCAla/Ex7qgWoicppROCAuNjpuSFc3F0nA4QY8h26qMwlMdupeCrHcSj76uDfS86Vn9lf7Y3hz6jC1bO8mp95mMBTVW1JDQKcJvmPfFbBjHs146uA6umkwNqDBSYiwr1oBWZiiMIdCg/bnIZgq/IdTdGKt8739MuW9j5scCZtnn1F28WGGpIncxbGFHoZS5cOGdEbyY80RutWpv/wIDAQABo38wfTAdBgNVHQ4EFgQUuiSIW6OeLqqKQOFc42lqVqt+gacwTgYDVR0jBEcwRYAUuiSIW6OeLqqKQOFc42lqVqt+gaehIqQgMB4xHDAaBgNVBAMTE2d3NG1zLm15Y29tcGFueS5jb22CCQCcbiVjnKLHszAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQBRwh37Aq6o82mZXEhxaqqIRlTvK2DYjYZZmbzjCA8BAKVfAZDjPZtL/bdbQmU2oQwDpry6OHOfcoaTcTX+ZeGsWQz/Kb3g9zF9GansleYkayGGf5er9Ife7Mx9ODDg8NVdgJN8iNKjwDWz9IE9E1pIOKFbW1v/qwCMtkwhrw6pBfq39etH3aT7+TKd6YPjYekO49rpk5EAhSucxRAyGPX8JFO+YTEACkjKGUB4bgiG/0wdS/XnPkPmP/LmbN/9Pk0oAAdod1KhQ3NktnPBHfUUZwKXNzAciCi0ag2H6F0X3gragkw6en7FfGVY+hspupXuuhsYSjl8PjDoXpBsIMGk"
+  ./provision/add-otk-user.sh otk.mycompany.com:8443 "admin" 'password' "Gateway as a Client Identity Provider" "gw4ms.mycompany.com" "MIIDPjCCAiagAwIBAgIJAJxuJWOcosezMA0GCSqGSIb3DQEBCwUAMB4xHDAaBgNVBAMTE2d3NG1zLm15Y29tcGFueS5jb20wHhcNMTcwNTExMjE1OTA2WhcNMjIwNTEwMjE1OTA2WjAeMRwwGgYDVQQDExNndzRtcy5teWNvbXBhbnkuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArpHuSAMvbYHICJYWYsfhUYex67ioOEl9+rFnHJGg8v+ghSbeZ5uxuGCE/eTkI7aVFwSGRP1mDjvCPDqheQabFtVNZC/T815enQV33TAULBCz5YLKu/I0ie9+4cCwseIIT6x5kTCAla/Ex7qgWoicppROCAuNjpuSFc3F0nA4QY8h26qMwlMdupeCrHcSj76uDfS86Vn9lf7Y3hz6jC1bO8mp95mMBTVW1JDQKcJvmPfFbBjHs146uA6umkwNqDBSYiwr1oBWZiiMIdCg/bnIZgq/IdTdGKt8739MuW9j5scCZtnn1F28WGGpIncxbGFHoZS5cOGdEbyY80RutWpv/wIDAQABo38wfTAdBgNVHQ4EFgQUuiSIW6OeLqqKQOFc42lqVqt+gacwTgYDVR0jBEcwRYAUuiSIW6OeLqqKQOFc42lqVqt+gaehIqQgMB4xHDAaBgNVBAMTE2d3NG1zLm15Y29tcGFueS5jb22CCQCcbiVjnKLHszAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQBRwh37Aq6o82mZXEhxaqqIRlTvK2DYjYZZmbzjCA8BAKVfAZDjPZtL/bdbQmU2oQwDpry6OHOfcoaTcTX+ZeGsWQz/Kb3g9zF9GansleYkayGGf5er9Ife7Mx9ODDg8NVdgJN8iNKjwDWz9IE9E1pIOKFbW1v/qwCMtkwhrw6pBfq39etH3aT7+TKd6YPjYekO49rpk5EAhSucxRAyGPX8JFO+YTEACkjKGUB4bgiG/0wdS/XnPkPmP/LmbN/9Pk0oAAdod1KhQ3NktnPBHfUUZwKXNzAciCi0ag2H6F0X3gragkw6en7FfGVY+hspupXuuhsYSjl8PjDoXpBsIMGk"
   ```
 
   The script will print `Done.` after configuring OTK.
@@ -218,19 +229,19 @@ With:
   OTK_CERTIFICATE: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURPRENDQWlDZ0F3SUJBZ0lKQUk1V2x6RHduWkRpTUEwR0NTcUdTSWIzRFFFQkN3VUFNQnd4R2pBWUJnTlYKQkFNVEVXOTBheTV0ZVdOdmJYQmhibmt1WTI5dE1CNFhEVEUzTURVeU9URTNORGsxTWxvWERUSXlNRFV5T0RFMwpORGsxTWxvd0hERWFNQmdHQTFVRUF4TVJiM1JyTG0xNVkyOXRjR0Z1ZVM1amIyMHdnZ0VpTUEwR0NTcUdTSWIzCkRRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRQ3cyak5PVEo4ZDJnNzJ2aHpTV21nbkhESzFCRzh6dllSaGZ1NksKVWFmKzdaK2krbFV3R0cvaEk0aW5kSkNMaHRZNTE5RzlxSlJRaDMzdXExNUxqQzErZk5RK3BTQnBBU0dDODJaYgplQ1NYL3hOL21TeE9LVUg2cFErNzd5TUJRckprRXRlMUkrNzZlaGFabGVnWWNWb0NaYWl4QXhHN1hkRUhpWGQ4CjdVUDlSTk9WdUJJbFhZSlQ4Z2pPYjdVdml2VFJIRzVCaHhVOEIvcGtQUXBaWGlTYmpQOGJXbHdtN3pIeUhFVGQKMTMrb2ROYmZLUGZlU2xZT0hGSWNXRjJleVBuRTczYlc0L0lPN2k5MWIvTmR5K1cwSk4zTUdKa2Q5N3k1NWloZwpUM0xQZXdWZTVsMSt3aTFHNnR3MFpMZlVQNDg4QmxQb2k2SHc4ZEplYlFIanY3UnZBZ01CQUFHamZUQjdNQjBHCkExVWREZ1FXQkJSYVZMSFBLaXZzaDNHVjBOdFdGMzBPL0p0QXpqQk1CZ05WSFNNRVJUQkRnQlJhVkxIUEtpdnMKaDNHVjBOdFdGMzBPL0p0QXpxRWdwQjR3SERFYU1CZ0dBMVVFQXhNUmIzUnJMbTE1WTI5dGNHRnVlUzVqYjIyQwpDUUNPVnBjdzhKMlE0akFNQmdOVkhSTUVCVEFEQVFIL01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQmxxd1lCCklOdVpLcHVyNnlhU0lBUlJYOWs5d1VwSkxidjlFUHF0a0o4ekpWaVovN3dKUmlPaE5FV2MyZ2FNVTkrS1E3cTkKV3R0RWRLRElNKzRRdFl6Wjg0QUJoOFFhSU9RSWNMSnhLM2xqNzJHNTFNUDZIZ0ovRFJ1TTZ4OS9zZ092RSs4cQpBVjVDU1p2YUdVRGV4WlZZQUpYOTZIRlNzajlqM2tablBIYmU0U2xjZndqd3A4KzhVVGRQaTRGMkM4amhUQkFBCk1HVjgrQVF2TTZtSlpsaTdDVmJJYUFGZ0oxamZsY3hkb3pFMUExR2Fhb1FwSzVtYXpoLzFkMWR3azlScXVEY00KVUhPWEFnWFdtUW15VjVGZlJYYTMwbWpCcXVVSGFWU3NiR1Vidm0rd2FxMUloaG0vd3lkbnRBQS8rTUFRQXZWegpSa25HMW8xaGRiNFlQdHZqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
   OTK_CERT_VERIFY_HOSTNAME: "false"
   ```
-  Where `IP` in `OTK_SERVER_HOST: "IP"` is your laptop IP.
+  Where `IP` in `OTK_SERVER_HOST: "IP"` is your Docker host IP.
 
   Update the Gateway:
   ```
-  docker-compose up -d ssg
+  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml up -d ssg
   ```
 
-### Expose a micro-service API with OAuth <a name="api-oauth-expose"></a>
+### Expose a microservice API with OAuth <a name="api-oauth-expose"></a>
 - Update your service
 
-  This step will typically be done by a micro-service developer.
+  This step will typically be done by a microservice developer.
 
-  In your micro-service folder, open `Gatewayfile` and replace:
+  In your microservice folder, open `Gatewayfile` and replace:
   ```
   {
     "CredentialSourceHttpBasic": { }
@@ -253,7 +264,7 @@ With:
   ```
   curl --insecure \
        --user "admin:password" \
-       --url https://localhost/quickstart/1.0/services/
+       --url https://gateway.mycompany.com/quickstart/1.0/services/
   ```
 
   Push the updated `Gatewayfile`:
@@ -261,7 +272,7 @@ With:
   curl --request PUT \
        --insecure \
        --user "admin:password" \
-       --url https://localhost/quickstart/1.0/services/ID \
+       --url https://gateway.mycompany.com/quickstart/1.0/services/ID \
        --data @Gatewayfile
   ```
   Where in the URL `ID` is your service ID.
@@ -275,7 +286,7 @@ Let's imagine that your partner `booking.com` wants to access your hotel invento
 
 - Register an OAuth client on the OTK OAuth manager
 
-  Open https://localhost:8443/oauth/manager in your browser then login with the
+  Open https://otk.mycompany.com:8443/oauth/manager in your browser then login with the
   user `arose` and password `StRonG5^)`. (See https://github.com/CAAPIM/Docker-MAS#test-users-and-groups
   for more accounts)
 
@@ -306,8 +317,8 @@ Let's imagine that your partner `booking.com` wants to access your hotel invento
                   Scopes:       []string{"HOTELS_INVENTORY_READ"},
                   RedirectURL:  "http://IP:8081/callback",
                   Endpoint: oauth2.Endpoint{
-                          AuthURL:  "https://localhost:8443/auth/oauth/v2/authorize",
-                          TokenURL: "https://localhost:8443/auth/oauth/v2/token",
+                          AuthURL:  "https://otk.mycompany.com:8443/auth/oauth/v2/authorize",
+                          TokenURL: "https://otk.mycompany.com:8443/auth/oauth/v2/token",
                   },
           },
           state: "state_oauth",
@@ -317,7 +328,7 @@ Let's imagine that your partner `booking.com` wants to access your hotel invento
                           TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
                   },
           },
-          resource: "https://localhost/hotels/inventory?inDate=a&outDate=b",
+          resource: "https://gateway.mycompany.com/hotels/inventory?inDate=a&outDate=b",
   }
   ```
   With:
@@ -325,7 +336,7 @@ Let's imagine that your partner `booking.com` wants to access your hotel invento
     - CLIENT_SECRET: the OAuth client secret received during the OAuth client registration
     - IP: the IP address of your laptop
 
-- Access the exposed micro-service
+- Access the exposed microservice
   Run the following command:
   ```
   cd get-started/external/oauth-clients/tiny-oauth-client
@@ -334,10 +345,10 @@ Let's imagine that your partner `booking.com` wants to access your hotel invento
   go get
   go run client.go
   ```
-  Which will ask you to open in your browser a URL like `https://localhost:8443/auth/oauth/v2/authorize?access_type=offline&client_id=f7c232ef-0da1-4de0-a14e-23704b0bc177&redirect_uri=http%3A%2F%2F10.137.227.88%3A8081%2Fcallback&response_type=code&scope=HOTELS_INVENTORY_READ&state=state_oauth`. That is
+  Which will ask you to open in your browser a URL like `https://otk.mycompany.com:8443/auth/oauth/v2/authorize?access_type=offline&client_id=f7c232ef-0da1-4de0-a14e-23704b0bc177&redirect_uri=http%3A%2F%2F10.137.227.88%3A8081%2Fcallback&response_type=code&scope=HOTELS_INVENTORY_READ&state=state_oauth`. That is
   the URL the user will open to grant access to the OAuth application we started.
 
   Login with the user `cgriffin` and password `StRonG5^)`
 
   After you granted the OAuth application the access to `HOTELS_INVENTORY_READ`
-  scope, you will see in the OAuth application terminal the JSON reply from `https://localhost/hotels/inventory`.
+  scope, you will see in the OAuth application terminal the JSON reply from `https://gateway.mycompany.com/hotels/inventory`.

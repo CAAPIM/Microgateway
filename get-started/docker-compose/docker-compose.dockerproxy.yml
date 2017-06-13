@@ -10,6 +10,7 @@ services:
 
   proxy:
     image: 'isl-dsdc.ca.com:5000/apim-util/docker-proxy'
+    restart: always
     networks:
       - public
     volumes:

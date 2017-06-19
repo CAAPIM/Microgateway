@@ -14,16 +14,16 @@ Three personas will be involved:
 
 Steps:
 
-1. [Prerequisites](#prerequisites)
-2. [Secure a microservice API with Basic Authentication](#api-basic-auth)
-  1. [Deploy the APIM Gateway for microservices](#api-basic-auth-deploy)
-  2. [Expose a microservice API with Basic Authentication](#api-basic-auth-expose)
-  3. [Consume the API with Basic Authentication](#api-basic-auth-consume)
-3. [Scale the APIM Gateway for microservices](#scale-gateway)
-4. [Secure a microservice API with OAuth](#api-oauth)
-  1. [Deploy the APIM Gateway for microservices](#api-oauth-deploy)
-  2. [Expose a microservice API with OAuth](#api-oauth-expose)
-  3. [Consume the API with OAuth](#api-oauth-consume)
+* [Prerequisites](#prerequisites)
+* [Secure a microservice API with Basic Authentication](#api-basic-auth)
+  * [Deploy the APIM Gateway for microservices](#api-basic-auth-deploy)
+  * [Expose a microservice API with Basic Authentication](#api-basic-auth-expose)
+  * [Consume the API with Basic Authentication](#api-basic-auth-consume)
+* [Scale the APIM Gateway for microservices](#scale-gateway)
+* [Secure a microservice API with OAuth](#api-oauth)
+  * [Deploy the APIM Gateway for microservices](#api-oauth-deploy)
+  * [Expose a microservice API with OAuth](#api-oauth-expose)
+  * [Consume the API with OAuth](#api-oauth-consume)
 
 ## Prerequisites <a name="prerequisites"></a>
 - A docker host

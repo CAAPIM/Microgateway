@@ -1,0 +1,22 @@
+# Work in progress
+version: '3'
+services:
+  ssg:
+    labels:
+      - proxy.conf.protocol.1=tcp
+      - proxy.conf.tls.term.1=passthrough
+      - proxy.conf.port.1=8443
+      - proxy.conf.hostname.1=gateway.mycompany.com
+
+  proxy:
+    image: 'isl-dsdc.ca.com:5000/apim-util/docker-proxy'
+    restart: always
+    networks:
+      - public
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      - "proxy.peerable"
+    ports:
+      - "80:80"
+      - "443:443"

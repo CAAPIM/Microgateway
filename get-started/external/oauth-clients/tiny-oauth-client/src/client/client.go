@@ -34,8 +34,8 @@ var oauth = OAuthClient{
 		Scopes:       []string{"HOTELS_INVENTORY_READ"},
 		RedirectURL:  "http://IP:8081/callback",
 		Endpoint: oauth2.Endpoint{
-			AuthURL:  "https://localhost:8443/auth/oauth/v2/authorize",
-			TokenURL: "https://localhost:8443/auth/oauth/v2/token",
+			AuthURL:  "https://otk.mycompany.com:8443/auth/oauth/v2/authorize",
+			TokenURL: "https://otk.mycompany.com:8443/auth/oauth/v2/token",
 		},
 	},
 	state: "state_oauth",
@@ -45,7 +45,7 @@ var oauth = OAuthClient{
 			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
 		},
 	},
-	resource: "https://localhost/hotels/inventory?inDate=a&outDate=b",
+	resource: "https://gateway.mycompany.com/hotels/inventory?inDate=a&outDate=b",
 }
 
 // Handle the authorize callback endpoint

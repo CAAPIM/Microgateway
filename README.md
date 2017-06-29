@@ -2,57 +2,124 @@
 Repository containing artifacts for using the CA Microgateway (current official name of the twelvefactorgateway/GW4MS)
 
 ## What is CA microgateway
-CA microgateway provides secure service mesh for microservices with rich functionalities of the CA API gateway family including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA microgateway by building your own policy with existing policy building capability in the API gateway family. 
+CA microgateway provides secure service mesh for microservices with rich functionalities of the CA API gateway family including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA microgateway by building your own policy with existing policy building capability in the API gateway family.
 
 ```
 (microservice A)-----(microgateway) <-
                           |            \
                           |             \
-                     (Auth Service)       --------> [firewall] (Edge API gateway) <---------> 
-                          |             / 
+                     (Auth Service)       --------> [firewall] (Edge API gateway) <--------->
+                          |             /
                           |            /
 (microservice B)-----(microgateway) <-
 ```
 
-## docker
-The docker folder contains the artifacts needed to start the CA Microgateway along with its dependent containers
+## Get started
 
-### docker-compose.yml
-The docker-compose file for the CA Microgateway
+Supported platforms:
+- Linux
+- MacOS
 
-To start: `docker-compose up --build -d`
+Steps:
 
-To stop: `docker-compose down --volumes`
+* [Prerequisites](#prerequisites)
+* [Deploy the APIM Gateway](#deploy)
+* [Expose a microservice API](#api)
 
-    --volumes : removes the volume attached to the database container, so you can reset the scaler database
+### Prerequisites <a name="prerequisites"></a>
+- A docker host
 
-### Dockerfile.mysql
-The Dockerfile for the scaler database container. This is used to build a container that contains the scaler database's schema
+  You can use Docker on your laptop or in the Cloud. Docker-machine
+  (https://docs.docker.com/machine/drivers/) can be used as a quick way to deploy
+  a remote Docker host.
 
-### scalerDbSchema.sql
-Schema for the scaler database
+  Run the following command to validate that you can reach your Docker host.
+  ```
+  docker info
+  ```
 
-## docker/add-ons
-The docker/add-ons folder allows users to bake custom policy templates into CA Microgateway
+### Deploy the APIM Gateway <a name="deploy"></a>
 
-modify docker-compose.yml:
+This step will typically be done by a Gateway sysadmin.
 
-comment
+- Start the Gateway:
 
-```
-image: caapimcollab/microgateway:beta1
-```
+  ```
+  cd get-started/docker-compose
+  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml up -d --build
+  ```
 
-uncomment
-```
-   build:
-     context: ./add-ons
-     dockerfile: Dockerfile.addon
-```
-save and run `docker-compose up --build -d`
+- Verify that the Gateway is running:
 
-### Dockerfile.addon
-The Docker file that bake the custom policy template bundles from docker/add-ons/bundles/* into CA Microgateway container
+  ```
+  curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
+  ```
+  Should return an empty list of services `[]` when ready.
 
-## get-started
-The folder contains instructions to get started with microgateway as a demo or exercise using basic auth and OAuth. Please read "get-started" document for details
+- Scale up/down the Gateway:
+
+  ```
+  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml scale ssg=2
+
+  ```
+  The Gateway has no scaling limit because it is based on the [The Twelve-Factor App](https://12factor.net/).
+
+- Stop the Gateway:
+
+  ```
+  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml down
+
+  ```
+
+### Expose a microservice API <a name="api"></a>
+
+This step will typically be done by a microservice developer.
+
+- Create a file named Gatewayfile with the following content:
+
+  ```
+  {
+      "Service": {
+      "name": "Google Search",
+      "gatewayUri": "/google",
+      "httpMethods": [ "get" ],
+      "policy": [
+        {
+          "RouteHttp" : {
+            "targetUrl": "http://www.google.com/search${request.url.query}",
+            "httpMethod" : "<Automatic>"
+          }
+        }
+      ]
+    }
+  }
+  ```
+
+- Add your API to the Gateway:
+
+  ```
+  curl --insecure \
+       --user "admin:password" \
+       --url https://localhost/quickstart/1.0/services \
+       --data @Gatewayfile
+  ```
+
+- Verify that your API is exposed:
+
+  ```
+  curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
+  ```
+  Should return a list containing your Google Search service.
+
+- Use your exposed API:
+
+  ```
+  curl --insecure \
+       --header "User-Agent: Mozilla/5.0" \
+       https://localhost/google\?q\=CA
+  ```
+
+## Next steps:
+- Get further to try more complex scenarios:
+  - [Secure a microservice API with Basic Authentication](get-further/api-with-basic-auth.md)
+  - [Secure a microservice API with OAuth](get-further/api-with-oauth.md)

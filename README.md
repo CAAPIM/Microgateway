@@ -1,5 +1,18 @@
-# ca-microgateway
+# ca-microgateway (Beta)
 Repository containing artifacts for using the CA Microgateway (current official name of the twelvefactorgateway/GW4MS)
+
+## What is CA microgateway
+CA microgateway provides secure service mesh for microservices with rich functionalities of the CA API gateway family including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA microgateway by building your own policy with existing policy building capability in the API gateway family. 
+
+```
+(microservice A)-----(microgateway) <-
+                          |            \
+                          |             \
+                     (Auth Service)       --------> [firewall] (Edge API gateway) <---------> 
+                          |             / 
+                          |            /
+(microservice B)-----(microgateway) <-
+```
 
 ## docker
 The docker folder contains the artifacts needed to start the CA Microgateway along with its dependent containers

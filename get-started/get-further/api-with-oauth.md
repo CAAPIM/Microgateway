@@ -1,4 +1,17 @@
 ## Secure a microservice API with OAuth <a name="api-oauth"></a>
+
+The exercise sets up a microgateway as an OAuth enforcement point with a central OAuth service using CA MAS trial for a microservice API. 
+
+```
+(microservice A)-----CA microgateway <-
+                          |            \
+                          |             \
+               CA MAS with OAuth ToolKit --------> [firewall] (Edge API gateway) <---------> 
+                          |             / 
+                          |            /
+(microservice B)-----(microgateway) <--
+```
+
 - Deploy OTK (OAuth server)
 
   This step will typically be done by a Gateway sysadmin.

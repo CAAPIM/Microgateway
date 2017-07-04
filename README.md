@@ -67,7 +67,7 @@ This step will typically be done by a Gateway sysadmin.
 - Stop the Gateway:
 
   ```
-  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml down
+  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml down --volumes
 
   ```
 
@@ -87,7 +87,7 @@ This step will typically be done by a microservice developer.
         {
           "RouteHttp" : {
             "targetUrl": "http://www.google.com/search${request.url.query}",
-            "httpMethod" : "<Automatic>"
+            "httpMethod" : "Automatic"
           }
         }
       ]
@@ -116,10 +116,14 @@ This step will typically be done by a microservice developer.
   ```
   curl --insecure \
        --header "User-Agent: Mozilla/5.0" \
-       https://localhost/google\?q\=CA
+       'https://localhost/google?q=CA'
   ```
 
 ## Next steps:
 - Get further to try more complex scenarios:
   - [Secure a microservice API with Basic Authentication](get-further/api-with-basic-auth.md)
   - [Secure a microservice API with OAuth](get-further/api-with-oauth.md)
+
+- Read the documentation:
+  - [Quick Start Template Documentation](https://localhost/quickstart/1.0/doc)
+  - [CA Microgateway Documentation](https://docops.ca.com/ca-api-gateway/9-2/en/ca-microgateway-beta)

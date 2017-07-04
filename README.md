@@ -121,8 +121,8 @@ This step will typically be done by a microservice developer.
 
 ## Next steps:
 - Get further to try more complex scenarios:
-  - [Secure a microservice API with Basic Authentication](get-further/api-with-basic-auth.md)
-  - [Secure a microservice API with OAuth](get-further/api-with-oauth.md)
+  - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
+  - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
 
 - Read the documentation:
   - [Quick Start Template Documentation](https://localhost/quickstart/1.0/doc)

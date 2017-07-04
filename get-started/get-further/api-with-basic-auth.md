@@ -7,8 +7,8 @@ This step will typically be done by a microservice developer.
   ```
   {
     "Service": {
-    "name": "Google Search",
-    "gatewayUri": "/google",
+    "name": "Google Search With Basic Auth",
+    "gatewayUri": "/google-with-basic-auth",
     "httpMethods": [ "get" ],
     "policy": [
         {
@@ -17,7 +17,7 @@ This step will typically be done by a microservice developer.
         {
           "RouteHttp" : {
             "targetUrl" : "http://www.google.com/search${request.url.query}",
-            "httpMethod" : "<Automatic>"
+            "httpMethod" : "Automatic"
           }
         }
       ]
@@ -26,8 +26,6 @@ This step will typically be done by a microservice developer.
   ```
 
 - Add your API to the Gateway:
-
-  *Note: if you are updating an existing API, follow [url](doc)*
 
   ```
   curl --insecure \
@@ -41,7 +39,7 @@ This step will typically be done by a microservice developer.
   ```
   curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
   ```
-  Should return a list containing your Google Search service.
+  Should return a list containing your Google Search With Basic Auth service.
 
 - Use your exposed API:
 
@@ -49,5 +47,5 @@ This step will typically be done by a microservice developer.
   curl --insecure \
        --user "admin:password" \
        --header "User-Agent: Mozilla/5.0" \
-       https://localhost/google\?q\=CA
+       'https://localhost/google-with-basic-auth?q=CA'
   ```

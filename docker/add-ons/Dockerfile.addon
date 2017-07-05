@@ -1,0 +1,6 @@
+FROM caapimcollab/microgateway:beta1
+
+# If one bundle is dependent on another, make sure that the dependent loads later
+# The load order is based on the bundle filename following the ASCII sort order
+# e.g. a.bundle will load before b.bundle
+ADD ./bundles/*.bundle /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/

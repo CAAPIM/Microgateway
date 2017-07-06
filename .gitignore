@@ -1,0 +1,5 @@
+**/bin
+**/pkg/*
+!**/pkg/README.md
+**/src/*
+!**/src/client

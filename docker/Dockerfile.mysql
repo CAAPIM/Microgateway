@@ -1,0 +1,3 @@
+FROM mysql:5.7
+
+ADD ./scalerDbSchema.sql /docker-entrypoint-initdb.d/schema.sql

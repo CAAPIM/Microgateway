@@ -1,3 +1,5 @@
+This is a general documentation of how to use microgateway docker container. For more details, please go to README on the root folder and get-started
+
 ## docker
 The docker folder contains the artifacts needed to start the CA Microgateway along with its dependent containers
 

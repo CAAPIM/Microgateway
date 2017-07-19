@@ -6,6 +6,11 @@ The docker folder contains the artifacts needed to start the CA Microgateway alo
 ### docker-compose.yml
 The docker-compose file for the CA Microgateway
 
+**_Accept the license_**
+  - _Accept the license agreement by reading through the [Microservices Gateway Pre-Release Agreement](../LICENSE.md)_
+  - _Open the file `docker/docker-compose.yml` and change the `ACCEPT_LICENSE` environment variable value from `"false"` to `"true"`_
+  - _By passing the value `"true"` to the environment variable `ACCEPT_LICENSE`, you are expressing your acceptance of the [Microservices Gateway Pre-Release Agreement](../LICENSE.md)._
+
 To start: `docker-compose up --build -d`
 
 To stop: `docker-compose down --volumes`

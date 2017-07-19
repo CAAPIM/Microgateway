@@ -21,9 +21,9 @@ services:
 
       SCALER_ENABLE: "true"
       SCALER_STORAGE_TYPE: "db"
-      SCALER_DB_TYPE: "mysql"
+      SCALER_DB_TYPE: "postgresql"
       SCALER_DB_HOST: "cadbhost"
-      SCALER_DB_PORT: "3306"
+      SCALER_DB_PORT: "5432"
       SCALER_DB_NAME: "qstr"
       SCALER_DB_USER: "causer"
       SCALER_DB_PASSWORD: "capassword"
@@ -33,7 +33,7 @@ services:
   cadbhost:
     build:
       context: .
-      dockerfile: Dockerfile.mysql
+      dockerfile: Dockerfile.postgresql
     restart: always
     deploy:
       resources:
@@ -42,10 +42,9 @@ services:
     networks:
       - public
     environment:
-      - MYSQL_ROOT_PASSWORD=capassword
-      - MYSQL_DATABASE=qstr
-      - MYSQL_USER=causer
-      - MYSQL_PASSWORD=capassword
+      - POSTGRES_DB=qstr
+      - POSTGRES_USER=causer
+      - POSTGRES_PASSWORD=capassword
 
 networks:
   public:

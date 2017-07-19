@@ -140,6 +140,7 @@ This step will typically be done by a microservice developer.
   - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
   - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
   - [Extend microgateway with new templates](docker/add-ons/bundles/README.md)
+  - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
 
 - Read the documentation:
   - [Quick Start Template Documentation](https://localhost/quickstart/1.0/doc)

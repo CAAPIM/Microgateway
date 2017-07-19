@@ -1,7 +1,7 @@
 version: '3'
 services:
   ssg:
-    image: caapimcollab/microgateway:beta1
+    image: caapimcollab/microgateway:beta2
     restart: always
     deploy:
       resources:

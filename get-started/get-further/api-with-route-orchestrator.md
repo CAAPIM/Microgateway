@@ -155,8 +155,8 @@ RouteOrchestrator assertion provides an abstraction layer that will allow our cu
 ```
 {
   "Service": {
-    "name": "Sample to use RouteOrchestrator",
-    "gatewayUri": "/google",
+    "name": "Google RouteOrchestrator Service",
+    "gatewayUri": "/google-with-orchestrator",
     "httpMethods": [
       "get",
       "put",
@@ -202,12 +202,12 @@ curl --insecure \
 ```
 curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
 ```
-Should return a list containing your Google Search service.
+Should return a list containing your Google RouteOrchestrator Service.
 - Use your exposed API
 ```
 curl --insecure \
      --header "User-Agent: Mozilla/5.0" \
-     'https://localhost/google?q=CA'
+     'https://localhost/google-with-orchestrator?q=CA'
 ```
 
 
@@ -218,7 +218,7 @@ curl --insecure \
 ```
 {
   "Service": {
-    "name": "Sample to use RouteOrchestrator",
+    "name": "findPlaceDetails RouteOrchestrator",
     "gatewayUri": "/findPlaceDetails",
     "httpMethods": [
       "get",
@@ -230,59 +230,57 @@ curl --insecure \
       {
         "RouteOrchestrator": {
           "orchestrator": {
-            "orchestrator": {
-              "orchestrator": [
-                {
-                  "aggregator": [
-                    {
-                      "RouteHttp": {
-                        "targetUrl": "https://maps.googleapis.com/maps/api/geocode/json",
-                        "httpMethod": "GET",
-                        "parameters": [
-                          {
-                            "address": "${request.http.parameters.origins}"
-                          },
-                          {
-                            "key": "AIzaSyCjIaHtSVulkeh1-nIgidHDaQS7ImW1Snk"
-                          }
-                        ],
-                        "headers": [
-                          {
-                            "Accept": "application/json"
-                          }
-                        ],
-                        "requestTransform": [],
-                        "responseTransform": [
-                          {
-                            "jolt": [
-                              {
-                                "operation": "shift",
-                                "spec": {
-                                  "results": {
-                                    "0": {
-                                      "formatted_address": "origin_address",
-                                      "address_components": {
-                                        "*": {
-                                          "@long_name": "@(1,types[0])"
-                                        }
-                                      },
-                                      "place_id": "place_id",
-                                      "geometry": {
-                                        "location": "location_coordinate"
+            "orchestrator": [
+              {
+                "aggregator": [
+                  {
+                    "RouteHttp": {
+                      "targetUrl": "https://maps.googleapis.com/maps/api/geocode/json",
+                      "httpMethod": "GET",
+                      "parameters": [
+                        {
+                          "address": "${request.http.parameters.origins}"
+                        },
+                        {
+                          "key": "AIzaSyCjIaHtSVulkeh1-nIgidHDaQS7ImW1Snk"
+                        }
+                      ],
+                      "headers": [
+                        {
+                          "Accept": "application/json"
+                        }
+                      ],
+                      "requestTransform": [],
+                      "responseTransform": [
+                        {
+                          "jolt": [
+                            {
+                              "operation": "shift",
+                              "spec": {
+                                "results": {
+                                  "0": {
+                                    "formatted_address": "origin_address",
+                                    "address_components": {
+                                      "*": {
+                                        "@long_name": "@(1,types[0])"
                                       }
+                                    },
+                                    "place_id": "place_id",
+                                    "geometry": {
+                                      "location": "location_coordinate"
                                     }
                                   }
                                 }
                               }
-                            ]
-                          }
-                        ]
-                      }
+                            }
+                          ]
+                        }
+                      ]
                     }
-                  ]
-                }
-              ]
-            }
+                  }
+                ]
+              }
+            ]
           }
         }
       }
@@ -302,14 +300,14 @@ curl --insecure \
 ```
 curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
 ```
-Should return a list containing your findPlaceDetails service.
+Should return a list containing your 'findPlaceDetails RouteOrchestrator' service.
 
 - Use your exposed API
 
 ```
 curl --insecure \
      --header "User-Agent: Mozilla/5.0" \
-	    'http://localhost:8080/findPlaceDetails?origins=Vancouver,+BC,+Canada&destinations=Toronto,+ON,+Canada'
+     'https://localhost/findPlaceDetails?origins=Vancouver,+BC,+Canada&destinations=Toronto,+ON,+Canada'
 
 ```
 
@@ -320,7 +318,7 @@ curl --insecure \
 ```
 {
   "Service": {
-    "name": "Sample to use RouteOrchestrator",
+    "name": "findDistance RouteOrchestrator",
     "gatewayUri": "/findDistance",
     "httpMethods": [
       "get",
@@ -332,8 +330,7 @@ curl --insecure \
       {
         "RouteOrchestrator": {
           "orchestrator": {
-            "orchestrator": {
-              "orchestrator": [
+            "orchestrator": [
                 {
                   "aggregator": [
                     {
@@ -536,8 +533,7 @@ curl --insecure \
                     }
                   ]
                 }
-              ]
-            }
+            ]
           }
         }
       }
@@ -557,13 +553,13 @@ curl --insecure \
 ```
 curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
 ```
-Should return a list containing your findDistance service.
+Should return a list containing your 'findDistance RouteOrchestrator' service.
 
 - Use your exposed API
 
 ```
 curl --insecure \
      --header "User-Agent: Mozilla/5.0" \
-	    'http://localhost:8080/findDistance?origins=Vancouver,+BC,+Canada&destinations=Toronto,+ON,+Canada'
+     'https://localhost/findDistance?origins=Vancouver,+BC,+Canada&destinations=Toronto,+ON,+Canada'
 
 ```

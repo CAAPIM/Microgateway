@@ -4,6 +4,7 @@ Table of Contents:
 
 * [Description](#Description)
 * [Example](#Example)
+  * [Prerequisite - Register the Google Root TLS certificate](#register-cert)
   * [Example 1 – expose microservice API without transformation](#Example1)
   * [Example 2 - expose microservice API with transformation using Jolt](#Example2)
   * [Example 3 – expose microservice API with transformation and aggregation](#Example3)
@@ -19,6 +20,12 @@ RouteOrchestrator assertion provides an abstraction layer that will allow our cu
 
 
 ### Example<a name="Example"></a>
+
+#### Prerequisite - Register the Google Root TLS certificate  <a name="register-cert"></a>
+
+Register the Google Root TLS certificate ([link](register-google-tls-certificate.md))
+because the example 2 and 3 use the Google Maps APIs over HTTPS as backend services.
+
 #### Example 1 – expose microservice API without transformation  <a name="Example1"></a>
 - This is a simple example of exposing a microservice API using RouteOrchestrator with no transformation
 
@@ -563,4 +570,3 @@ curl --insecure \
     }
   ]
   ```
-

@@ -52,6 +52,12 @@ Steps:
 
 This step will typically be done by a Gateway sysadmin.
 
+- **_Accept the license_**
+
+  - _Accept the license agreement by reading through the [Microservices Gateway Pre-Release Agreement](LICENSE.md)_
+  - _Open the file `get-started/docker-compose/docker-compose.yml` and change the `ACCEPT_LICENSE` environment variable value from `"false"` to `"true"`_
+  - _By passing the value `"true"` to the environment variable `ACCEPT_LICENSE`, you are expressing your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md)._
+
 - Start the Gateway:
 
   ```
@@ -133,7 +139,9 @@ This step will typically be done by a microservice developer.
 - Get further to try more complex scenarios:
   - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
   - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
-  - [Extend microgateway with new templates](docker/add-ons/bundles/README.md)
+  - [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
+  - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
+  - [Extend microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
 
 - Read the documentation:
   - [Quick Start Template Documentation](https://localhost/quickstart/1.0/doc)

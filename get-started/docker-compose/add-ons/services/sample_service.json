@@ -1,0 +1,15 @@
+{
+    "Service": {
+    "name": "Google Search",
+    "gatewayUri": "/google",
+    "httpMethods": [ "get" ],
+    "policy": [
+      {
+        "RouteHttp" : {
+          "targetUrl": "http://www.google.com/search${request.url.query}",
+          "httpMethod" : "Automatic"
+        }
+      }
+    ]
+  }
+}

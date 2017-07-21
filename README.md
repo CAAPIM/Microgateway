@@ -1,17 +1,17 @@
 # ca-microgateway (Beta)
 Repository containing artifacts for using the CA Microgateway
 
-## What is CA microgateway
+## What is CA Microgateway
 CA microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA microgateway by building your own policy with existing policy building capability in the API gateway family.
 
 ```
-(microservice A)-----(microgateway) <-
+(microservice A)-----(Microgateway) <-
                           |            \
                           |             \
-                     (Auth Service)       --------> [firewall] (Edge API gateway) <--------->
+                     (auth service)       --------> [firewall] (Edge API gateway) <--------->
                           |             /
                           |            /
-(microservice B)-----(microgateway) <-
+(microservice B)-----(Microgateway) <-
 ```
 
 ### Benefits
@@ -48,7 +48,7 @@ Steps:
   docker info
   ```
 
-### Deploy the microgateway <a name="deploy"></a>
+### Deploy the Microgateway <a name="deploy"></a>
 
 This step will typically be done by a Gateway sysadmin.
 
@@ -142,7 +142,7 @@ This step will typically be done by a microservice developer.
   - [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
   - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
   - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
-  - [Extend microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
+  - [Extend Microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
 
 - Read the documentation:
   - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local microgateway

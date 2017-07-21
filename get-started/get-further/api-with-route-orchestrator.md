@@ -1,4 +1,4 @@
-## Orchestrate API/Microservice with RouteOrchestrator Assertion <a name="RouteOrchestrator"></a>
+## Orchestrate API/Microservice with RouteOrchestrator Template <a name="RouteOrchestrator"></a>
 
 Table of Contents:
 
@@ -90,7 +90,8 @@ curl --insecure \
 ```
 
 
-#### Example 2 - expose microservice API with transformation using Jolt<a name="Example2"></a>
+#### Example 2 - expose microservice API with transformation using Jolt (JSON-to-JSON-transformation) <a name="Example2"></a>
+<I>NOTE: currently, we only support Jolt tranformation.  For more on the Jolt transformation, please, visit at http://jolt-demo.appspot.com/#inception</I>
 - This is an example of exposing a microservice API using RouteOrchestrator with a single RouteHttp that uses Jolt transformation to do aggregation
 - Create a file name RouteOrchestratorFile with the following content
 
@@ -553,7 +554,7 @@ curl --insecure \
   - The requestTransform is the transformation to be applied to the request payload.  The result of the transformation will be used as the payload for the next request.  <I>NOTE: currently, we do not support the requestTransform. So, it can be empty as specific above</I>.  
 
 #### responseTransform:<a name="responseTransform"></a>
-  - The responseTransform is the transformation to be applied to the request payload.  The result of the transformation will be concatenated as part of the result of the aggregation.  <I>NOTE: currently, we only support Jolt tranformation.  For more on the Jolt transformation, please, visit at http://jolt-demo.appspot.com/#inception</I>.
+  - The responseTransform is the transformation to be applied to the request payload.  The result of the transformation will be concatenated as part of the result of the aggregation.  
     The format of the responseTransform is specified as follow:
 
   ```

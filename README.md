@@ -53,10 +53,11 @@ Steps:
 This step will typically be done by a Gateway sysadmin.
 
 - **_Accept the license_**
+  
+  By passing the value "true" to the environment variable "ACCEPT_LICENSE", you are expressing your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md) inside the LICENSE.md file within this repository. 
+  
+  E.g. docker run -e "ACCEPT_LICENSE=true" caapimcollab/microgateway:beta2. The environment variable is also available in the docker-compose files. 
 
-  - _Accept the license agreement by reading through the [Microgateway Pre-Release Agreement](LICENSE.md)_
-  - _Open the file `get-started/docker-compose/docker-compose.yml` and change the `ACCEPT_LICENSE` environment variable value from `"false"` to `"true"`_
-  - _By passing the value `"true"` to the environment variable `ACCEPT_LICENSE`, you are expressing your acceptance of the [Microgateway Pre-Release Agreement](LICENSE.md)._
 
 - Start the Gateway:
 

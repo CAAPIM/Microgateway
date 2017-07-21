@@ -8,7 +8,7 @@ This step will typically be done by a devops engineer.
   - _Open the file `get-started/docker-compose/docker-compose.yml` and change the `ACCEPT_LICENSE` environment variable value from `"false"` to `"true"`_
   - _By passing the value `"true"` to the environment variable `ACCEPT_LICENSE`, you are expressing your acceptance of the [Microgateway Pre-Release Agreement](LICENSE.md)._
 
-- Build a new microgateway container image with sample service:
+- Build a new Microgateway container image with a sample service:
 
   - _A sample service json is under `get-started/docker-compose/add-ons/services`_ 
   - _Run `docker-compose-build-ssg.yml` to build a new container image with the sample template and service_

@@ -146,5 +146,5 @@ This step will typically be done by a microservice developer.
   - [Extend Microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
 
 - Read the documentation:
-  - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local microgateway
+  - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local Microgateway
   - [CA Microgateway Documentation](https://docops.ca.com/ca-api-gateway/9-2/en/ca-microgateway-beta)

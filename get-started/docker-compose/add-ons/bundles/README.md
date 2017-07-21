@@ -1,7 +1,7 @@
 ## Extending Quick Start Templates with Bundles
 The Quick Start Solution may be extended by importing RESTMAN bundles on startup. This allows us and customers to mix-and-match solutions that they intend to use with the Gateway, producing a smaller, purpose-tailored image.
 
-_Template design functionality is limited to CA customers for Beta due to access of other tools such as Policy Manager. If you are a CA customer and wish to design Quick Start templates, please sign up on https://validate.ca.com for project "CA API Management (APIM)/Beta Releases - CA Microgateway - Beta 1"_
+_Template design functionality is limited to CA customers for Beta due to access of other tools such as Policy Manager. If you are a CA customer and wish to design Quick Start templates, please sign up on https://validate.ca.com for project "CA API Management (APIM)/Beta Releases - CA Microgateway - supporting tools"_
 
 Instructions: https://docops.ca.com/ca-api-gateway/9-2/en/ca-microgateway-beta/add-functionality-to-the-ca-microgateway 
 

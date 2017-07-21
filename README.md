@@ -128,6 +128,7 @@ This step will typically be done by a microservice developer.
   ```
   Should return a list containing your Google Search service.
 
+
 - Use your exposed API:
 
   ```

@@ -30,6 +30,8 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
   Configure OAuth:
 
   We are going to do using the REST API of the Mobile App Services trial (RESTMAN).
+  
+  Run the following command:
 
   Note: Ensure the following line is fully copied.
 
@@ -60,17 +62,17 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
   laptop IP if running this get started on your laptop.
 
   Update the Gateway:
+
   ```
   docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml up -d ssg
   ```
 
-  Wait for the Gateway to be running:
+  Wait for the Gateway to be running for about 30 seconds:
 
   ```
   curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
   ```
   Should return a list of services.
-
 
 - Create a file named Gatewayfile with the following content:
 
@@ -156,9 +158,22 @@ another microservice developer willing to connect to our microservice.
        --data "password=StRonG5^)" \
       'https://localhost:8443/auth/oauth/v2/token'
   ```
+
   With:
     - `<client_key>`: the client key received in the previous step (e.g. c0bb8838-dc91-4296-8ccc-1a263bb28169)
     - `<client_secret>`: the client secret received in the previous step (e.g. 1ca6bbf4-ddb6-4a9d-8136-b5a26da96f8b)
+
+  And you should get a result back as following:
+
+  ```
+  {
+    "access_token":"d17b00bb-f299-440f-aed7-f47ff1e7f85c",
+    "token_type":"Bearer",
+    "expires_in":3600,
+    "refresh_token":"46b70935-b580-49b0-8cea-a4f4217ba7c7",
+    "scope":"GOOGLE_SEARCH"
+  }
+  ```
 
 - Use your exposed API:
 
@@ -169,3 +184,9 @@ another microservice developer willing to connect to our microservice.
        'https://localhost/google-with-oauth?q=CA'
   ```
   With `<access_token>` the value received from the previous curl command.
+
+  And you should get HTML content as a result like this:
+
+  ```
+  <!doctype html><html itemscope="" itemtype="http://schema.org/SearchResultsPage" lang="en"><head>
+  ```

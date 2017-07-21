@@ -1,6 +1,6 @@
 ## Secure a microservice API with OAuth <a name="api-oauth"></a>
 
-The exercise sets up a microgateway as an OAuth enforcement point with a central OAuth service using CA MAS trial for a microservice API.
+The exercise sets up a microgateway as an OAuth enforcement point with a central OAuth service using [CA MAS trial](http://developer.ca.com) for a microservice API.
 
 ```
 (microservice A)-----CA microgateway <-
@@ -12,7 +12,7 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
 (microservice B)-----(microgateway) <--
 ```
 
-- Deploy the CA API Gateway OAuth Toolkit server (OTK)
+- Deploy the CA API [Mobile App Services](https://www.ca.com/us/developers/mas) trial with OAuth Toolkit (OTK) as OAuth Server 
 
   *This step will typically be done by a Gateway sysadmin.*
   ```
@@ -20,18 +20,18 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
   docker-compose up --build -d
   ```
 
-  Wait for OTK to be up and running:
+  Wait for Mobile App Services trial (as OAuth server) to be up and running:
   ```
   docker-compose logs -f
   ```
   The message `Gateway is now up and running!` will appear once the OTK is
   running.
 
-  Configure OTK:
+  Configure OAuth:
 
-  This step could be done with
-  the Policy Manager (doc: https://docops.ca.com/display/OTK40/Create%20FIP%20Authentication%20for%20Dual%20Gateways)
-  but we are going to do using the REST API of the OTK Gateway (RESTMAN).
+  We are going to do using the REST API of the Mobile App Services trial (RESTMAN).
+  
+  Run the following command:
 
   Note: Ensure the following line is fully copied.
 
@@ -39,9 +39,9 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
   ./provision/add-otk-user.sh otk.mycompany.com:8443 "admin" 'password' "Gateway as a Client Identity Provider" "gw4ms.mycompany.com" "MIIDPjCCAiagAwIBAgIJAJxuJWOcosezMA0GCSqGSIb3DQEBCwUAMB4xHDAaBgNVBAMTE2d3NG1zLm15Y29tcGFueS5jb20wHhcNMTcwNTExMjE1OTA2WhcNMjIwNTEwMjE1OTA2WjAeMRwwGgYDVQQDExNndzRtcy5teWNvbXBhbnkuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArpHuSAMvbYHICJYWYsfhUYex67ioOEl9+rFnHJGg8v+ghSbeZ5uxuGCE/eTkI7aVFwSGRP1mDjvCPDqheQabFtVNZC/T815enQV33TAULBCz5YLKu/I0ie9+4cCwseIIT6x5kTCAla/Ex7qgWoicppROCAuNjpuSFc3F0nA4QY8h26qMwlMdupeCrHcSj76uDfS86Vn9lf7Y3hz6jC1bO8mp95mMBTVW1JDQKcJvmPfFbBjHs146uA6umkwNqDBSYiwr1oBWZiiMIdCg/bnIZgq/IdTdGKt8739MuW9j5scCZtnn1F28WGGpIncxbGFHoZS5cOGdEbyY80RutWpv/wIDAQABo38wfTAdBgNVHQ4EFgQUuiSIW6OeLqqKQOFc42lqVqt+gacwTgYDVR0jBEcwRYAUuiSIW6OeLqqKQOFc42lqVqt+gaehIqQgMB4xHDAaBgNVBAMTE2d3NG1zLm15Y29tcGFueS5jb22CCQCcbiVjnKLHszAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQBRwh37Aq6o82mZXEhxaqqIRlTvK2DYjYZZmbzjCA8BAKVfAZDjPZtL/bdbQmU2oQwDpry6OHOfcoaTcTX+ZeGsWQz/Kb3g9zF9GansleYkayGGf5er9Ife7Mx9ODDg8NVdgJN8iNKjwDWz9IE9E1pIOKFbW1v/qwCMtkwhrw6pBfq39etH3aT7+TKd6YPjYekO49rpk5EAhSucxRAyGPX8JFO+YTEACkjKGUB4bgiG/0wdS/XnPkPmP/LmbN/9Pk0oAAdod1KhQ3NktnPBHfUUZwKXNzAciCi0ag2H6F0X3gragkw6en7FfGVY+hspupXuuhsYSjl8PjDoXpBsIMGk"
   ```
 
-  The script will print `Done.` after configuring OTK.
+  The script will print `Done.` after configuring OAuth.
 
-- Update the Gateway to connect to OTK
+- Update the Gateway to connect to OAuth
 
   *This step will typically be done by a Gateway sysadmin.*
 
@@ -62,17 +62,17 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
   laptop IP if running this get started on your laptop.
 
   Update the Gateway:
+
   ```
   docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml up -d ssg
   ```
 
-  Wait for the Gateway to be running:
+  Wait for the Gateway to be running for about 30 seconds:
 
   ```
   curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
   ```
   Should return a list of services.
-
 
 - Create a file named Gatewayfile with the following content:
 
@@ -128,7 +128,7 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
 This step will typically be done by an external user like a business partner or
 another microservice developer willing to connect to our microservice.
 
-- Register an OAuth client on the OTK OAuth manager
+- Register an OAuth client on the OTK OAuth manager, a web client to configure OAuth resources
 
   Open https://localhost:8443/oauth/manager in your browser then login with the
   user `arose` and password `StRonG5^)`. (See https://github.com/CAAPIM/Docker-MAS#test-users-and-groups
@@ -158,9 +158,22 @@ another microservice developer willing to connect to our microservice.
        --data "password=StRonG5^)" \
       'https://localhost:8443/auth/oauth/v2/token'
   ```
+
   With:
     - `<client_key>`: the client key received in the previous step (e.g. c0bb8838-dc91-4296-8ccc-1a263bb28169)
     - `<client_secret>`: the client secret received in the previous step (e.g. 1ca6bbf4-ddb6-4a9d-8136-b5a26da96f8b)
+
+  And you should get a result back as following:
+
+  ```
+  {
+    "access_token":"d17b00bb-f299-440f-aed7-f47ff1e7f85c",
+    "token_type":"Bearer",
+    "expires_in":3600,
+    "refresh_token":"46b70935-b580-49b0-8cea-a4f4217ba7c7",
+    "scope":"GOOGLE_SEARCH"
+  }
+  ```
 
 - Use your exposed API:
 
@@ -171,3 +184,9 @@ another microservice developer willing to connect to our microservice.
        'https://localhost/google-with-oauth?q=CA'
   ```
   With `<access_token>` the value received from the previous curl command.
+
+  And you should get HTML content as a result like this:
+
+  ```
+  <!doctype html><html itemscope="" itemtype="http://schema.org/SearchResultsPage" lang="en"><head>
+  ```

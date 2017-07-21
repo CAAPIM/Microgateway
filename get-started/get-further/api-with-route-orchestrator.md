@@ -1,9 +1,10 @@
-## Orchestrate API/Microservice with RouteOrchestrator Assertion <a name="RouteOrchestrator"></a>
+## Orchestrate API/Microservice with RouteOrchestrator Template <a name="RouteOrchestrator"></a>
 
 Table of Contents:
 
 * [Description](#Description)
 * [Example](#Example)
+  * [Prerequisite - Register the Google Root TLS certificate](#register-cert)
   * [Example 1 – expose microservice API without transformation](#Example1)
   * [Example 2 - expose microservice API with transformation using Jolt](#Example2)
   * [Example 3 – expose microservice API with transformation and aggregation](#Example3)
@@ -19,6 +20,12 @@ RouteOrchestrator assertion provides an abstraction layer that will allow our cu
 
 
 ### Example<a name="Example"></a>
+
+#### Prerequisite - Register the Google Root TLS certificate  <a name="register-cert"></a>
+
+Register the Google Root TLS certificate ([link](register-google-tls-certificate.md))
+because the example 2 and 3 use the Google Maps APIs over HTTPS as backend services.
+
 #### Example 1 – expose microservice API without transformation  <a name="Example1"></a>
 - This is a simple example of exposing a microservice API using RouteOrchestrator with no transformation
 
@@ -83,7 +90,8 @@ curl --insecure \
 ```
 
 
-#### Example 2 - expose microservice API with transformation using Jolt<a name="Example2"></a>
+#### Example 2 - expose microservice API with transformation using Jolt (JSON-to-JSON-transformation) <a name="Example2"></a>
+<I>NOTE: currently, we only support Jolt tranformation.  For more on the Jolt transformation, please, visit at http://jolt-demo.appspot.com/#inception</I>
 - This is an example of exposing a microservice API using RouteOrchestrator with a single RouteHttp that uses Jolt transformation to do aggregation
 - Create a file name RouteOrchestratorFile with the following content
 
@@ -546,7 +554,7 @@ curl --insecure \
   - The requestTransform is the transformation to be applied to the request payload.  The result of the transformation will be used as the payload for the next request.  <I>NOTE: currently, we do not support the requestTransform. So, it can be empty as specific above</I>.  
 
 #### responseTransform:<a name="responseTransform"></a>
-  - The responseTransform is the transformation to be applied to the request payload.  The result of the transformation will be concatenated as part of the result of the aggregation.  <I>NOTE: currently, we only support Jolt tranformation.  For more on the Jolt transformation, please, visit at http://jolt-demo.appspot.com/#inception</I>.
+  - The responseTransform is the transformation to be applied to the request payload.  The result of the transformation will be concatenated as part of the result of the aggregation.  
     The format of the responseTransform is specified as follow:
 
   ```
@@ -563,4 +571,3 @@ curl --insecure \
     }
   ]
   ```
-

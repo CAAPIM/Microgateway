@@ -1,17 +1,17 @@
 # ca-microgateway (Beta)
-Repository containing artifacts for using the CA Microgateway 
+Repository containing artifacts for using the CA Microgateway
 
-## What is CA microgateway
-CA microgateway provides secure service mesh for microservices with rich functionalities of the CA API gateway family including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA microgateway by building your own policy with existing policy building capability in the API gateway family. 
+## What is CA Microgateway
+CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA Microgateway by building your own policy with existing policy building capability in the API gateway family.
 
 ```
-(microservice A)-----(microgateway) <-
+(microservice A)-----(Microgateway) <-
                           |            \
                           |             \
-                     (Auth Service)       --------> [firewall] (Edge API gateway) <--------->
+                     (auth service)       --------> [firewall] (Edge API gateway) <--------->
                           |             /
                           |            /
-(microservice B)-----(microgateway) <-
+(microservice B)-----(Microgateway) <-
 ```
 
 ### Benefits
@@ -33,7 +33,7 @@ Supported platforms:
 Steps:
 
 * [Prerequisites](#prerequisites)
-* [Deploy the APIM Gateway](#deploy)
+* [Deploy the Microgateway](#deploy)
 * [Expose a microservice API](#api)
 
 ### Prerequisites <a name="prerequisites"></a>
@@ -48,15 +48,16 @@ Steps:
   docker info
   ```
 
-### Deploy the APIM Gateway <a name="deploy"></a>
+### Deploy the Microgateway <a name="deploy"></a>
 
 This step will typically be done by a Gateway sysadmin.
 
 - **_Accept the license_**
+  
+  By passing the value "true" to the environment variable "ACCEPT_LICENSE", you are expressing your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md) inside the LICENSE.md file within this repository. 
+  
+  E.g. `docker run -e "ACCEPT_LICENSE=true" ...` The environment variable is also available in the docker-compose files. 
 
-  - _Accept the license agreement by reading through the [Microservices Gateway Pre-Release Agreement](LICENSE.md)_
-  - _Open the file `get-started/docker-compose/docker-compose.yml` and change the `ACCEPT_LICENSE` environment variable value from `"false"` to `"true"`_
-  - _By passing the value `"true"` to the environment variable `ACCEPT_LICENSE`, you are expressing your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md)._
 
 - Start the Gateway:
 
@@ -127,6 +128,7 @@ This step will typically be done by a microservice developer.
   ```
   Should return a list containing your Google Search service.
 
+
 - Use your exposed API:
 
   ```
@@ -140,9 +142,10 @@ This step will typically be done by a microservice developer.
   - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
   - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
   - [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
+  - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
   - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
-  - [Extend microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
+  - [Extend Microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
 
 - Read the documentation:
-  - [Quick Start Template Documentation](https://localhost/quickstart/1.0/doc)
+  - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local Microgateway
   - [CA Microgateway Documentation](https://docops.ca.com/ca-api-gateway/9-2/en/ca-microgateway-beta)

@@ -2,7 +2,7 @@
 Repository containing artifacts for using the CA Microgateway
 
 ## What is CA Microgateway
-CA microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA microgateway by building your own policy with existing policy building capability in the API gateway family.
+CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA Microgateway by building your own policy with existing policy building capability in the API gateway family.
 
 ```
 (microservice A)-----(Microgateway) <-
@@ -33,7 +33,7 @@ Supported platforms:
 Steps:
 
 * [Prerequisites](#prerequisites)
-* [Deploy the microgateway](#deploy)
+* [Deploy the Microgateway](#deploy)
 * [Expose a microservice API](#api)
 
 ### Prerequisites <a name="prerequisites"></a>

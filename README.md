@@ -2,7 +2,7 @@
 Repository containing artifacts for using the CA Microgateway
 
 ## What is CA microgateway
-CA microgateway provides secure service mesh for microservices with rich functionalities of the CA API gateway family including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA microgateway by building your own policy with existing policy building capability in the API gateway family.
+CA microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA microgateway by building your own policy with existing policy building capability in the API gateway family.
 
 ```
 (microservice A)-----(microgateway) <-
@@ -33,7 +33,7 @@ Supported platforms:
 Steps:
 
 * [Prerequisites](#prerequisites)
-* [Deploy the APIM Gateway](#deploy)
+* [Deploy the microgateway](#deploy)
 * [Expose a microservice API](#api)
 
 ### Prerequisites <a name="prerequisites"></a>
@@ -48,15 +48,15 @@ Steps:
   docker info
   ```
 
-### Deploy the APIM Gateway <a name="deploy"></a>
+### Deploy the microgateway <a name="deploy"></a>
 
 This step will typically be done by a Gateway sysadmin.
 
 - **_Accept the license_**
 
-  - _Accept the license agreement by reading through the [Microservices Gateway Pre-Release Agreement](LICENSE.md)_
+  - _Accept the license agreement by reading through the [Microgateway Pre-Release Agreement](LICENSE.md)_
   - _Open the file `get-started/docker-compose/docker-compose.yml` and change the `ACCEPT_LICENSE` environment variable value from `"false"` to `"true"`_
-  - _By passing the value `"true"` to the environment variable `ACCEPT_LICENSE`, you are expressing your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md)._
+  - _By passing the value `"true"` to the environment variable `ACCEPT_LICENSE`, you are expressing your acceptance of the [Microgateway Pre-Release Agreement](LICENSE.md)._
 
 - Start the Gateway:
 
@@ -145,5 +145,5 @@ This step will typically be done by a microservice developer.
   - [Extend microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
 
 - Read the documentation:
-  - [Quick Start Template Documentation](https://localhost/quickstart/1.0/doc)
+  - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local microgateway
   - [CA Microgateway Documentation](https://docops.ca.com/ca-api-gateway/9-2/en/ca-microgateway-beta)

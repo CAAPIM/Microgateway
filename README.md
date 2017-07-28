@@ -52,13 +52,12 @@ Steps:
 
 This step will typically be done by a Gateway sysadmin.
 
-- **_Accept the license_**
+- Accept the license:
   
-  By passing the value "true" to the environment variable "ACCEPT_LICENSE", you are expressing your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md) inside the LICENSE.md file within this repository. 
+  By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
+  the file `get-started/docker-compose/docker-compose.yml`, you are expressing
+  your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md).
   
-  E.g. `docker run -e "ACCEPT_LICENSE=true" ...` The environment variable is also available in the docker-compose files. 
-
-
 - Start the Gateway:
 
   ```

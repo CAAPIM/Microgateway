@@ -18,6 +18,11 @@ Table of Contents:
 	* [requestTransform](#requestTransform)
 	* [responseTransform](#responseTransform)
 
+* [Additional Resources](#Resources)
+  * [Jolt Transformation Test](#Jolt)
+
+
+
 ### Description <a name="Description"></a>
 RouteOrchestrator assertion provides an abstraction layer that will allow our customers to send a single query for a complex business logic without having to know many backend services API endpoints</b>.
 
@@ -1046,3 +1051,8 @@ curl --insecure \
     }
   ]
   ```
+
+### Additional Resources<a name="Resources"></a>
+#### Jolt Transformation <a name="Jolt"></a>
+  - You can ( http://jolt-demo.appspot.com )to test and to try out your Jolt transformation to make sure the transformation is working as you expected.  Once the Jolt transformation is working as the way you wanted, you can copy/paste the "Jolt Spec" part into the "jolt" transform of the orchestrator.
+

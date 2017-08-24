@@ -71,7 +71,7 @@ This step will typically be done by a Gateway sysadmin.
   OR
   
   ```
-  docker-compose logs --follow
+  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml logs --follow
   ```
   And look for 
   ```

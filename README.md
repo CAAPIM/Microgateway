@@ -26,10 +26,6 @@ CA Microgateway provides secure service mesh for microservices with rich functio
 
 ## Get started
 
-Supported platforms:
-- Linux
-- MacOS
-
 Steps:
 
 * [Prerequisites](#prerequisites)

@@ -26,10 +26,6 @@ CA Microgateway provides secure service mesh for microservices with rich functio
 
 ## Get started
 
-Supported platforms:
-- Linux
-- MacOS
-
 Steps:
 
 * [Prerequisites](#prerequisites)
@@ -70,7 +66,18 @@ This step will typically be done by a Gateway sysadmin.
   ```
   curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
   ```
-  Should return an empty list of services `[]` when ready.
+  Should return an empty list of services `[]` when ready. 
+  
+  OR
+  
+  ```
+  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml logs --follow
+  ```
+  And look for 
+  ```
+  INFO: -4: Quick start service scaler started ...
+  ```
+
 
 - Scale up/down the Gateway:
 

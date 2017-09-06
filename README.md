@@ -53,11 +53,11 @@ Steps:
 This step will typically be done by a Gateway sysadmin.
 
 - Accept the license:
-  
+
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
   the file `get-started/docker-compose/docker-compose.yml`, you are expressing
   your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md).
-  
+
 - Start the Gateway:
 
   ```
@@ -144,6 +144,12 @@ This step will typically be done by a microservice developer.
   - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
   - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
   - [Extend Microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
+  - Operations:
+    - Install, configuration, upgrade and scale
+      - [Docker](get-started/get-further/operations/platforms/docker.md)
+      - [OpenShift](get-started/get-further/operations/platforms/openshift.md)
+    - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
+    - [Performance tuning](get-started/get-further/operations/system/performance.md)
 
 - Read the documentation:
   - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local Microgateway

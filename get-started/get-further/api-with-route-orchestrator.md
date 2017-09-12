@@ -53,7 +53,7 @@ because the example 2 and 3 use the Google Maps APIs over HTTPS as backend servi
     "policy": [
       {
         "RouteOrchestrator": {
-          "orchestrator": {
+          "rule": {
             "orchestrator": [
               {
                 "aggregator": [
@@ -117,7 +117,7 @@ curl --insecure \
     "policy": [
       {
         "RouteOrchestrator": {
-          "orchestrator": {
+          "rule": {
             "orchestrator": [
               {
                 "aggregator": [
@@ -217,7 +217,7 @@ curl --insecure \
     "policy": [
       {
         "RouteOrchestrator": {
-          "orchestrator": {
+          "rule": {
             "orchestrator": [
                 {
                   "aggregator": [
@@ -479,7 +479,7 @@ curl --insecure \
     "policy": [
       {
         "RouteOrchestrator": {
-          "orchestrator": {
+          "rule": {
             "orchestrator": [
               {
                 "aggregator": [
@@ -745,7 +745,7 @@ curl --insecure \
     "policy": [
       {
         "RouteOrchestrator": {
-          "orchestrator": {
+          "rule": {
             "orchestrator": [
               {
                 "aggregator": [
@@ -945,7 +945,7 @@ curl --insecure \
 
   ```
   {
-    "orchestrator": {
+    "rule": {
       "orchestrator": [
       {
         "aggregator": [
@@ -986,7 +986,7 @@ curl --insecure \
 
   ```
   {
-    "orchestrator": {
+    "rule": {
       "orchestrator": [
       {
         "aggregator": [
@@ -1054,5 +1054,5 @@ curl --insecure \
 
 ### Additional Resources<a name="Resources"></a>
 #### Jolt Transformation <a name="Jolt"></a>
-  - You can ( http://jolt-demo.appspot.com )to test and to try out your Jolt transformation to make sure the transformation is working as you expected.  Once the Jolt transformation is working as the way you wanted, you can copy/paste the "Jolt Spec" part into the "jolt" transform of the orchestrator.
+  - You can use ( http://jolt-demo.appspot.com ) to test and to try out your Jolt transformation to make sure the transformation is working as you expected.  Once the Jolt transformation is working as the way you wanted, you can copy/paste the "Jolt Spec" part into the "jolt" transform of the orchestrator.
 

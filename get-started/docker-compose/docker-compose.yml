@@ -13,6 +13,10 @@ services:
       - public
     env_file:
       - ./config/core.env
+      - ./config/license.env
+      - ./config/certificates.env
+      - ./config/otk.env
+      - ./config/jwt.env
       - ./config/feature-flags.env
       - ./config/solutionkits/policysdk.env
     environment:

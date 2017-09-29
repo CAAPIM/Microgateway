@@ -175,6 +175,8 @@ spec:
           exec:
             command:
             - /opt/docker/rc.d/diagnostic/health_check.sh
-          initialDelaySeconds: 180
+          initialDelaySeconds: 60
           periodSeconds: 5
           timeoutSeconds: 5
+          failureThreshold: 6
+

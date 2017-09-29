@@ -1,9 +1,7 @@
 version: '3'
 services:
   ssg:
-    # image: caapimcollab/microgateway:beta2
-    image: isl-dsdc.ca.com:5000/apim-gateway/twelvefactorgateway/develop-gw-ms-self-registration:9.3.00-7508-1319
-    restart: always
+    image: caapim/microgateway:1.0.00
     extra_hosts:
       - "httpbin.mycompany.com:10.7.36.179"
       - "otk.mycompany.com:10.7.32.187"

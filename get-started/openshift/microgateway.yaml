@@ -126,24 +126,26 @@ spec:
                       key: ssg_ssl_key_pass
             - name: SSG_INTERNAL_SERVICES
               value: "restman"
-            - name: SCALER_ENABLE
-              value: "false"
-            - name: SCALER_STORAGE_TYPE
+
+            # Database configuration
+            - name: QUICKSTART_REST_MODE
+              value: "true"
+            - name: QUICKSTART_REPOSITORY_TYPE
               value: "db"
-            - name: SCALER_DB_TYPE
+            - name: QUICKSTART_REPOSITORY_DB_TYPE
               value: "postgresql"
-            - name: SCALER_DB_HOST
-              value: "cadbhost"
-            - name: SCALER_DB_PORT
+            - name: QUICKSTART_REPOSITORY_DB_HOST
+              value: "postgresql"
+            - name: QUICKSTART_REPOSITORY_DB_PORT
               value: "5432"
-            - name: SCALER_DB_NAME
+            - name: QUICKSTART_REPOSITORY_DB_NAME
               value: "qstr"
-            - name: SCALER_DB_USER
+            - name: QUICKSTART_REPOSITORY_DB_USER
               valueFrom:
                   secretKeyRef:
                       name: microgateway-secrets
                       key: scaler_db_user
-            - name: SCALER_DB_PASSWORD
+            - name: QUICKSTART_REPOSITORY_DB_PASSWORD
               valueFrom:
                   secretKeyRef:
                       name: microgateway-secrets

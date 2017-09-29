@@ -3,7 +3,7 @@ The Quick Start Solution may be extended by importing RESTMAN bundles on startup
 
 _Template design functionality is limited to CA customers for Beta due to access of other tools such as Policy Manager. If you are a CA customer and wish to design Quick Start templates, please sign up on https://validate.ca.com for project "CA API Management (APIM)/Beta Releases - CA Microgateway - supporting tools"_
 
-Instructions: https://docops.ca.com/ca-api-gateway/9-2/en/ca-microgateway-beta/add-functionality-to-the-ca-microgateway 
+Instructions: https://docops.ca.com/ca-api-gateway/9-2/en/ca-microgateway-beta/add-functionality-to-the-ca-microgateway
 
 ### How Does it Work?
 On startup, the Gateway will look in the directory `/opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/` for files ending in `.bundle`, and loads them in natural order. For this reason, we generally name them with numbers indicating the order in which they shoulud be loaded, e.g. `60_consul.bundle`.
@@ -22,7 +22,7 @@ Baking container image with consul template:
 * The consul bundle is located under `get-started/docker-compose/add-ons/bundles`
 ```
 cd get-started/docker-compose
-docker-compose -f docker-compose-build-ssg.yml -f docker-compose.dockercloudproxy.yml up -d --build
+docker-compose -f docker-compose-build-ssg.yml -f docker-compose.lb.dockercloud.yml up -d --build
 ```
 
 Caveats:

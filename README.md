@@ -55,36 +55,63 @@ This step will typically be done by a Gateway sysadmin.
 - Accept the license:
 
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-  the file `get-started/docker-compose/docker-compose.yml`, you are expressing
+  the file `get-started/docker-compose/config/license.env`, you are expressing
   your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md).
 
 - Start the Gateway:
 
   ```
   cd get-started/docker-compose
-  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml up -d --build
+
+  docker-compose --project-name microgateway \
+                 --file docker-compose.yml \
+                 --file docker-compose.db.postgresql.yml \
+                 --file docker-compose.lb.dockercloud.yml \
+                 up -d --build
   ```
 
-- Verify that the Gateway is running:
+- Verify that the Gateway is healthy:
 
   ```
-  curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
+  docker ps --format "table {{.Names}}\t{{.Status}}"
   ```
-  Should return an empty list of services `[]` when ready.
+  Should return:
+  ```
+  NAMES                STATUS
+  microgateway_lb_1    Up About a minute
+  microgateway_ssg_1   Up About a minute (healthy)
+  microgateway_db_1    Up About a minute
+  ```
+
+- Print the logs:
+
+  ```
+  docker-compose --project-name microgateway \
+                 --file docker-compose.yml \
+                 --file docker-compose.db.postgresql.yml \
+                 --file docker-compose.lb.dockercloud.yml \
+                 logs --follow
+  ```
 
 - Scale up/down the Gateway:
 
   ```
-  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml scale ssg=2
-
+  docker-compose --project-name microgateway \
+                 --file docker-compose.yml \
+                 --file docker-compose.db.postgresql.yml \
+                 --file docker-compose.lb.dockercloud.yml \
+                 up -d --scale ssg=2
   ```
   The Gateway has no scaling limit because it is based on the [The Twelve-Factor App](https://12factor.net/).
 
 - Stop the Gateway:
 
   ```
-  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml down --volumes
-
+  docker-compose --project-name microgateway \
+                 --file docker-compose.yml \
+                 --file docker-compose.db.postgresql.yml \
+                 --file docker-compose.lb.dockercloud.yml \
+                 down --volumes
   ```
 
 ### Expose a microservice API <a name="api"></a>

@@ -1,4 +1,4 @@
-FROM caapimcollab/microgateway:beta2
+FROM caapim/microgateway:1.0.00
 
 # If one bundle is dependent on another, make sure that the dependent loads later
 # The load order is based on the bundle filename following the ASCII sort order

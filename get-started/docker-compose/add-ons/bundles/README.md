@@ -22,7 +22,13 @@ Baking container image with consul template:
 * The consul bundle is located under `get-started/docker-compose/add-ons/bundles`
 ```
 cd get-started/docker-compose
-docker-compose -f docker-compose-build-ssg.yml -f docker-compose.lb.dockercloud.yml up -d --build
+
+docker-compose --project-name microgateway \
+               --file docker-compose.yml \
+               --file docker-compose.db.postgresql.yml \
+               --file docker-compose.lb.dockercloud.yml \
+               --file docker-compose.addons.yml \
+               up -d --build
 ```
 
 Caveats:

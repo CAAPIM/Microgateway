@@ -1,7 +1,17 @@
-# ca-microgateway (Beta)
-Repository containing artifacts for using the CA Microgateway
+# CA Microgateway
 
-## What is CA Microgateway
+* [What is CA Microgateway](#intro)
+  * [Benefits](#benefits)
+  * [Related microservices patterns](#patterns)
+* [Get started](#get-started)
+  * [Prerequisites](#prerequisites)
+  * [Deploy the Microgateway](#deploy)
+  * [Expose a microservice API](#api)
+* [Next steps](#next-steps)
+  * [Get further to try more complex scenarios](#get-further)
+  * [Documentation](#documentation)
+
+## What is CA Microgateway <a name="intro"></a>
 CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA Microgateway by building your own policy with existing policy building capability in the API gateway family.
 
 ```
@@ -14,27 +24,21 @@ CA Microgateway provides secure service mesh for microservices with rich functio
 (microservice B)-----(Microgateway) <-
 ```
 
-### Benefits
+### Benefits <a name="benefits"></a>
 * Secure microservices without writing the same code in every service
 * Integrate with microservices pattern and infrastructure. e.g. Consul service registry
 * Optimize internal and external client APIs and reduce API chattiness
 * Optimize network traffic by providing caching, circuit breaking ...etc
 
-### Related microservices patterns
+### Related microservices patterns <a name="patterns"></a>
 * API gateway/Backend for Frontend: http://microservices.io/patterns/apigateway.html
 * Access token: http://microservices.io/patterns/security/access-token.html
 
-## Get started
+## Get started <a name="get-started"></a>
 
 Supported platforms:
 - Linux
 - MacOS
-
-Steps:
-
-* [Prerequisites](#prerequisites)
-* [Deploy the Microgateway](#deploy)
-* [Expose a microservice API](#api)
 
 ### Prerequisites <a name="prerequisites"></a>
 - A docker host
@@ -163,21 +167,24 @@ This step will typically be done by a microservice developer.
        'https://localhost/google?q=CA'
   ```
 
-## Next steps:
-- Get further to try more complex scenarios:
-  - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
-  - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
-  - [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
-  - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
-  - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
-  - [Extend Microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
-  - Operations:
-    - Install, configuration, upgrade and scale
-      - [Docker](get-started/get-further/operations/platforms/docker.md)
-      - [OpenShift](get-started/get-further/operations/platforms/openshift.md)
-    - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
-    - [Performance tuning](get-started/get-further/operations/system/performance.md)
+## Next steps  <a name="next-steps"></a>
 
-- Read the documentation:
-  - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local Microgateway
-  - [CA Microgateway Documentation](https://docops.ca.com/ca-microgateway/1-0/EN)
+### Get further to try more complex scenarios  <a name="get-further"></a>
+
+- [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
+- [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
+- [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
+- [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
+- [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
+- [Extend Microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
+- Operations:
+  - Install, configuration, upgrade and scale
+    - [Docker](get-started/get-further/operations/platforms/docker.md)
+    - [OpenShift](get-started/get-further/operations/platforms/openshift.md)
+  - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
+  - [Performance tuning](get-started/get-further/operations/system/performance.md)
+
+### Documentation  <a name="documentation"></a>
+
+- Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local Microgateway
+- [CA Microgateway Documentation](https://docops.ca.com/ca-microgateway/1-0/EN)

@@ -7,4 +7,4 @@ ADD ./bundles/*.bundle /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle
 
 # To use loading QuickStart services from JSON files, please change to
 # SCALER_ENABLE: "false" and uncomment the following line
-ADD ./services/*.json /opt/SecureSpan/Gateway/node/default/etc/bootstrap/qs
+ADD ./services/*.json /opt/SecureSpan/Gateway/node/default/etc/bootstrap/qs/

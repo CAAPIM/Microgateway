@@ -5,15 +5,15 @@ services:
       QUICKSTART_REST_MODE: "true"
       QUICKSTART_REPOSITORY_TYPE: "db"
       QUICKSTART_REPOSITORY_DB_TYPE: "postgresql"
-      QUICKSTART_REPOSITORY_DB_HOST: "db"
+      QUICKSTART_REPOSITORY_DB_HOST: "ssg_db"
       QUICKSTART_REPOSITORY_DB_PORT: "5432"
       QUICKSTART_REPOSITORY_DB_NAME: "qstr"
       QUICKSTART_REPOSITORY_DB_USER: "causer"
       QUICKSTART_REPOSITORY_DB_PASSWORD: "capassword"
     links:
-      - db
+      - ssg_db
 
-  db:
+  ssg_db:
     build:
       context: .
       dockerfile: Dockerfile.postgresql

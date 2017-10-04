@@ -25,11 +25,11 @@ services:
     ports:
       - "8443:8443"
     env_file:
+      - ./config/license.env
       - ./config/otk.env
       - ./config/otk-db.env
       - ./config/otk-hostname.env
     environment:
-      ACCEPT_LICENSE: "false"
       SSG_ADMIN_USERNAME: "admin"
       SSG_ADMIN_PASSWORD: "password"
       # P12 archive containing the TLS private key and certificate of otk.mycompany.com and signed by the root CA certificate "Microgateway Test Root CA"

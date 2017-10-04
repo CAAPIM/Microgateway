@@ -4,9 +4,9 @@ This step will typically be done by a devops engineer.
 
 - **_Accept the license_**
 
-  - _Accept the license agreement by reading through the [Microgateway Pre-Release Agreement](LICENSE.md)_
-  - _Open the file `get-started/docker-compose/docker-compose.yml` and change the `ACCEPT_LICENSE` environment variable value from `"false"` to `"true"`_
-  - _By passing the value `"true"` to the environment variable `ACCEPT_LICENSE`, you are expressing your acceptance of the [Microgateway Pre-Release Agreement](LICENSE.md)._
+  By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
+  the file `get-started/docker-compose/config/license.env`, you are expressing
+  your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md).
 
 - Build a new Microgateway container image with a sample service:
 

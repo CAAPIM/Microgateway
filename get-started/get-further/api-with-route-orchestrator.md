@@ -456,7 +456,7 @@ curl --insecure \
 - This is an example of exposing a micro-service API using RouteOrchestrator with multiple aggregators, each of which produced an aggregated data.  The subsequent aggregator referencing data from the aggregated results of previous aggregators.
 - The first aggregator:
   - accepts an origin and a destination locations/addresses from the request parameters (ie. ${request.http.parameters.origins} and ${request.http.parameters.destinations}) 
-  - calling a backend Google API to resolve the locations/addresses into more detailsThe first aggregator:
+  - calling a backend Google API to resolve the locations/addresses into more details
 - The <b>orchestrator_transform</b> is the transformation applied to the aggregated data of previous aggregator(s).  Part or all of the result of the "orchestrator_transform" can be used to "orchestrate" the next aggregator(s)
 - The second aggregator:
   - calling backend Google API to get driving direction between the origin and destination addresses by using/referencing the "place_id" of the origin (@##@{orchestrator.intermediate.place_id[0]) and destination (@##@{orchestrator.intermediate.place_id[1]) locations/addresses from the result of the last "orchestrator_transform".  The "place_id", in this case, is the sub-level of the orchestrated data.  To access to the specific level, we reference with the index of the data.  In this case, the orchestratated data is an a array of 2 detailed addresses each of which has a "place_id".  To reference each, we use the index as "place_id[0]" and "place_id[1]"

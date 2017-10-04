@@ -14,6 +14,9 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
 
 - Deploy the CA API [Mobile App Services](https://www.ca.com/us/developers/mas) trial with OAuth Toolkit (OTK) as OAuth Server 
 
+  Accept license by passing the value "true" to the environment variable `ACCEPT_LICENSE` in
+  the file `get-started/external/otk/docker-compose.yml` 
+
   *This step will typically be done by a Gateway sysadmin.*
   ```
   cd get-started/external/otk

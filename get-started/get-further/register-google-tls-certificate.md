@@ -12,4 +12,4 @@
   *Note 2: the certificate will expire on December 31st, 2018. You can download a
   newer version from https://pki.google.com/GIAG2.crt*
 
-3. Update the Gateway with the new configuration: `docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml up -d ssg`
+3. Update the Gateway with the new configuration: `docker-compose -f docker-compose.yml -f docker-compose.lb.dockercloud.yml up -d ssg`

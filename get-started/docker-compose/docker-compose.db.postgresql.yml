@@ -22,8 +22,6 @@ services:
       resources:
         limits:
           memory: 512m
-    networks:
-      - public
     environment:
       POSTGRES_DB: "qstr"
       POSTGRES_USER: "causer"

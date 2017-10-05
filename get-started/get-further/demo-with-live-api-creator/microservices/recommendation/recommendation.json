@@ -1,0 +1,606 @@
+[
+  {
+    "ident": 2004,
+    "ts": "2017-03-28T16:49:03+00:00",
+    "exportVersion": "v4",
+    "adminSchemaVersion": "20170118",
+    "name": "recommendation",
+    "url_name": "svcRecs",
+    "comments": "Insert comments here",
+    "status": null,
+    "is_active": true,
+    "account_ident": 1000,
+    "authprovider_ident": 1000,
+    "@metadata": {
+      "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport/2004",
+      "checksum": "A:32bbadb247998b36",
+      "nonpersistent": [
+        "exportVersion",
+        "adminSchemaVersion"
+      ]
+    },
+    "Topics": [],
+    "Rules": [],
+    "ApiKeys": [
+      {
+        "ident": 2006,
+        "ts": "2017-03-28T16:45:30+00:00",
+        "name": "Admin key",
+        "description": "Created as part of this API. Feel free to change or delete this auth token.",
+        "apikey": "Y1tmNkYbxu5t93ixTCtJ",
+        "status": "A",
+        "expiration": null,
+        "logging": "*=FINE",
+        "user_identifier": null,
+        "data": null,
+        "origin": null,
+        "project_ident": 2004,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiKeys/2006",
+          "checksum": "A:cae5838c87eee495"
+        }
+      }
+    ],
+    "ApiVersions": [
+      {
+        "ident": 2004,
+        "ts": "2017-03-28T16:45:30+00:00",
+        "name": "v1",
+        "comments": null,
+        "project_ident": 2004,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions/2004",
+          "checksum": "A:75a3741c5c06e8bb"
+        },
+        "Resources": [
+          {
+            "ident": 2009,
+            "ts": "2017-03-28T16:48:17+00:00",
+            "resource_type_ident": 1,
+            "prefix": "rec",
+            "table_name": "products",
+            "name": "recommendations",
+            "description": null,
+            "is_collection": "Y",
+            "join_condition": null,
+            "filter": null,
+            "sorting": null,
+            "attach_path": null,
+            "caching": null,
+            "custom_class": null,
+            "code_text": null,
+            "filter_code": "",
+            "serial_filter": null,
+            "prop1": null,
+            "prop2": null,
+            "prop3": null,
+            "prop4": null,
+            "prop5": null,
+            "container_ident": null,
+            "sibling_rank": 100,
+            "combined": false,
+            "root_ident": null,
+            "apiversion_ident": 2004,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources/2009",
+              "checksum": "A:4fb6016240800eaa"
+            },
+            "ResourceAttributes": []
+          },
+          {
+            "ident": 2010,
+            "ts": "2017-03-28T16:48:24+00:00",
+            "resource_type_ident": 1,
+            "prefix": "rec",
+            "table_name": "recommendations",
+            "name": "recommendations_ibfk_1_recommendations_List",
+            "description": null,
+            "is_collection": "Y",
+            "join_condition": "\"productCode\" = [\"productCode\"]",
+            "filter": null,
+            "sorting": null,
+            "attach_path": null,
+            "caching": null,
+            "custom_class": null,
+            "code_text": null,
+            "filter_code": "",
+            "serial_filter": null,
+            "prop1": null,
+            "prop2": null,
+            "prop3": null,
+            "prop4": null,
+            "prop5": null,
+            "container_ident": 2009,
+            "sibling_rank": 100,
+            "combined": false,
+            "root_ident": 2009,
+            "apiversion_ident": 2004,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources/2010",
+              "checksum": "A:6ebcf6066685be90"
+            },
+            "ResourceAttributes": []
+          }
+        ]
+      }
+    ],
+    "Applications": [],
+    "DbaseSchemas": [
+      {
+        "ident": 2004,
+        "name": "Database: recommendation - root",
+        "comments": "Created using Connect Wizard",
+        "url": "jdbc:mysql://recommendation-db:3306/recommendation",
+        "catalog_name": "recommendation",
+        "schema_name": null,
+        "user_name": "root",
+        "password": null,
+        "salt": null,
+        "active": true,
+        "status": null,
+        "dbasetype_ident": 1,
+        "prefix": "rec",
+        "datasource_name": null,
+        "schema_editable": false,
+        "role_strategy": "standard",
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.DbaseSchemas/2004",
+          "checksum": "A:143a22000e4c2f64"
+        },
+        "NonPersistentAttributes": [],
+        "TableInfos": []
+      }
+    ],
+    "EventHandlers": [],
+    "Functions": [],
+    "Handlers": [],
+    "NamedFilters": [],
+    "NamedSorts": [],
+    "ProjectLibraries": [],
+    "ProjectOptions": [
+      {
+        "ident": 2064,
+        "ts": "2017-03-28T16:45:30+00:00",
+        "option_value": "https://docops.ca.com/ca-live-api-creator/3-1-1/en/tutorial/northwind",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 13,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2064",
+          "checksum": "A:b114b6443553c7f6"
+        }
+      },
+      {
+        "ident": 2065,
+        "ts": "2017-03-28T16:45:30+00:00",
+        "option_value": "true",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 12,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2065",
+          "checksum": "A:be2642430e1a81cc"
+        }
+      },
+      {
+        "ident": 2066,
+        "ts": "2017-03-28T16:45:30+00:00",
+        "option_value": "true",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 29,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2066",
+          "checksum": "A:8956300d60a88870"
+        }
+      },
+      {
+        "ident": 2067,
+        "ts": "2017-03-28T16:48:40+00:00",
+        "option_value": "@metadata",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 4,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2067",
+          "checksum": "A:c7db36153a8e52d4"
+        }
+      },
+      {
+        "ident": 2068,
+        "ts": "2017-03-28T16:48:40+00:00",
+        "option_value": "2000",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 6,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2068",
+          "checksum": "A:52f170663eaacbb6"
+        }
+      },
+      {
+        "ident": 2069,
+        "ts": "2017-03-28T16:48:40+00:00",
+        "option_value": "false",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 3,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2069",
+          "checksum": "A:279803ab6f30428d"
+        }
+      },
+      {
+        "ident": 2070,
+        "ts": "2017-03-28T16:48:40+00:00",
+        "option_value": "urn:caliveapicreator:",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 2,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2070",
+          "checksum": "A:d8b6da3db5f335f3"
+        }
+      },
+      {
+        "ident": 2071,
+        "ts": "2017-03-28T16:48:40+00:00",
+        "option_value": "2000",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 5,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2071",
+          "checksum": "A:5bf735966788d9e6"
+        }
+      },
+      {
+        "ident": 2072,
+        "ts": "2017-03-28T16:48:40+00:00",
+        "option_value": "false",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 1,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2072",
+          "checksum": "A:e1dfebae82a8dfd6"
+        }
+      },
+      {
+        "ident": 2073,
+        "ts": "2017-03-28T16:48:40+00:00",
+        "option_value": "100",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 10,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2073",
+          "checksum": "A:84271c3398521556"
+        }
+      },
+      {
+        "ident": 2074,
+        "ts": "2017-03-28T16:48:40+00:00",
+        "option_value": "2000",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 7,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2074",
+          "checksum": "A:fda72d86298882f2"
+        }
+      },
+      {
+        "ident": 2075,
+        "ts": "2017-03-28T16:48:40+00:00",
+        "option_value": "20",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 9,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2075",
+          "checksum": "A:37a64f58152a8df6"
+        }
+      },
+      {
+        "ident": 2076,
+        "ts": "2017-03-28T16:48:40+00:00",
+        "option_value": "2000",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 11,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2076",
+          "checksum": "A:fc2e7e88a9835444"
+        }
+      },
+      {
+        "ident": 2077,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": null,
+        "project_ident": 2004,
+        "projectoptiontype_ident": 14,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2077",
+          "checksum": "A:22eab02cb7df8c5b"
+        }
+      },
+      {
+        "ident": 2078,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "false",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 19,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2078",
+          "checksum": "A:82e9f237edcc31fd"
+        }
+      },
+      {
+        "ident": 2079,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "20",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 17,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2079",
+          "checksum": "A:7077397adea3fa5e"
+        }
+      },
+      {
+        "ident": 2080,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "false",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 18,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2080",
+          "checksum": "A:f7db6e89e6367b48"
+        }
+      },
+      {
+        "ident": 2081,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "false",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 16,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2081",
+          "checksum": "A:bca7b1eaab977fa4"
+        }
+      },
+      {
+        "ident": 2082,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "json",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 15,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2082",
+          "checksum": "A:95d5342c568d048e"
+        }
+      },
+      {
+        "ident": 2083,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "0",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 20,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2083",
+          "checksum": "A:e12e24cd9d1a9c29"
+        }
+      },
+      {
+        "ident": 2084,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "null",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 21,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2084",
+          "checksum": "A:9f0e602b3493b741"
+        }
+      },
+      {
+        "ident": 2085,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "null",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 24,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2085",
+          "checksum": "A:551791e3f67d33d8"
+        }
+      },
+      {
+        "ident": 2086,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "hex",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 25,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2086",
+          "checksum": "A:62ad3ad40dc6e760"
+        }
+      },
+      {
+        "ident": 2087,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "null",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 23,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2087",
+          "checksum": "A:75d6dc19b93191e3"
+        }
+      },
+      {
+        "ident": 2088,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "null",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 22,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2088",
+          "checksum": "A:f711fb952e77f75d"
+        }
+      },
+      {
+        "ident": 2089,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "false",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 26,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2089",
+          "checksum": "A:ab3512a15621f60c"
+        }
+      },
+      {
+        "ident": 2090,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "false",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 27,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2090",
+          "checksum": "A:9f349b9d7d036d20"
+        }
+      },
+      {
+        "ident": 2091,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": "root",
+        "project_ident": 2004,
+        "projectoptiontype_ident": 28,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2091",
+          "checksum": "A:f40c1bba8f9c2df8"
+        }
+      },
+      {
+        "ident": 2092,
+        "ts": "2017-03-28T16:48:41+00:00",
+        "option_value": null,
+        "project_ident": 2004,
+        "projectoptiontype_ident": 30,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2092",
+          "checksum": "A:6f83ff53ec25389d"
+        }
+      }
+    ],
+    "Relationships": [],
+    "Roles": [
+      {
+        "ident": 2012,
+        "ts": "2017-03-28T16:45:30+00:00",
+        "name": "API Documentation",
+        "description": "This role is special and is used when generating OpenAPI(Swagger) documentation. It is recognized by the name special name 'API Documentation' and used only for documentation calls.\n Any Resources, Tables, Views, Procedures etc. that are defined and enabled by this role are used to generate the OpenAPI(Swagger) documentation.\n If this role is assigned to a user it will NOT be used for execution permissions.\n If this role is removed or otherwise unavailable, the Swagger/OpenAPI documentation will be nothing more that a name and version.",
+        "default_permission": "A",
+        "default_apivisibility": "TVPRMF",
+        "project_ident": 2004,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Roles/2012",
+          "checksum": "A:594bac78b077d9df"
+        },
+        "ApiKeyRoles": [],
+        "ApiVisibility": [],
+        "PermissionData": [],
+        "TablePermissions": []
+      },
+      {
+        "ident": 2013,
+        "ts": "2017-03-28T16:45:30+00:00",
+        "name": "Full access",
+        "description": "Full access to everything in this project",
+        "default_permission": "A",
+        "default_apivisibility": "TVPRMF",
+        "project_ident": 2004,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Roles/2013",
+          "checksum": "A:7dc50ec07550d621"
+        },
+        "ApiKeyRoles": [
+          {
+            "ident": 2008,
+            "ts": "2017-03-28T16:45:30+00:00",
+            "apikey_ident": 2006,
+            "role_ident": 2013,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Roles.ApiKeyRoles/2008",
+              "checksum": "A:b62bac72bb8c96d6"
+            }
+          }
+        ],
+        "ApiVisibility": [],
+        "PermissionData": [],
+        "TablePermissions": []
+      },
+      {
+        "ident": 2014,
+        "ts": "2017-03-28T16:45:30+00:00",
+        "name": "Read only",
+        "description": "Read-only access to everything in this project",
+        "default_permission": "R",
+        "default_apivisibility": "TVPRMF",
+        "project_ident": 2004,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Roles/2014",
+          "checksum": "A:df11af74249a8277"
+        },
+        "ApiKeyRoles": [],
+        "ApiVisibility": [],
+        "PermissionData": [],
+        "TablePermissions": []
+      }
+    ],
+    "Users": [
+      {
+        "ident": 2013,
+        "ts": "2017-03-28T16:45:30+00:00",
+        "name": "admin",
+        "fullname": "Admin Account with full access",
+        "email": null,
+        "status": "A",
+        "roles": "Full access",
+        "data": null,
+        "comments": null,
+        "apikey_lifespan": null,
+        "password_hash": "/tI+N1qB/y35pKcZGdMjmXepQeOxY48R3oWHFa5t1QPgy8hgNfq/5m+KTsNNrWR+XP+qMYh0m3lDtwAOeyTpKg==",
+        "password_salt": "LjSGPCxzTZRg3ro+96WmQyXfQaDOMZRmdUwypRUp",
+        "project_ident": 2004,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Users/2013",
+          "checksum": "A:c74d79c9c1b8270b"
+        }
+      },
+      {
+        "ident": 2012,
+        "ts": "2017-03-28T16:45:30+00:00",
+        "name": "demo",
+        "fullname": "Demo Account with full access",
+        "email": null,
+        "status": "A",
+        "roles": "Full access",
+        "data": null,
+        "comments": null,
+        "apikey_lifespan": null,
+        "password_hash": "wwOaerU8owUtk4I/9/zVdsG26CWpc1P7Tbl4Mm4h2o6BHtpvU3MmJS/3ivSEucMiZdO6TNO2YVi+8qM1YCAyNA==",
+        "password_salt": "dfEAUXQSbJIFUmmeNiqr/LfQ0IcGcRRdm8luGdR1",
+        "project_ident": 2004,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Users/2012",
+          "checksum": "A:5861c7a511a71949"
+        }
+      },
+      {
+        "ident": 2014,
+        "ts": "2017-03-28T16:45:30+00:00",
+        "name": "guest",
+        "fullname": "Guest Account with read-only access",
+        "email": null,
+        "status": "A",
+        "roles": "Read only",
+        "data": null,
+        "comments": null,
+        "apikey_lifespan": null,
+        "password_hash": "+Hovbs5Zjr87MgpNu5ZD1lFLAm2nbD4vojhB4PnbqdXHksHoFNYKKdApjbdcB2lKk14kaS1RHT89uV1GffSK7w==",
+        "password_salt": "uGWHvUocNIagoFS7Tyin35OaRAHNt3MPRdEVWUfS",
+        "project_ident": 2004,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Users/2014",
+          "checksum": "A:d1e1f4b6f80ef6f1"
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<l7:Bundle xmlns:l7="http://ns.l7tech.com/2010/04/gateway-management">
+    <l7:References>
+        <l7:Item>
+            <l7:Name>SPA-Recommendation.index.html</l7:Name>
+            <l7:Id>1fac0154f83c5937d5f9169b85842ce2</l7:Id>
+            <l7:Type>SERVICE</l7:Type>
+            <l7:TimeStamp>2017-03-29T17:04:40.920Z</l7:TimeStamp>
+            <l7:Resource>
+                <l7:Service id="1fac0154f83c5937d5f9169b85842ce2" version="2">
+                    <l7:ServiceDetail folderId="0000000000000000ffffffffffffec76" id="1fac0154f83c5937d5f9169b85842ce2" version="2">
+                        <l7:Name>SPA-Recommendation.index.html</l7:Name>
+                        <l7:Enabled>true</l7:Enabled>
+                        <l7:ServiceMappings>
+                            <l7:HttpMapping>
+                                <l7:UrlPattern>/spa/index.html</l7:UrlPattern>
+                                <l7:Verbs>
+                                    <l7:Verb>GET</l7:Verb>
+                                    <l7:Verb>POST</l7:Verb>
+                                    <l7:Verb>PUT</l7:Verb>
+                                    <l7:Verb>DELETE</l7:Verb>
+                                </l7:Verbs>
+                            </l7:HttpMapping>
+                        </l7:ServiceMappings>
+                        <l7:Properties>
+                            <l7:Property key="internal">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                            <l7:Property key="policyRevision">
+                                <l7:LongValue>4</l7:LongValue>
+                            </l7:Property>
+                            <l7:Property key="soap">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                            <l7:Property key="tracingEnabled">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                            <l7:Property key="wssProcessingEnabled">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                        </l7:Properties>
+                    </l7:ServiceDetail>
+                    <l7:Resources>
+                        <l7:ResourceSet tag="policy">
+                            <l7:Resource type="policy" version="3">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"&gt;
+    &lt;wsp:All wsp:Usage="Required"&gt;
+        &lt;L7p:HardcodedResponse&gt;
+            &lt;L7p:Base64ResponseBody stringValue="PCFET0NUWVBFIGh0bWw+DQo8aHRtbCBkYXRhLW5nLWFwcD0iQUpTIiBkYXRhLW5nLWNvbnRyb2xsZXI9Im1haW5DdHJsIj4NCjxoZWFkPg0KPG1ldGEgaHR0cC1lcXVpdj0iQ29udGVudC1UeXBlIiBjb250ZW50PSJ0ZXh0L2h0bWw7IGNoYXJzZXQ9VVRGLTgiPg0KPHRpdGxlPkFKUzwvdGl0bGU+DQo8bWV0YSBuYW1lPSJhdXRob3IiIGNvbnRlbnQ9IiI+DQo8bWV0YSBuYW1lPSJkZXNjcmlwdGlvbiIgY29udGVudD0iIj4NCjxtZXRhIG5hbWU9ImtleXdvcmRzIiBjb250ZW50PSIiPg0KPG1ldGEgbmFtZT0icm9ib3RzIiBjb250ZW50PSJpbmRleCwgZm9sbG93Ij4NCjxtZXRhIGh0dHAtZXF1aXY9IlgtVUEtQ29tcGF0aWJsZSIgY29udGVudD0iSUU9ZWRnZSI+DQo8c2NyaXB0IHR5cGU9InRleHQvamF2YXNjcmlwdCIgc3JjPSJhbmd1bGFyLm1pbi5qcyI+PC9zY3JpcHQ+DQo8c3R5bGU+DQpib2R5IHsNCglmb250LWZhbWlseTogYXJpYWw7DQoJZm9udC1zaXplOiAxNHB4Ow0KCWNvbG9yOiAjM2IzYjNiOw0KfQ0KLmlucHV0X2ZpZWxkIHsNCgl3aWR0aDogNDAwcHg7DQoJcGFkZGluZzogMnB4Ow0KfQ0KPC9zdHlsZT4NCjwvaGVhZD4NCjxib2R5Pg0KPHNjcmlwdCB0eXBlPSJ0ZXh0L2phdmFzY3JpcHQiPg0KdmFyIEFKU19BUFAgPSBhbmd1bGFyLm1vZHVsZSgnQUpTJywgW10pOw0KQUpTX0FQUC5ydW4oZnVuY3Rpb24oKSB7fSk7DQpBSlNfQVBQLmNvbmZpZyggZnVuY3Rpb24oKSB7fSk7DQpBSlNfQVBQLmNvbnRyb2xsZXIoJ21haW5DdHJsJywgZnVuY3Rpb24oJHNjb3BlLCAkaHR0cCkgew0KCSRzY29wZS5yZXF1ZXN0X3VybCA9ICIiOw0KICAgIGlmICgkc2NvcGUucmVxdWVzdF91cmwubGVuZ3RoID4gMCkgew0KCSAgICAkaHR0cC5nZXQoJHNjb3BlLnJlcXVlc3RfdXJsKQ0KCSAgICAudGhlbihmdW5jdGlvbihyZXNwb25zZSkgew0KCSAgICAgICAgJHNjb3BlLnB1cmNoYXNlZCA9IHJlc3BvbnNlLmRhdGENCgkgICAgfSk7DQoJfQ0KICAgICRzY29wZS51cGRhdGUgPSBmdW5jdGlvbigpIHsNCiAgICAJaWYgKCRzY29wZS5yZXF1ZXN0X3VybC5sZW5ndGggPiAwKSB7DQoJICAgICAgICAkaHR0cC5nZXQoJHNjb3BlLnJlcXVlc3RfdXJsKQ0KCQkgICAgLnRoZW4oZnVuY3Rpb24ocmVzcG9uc2UpIHsNCgkJICAgICAgICAkc2NvcGUucHVyY2hhc2VkID0gcmVzcG9uc2UuZGF0YQ0KCQkgICAgfSk7DQoJCX0NCiAgICB9DQp9KTsNCjwvc2NyaXB0Pg0KPHA+DQoJPHN0cm9uZz5SZXF1ZXN0IFVSTCA8L3N0cm9uZz48QlI+KGllIGh0dHBzOi8vbG9jYWxob3N0L3JlY1N2Yy92MS91c2Vycy8xMjkvb3JkZXJzKTxCUj48QlI+PGlucHV0IHR5cGU9InRleHQiIG5hbWU9InJlcV91cmwiIGRhdGEtbmctbW9kZWw9InJlcXVlc3RfdXJsIiBjbGFzcz0iaW5wdXRfZmllbGQiIHBsYWNlaG9sZGVyPSJlbnRlciBhIGJhY2tlbmQgZGVzdGluYXRpb24iLz4NCjwvcD4NCjxkaXYgbmctcmVwZWF0PSIoa2V5LCB2YWx1ZSkgaW4gcHVyY2hhc2VkIj4NCgk8c3Ryb25nPlB1cmNoYXNlZCBib29rOjwvc3Ryb25nPiA8c3BhbiBuZy1tb2RlbD0icHVyY2hhc2VkIj57eyBrZXkgfX08L3NwYW4+DQoJPGRpdj4NCgkJPHN0cm9uZz5SZWNvbW1lbmRhdGlvbnM6PC9zdHJvbmc+DQoJCTx1bD4NCgkJCTxsaSBuZy1yZXBlYXQ9InJlY29tbWVuZGF0aW9uIGluIHZhbHVlIj4NCgkJCQl7e3JlY29tbWVuZGF0aW9ufX0NCgkJCTwvbGk+DQoJCTwvdWw+DQoJPC9kaXY+DQoJPGJyLz48YnIvPg0KPC9kaXY+DQo8aW5wdXQgdHlwZT0iYnV0dG9uIiBuYW1lPSJyZWZyZXNoIiB2YWx1ZT0iUmV0cmlldmUgVXBkYXRlIiBkYXRhLW5nLWNsaWNrPSJ1cGRhdGUoKSIgLz4NCjwvYm9keT4NCjwvaHRtbD4="/&gt;
+            &lt;L7p:ResponseContentType stringValue="text/html; charset=UTF-8"/&gt;
+        &lt;/L7p:HardcodedResponse&gt;
+    &lt;/wsp:All&gt;
+&lt;/wsp:Policy&gt;
+</l7:Resource>
+                        </l7:ResourceSet>
+                    </l7:Resources>
+                </l7:Service>
+            </l7:Resource>
+        </l7:Item>
+    </l7:References>
+    <l7:Mappings>
+        <l7:Mapping action="NewOrExisting" srcId="0000000000000000ffffffffffffec76" srcUri="https://3604fa7501a8:8443/restman/1.0/folders/0000000000000000ffffffffffffec76" type="FOLDER">
+            <l7:Properties>
+                <l7:Property key="FailOnNew">
+                    <l7:BooleanValue>true</l7:BooleanValue>
+                </l7:Property>
+            </l7:Properties>
+        </l7:Mapping>
+        <l7:Mapping action="NewOrExisting" srcId="1fac0154f83c5937d5f9169b85842ce2" srcUri="https://3604fa7501a8:8443/restman/1.0/services/1fac0154f83c5937d5f9169b85842ce2" type="SERVICE"/>
+    </l7:Mappings>
+</l7:Bundle>

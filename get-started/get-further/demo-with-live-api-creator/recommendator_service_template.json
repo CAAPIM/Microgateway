@@ -1,0 +1,107 @@
+{
+  "Service": {
+    "name": "Customer Recommendator",
+    "gatewayUri": "/recommendator",
+    "httpMethods": [
+      "get",
+      "put",
+      "post",
+      "delete"
+    ],
+    "policy": [
+      {
+        "RouteOrchestrator": {
+          "rule": {
+            "orchestrator": [
+              {
+                "aggregator": [
+                  {
+                    "RouteHttp": {
+                      "targetUrl": "http://ec2-54-163-117-150.compute-1.amazonaws.com:8111/rest/default/svcOrders/v1/Orders",
+                      "httpMethod": "GET",
+                      "parameters": [
+                        {
+                          "sysfilter": "equal(customerNumber:${request.http.parameters.customer})"
+                        },
+                        {
+                          "auth": "zFeg53T5ESosM2xqM86s:1"
+                        }
+                      ],
+                      "headers": [],
+                      "requestTransform": [],
+                      "responseTransform": [
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "orchestrator_transform": {
+                  "jolt": [
+        					  {
+        					    "operation": "shift",
+        					    "spec": {
+        					      "*": {
+        					        "*": {
+        					          "customerNumber": "customerNumber",
+        					          "orders_ibfk_1_orders_List": {
+        					            "*": {
+        					              "orderdetails_ibfk_1_orderdetails_List": {
+        					                "*": {
+        					                  "orderNumber": "product.[#1].orderNumber",
+        					                  "*": {
+        					                    "productCode": "product.[#2].code",
+        					                    "productName": "product.[#2].name"
+        					                  }
+        					                }
+        					              }
+        					            }
+        					          }
+        					        }
+        					      }
+        					    }
+        						}
+        					]
+                }
+              },
+              {
+                "aggregator": [
+                  {
+                    "RouteHttp": {
+                      "targetUrl": "http://ec2-54-163-117-150.compute-1.amazonaws.com:8111/rest/default/svcRecs/v1/rec_func",
+                      "httpMethod": "GET",
+                      "parameters": [
+                        {
+                          "productCodes": "@##@{orchestrator.intermediate.product[*].code}"
+                        },
+                        {
+                          "auth": "Y1tmNkYbxu5t93ixTCtJ:1"
+                        }
+                      ],
+                      "headers": [],
+                      "requestTransform": [],
+                      "responseTransform": [
+                      ]
+                    }
+                  }
+                ]
+              },
+              {
+                "result_transform": {
+                "jolt": [
+                       {
+                        "operation": "shift",
+                        "spec": {
+                          "1": ""
+                        }
+                      }
+                    ]
+                  }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

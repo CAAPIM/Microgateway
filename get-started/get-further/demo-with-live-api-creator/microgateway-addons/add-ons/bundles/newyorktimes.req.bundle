@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><l7:Bundle xmlns:l7="http://ns.l7tech.com/2010/04/gateway-management">
+            <l7:References>
+                <l7:Item>
+                    <l7:Name>newyorktimes</l7:Name>
+                    <l7:Id>dac7a930dd7d072b42d8c76342d7fe9b</l7:Id>
+                    <l7:Type>POLICY</l7:Type>
+                    <l7:TimeStamp>2017-08-03T16:13:13.240Z</l7:TimeStamp>
+                    <l7:Resource>
+                        <l7:Policy guid="09570b68-7ae0-488b-9d34-81ef79b5eed4" id="dac7a930dd7d072b42d8c76342d7fe9b" version="0">
+                            <l7:PolicyDetail folderId="d1bf78b539c944534cc5d33d1ff4fc64" guid="09570b68-7ae0-488b-9d34-81ef79b5eed4" id="dac7a930dd7d072b42d8c76342d7fe9b" version="0">
+<l7:Name>newyorktimes</l7:Name>
+<l7:PolicyType>Include</l7:PolicyType>
+<l7:Properties>
+    <l7:Property key="revision">
+        <l7:LongValue>1</l7:LongValue>
+    </l7:Property>
+    <l7:Property key="soap">
+        <l7:BooleanValue>false</l7:BooleanValue>
+    </l7:Property>
+</l7:Properties>
+                            </l7:PolicyDetail>
+                            <l7:Resources>
+<l7:ResourceSet tag="policy">
+    <l7:Resource type="policy">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"&gt;
+    &lt;wsp:All wsp:Usage="Required"&gt;
+        &lt;L7p:HardcodedResponse&gt;
+            &lt;L7p:Base64ResponseBody stringValue="VGhlIEZhdWx0IGluIE91ciBTdGFycyxHb29kbmlnaHQgTW9vbixEaWUgdW5lbmRsaWNoZSBHZXNjaGljaHRlIChUaGUgTmV2ZXJlbmRpbmcgU3RvcnkpLEd1ZXNzIEhvdyBNdWNoIEkgTG92ZSBZb3UsSG93IHRvIFdpbiBGcmllbmRzIGFuZCBJbmZsdWVuY2UgUGVvcGxlLFRoZSBHcmFwZXMgb2YgV3JhdGgsVGhlIEhvcnNlIFdoaXNwZXJlcixUaGUgR2lybCBvbiB0aGUgVHJhaW4sVGhlIEhpdGNoaGlrZXIncyBHdWlkZSB0byB0aGUgR2FsYXh5"/&gt;
+            &lt;L7p:ResponseContentType stringValue="text/plain; charset=UTF-8"/&gt;
+        &lt;/L7p:HardcodedResponse&gt;
+    &lt;/wsp:All&gt;
+&lt;/wsp:Policy&gt;
+</l7:Resource>
+</l7:ResourceSet>
+                            </l7:Resources>
+                        </l7:Policy>
+                    </l7:Resource>
+                </l7:Item>
+                <l7:Item>
+                    <l7:Name>newyorktimes</l7:Name>
+                    <l7:Id>dac7a930dd7d072b42d8c76342d7feb1</l7:Id>
+                    <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
+                    <l7:TimeStamp>2017-08-03T16:13:13.240Z</l7:TimeStamp>
+                    <l7:Resource>
+                        <l7:EncapsulatedAssertion id="dac7a930dd7d072b42d8c76342d7feb1" version="0">
+                            <l7:Name>newyorktimes</l7:Name>
+                            <l7:Guid>8ad74668-8b5f-4622-9f2b-b54769bfd420</l7:Guid>
+                            <l7:PolicyReference id="dac7a930dd7d072b42d8c76342d7fe9b" resourceUri="http://ns.l7tech.com/2010/04/gateway-management/policies"/>
+                            <l7:EncapsulatedArguments/>
+                            <l7:EncapsulatedResults/>
+                            <l7:Properties>
+<l7:Property key="allowTracing">
+    <l7:StringValue>false</l7:StringValue>
+</l7:Property>
+<l7:Property key="paletteFolder">
+    <l7:StringValue>routing</l7:StringValue>
+</l7:Property>
+<l7:Property key="passMetricsToParent">
+    <l7:StringValue>false</l7:StringValue>
+</l7:Property>
+<l7:Property key="policyGuid">
+    <l7:StringValue>09570b68-7ae0-488b-9d34-81ef79b5eed4</l7:StringValue>
+</l7:Property>
+                            </l7:Properties>
+                        </l7:EncapsulatedAssertion>
+                    </l7:Resource>
+                </l7:Item>
+            </l7:References>
+            <l7:Mappings>
+                <l7:Mapping action="NewOrExisting" srcId="d1bf78b539c944534cc5d33d1ff4fc64" srcUri="/1.0/folders/d1bf78b539c944534cc5d33d1ff4fc64" type="FOLDER">
+                    <l7:Properties>
+                        <l7:Property key="FailOnNew">
+                            <l7:BooleanValue>true</l7:BooleanValue>
+                        </l7:Property>
+                    </l7:Properties>
+                </l7:Mapping>
+                <l7:Mapping action="NewOrExisting" srcId="dac7a930dd7d072b42d8c76342d7fe9b" srcUri="/1.0/policies/dac7a930dd7d072b42d8c76342d7fe9b" type="POLICY"/>
+                <l7:Mapping action="NewOrExisting" srcId="dac7a930dd7d072b42d8c76342d7feb1" srcUri="/1.0/encapsulatedAssertions/dac7a930dd7d072b42d8c76342d7feb1" type="ENCAPSULATED_ASSERTION"/>
+            </l7:Mappings>
+        </l7:Bundle>

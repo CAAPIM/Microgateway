@@ -1,0 +1,11 @@
+{  "Service": {
+    "name": "newyorktimes",
+    "gatewayUri": "/newyorktimes",
+    "httpMethods": [ "get" ],
+    "policy": [
+      {
+        "newyorktimes" : {}
+      }
+    ]
+  }
+}

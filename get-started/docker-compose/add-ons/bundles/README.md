@@ -25,7 +25,7 @@ cd get-started/docker-compose
 
 docker-compose --project-name microgateway \
                --file docker-compose.yml \
-               --file docker-compose.db.postgresql.yml \
+               --file docker-compose.db.consul.yml \
                --file docker-compose.lb.dockercloud.yml \
                --file docker-compose.addons.yml \
                up -d --build

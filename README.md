@@ -63,7 +63,7 @@ This step will typically be done by a Gateway sysadmin.
 
   docker-compose --project-name microgateway \
                  --file docker-compose.yml \
-                 --file docker-compose.db.postgresql.yml \
+                 --file docker-compose.db.consul.yml \
                  --file docker-compose.lb.dockercloud.yml \
                  up -d --build
   ```
@@ -86,7 +86,7 @@ This step will typically be done by a Gateway sysadmin.
   ```
   docker-compose --project-name microgateway \
                  --file docker-compose.yml \
-                 --file docker-compose.db.postgresql.yml \
+                 --file docker-compose.db.consul.yml \
                  --file docker-compose.lb.dockercloud.yml \
                  logs --follow
   ```
@@ -96,7 +96,7 @@ This step will typically be done by a Gateway sysadmin.
   ```
   docker-compose --project-name microgateway \
                  --file docker-compose.yml \
-                 --file docker-compose.db.postgresql.yml \
+                 --file docker-compose.db.consul.yml \
                  --file docker-compose.lb.dockercloud.yml \
                  up -d --scale ssg=2
   ```
@@ -107,7 +107,7 @@ This step will typically be done by a Gateway sysadmin.
   ```
   docker-compose --project-name microgateway \
                  --file docker-compose.yml \
-                 --file docker-compose.db.postgresql.yml \
+                 --file docker-compose.db.consul.yml \
                  --file docker-compose.lb.dockercloud.yml \
                  down --volumes
   ```

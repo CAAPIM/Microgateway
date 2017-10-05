@@ -18,16 +18,14 @@ services:
 
   consul:
       image: "consul"
-      container_name: "consul"
-      hostname: "consul"
-      mem_limit: 1024m
-      ports:
-        - "8400:8400"
-        - "8500:8500"
-        - "53:8600/tcp"
-        - "53:8600/udp"
+      # ports:
+      #   - "8400:8400"
+      #   - "8500:8500"
+      #   - "53:8600/tcp"
+      #   - "53:8600/udp"
       command: "agent -server -client=0.0.0.0 -bind=0.0.0.0 -bootstrap-expect 1 -data-dir=/consul/data -ui"
       volumes:
         - "consul:/consul/data"
+
 volumes:
   consul:

@@ -6,7 +6,7 @@ This step will typically be done by a devops engineer.
 
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
   the file `get-started/docker-compose/config/license.env`, you are expressing
-  your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md).
+  your acceptance of the [Microservices Gateway Pre-Release Agreement](../../LICENSE.md).
 
 - Build a new Microgateway container image with a sample service:
 
@@ -15,7 +15,7 @@ This step will typically be done by a devops engineer.
   
   ```
   cd get-started/docker-compose
-  docker-compose -f docker-compose-build-ssg.yml -f docker-compose.dockercloudproxy.yml up -d --build
+  docker-compose -f docker-compose-build-ssg.yml -f docker-compose.lb.dockercloud.yml up -d --build
   ```
   
 - Verify that your API is exposed:

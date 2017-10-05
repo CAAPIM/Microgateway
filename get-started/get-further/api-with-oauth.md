@@ -67,7 +67,7 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
   Update the Gateway:
 
   ```
-  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml up -d ssg
+  docker-compose -f docker-compose.yml -f docker-compose.lb.dockercloud.yml up -d ssg
   ```
 
   Wait for the Gateway to be running for about 30 seconds:

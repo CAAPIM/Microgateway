@@ -78,7 +78,7 @@ This step will typically be done by a Gateway sysadmin.
   NAMES                STATUS
   microgateway_lb_1    Up About a minute
   microgateway_ssg_1   Up About a minute (healthy)
-  microgateway_db_1    Up About a minute
+  microgateway_consul_1    Up About a minute
   ```
 
 - Print the logs:

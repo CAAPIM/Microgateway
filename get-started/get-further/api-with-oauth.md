@@ -85,7 +85,7 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
 
   *This step will typically be done by a microservice developer.*
 
-  ```
+  ```json
   {
     "Service": {
     "name": "Google Search With OAuth",
@@ -172,7 +172,7 @@ another microservice developer willing to connect to our microservice.
 
   And you should get a result back as following:
 
-  ```
+  ```json
   {
     "access_token":"d17b00bb-f299-440f-aed7-f47ff1e7f85c",
     "token_type":"Bearer",

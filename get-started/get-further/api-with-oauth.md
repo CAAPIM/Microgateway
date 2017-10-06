@@ -12,20 +12,20 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
 (microservice B)-----(microgateway) <--
 ```
 
-- Deploy the CA API [Mobile App Services](https://www.ca.com/us/developers/mas) trial with OAuth Toolkit (OTK) as OAuth Server 
+- Deploy the CA API [Mobile App Services](https://www.ca.com/us/developers/mas) trial with OAuth Toolkit (OTK) as OAuth Server
 
   Accept license by passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-  the file `get-started/external/otk/docker-compose.yml` 
+  the file `get-started/external/otk/config/license.env`
 
   *This step will typically be done by a Gateway sysadmin.*
   ```
   cd get-started/external/otk
-  docker-compose up --build -d
+  docker-compose --project-name microgateway up --build -d
   ```
 
   Wait for Mobile App Services trial (as OAuth server) to be up and running:
   ```
-  docker-compose logs -f
+  docker-compose --project-name microgateway logs -f
   ```
   The message `Gateway is now up and running!` will appear once the OTK is
   running.
@@ -33,7 +33,7 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
   Configure OAuth:
 
   We are going to do using the REST API of the Mobile App Services trial (RESTMAN).
-  
+
   Run the following command:
 
   Note: Ensure the following line is fully copied.
@@ -53,21 +53,25 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
   cd get-started/docker-compose
   ```
 
-  Update `docker-compose.yml` and add the following in `environment` block of
+  Update `config/otk.env` and add the following in `environment` block of
   the `ssg` service:
   ```
-  OTK_SERVER_HOST: "<IP>"
-  OTK_SERVER_SSL_PORT: "8443"
-  OTK_CERTIFICATE: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURPRENDQWlDZ0F3SUJBZ0lKQUk1V2x6RHduWkRpTUEwR0NTcUdTSWIzRFFFQkN3VUFNQnd4R2pBWUJnTlYKQkFNVEVXOTBheTV0ZVdOdmJYQmhibmt1WTI5dE1CNFhEVEUzTURVeU9URTNORGsxTWxvWERUSXlNRFV5T0RFMwpORGsxTWxvd0hERWFNQmdHQTFVRUF4TVJiM1JyTG0xNVkyOXRjR0Z1ZVM1amIyMHdnZ0VpTUEwR0NTcUdTSWIzCkRRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRQ3cyak5PVEo4ZDJnNzJ2aHpTV21nbkhESzFCRzh6dllSaGZ1NksKVWFmKzdaK2krbFV3R0cvaEk0aW5kSkNMaHRZNTE5RzlxSlJRaDMzdXExNUxqQzErZk5RK3BTQnBBU0dDODJaYgplQ1NYL3hOL21TeE9LVUg2cFErNzd5TUJRckprRXRlMUkrNzZlaGFabGVnWWNWb0NaYWl4QXhHN1hkRUhpWGQ4CjdVUDlSTk9WdUJJbFhZSlQ4Z2pPYjdVdml2VFJIRzVCaHhVOEIvcGtQUXBaWGlTYmpQOGJXbHdtN3pIeUhFVGQKMTMrb2ROYmZLUGZlU2xZT0hGSWNXRjJleVBuRTczYlc0L0lPN2k5MWIvTmR5K1cwSk4zTUdKa2Q5N3k1NWloZwpUM0xQZXdWZTVsMSt3aTFHNnR3MFpMZlVQNDg4QmxQb2k2SHc4ZEplYlFIanY3UnZBZ01CQUFHamZUQjdNQjBHCkExVWREZ1FXQkJSYVZMSFBLaXZzaDNHVjBOdFdGMzBPL0p0QXpqQk1CZ05WSFNNRVJUQkRnQlJhVkxIUEtpdnMKaDNHVjBOdFdGMzBPL0p0QXpxRWdwQjR3SERFYU1CZ0dBMVVFQXhNUmIzUnJMbTE1WTI5dGNHRnVlUzVqYjIyQwpDUUNPVnBjdzhKMlE0akFNQmdOVkhSTUVCVEFEQVFIL01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQmxxd1lCCklOdVpLcHVyNnlhU0lBUlJYOWs5d1VwSkxidjlFUHF0a0o4ekpWaVovN3dKUmlPaE5FV2MyZ2FNVTkrS1E3cTkKV3R0RWRLRElNKzRRdFl6Wjg0QUJoOFFhSU9RSWNMSnhLM2xqNzJHNTFNUDZIZ0ovRFJ1TTZ4OS9zZ092RSs4cQpBVjVDU1p2YUdVRGV4WlZZQUpYOTZIRlNzajlqM2tablBIYmU0U2xjZndqd3A4KzhVVGRQaTRGMkM4amhUQkFBCk1HVjgrQVF2TTZtSlpsaTdDVmJJYUFGZ0oxamZsY3hkb3pFMUExR2Fhb1FwSzVtYXpoLzFkMWR3azlScXVEY00KVUhPWEFnWFdtUW15VjVGZlJYYTMwbWpCcXVVSGFWU3NiR1Vidm0rd2FxMUloaG0vd3lkbnRBQS8rTUFRQXZWegpSa25HMW8xaGRiNFlQdHZqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
-  OTK_CERT_VERIFY_HOSTNAME: "false"
+  OTK_SERVER_HOST=<IP>
+  OTK_SERVER_SSL_PORT=8443
+  OTK_CERTIFICATE= LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURPRENDQWlDZ0F3SUJBZ0lKQUk1V2x6RHduWkRpTUEwR0NTcUdTSWIzRFFFQkN3VUFNQnd4R2pBWUJnTlYKQkFNVEVXOTBheTV0ZVdOdmJYQmhibmt1WTI5dE1CNFhEVEUzTURVeU9URTNORGsxTWxvWERUSXlNRFV5T0RFMwpORGsxTWxvd0hERWFNQmdHQTFVRUF4TVJiM1JyTG0xNVkyOXRjR0Z1ZVM1amIyMHdnZ0VpTUEwR0NTcUdTSWIzCkRRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQkFRQ3cyak5PVEo4ZDJnNzJ2aHpTV21nbkhESzFCRzh6dllSaGZ1NksKVWFmKzdaK2krbFV3R0cvaEk0aW5kSkNMaHRZNTE5RzlxSlJRaDMzdXExNUxqQzErZk5RK3BTQnBBU0dDODJaYgplQ1NYL3hOL21TeE9LVUg2cFErNzd5TUJRckprRXRlMUkrNzZlaGFabGVnWWNWb0NaYWl4QXhHN1hkRUhpWGQ4CjdVUDlSTk9WdUJJbFhZSlQ4Z2pPYjdVdml2VFJIRzVCaHhVOEIvcGtQUXBaWGlTYmpQOGJXbHdtN3pIeUhFVGQKMTMrb2ROYmZLUGZlU2xZT0hGSWNXRjJleVBuRTczYlc0L0lPN2k5MWIvTmR5K1cwSk4zTUdKa2Q5N3k1NWloZwpUM0xQZXdWZTVsMSt3aTFHNnR3MFpMZlVQNDg4QmxQb2k2SHc4ZEplYlFIanY3UnZBZ01CQUFHamZUQjdNQjBHCkExVWREZ1FXQkJSYVZMSFBLaXZzaDNHVjBOdFdGMzBPL0p0QXpqQk1CZ05WSFNNRVJUQkRnQlJhVkxIUEtpdnMKaDNHVjBOdFdGMzBPL0p0QXpxRWdwQjR3SERFYU1CZ0dBMVVFQXhNUmIzUnJMbTE1WTI5dGNHRnVlUzVqYjIyQwpDUUNPVnBjdzhKMlE0akFNQmdOVkhSTUVCVEFEQVFIL01BMEdDU3FHU0liM0RRRUJDd1VBQTRJQkFRQmxxd1lCCklOdVpLcHVyNnlhU0lBUlJYOWs5d1VwSkxidjlFUHF0a0o4ekpWaVovN3dKUmlPaE5FV2MyZ2FNVTkrS1E3cTkKV3R0RWRLRElNKzRRdFl6Wjg0QUJoOFFhSU9RSWNMSnhLM2xqNzJHNTFNUDZIZ0ovRFJ1TTZ4OS9zZ092RSs4cQpBVjVDU1p2YUdVRGV4WlZZQUpYOTZIRlNzajlqM2tablBIYmU0U2xjZndqd3A4KzhVVGRQaTRGMkM4amhUQkFBCk1HVjgrQVF2TTZtSlpsaTdDVmJJYUFGZ0oxamZsY3hkb3pFMUExR2Fhb1FwSzVtYXpoLzFkMWR3azlScXVEY00KVUhPWEFnWFdtUW15VjVGZlJYYTMwbWpCcXVVSGFWU3NiR1Vidm0rd2FxMUloaG0vd3lkbnRBQS8rTUFRQXZWegpSa25HMW8xaGRiNFlQdHZqCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+  OTK_CERT_VERIFY_HOSTNAME=false
   ```
-  Where `<IP>` in `OTK_SERVER_HOST: "<IP>"` is your Docker host IP which is your
+  Where `<IP>` in `OTK_SERVER_HOST=<IP>` is your Docker host IP which is your
   laptop IP if running this get started on your laptop.
 
   Update the Gateway:
 
   ```
-  docker-compose -f docker-compose.yml -f docker-compose.lb.dockercloud.yml up -d ssg
+  docker-compose --project-name microgateway \
+               --file docker-compose.yml \
+               --file docker-compose.db.consul.yml \
+               --file docker-compose.lb.dockercloud.yml \
+               up -d ssg
   ```
 
   Wait for the Gateway to be running for about 30 seconds:
@@ -115,7 +119,7 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
     ```
     curl --insecure \
          --user "admin:password" \
-         --url https://localhost/quickstart/1.0/services/ \
+         --url https://localhost/quickstart/1.0/services \
          --data @Gatewayfile
     ```
 

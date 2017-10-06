@@ -170,7 +170,7 @@ This step will typically be done by a microservice developer.
 - [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
 - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
 - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
-- [Extend Microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
+- [Extend Microgateway with new templates](get-started/get-further/extend-microgateway-with-new-templates.md)
 - Operations:
   - Install, configuration, upgrade and scale
     - [Docker](get-started/get-further/operations/platforms/docker.md)

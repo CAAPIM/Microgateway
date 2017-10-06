@@ -1,15 +1,16 @@
-## Extending Quick Start Templates with Bundles
+## Extend Microgateway with new templates
 The Quick Start Solution may be extended by importing RESTMAN bundles on startup. This allows us and customers to mix-and-match solutions that they intend to use with the Gateway, producing a smaller, purpose-tailored image.
 
 _Template design functionality is limited to CA customers for Beta due to access of other tools such as Policy Manager. If you are a CA customer and wish to design Quick Start templates, please sign up on https://validate.ca.com for project "CA API Management (APIM)/Beta Releases - CA Microgateway - supporting tools"_
 
-Instructions: https://docops.ca.com/ca-api-gateway/9-2/en/ca-microgateway-beta/add-functionality-to-the-ca-microgateway
+Instructions:
+- Build Your Own QuickStart Templates: https://docops.ca.com/ca-microgateway/1-0/EN/build-your-own-quickstart-templates
 
 ### How Does it Work?
 On startup, the Gateway will look in the directory `/opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/` for files ending in `.bundle`, and loads them in natural order. For this reason, we generally name them with numbers indicating the order in which they shoulud be loaded, e.g. `60_consul.bundle`.
 
 * Drop your templates under ./get-started/docker-compose/add-ons/bundles
-* Run a Docker build using `docker build -f ./get-started/docker-compose/add-ons/Dockerfile.addon` or use `./get-started/docker-compose-build-ssg.yml`
+* Run a Docker build using `docker build -f ./get-started/docker-compose/add-ons/Dockerfile.addon` or use `./get-started/docker-compose/docker-compose.addons.yml`
 
 ## Bundle-Specific Information ##
 

@@ -68,7 +68,7 @@ This step will typically be done by a Gateway sysadmin.
                  up -d --build
   ```
 
-- Verify that the Gateway is healthy:
+- Verify that the Gateway is healthy (May need to repeat the command to refresh status):
 
   ```
   docker ps --format "table {{.Names}}\t{{.Status}}"

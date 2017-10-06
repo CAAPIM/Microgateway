@@ -1,4 +1,4 @@
-## Build a microgateway container image with quickstart services from json file<a name="api-basic-auth"></a>
+## Build a Microgateway image with APIs preloaded from JSON file
 
 This step will typically be done by a devops engineer.
 
@@ -10,14 +10,19 @@ This step will typically be done by a devops engineer.
 
 - Build a new Microgateway container image with a sample service:
 
-  - _A sample service json is under `get-started/docker-compose/add-ons/services`_ 
-  - _Run `docker-compose-build-ssg.yml` to build a new container image with the sample template and service_
-  
+  - _A sample service json is under `get-started/docker-compose/add-ons/services`_
+  - _Run the following command to build a new image with the sample template and service and start the Microgateway_
+
   ```
   cd get-started/docker-compose
-  docker-compose -f docker-compose-build-ssg.yml -f docker-compose.lb.dockercloud.yml up -d --build
+
+  docker-compose --project-name microgateway \
+                 --file docker-compose.yml \
+                 --file docker-compose.lb.dockercloud.yml \
+                 --file docker-compose.addons.yml \
+                 up -d --build
   ```
-  
+
 - Verify that your API is exposed:
 
   ```
@@ -29,14 +34,13 @@ This step will typically be done by a devops engineer.
 
   ```
   curl --insecure \
-       --user "admin:password" \
        --header "User-Agent: Mozilla/5.0" \
-       'https://localhost/google-with-basic-auth?q=CA'
+       'https://localhost/google?q=CA'
   ```
 - Find your new microgateway image
 
   ```
-  docker images | grep dockercompose_ssg
+  docker images caapim/microgateway:addons
   ```
 
 Underneath the hood:

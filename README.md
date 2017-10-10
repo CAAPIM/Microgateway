@@ -54,7 +54,7 @@ This step will typically be done by a Gateway sysadmin.
 
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
   the file `get-started/docker-compose/config/license.env`, you are expressing
-  your acceptance of the [CA Trial and Demonstration](LICENSE.md).
+  your acceptance of the [CA Trial and Demonstration Agreement](LICENSE.md).
 
   The initial Product Availability Period for your trial of CA Microgateway
   shall be sixty (60) days from the date of your initial deployment. You are

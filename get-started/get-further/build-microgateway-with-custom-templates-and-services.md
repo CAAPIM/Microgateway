@@ -4,15 +4,15 @@ This step will typically be done by a devops engineer.
 
 - **_Accept the license_**
 
+  By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
+  the file `get-started/docker-compose/config/license.env`, you are expressing
+  your acceptance of the [CA Trial and Demonstration](../../LICENSE.md).
+
   The initial Product Availability Period for your trial of CA Microgateway
   shall be sixty (60) days from the date of your initial deployment. You are
   permitted only one (1) trial of CA Microgateway per Company, and you may not
   redeploy a new trial of CA Microgateway after the end of the initial Product
   Availability Period.
-
-  By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-  the file `get-started/docker-compose/config/license.env`, you are expressing
-  your acceptance of the [Microservices Gateway Pre-Release Agreement](../../LICENSE.md).
 
 - Build a new Microgateway container image with a sample service:
 

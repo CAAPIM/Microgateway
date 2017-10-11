@@ -5,7 +5,9 @@ services:
   # start one node of lac with port exposed to host for admin/ui access
   # this node cannot be scaled because of exposed port
   lacadmin_node:
-    image: 'caliveapicreator/3.2'
+    image: caliveapicreator/3.2-demo
+    build:
+      context: .
     # networks:
     #   - demo
     ports:
@@ -22,7 +24,9 @@ services:
 
   # Start one node of LAC without port exposed that can be dynamically scaled
   lacscale_node:
-    image: 'caliveapicreator/3.2'
+    image: caliveapicreator/3.2-demo
+    build:
+      context: .
     # networks:
     #  - demo
     environment:

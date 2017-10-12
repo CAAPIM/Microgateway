@@ -184,6 +184,11 @@ This step will typically be done by a microservice developer.
   - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
   - [Performance tuning](get-started/get-further/operations/system/performance.md)
 
+### Samples
+- [Microgateway APIs](samples/APIs)
+- Plaforms:
+  - [OpenShift](samples/platforms/openshift)
+
 ### Documentation  <a name="documentation"></a>
 
 - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local Microgateway

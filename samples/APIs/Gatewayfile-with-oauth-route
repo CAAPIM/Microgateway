@@ -1,0 +1,26 @@
+{
+    "Service": {
+        "name": "httpbin",
+        "gatewayUri": "/httpbin-oauth*",
+        "httpMethods": [ "get", "post", "put", "delete" ],
+        "policy": [
+            {
+                "RequireOauth2Token": {
+                    "scope_required": "MS_SCOPE",
+                    "scope_fail": "false",
+                    "onetime": "false",
+                    "given_access_token": ""
+                }
+            },
+            {
+                "RouteHttp" : {
+                    "targetUrl": "https://httpbin",
+                    "preserveRequestPath": "true",
+                    "httpMethod": "Automatic",
+                    "useAuthenticationHeader": "plaintextheader"
+                }
+            }
+        ]
+    }
+}
+

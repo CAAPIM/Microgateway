@@ -1,0 +1,85 @@
+{
+    "Service": {
+        "name": "Headers-frontoauth-backoauth-with-params",
+        "gatewayUri": "/user",
+        "httpMethods": [ "get", "post", "put", "delete" ],
+        "policy": [
+
+            {
+                "RequireOauth2Token": {
+                    "scope_required": "READ_HEADERS",
+                    "scope_fail": "false",
+                    "onetime": "false",
+                    "given_access_token": ""
+                }
+            },
+
+            {
+                "RouteOrchestrator": {
+                    "rule": {
+                        "orchestrator": [
+                            {
+                                "aggregator": [
+                                    {
+                                        "RouteHttp": {
+                                            "targetUrl": "https://microgateway.mycompany.com:443/httpbin-oauth/post",
+                                            "httpMethod": "POST",
+                                            "parameters": [
+                                                {
+                                                    "id": "${request.http.parameters.email}"
+                                                }
+                                            ],
+                                            "headers": [
+                                                {
+                                                    "Authorization": "Bearer ac3b9d27-a762-411e-bbef-67a5a7c4f5c5"
+                                                }
+                                            ],
+                                            "requestTransform": [],
+                                            "responseTransform": [
+                                                {
+                                                    "jolt": [
+                                                        {
+                                                              "operation": "shift",
+                                                                "spec": {
+                                                                  "args": {
+                                                                    "id": "id"
+                                                                  }
+                                                                }
+                                                        }
+                                                    ]
+                                                }   
+                                            ]
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "aggregator": [
+                                    {
+                                        "RouteHttp": {
+                                            "targetUrl": "https://microgateway.mycompany.com:443/httpbin-oauth/post",
+                                            "httpMethod": "POST",
+                                            "parameters": [
+                                                {
+                                                    "email": "@##@{orchestrator.result.id}"
+                                                }
+                                            ],
+                                            "headers": [
+                                                {
+                                                    "Content-Type": "application/json"
+                                                }
+                                            ],
+                                            "requestTransform": [],
+                                            "responseTransform": []
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}
+

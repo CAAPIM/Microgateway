@@ -1,0 +1,60 @@
+{
+    "Service": {
+        "name": "Headers-frontoauth-backoauth",
+        "gatewayUri": "/Headers-frontoauth-backoauth",
+        "httpMethods": [ "get", "post", "put", "delete" ],
+        "policy": [
+
+            {
+                "RequireOauth2Token": {
+                    "scope_required": "READ_HEADERS",
+                    "scope_fail": "false",
+                    "onetime": "false",
+                    "given_access_token": ""
+                }
+            },
+
+            {
+                "RouteOrchestrator": {
+                    "rule": {
+                        "orchestrator": [
+                            {
+                                "aggregator": [
+                                    {
+                                        "RouteHttp": {
+                                            "targetUrl": "https://microgateway.mycompany.com:443/httpbin-oauth/headers",
+                                            "httpMethod": "GET",
+                                            "parameters": [],
+                                            "headers": [
+                                                {
+                                                    "Authorization": "Bearer ac3b9d27-a762-411e-bbef-67a5a7c4f5c5"
+                                                }
+                                            ],
+                                            "requestTransform": [],
+                                            "responseTransform": []
+                                        }
+                                    },
+                                    {
+                                        "RouteHttp": {
+                                            "targetUrl": "https://microgateway.mycompany.com:443/httpbin-oauth/headers",
+                                            "httpMethod": "GET",
+                                            "parameters": [],
+                                            "headers": [
+                                                {
+                                                    "Content-Type": "application/json"
+                                                }
+                                            ],
+                                            "requestTransform": [],
+                                            "responseTransform": []
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}
+

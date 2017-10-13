@@ -1,0 +1,17 @@
+{
+    "Service": {
+        "name": "httpbin",
+        "gatewayUri": "/httpbin*",
+        "httpMethods": [ "get", "post", "put", "delete" ],
+        "policy": [
+            {
+                "RouteHttp" : {
+                    "targetUrl": "https://httpbin",
+                    "preserveRequestPath": "true",
+                    "httpMethod": "Automatic"
+                }
+            }
+        ]
+    }
+}
+

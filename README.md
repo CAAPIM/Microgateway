@@ -14,6 +14,8 @@
 ## What is CA Microgateway <a name="intro"></a>
 CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA Microgateway by building your own policy with existing policy building capability in the API gateway family.
 
+More features available in the [free trial version](https://www.ca.com/us/products/ca-microgateway.html).
+
 <p align="center">
 <img src="img/ca-microgateway-diagram_draw-io.png" alt="CA Microgateway" title="CA Microgateway" />
 </p>
@@ -183,6 +185,11 @@ This step will typically be done by a microservice developer.
     - [OpenShift](get-started/get-further/operations/platforms/openshift.md)
   - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
   - [Performance tuning](get-started/get-further/operations/system/performance.md)
+
+### Samples
+- [Microgateway APIs](samples/APIs)
+- Plaforms:
+  - [OpenShift](samples/platforms/openshift)
 
 ### Documentation  <a name="documentation"></a>
 

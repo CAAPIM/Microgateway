@@ -1,36 +1,40 @@
-# ca-microgateway (Beta)
-Repository containing artifacts for using the CA Microgateway
+# CA Microgateway
 
-## What is CA Microgateway
+* [What is CA Microgateway](#intro)
+  * [Benefits](#benefits)
+  * [Related microservices patterns](#patterns)
+* [Get started](#get-started)
+  * [Prerequisites](#prerequisites)
+  * [Deploy the Microgateway](#deploy)
+  * [Expose a microservice API](#api)
+* [Next steps](#next-steps)
+  * [Get further to try more complex scenarios](#get-further)
+  * [Documentation](#documentation)
+
+## What is CA Microgateway <a name="intro"></a>
 CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA Microgateway by building your own policy with existing policy building capability in the API gateway family.
 
-```
-(microservice A)-----(Microgateway) <-
-                          |            \
-                          |             \
-                     (auth service)       --------> [firewall] (Edge API gateway) <--------->
-                          |             /
-                          |            /
-(microservice B)-----(Microgateway) <-
-```
+More features available in the [free trial version](https://www.ca.com/us/products/ca-microgateway.html).
 
-### Benefits
+<p align="center">
+<img src="img/ca-microgateway-diagram_draw-io.png" alt="CA Microgateway" title="CA Microgateway" />
+</p>
+
+### Benefits <a name="benefits"></a>
 * Secure microservices without writing the same code in every service
 * Integrate with microservices pattern and infrastructure. e.g. Consul service registry
 * Optimize internal and external client APIs and reduce API chattiness
 * Optimize network traffic by providing caching, circuit breaking ...etc
 
-### Related microservices patterns
+### Related microservices patterns <a name="patterns"></a>
 * API gateway/Backend for Frontend: http://microservices.io/patterns/apigateway.html
 * Access token: http://microservices.io/patterns/security/access-token.html
 
-## Get started
+## Get started <a name="get-started"></a>
 
-Steps:
-
-* [Prerequisites](#prerequisites)
-* [Deploy the Microgateway](#deploy)
-* [Expose a microservice API](#api)
+Supported platforms:
+- Linux
+- MacOS
 
 ### Prerequisites <a name="prerequisites"></a>
 - A docker host
@@ -44,54 +48,76 @@ Steps:
   docker info
   ```
 
-### Deploy the Microgateway <a name="deploy"></a>
+### Deploy the CA Microgateway <a name="deploy"></a>
 
 This step will typically be done by a Gateway sysadmin.
 
 - Accept the license:
-  
+
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-  the file `get-started/docker-compose/docker-compose.yml`, you are expressing
-  your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md).
-  
+  the file `get-started/docker-compose/config/license.env`, you are expressing
+  your acceptance of the [CA Trial and Demonstration Agreement](LICENSE.md).
+
+  The initial Product Availability Period for your trial of CA Microgateway
+  shall be sixty (60) days from the date of your initial deployment. You are
+  permitted only one (1) trial of CA Microgateway per Company, and you may not
+  redeploy a new trial of CA Microgateway after the end of the initial Product
+  Availability Period.
+
 - Start the Gateway:
 
   ```
   cd get-started/docker-compose
-  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml up -d --build
+
+  docker-compose --project-name microgateway \
+                 --file docker-compose.yml \
+                 --file docker-compose.db.consul.yml \
+                 --file docker-compose.lb.dockercloud.yml \
+                 up -d --build
   ```
 
-- Verify that the Gateway is running:
+- Verify that the Gateway is healthy (May need to repeat the command to refresh status):
 
   ```
-  curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
+  docker ps --format "table {{.Names}}\t{{.Status}}"
   ```
-  Should return an empty list of services `[]` when ready. 
-  
-  OR
-  
+  Should return:
   ```
-  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml logs --follow
-  ```
-  And look for 
-  ```
-  INFO: -4: Quick start service scaler started ...
+  NAMES                STATUS
+  microgateway_lb_1    Up About a minute
+  microgateway_ssg_1   Up About a minute (healthy)
+  microgateway_consul_1    Up About a minute
   ```
 
+- Print the logs:
+
+  ```
+  docker-compose --project-name microgateway \
+                 --file docker-compose.yml \
+                 --file docker-compose.db.consul.yml \
+                 --file docker-compose.lb.dockercloud.yml \
+                 logs --follow
+  ```
 
 - Scale up/down the Gateway:
 
   ```
-  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml scale ssg=2
-
+  docker-compose --project-name microgateway \
+                 --file docker-compose.yml \
+                 --file docker-compose.db.consul.yml \
+                 --file docker-compose.lb.dockercloud.yml \
+                 up -d --scale ssg=2
   ```
   The Gateway has no scaling limit because it is based on the [The Twelve-Factor App](https://12factor.net/).
 
 - Stop the Gateway:
 
   ```
-  docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml down --volumes
-
+  docker-compose --project-name microgateway \
+                 --file docker-compose.yml \
+                 --file docker-compose.db.consul.yml \
+                 --file docker-compose.lb.dockercloud.yml \
+                 down --volumes
   ```
 
 ### Expose a microservice API <a name="api"></a>
@@ -100,7 +126,7 @@ This step will typically be done by a microservice developer.
 
 - Create a file named Gatewayfile with the following content:
 
-  ```
+  ```json
   {
       "Service": {
       "name": "Google Search",
@@ -143,15 +169,29 @@ This step will typically be done by a microservice developer.
        'https://localhost/google?q=CA'
   ```
 
-## Next steps:
-- Get further to try more complex scenarios:
-  - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
-  - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
-  - [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
-  - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
-  - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
-  - [Extend Microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
+## Next steps  <a name="next-steps"></a>
 
-- Read the documentation:
-  - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local Microgateway
-  - [CA Microgateway Documentation](https://docops.ca.com/ca-api-gateway/9-2/en/ca-microgateway-beta)
+### Get further to try more complex scenarios  <a name="get-further"></a>
+
+- [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
+- [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
+- [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
+- [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
+- [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
+- [Extend Microgateway with new templates](get-started/get-further/extend-microgateway-with-new-templates.md)
+- Operations:
+  - Install, configuration, upgrade and scale
+    - [Docker](get-started/get-further/operations/platforms/docker.md)
+    - [OpenShift](get-started/get-further/operations/platforms/openshift.md)
+  - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
+  - [Performance tuning](get-started/get-further/operations/system/performance.md)
+
+### Samples
+- [Microgateway APIs](samples/APIs)
+- Plaforms:
+  - [OpenShift](samples/platforms/openshift)
+
+### Documentation  <a name="documentation"></a>
+
+- Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local Microgateway
+- [CA Microgateway Documentation](https://docops.ca.com/ca-microgateway/1-0/EN)

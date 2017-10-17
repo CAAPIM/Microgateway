@@ -1,0 +1,28 @@
+version: '3'
+services:
+  ssg:
+    environment:
+      QUICKSTART_REST_MODE: "true"
+      QUICKSTART_REPOSITORY_TYPE: "db"
+      QUICKSTART_REPOSITORY_DB_TYPE: "postgresql"
+      QUICKSTART_REPOSITORY_DB_HOST: "ssg_db"
+      QUICKSTART_REPOSITORY_DB_PORT: "5432"
+      QUICKSTART_REPOSITORY_DB_NAME: "qstr"
+      QUICKSTART_REPOSITORY_DB_USER: "causer"
+      QUICKSTART_REPOSITORY_DB_PASSWORD: "capassword"
+    links:
+      - ssg_db
+
+  ssg_db:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgresql
+    restart: always
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+    environment:
+      POSTGRES_DB: "qstr"
+      POSTGRES_USER: "causer"
+      POSTGRES_PASSWORD: "capassword"

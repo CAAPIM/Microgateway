@@ -1,0 +1,7 @@
+version: '3'
+services:
+  ssg:
+    image: caapim/microgateway:addons
+    build:
+      context: ./add-ons
+      dockerfile: Dockerfile.addon

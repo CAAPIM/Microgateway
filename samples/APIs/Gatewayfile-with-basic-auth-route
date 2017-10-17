@@ -1,0 +1,21 @@
+{
+    "Service": {
+        "name": "httpbin",
+        "gatewayUri": "/httpbin-basic-auth*",
+        "httpMethods": [ "get", "post", "put", "delete" ],
+        "policy": [
+            {
+                "CredentialSourceHttpBasic": { }
+            },
+            {
+                "RouteHttp" : {
+                    "targetUrl": "https://httpbin",
+                    "preserveRequestPath": "true",
+                    "httpMethod": "Automatic",
+                    "useAuthenticationHeader": "plaintextheader"
+                }
+            }
+        ]
+    }
+}
+

@@ -5,15 +5,13 @@ services:
       # dockercloud/haproxy configuration
       VIRTUAL_HOST: https://gateway.mycompany.com
       TCP_PORTS: "8443"
-      EXCLUDE_PORTS: "2124,8080,9443"
+      EXCLUDE_PORTS: "2124,8080"
 
-  proxy:
+  lb:
     image: 'dockercloud/haproxy:latest'
     restart: always
     # environment:
     #   - DEBUG="true"
-    networks:
-      - public
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     links:

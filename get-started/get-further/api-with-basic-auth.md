@@ -4,7 +4,7 @@ This step will typically be done by a microservice developer.
 
 - Create a file named Gatewayfile with the following content:
 
-  ```
+  ```json
   {
     "Service": {
     "name": "Google Search With Basic Auth",
@@ -30,7 +30,7 @@ This step will typically be done by a microservice developer.
   ```
   curl --insecure \
        --user "admin:password" \
-       --url https://localhost/quickstart/1.0/services/ \
+       --url https://localhost/quickstart/1.0/services \
        --data @Gatewayfile
   ```
 

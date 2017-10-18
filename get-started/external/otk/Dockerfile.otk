@@ -8,3 +8,15 @@
 FROM caapimcollab/mobile-app-services:4.0.02-beta
 
 RUN mkdir -p /opt/docker/rc.d/bootstrap/ && touch /opt/docker/rc.d/bootstrap/restman && mkdir -p /opt/docker/rc.d/bootstrap/ && touch /opt/docker/rc.d/bootstrap/policyman
+
+# Add solution kits
+ADD ./solutionkits/*.skmult /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/
+
+# Add after start RESTMAN XML files (processed by the scripts below)
+ADD ./customize/bundle/after-start/*.xml /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/after-start/
+
+# Add after start scripts
+ADD ./customize/rc.d/*.sh /opt/docker/rc.d/after-start/
+
+# Add OTK users and OAuth clients automatically
+COPY ./customize/db/liquibase/*.xml /db/liquibase/

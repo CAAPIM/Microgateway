@@ -1,0 +1,137 @@
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.2.xsd">
+    <property name="OTK_HOSTNAME" value="https://otk:8443"/>
+    <changeSet author="gateway" id="create-openid-connect-client">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="123456800-otk"/>
+            <column name="name" value="OpenID Connect Basic Client Profile"/>
+            <column name="description" value="Test for OpenID Connect BCP"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="admin"/>
+            <column name="type" value="confidential"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="5eed868e-7ad0-4172-88f2-704bcf78b61e"/>
+            <column name="secret" value="2054e4d7-77f2-46c9-bc4d-11a47255a6ec"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="admin"/>
+            <column name="client_ident" value="123456800-otk"/>
+            <column name="client_name" value="OpenID Connect Basic Client Profile"/>
+            <column name="scope" value="openid email profile phone address"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gateway" id="openid-connect-client-update-callback" runOnChange="true">
+        <update tableName="oauth_client_key">
+            <column name="callback" value="${OTK_HOSTNAME}/oauth/v2/client/bcp?auth=done"/>
+            <where>client_key="5eed868e-7ad0-4172-88f2-704bcf78b61e"</where>
+        </update>
+    </changeSet>
+    <changeSet author="gateway" id="create-openid-connect-implicit-client">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="123456801-otk"/>
+            <column name="name" value="OpenID Connect Implicit Client Profile"/>
+            <column name="description" value="Test for OpenID Connect ICP"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="admin"/>
+            <column name="type" value="public"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="5edc4a38-75ec-4617-8854-1a71ff1e0a2e"/>
+            <column name="secret" value="5005a669-0295-4602-be7d-6a75342db6d8"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="admin"/>
+            <column name="client_ident" value="123456801-otk"/>
+            <column name="client_name" value="OpenID Connect Implicit Client Profile"/>
+            <column name="scope" value="openid email profile phone address"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gateway" id="openid-connect-implicit-client-update-callback" runOnChange="true">
+        <update tableName="oauth_client_key">
+            <column name="callback" value="${OTK_HOSTNAME}/oauth/v2/client/icp?auth=done"/>
+            <where>client_key="5edc4a38-75ec-4617-8854-1a71ff1e0a2e"</where>
+        </update>
+    </changeSet>
+    <changeSet author="gateway" id="create-oauth1-client">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="TestClient1.0"/>
+            <column name="name" value="OAuth1Client"/>
+            <column name="description" value="OAuth 1.0 test client hosted on the ssg"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="admin"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="acf89db2-994e-427b-ac2c-88e6101f9433"/>
+            <column name="secret" value="74d5e0db-cd8b-4d8e-a989-95a0746c3343"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="admin"/>
+            <column name="client_ident" value="TestClient1.0"/>
+            <column name="client_name" value="OAuth1Client"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gateway" id="create-oauth2-client">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="TestClient2.0"/>
+            <column name="name" value="OAuth2Client"/>
+            <column name="description" value="OAuth 2.0 test client hosted on the ssg"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="admin"/>
+            <column name="type" value="confidential"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="54f0c455-4d80-421f-82ca-9194df24859d"/>
+            <column name="secret" value="a0f2742f-31c7-436f-9802-b7015b8fd8e6"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="admin"/>
+            <column name="client_ident" value="TestClient2.0"/>
+            <column name="client_name" value="OAuth2Client"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="54f0c455-4d80-421f-82ca-9194df24859e"/>
+            <column name="secret" value="a0f2742f-31c7-436f-9802-b7015b8fd8e7"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="admin"/>
+            <column name="client_ident" value="TestClient2.0"/>
+            <column name="client_name" value="Microservices Demo Test Client"/>
+            <column name="scope" value="openid email profile phone address msso_register mas_storage no-id-token oob"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gateway" id="oauth2-client-update-callback" runOnChange="true">
+        <update tableName="oauth_client_key">
+            <column name="callback" value="${OTK_HOSTNAME}/oauth/v2/client/authcode?auth=done,${OTK_HOSTNAME}/oauth/v2/client/implicit?auth=done"/>
+            <where>client_key="54f0c455-4d80-421f-82ca-9194df24859d"</where>
+        </update>
+    </changeSet>
+    <changeSet author="gateway" id="create-microgateway-demo">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="123456801-otk-microgateway"/>
+            <column name="name" value="microgateway"/>
+            <column name="description" value="Test for microgateway"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="arose"/>
+            <column name="type" value="public"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="clientkey"/>
+            <column name="secret" value="clientsecret"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="arose"/>
+            <column name="client_ident" value="123456801-otk-microgateway"/>
+            <column name="client_name" value="microgateway"/>
+            <column name="scope" value="openid email profile phone address oob"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

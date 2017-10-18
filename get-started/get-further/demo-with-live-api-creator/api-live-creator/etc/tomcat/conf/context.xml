@@ -35,5 +35,5 @@
 
     <ResourceLink global="jdbc/AdminDB" name="jdbc/AdminDB" type="javax.sql.DataSource"/>
 
-    <Environment name="caGatewayLACPort" value="8081" type="java.lang.Integer" override="false"/>
+    <!-- <Environment name="caGatewayLACPort" value="8081" type="java.lang.Integer" override="false"/> -->
 </Context>

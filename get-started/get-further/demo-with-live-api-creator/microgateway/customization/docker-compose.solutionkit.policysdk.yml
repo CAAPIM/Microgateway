@@ -1,0 +1,9 @@
+version: '3'
+services:
+  ssg:
+    environment:
+      SOLUTION_KIT_POLICYSDK_ENABLED: "true"
+      SOLUTION_KIT_POLICYSDK_COMPANY: MyCompany
+      SOLUTION_KIT_POLICYSDK_INGRESS: https://otk:8443
+      SOLUTION_KIT_POLICYSDK_MASTER_KEY: microgateway-cluster-oauth-key
+      SOLUTION_KIT_POLICYSDK_ISS: https://$${gateway.cluster.hostname}:8443/quickstart/1.0

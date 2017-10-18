@@ -39,13 +39,18 @@ Exposes and protect microservices APIs.
 ### Live API Creator
 
 Add you Live API Creator license to the folder `api-live-creator/etc/license/`
-and name it `CA_Technologies_LiveAPI_License.json`
+and name it `CA_Technologies_LiveAPI_License.json`.
+
+### OTK
+
+Accept license by passing the value "true" to the environment variable `ACCEPT_LICENSE` in
+the OTK [license.env](../../external/otk/config/license.env) file.
 
 ### Microgateway
 
 By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-the file [license.env](../../get-started/docker-compose/config/license.env), you are expressing
-your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md).
+the file [license.env](../../docker-compose/config/license.env), you are expressing
+your acceptance of the [Microservices Gateway Pre-Release Agreement](../../../LICENSE.md).
 
 ## Start
 ```

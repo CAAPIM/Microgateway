@@ -10,12 +10,6 @@ services:
     image: mysql:5.5
     env_file:
       - ./config/otk-db.env
-    volumes:
-      - mysql-data-otk:/var/lib/mysql
-    expose:
-      - "3306"
-    ports:
-      - "3306:3306"
 
   otk:
     build:
@@ -37,6 +31,3 @@ services:
       SSG_SSL_KEY_PASS: password
     links:
       - otk_mysqldb
-
-volumes:
-  mysql-data-otk:

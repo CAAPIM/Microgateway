@@ -15,7 +15,7 @@ API_LIVE_CREATOR_USER="admin"
 API_LIVE_CREATOR_PASSWORD="Password1"
 API_LIVE_CREATOR_HOST="http://localhost:8111"
 API_LIVE_CREATOR_SERVER_ALIAS="lac_cluster"
-API_LIVE_CREATOR_RETRY_TIMEOUT="30" # In seconds
+API_LIVE_CREATOR_RETRY_TIMEOUT="60" # In seconds
 
 MICROGATEWAY_PATH="${CWD}/../../docker-compose"
 MICROGATEWAY_PATH_ADDONS="${CWD}/microgateway/add-ons"
@@ -27,6 +27,7 @@ OTK_HOST="localhost:8443"
 OTK_USERNAME="admin"
 OTK_PASSWORD="password"
 OTK_PATH="${CWD}/../../external/otk"
+OTK_SOLUTIONKIT_POLICYSDK_PATH="${CWD}/otk/solutionkits/PolicySDK-v1.0.0.00.skmult"
 
 # COLORS
 COLOR_GREEN="\033[0;32m"   # green
@@ -53,6 +54,7 @@ function main() {
             api_live_creator::deploy "${API_LIVE_CREATOR_PATH}" "$DOCKER_PROJECT_NAME" "1"
 
             log::info "Deploying CA OTK"
+            otk::solutionkit::add "$OTK_SOLUTIONKIT_POLICYSDK_PATH" "$OTK_PATH/solutionkits/"
             otk::deploy "$OTK_PATH" "$DOCKER_PROJECT_NAME"
 
             log::info "Deploying CA Microgateway"
@@ -106,6 +108,7 @@ function main() {
 
             log::info "Destroying CA OTK"
             otk::destroy "$OTK_PATH" "$DOCKER_PROJECT_NAME"
+            otk::solutionkit::remove "$OTK_PATH/solutionkits/$(basename $OTK_SOLUTIONKIT_POLICYSDK_PATH)"
 
             log::info "Removing the Docker network ${DOCKER_PROJECT_NAME}_default"
             docker::network::rm "${DOCKER_PROJECT_NAME}_default"
@@ -297,6 +300,21 @@ function microgateway::destroy() {
 }
 
 # OTK functions
+function otk::solutionkit::add() {
+    local source_path="$1"
+    local dest_path="$2"
+
+    cp $source_path $dest_path
+}
+
+function otk::solutionkit::remove() {
+    local path="$1"
+
+    if [ -f "$path" ]; then
+      rm $path
+    fi
+}
+
 function otk::deploy() {
   local path="$1"
   local project="$2"

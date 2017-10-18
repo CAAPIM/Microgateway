@@ -1,0 +1,16 @@
+{
+    "Service": {
+        "name": "Orders",
+        "gatewayUri": "/v1/recommendation",
+        "httpMethods": [ "get", "post", "delete", "update" ],
+        "policy": [
+            {
+                "RouteHttp" : {
+                    "targetUrl": "https://lac-node:8081/rest/default/svcRecs/v1/rec_func"
+                    "preserveRequestPath": "true",
+                    "httpMethod": "Automatic"
+                }
+            }
+        ]
+    }
+}

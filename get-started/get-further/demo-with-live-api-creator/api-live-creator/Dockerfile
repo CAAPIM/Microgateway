@@ -1,16 +1,14 @@
 FROM caliveapicreator/3.2
+# FROM caliveapicreator/4.0.00
 
 # Add the license
-# ADD ./etc/license/CA_Technologies_LiveAPI_License.json /usr/local/tomcat/bin/EvalLicense_exp20171007.txt
-ADD ./CA_Technologies_LiveAPI_License.json /usr/local/tomcat/bin/EvalLicense_exp20171007.txt
+ADD ./etc/license/CA_Technologies_LiveAPI_License.json /usr/local/tomcat/bin/EvalLicense_exp20171007.txt
 
-# Create the keystore folder
-# CMD mkdir -p $CATALINA_HOME/conf/keystore
-
-# Add the private keys (p12)
-# ADD ./etc/tls/private/* $CATALINA_HOME/conf/keystore
+# Add the server private and public key (p12)
+ADD ./etc/tls/server.p12 $CATALINA_HOME/conf/server.p12
 
 # Add the public certificates
-# ADD ./etc/tls/certs/* $CATALINA_HOME/conf/keystore
+ADD ./etc/tls/ca.jks $CATALINA_HOME/conf/ca.jks
 
-# Configuration a dedicated port for API Server and API Gateway to communicate
+# Customize the Tomcat configuration
+ADD ./etc/tomcat/conf/* $CATALINA_HOME/conf/

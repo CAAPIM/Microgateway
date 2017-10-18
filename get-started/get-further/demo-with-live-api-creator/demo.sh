@@ -18,9 +18,10 @@ API_LIVE_CREATOR_SERVER_ALIAS="lac_cluster"
 API_LIVE_CREATOR_RETRY_TIMEOUT="30" # In seconds
 
 MICROGATEWAY_PATH="${CWD}/../../docker-compose"
-MICROGATEWAY_PATH_ADDONS="${CWD}/microgateway-addons/add-ons"
+MICROGATEWAY_PATH_ADDONS="${CWD}/microgateway/add-ons"
+MICROGATEWAY_PATH_CUSTOMIZATION="${CWD}/microgateway/customization"
 MICROGATEWAY_SSG_SCALE="1"
-MICROGATEWAY_DB_TYPE="consul" # postgresql or consul
+MICROGATEWAY_DB_TYPE="" # postgresql or consul or empty (leave empty for the immutable mode)
 
 OTK_HOST="localhost:8443"
 OTK_USERNAME="admin"
@@ -59,7 +60,8 @@ function main() {
                                  "$MICROGATEWAY_PATH_ADDONS" \
                                  "$DOCKER_PROJECT_NAME" \
                                  "$MICROGATEWAY_SSG_SCALE" \
-                                 "$MICROGATEWAY_DB_TYPE"
+                                 "$MICROGATEWAY_DB_TYPE" \
+                                 "$MICROGATEWAY_PATH_CUSTOMIZATION"
 
             log::info "Waiting for CA Live API Creator"
             api_live_creator::wait  "$API_LIVE_CREATOR_RETRY_TIMEOUT" \
@@ -241,6 +243,7 @@ function microgateway::deploy() {
   local project="$3"
   local ssg_scale="$4"
   local db_type="$5"
+  local path_customization="$6"
 
   if [ ! -d "${path}/add-ons.orig" ]; then
     mv "${path}/add-ons" "${path}/add-ons.orig"
@@ -253,11 +256,17 @@ function microgateway::deploy() {
   cp -r "${path_addons}" "${path}/add-ons"
   cp "${path}/add-ons.orig/Dockerfile.addon" "${path}/add-ons/"
 
+  local docker_compose_options=""
+  if [ "$db_type" != "" ]; then
+    docker_compose_options="--file ${path}/docker-compose.db.${db_type}.yml"
+  fi
+
   docker-compose --project-name "$project" \
                  --file "${path}/docker-compose.yml" \
-                 --file "${path}/docker-compose.db.${db_type}.yml" \
                  --file "${path}/docker-compose.lb.dockercloud.yml" \
                  --file "${path}/docker-compose.addons.yml" \
+                 --file "${path_customization}/docker-compose.solutionkit.policysdk.yml" \
+                 $docker_compose_options \
                  up -d --build --scale "ssg=${ssg_scale}"
 }
 
@@ -274,11 +283,16 @@ function microgateway::destroy() {
     mv "${path}/add-ons.orig" "${path}/add-ons"
   fi
 
+  local docker_compose_options=""
+  if [ "$db_type" != "" ]; then
+    docker_compose_options="--file ${path}/docker-compose.db.${db_type}.yml"
+  fi
+
   docker-compose --project-name "$project" \
                  --file "${path}/docker-compose.yml" \
-                 --file "${path}/docker-compose.db.${db_type}.yml" \
                  --file "${path}/docker-compose.lb.dockercloud.yml" \
                  --file "${path}/docker-compose.addons.yml" \
+                 $docker_compose_options \
                  rm --stop -v --force
 }
 
@@ -314,7 +328,6 @@ function otk::add_otk_user() {
                                     "$gw_hostname" \
                                     "$gw_certificate"
 }
-
 
 # Docker functions
 function docker::network::create() {

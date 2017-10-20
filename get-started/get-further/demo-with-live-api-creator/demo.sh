@@ -14,6 +14,7 @@ API_LIVE_CREATOR_PATH="${CWD}/api-live-creator"
 API_LIVE_CREATOR_USER="admin"
 API_LIVE_CREATOR_PASSWORD="Password1"
 API_LIVE_CREATOR_HOST="http://localhost:8111"
+API_LIVE_CREATOR_NODES="1"
 API_LIVE_CREATOR_SERVER_ALIAS="lac_cluster"
 API_LIVE_CREATOR_RETRY_TIMEOUT="60" # In seconds
 
@@ -38,7 +39,6 @@ COLOR_DEFAULT="\033[0;39m" # default terminal color
 function main() {
     local action="${1:-}"
 
-
     case "$action" in
         "start")
             log::info "Checking required commands"
@@ -49,9 +49,6 @@ function main() {
 
             log::info "Deploying the database of the microservice Recommendation"
             microservice::deploy "${MICROSERVICE_BASE_PATH}/recommendation" "$DOCKER_PROJECT_NAME"
-
-            log::info "Deploying CA Live API Creator"
-            api_live_creator::deploy "${API_LIVE_CREATOR_PATH}" "$DOCKER_PROJECT_NAME" "1"
 
             log::info "Deploying CA OTK"
             otk::solutionkit::add "$OTK_SOLUTIONKIT_POLICYSDK_PATH" "$OTK_PATH/solutionkits/"
@@ -65,11 +62,17 @@ function main() {
                                  "$MICROGATEWAY_DB_TYPE" \
                                  "$MICROGATEWAY_PATH_CUSTOMIZATION"
 
+            log::info "Bootstrapping CA Live API Creator"
+            api_live_creator::deploy "${API_LIVE_CREATOR_PATH}" "$DOCKER_PROJECT_NAME" "0"
+
             log::info "Waiting for CA Live API Creator"
             api_live_creator::wait  "$API_LIVE_CREATOR_RETRY_TIMEOUT" \
                                     "$API_LIVE_CREATOR_HOST" \
                                     "$API_LIVE_CREATOR_USER" \
                                     "$API_LIVE_CREATOR_PASSWORD"
+
+            log::info "Scaling CA Live API Creator to $API_LIVE_CREATOR_NODES node(s)"
+            api_live_creator::deploy "${API_LIVE_CREATOR_PATH}" "$DOCKER_PROJECT_NAME" "$API_LIVE_CREATOR_NODES"
 
             log::info "Logging in to CA Live API Creator"
             api_live_creator::login "$API_LIVE_CREATOR_HOST" \
@@ -178,7 +181,7 @@ function api_live_creator::deploy() {
     docker-compose --project-name "$project" \
                    --file docker-compose.yml \
                    --file docker-compose.db.yml \
-                   up -d --build --scale "lacscale_node=$node_scale"
+                   up -d --build --scale "lac-node=$node_scale"
     >/dev/null popd
 }
 

@@ -365,6 +365,27 @@ function docker::network::rm() {
   fi
 }
 
+function docker::wait_healthy() {
+  local container_name="$1"
+  local timeout="$2"
+
+  local is_up=false
+  for i in $(seq 1 $retry); do
+    if docker ps --filter "name=${container_name}" \
+       | grep --only \
+              --extended-regexp "\(healthy\)"; then
+
+      is_up=true
+      break
+    fi
+    sleep 1
+  done
+
+  if ! $is_up; then
+    log::error "The container $container_name was not healthy within $timeout seconds."
+  fi
+}
+
 # Other functions
 function check::required_cli() {
     command -v docker-compose

@@ -1,5 +1,5 @@
-FROM caliveapicreator/3.2
-# FROM caliveapicreator/4.0.00
+FROM caliveapicreator/4.0.00
+
 
 # Add the license
 ADD ./etc/license/CA_Technologies_LiveAPI_License.json /usr/local/tomcat/bin/EvalLicense_exp20171007.txt

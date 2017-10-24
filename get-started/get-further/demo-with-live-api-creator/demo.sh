@@ -288,6 +288,7 @@ function microgateway::deploy() {
                  --file "${path}/docker-compose.lb.dockercloud.yml" \
                  --file "${path}/docker-compose.addons.yml" \
                  --file "${path_customization}/docker-compose.solutionkit.policysdk.yml" \
+                 --file "${path_customization}/docker-compose.customize.yml" \
                  $docker_compose_options \
                  up -d --build --scale "ssg=${ssg_scale}"
 }

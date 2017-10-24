@@ -25,6 +25,29 @@
             <column name="custom" value="{}"/>
         </insert>
     </changeSet>
+    <changeSet author="gateway" id="create-ingress-gateway">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="IngressGateway"/>
+            <column name="name" value="IngressGateway"/>
+            <column name="description" value="IngressGateway cluster OAuth client"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="arose"/>
+            <column name="type" value="confidential"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="ingressgateway-cluster-oauth-key"/>
+            <column name="secret" value="ingressgateway-cluster-oauth-key"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="arose"/>
+            <column name="client_ident" value="IngressGateway"/>
+            <column name="client_name" value="ingressgateway-cluster"/>
+            <column name="callback" value="oob"/>
+            <column name="scope" value="msso msso_client_register"/>
+            <column name="environment" value="ALL"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
     <changeSet author="gateway" id="create-microgateway-client">
         <insert tableName="oauth_client">
             <column name="client_ident" value="clientMS"/>

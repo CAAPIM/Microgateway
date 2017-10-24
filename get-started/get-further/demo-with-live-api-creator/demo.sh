@@ -25,6 +25,8 @@ MICROGATEWAY_PATH_CUSTOMIZATION="${CWD}/microgateway/customization"
 MICROGATEWAY_SSG_SCALE="1"
 MICROGATEWAY_DB_TYPE="consul" # postgresql or consul or empty (leave empty for the immutable mode)
 
+INGRESS_GATEWAY_PATH="${CWD}/gateway"
+
 OTK_HOST="localhost:8443"
 OTK_USERNAME="admin"
 OTK_PASSWORD="password"
@@ -62,6 +64,10 @@ function main() {
                                  "$MICROGATEWAY_SSG_SCALE" \
                                  "$MICROGATEWAY_DB_TYPE" \
                                  "$MICROGATEWAY_PATH_CUSTOMIZATION"
+
+            log::info "Deploying Ingress Gateway"
+            ingress_gateway::deploy "$INGRESS_GATEWAY_PATH" \
+                                    "$DOCKER_PROJECT_NAME" \
 
             log::info "Bootstrapping CA Live API Creator"
             api_live_creator::deploy "${API_LIVE_CREATOR_PATH}" "$DOCKER_PROJECT_NAME" "0"
@@ -114,6 +120,10 @@ function main() {
                                   "$MICROGATEWAY_PATH_ADDONS" \
                                   "$DOCKER_PROJECT_NAME" \
                                   "$MICROGATEWAY_DB_TYPE"
+
+            log::info "Destroying Ingress Gateway"
+            ingress_gateway::destroy "$INGRESS_GATEWAY_PATH" \
+                                     "$DOCKER_PROJECT_NAME" \
 
             log::info "Destroying CA OTK"
             otk::destroy "$OTK_PATH" "$DOCKER_PROJECT_NAME"
@@ -305,6 +315,27 @@ function microgateway::destroy() {
                  --file "${path}/docker-compose.lb.dockercloud.yml" \
                  --file "${path}/docker-compose.addons.yml" \
                  $docker_compose_options \
+                 rm --stop -v --force
+}
+
+# Ingress Gateway functions
+function ingress_gateway::deploy {
+  local path="$1"
+  local project="$2"
+
+  docker-compose --project-name "$project" \
+                 --file "${path}/docker-compose.yml" \
+                 --file "${path}/docker-compose.db.postgresql.yml" \
+                 up -d --build
+}
+
+function ingress_gateway::destroy {
+  local path="$1"
+  local project="$2"
+
+  docker-compose --project-name "$project" \
+                 --file "${path}/docker-compose.yml" \
+                 --file "${path}/docker-compose.db.postgresql.yml" \
                  rm --stop -v --force
 }
 

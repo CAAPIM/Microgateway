@@ -1,4 +1,4 @@
-# Microgateway protecting Live API Creator microservices
+# Sample end-to-end security and integration infrastructure for microservices using Microgateway
 
 *  [Architecture](#)
     * [Backend microservice data source](#)
@@ -20,7 +20,7 @@ used the database service `recommendation-db`
 
 ### Backend microservices
 
-Microservices are created and operated by CA API Live Creator. It is configured with Mutual TLS Authentication which to accept connection from Microgateway nodes only.
+Sample microservices are created and operated by CA API Live Creator. In real life, it can be any microservices. It is configured with Mutual TLS Authentication which to accept connection from Microgateway nodes only.
 
 Admin service: `lac-admin`
 

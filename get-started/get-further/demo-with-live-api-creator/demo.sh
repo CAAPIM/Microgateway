@@ -317,6 +317,10 @@ function microgateway::destroy() {
                  --file "${path}/docker-compose.addons.yml" \
                  $docker_compose_options \
                  rm --stop -v --force
+
+  if [ "$db_type" == "consul" ]; then
+    docker volume rm --force "${project}_consul"
+  fi
 }
 
 # Ingress Gateway functions

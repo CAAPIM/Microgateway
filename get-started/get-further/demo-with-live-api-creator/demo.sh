@@ -23,7 +23,7 @@ MICROGATEWAY_PATH="${CWD}/../../docker-compose"
 MICROGATEWAY_PATH_ADDONS="${CWD}/microgateway/add-ons"
 MICROGATEWAY_PATH_CUSTOMIZATION="${CWD}/microgateway/customization"
 MICROGATEWAY_SSG_SCALE="1"
-MICROGATEWAY_DB_TYPE="" # postgresql or consul or empty (leave empty for the immutable mode)
+MICROGATEWAY_DB_TYPE="consul" # postgresql or consul or empty (leave empty for the immutable mode)
 
 OTK_HOST="localhost:8443"
 OTK_USERNAME="admin"

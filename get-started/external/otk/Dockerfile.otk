@@ -5,7 +5,7 @@
 #  of the MIT license. See the LICENSE file for details.
 #
 # Unlock OTK
-FROM caapimcollab/mobile-app-services:4.0.02-beta
+FROM caapimcollab/mobile-app-services:4.0.03-beta
 
 RUN mkdir -p /opt/docker/rc.d/bootstrap/ && touch /opt/docker/rc.d/bootstrap/restman && mkdir -p /opt/docker/rc.d/bootstrap/ && touch /opt/docker/rc.d/bootstrap/policyman
 

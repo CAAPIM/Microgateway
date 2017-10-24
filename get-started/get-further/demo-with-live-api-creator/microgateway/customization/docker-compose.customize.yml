@@ -1,0 +1,5 @@
+version: '3'
+services:
+  ssg:
+    environment:
+      CLUSTER_PROPERTY_cluster_hostname: ssg

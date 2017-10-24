@@ -7,6 +7,7 @@ CWD="$(cd "$(dirname "$0")" && pwd)" # Script directory
 [ "${DEMO_DEBUG:-0}" -eq 1 ] && set -o xtrace
 
 # Configuration
+START_TIMEOUT="600"
 DOCKER_PROJECT_NAME="demo" # do not change
 MICROSERVICE_BASE_PATH="${CWD}/microservices"
 
@@ -89,6 +90,11 @@ function main() {
             api_live_creator::create_api "${MICROSERVICE_BASE_PATH}/recommendation/recommendation.json" \
                                          "rec" \
                                          "root"
+
+            log::info "Waiting for all containers to be healthy"
+            log::info "If timeout, you can wait manually with the command:"
+            log::info "docker ps --format \"table {{.Names}}\\t{{.Status}}\""
+            docker::wait_all_healthy "$START_TIMEOUT"
             log::info "done"
             ;;
 
@@ -370,7 +376,7 @@ function docker::wait_healthy() {
   local timeout="$2"
 
   local is_up=false
-  for i in $(seq 1 $retry); do
+  for i in $(seq 1 $timeout); do
     if docker ps --filter "name=${container_name}" \
        | grep --only \
               --extended-regexp "\(healthy\)"; then
@@ -383,6 +389,28 @@ function docker::wait_healthy() {
 
   if ! $is_up; then
     log::error "The container $container_name was not healthy within $timeout seconds."
+  fi
+}
+
+function docker::wait_all_healthy() {
+  local timeout="$1"
+
+  local is_up=false
+  for i in $(seq 1 $timeout); do
+    log::info "Waiting for:"
+    if ! docker ps --format "table {{.Names}}\t{{.Status}}" \
+       | grep --extended-regexp "\(.*\)" \
+       | grep --only \
+              --invert-match --extended-regexp "\(healthy\)"; then
+
+        is_up=true
+        break
+    fi
+    sleep 1
+  done
+
+  if ! $is_up; then
+    log::error "The services were not healthy within $timeout seconds."
   fi
 }
 

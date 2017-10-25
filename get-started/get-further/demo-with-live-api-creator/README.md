@@ -1,29 +1,54 @@
 # Sample end-to-end security and integration infrastructure for microservices using Microgateway
 
-*  [Architecture](#)
-    * [Backend microservice data source](#)
-    * [Backend microservices](#)
-    * [Authentication and authorization service](#)
-    * [Microgateway](#)
-* [Operate](#)
-  * [License](#)
-  * [Start](#)
-  * [Update](#)
-  * [Stop / Destroy](#)
-  * [Debug mode](#)
-* [Expose microservice APIs](#)
-  * [Expose and secure](#)
-  * [Orchestrate](#)
-* [Consume](#)
+* [Prerequisites](#prerequisites)
+* [Architecture](#architecture)
+    * [Backend microservice data source](#datasource)
+    * [Backend microservices](#microservices)
+    * [Authentication and authorization service](#auth)
+    * [Microgateway](#microgateway)
+* [Operate](#operate)
+  * [License](#license)
+  * [Start](#ops-start)
+  * [Update](#ops-update)
+  * [Destroy](#ops-destroy)
+  * [Debug mode](#ops-debug)
+* [Expose APIs](#expose-apis)
+  * [Expose and secure microservices](#expose-microservices)
+  * [Orchestrate](#orchestrate)
+* [Consume](#consume)
 
-## Architecture
-### Backend microservice data source
+## Prerequisites <a name="prerequisites"></a>
+
+- A docker host
+
+  You can use Docker on your laptop or in the Cloud. Docker-machine
+  (https://docs.docker.com/machine/drivers/) can be used as a quick way to deploy
+  a remote Docker host.
+
+  Run the following command to validate that you can reach your Docker host.
+  ```
+  docker info
+  ```
+
+- 8GB of memory allocated to the Docker host
+
+  See https://docs.docker.com/docker-for-mac/#advanced for guidance.
+
+- Commands:
+  - bash (for Windows users, see Git Bash https://git-for-windows.github.io/)
+  - docker-compose
+  - docker
+  - lacadmin (https://github.com/EspressoLogicCafe/CALiveAPICreatorAdminCLI)
+  - curl (or another HTTP client)
+
+## Architecture <a name="architecture"></a>
+### Backend microservice data source <a name="datasource"></a>
 
 One database service is used per microservice. In our demo, the microservice
 `order` uses the database service `orders-db` and the microservice `recommendation`
 used the database service `recommendation-db`
 
-### Backend microservices
+### Backend microservices <a name="microservices"></a>
 
 Sample microservices are created and operated by CA API Live Creator. In real life, it can be any microservices. It is configured with Mutual TLS Authentication which to accept connection from Microgateway nodes only.
 
@@ -31,17 +56,17 @@ Admin service: `lac-admin`
 
 Microservices service: `lac-node`
 
-### Authentication and authorization service
+### Authentication and authorization service <a name="auth"></a>
 
 Operated by CA API Gateway OAuth Toolkit (CA OTK) to manage
 OAuth client authentication and authorization. Additionally,
 the plugin `PolicySDK` serves signed certificate to each Microgateway node based on the Microgateway OAuth client ID.
 
-### Microgateway
+### Microgateway <a name="microgateway"></a>
 Exposes and protect microservices APIs.
 
-## Operate
-### License
+## Operate <a name="operate"></a>
+### License <a name="license"></a>
 #### Live API Creator
 
 Add you Live API Creator license to the folder `api-live-creator/etc/license/`
@@ -58,13 +83,13 @@ By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
 the file [license.env](../../docker-compose/config/license.env), you are expressing
 your acceptance of the [Microservices Gateway Pre-Release Agreement](../../../LICENSE.md).
 
-### Start
+### Start <a name="ops-start"></a>
 ```
 cd get-started/get-further/demo-with-live-api-creator
 ./demo.sh start
 ```
 
-### Wait for the containers to be healthy
+#### Wait for the containers to be healthy
 ```
 docker ps --format "table {{.Names}}\t{{.Status}}"
 ```
@@ -82,26 +107,26 @@ demo_recommendation-db_1   Up 23 minutes
 demo_orders-db_1           Up 23 minutes
 ```
 
-### Update
+### Update <a name="ops-update"></a>
 Simply re-run the command from the "Start" section. Docker will only relaunch
 modified configuration.
 
-### Stop / Destroy
+### Destroy <a name="ops-destroy"></a>
 ```
 cd get-started/get-further/demo-with-live-api-creator
 ./demo.sh stop
 ```
 
-### Debug mode
+### Debug mode <a name="ops-debug"></a>
 ```
 export DEMO_DEBUG=1
 ```
 
 then run `demo.sh`.
 
-## Expose microservice APIs
+## Expose microservice APIs <a name="expose-apis"></a>
 
-### Expose and secure
+### Expose and secure <a name="expose-microservices"></a>
 
 *This step will typically be done by a microservice developer or a continuous
 integration and continuous delivery system like Jenkins*
@@ -129,7 +154,7 @@ curl --insecure \
      --data @microservices/recommendation/Gatewayfile
 ```
 
-### Orchestrate
+### Orchestrate <a name="orchestrate"></a>
 
 *This step will typically be done by an API owner*
 
@@ -144,4 +169,13 @@ curl --insecure \
      --data @apis-orchestration/recommendator.json
 ```
 
-## Consume
+## Consume <a name="consume"></a>
+
+*This step will typically be done by an end user*
+
+The public API is consumed from the ingress gateway securing and orchestrating
+backend microservice APIs.
+
+```
+curl --insecure 'https://localhost:9443/recommendator?customer=129'
+```

@@ -5,11 +5,16 @@
     * [Backend microservices](#)
     * [Authentication and authorization service](#)
     * [Microgateway](#)
-* [License](#)
-* [Start](#)
-* [Update](#)
-* [Stop / Destroy](#)
-* [Debug mode](#)
+* [Operate](#)
+  * [License](#)
+  * [Start](#)
+  * [Update](#)
+  * [Stop / Destroy](#)
+  * [Debug mode](#)
+* [Expose microservice APIs](#)
+  * [Expose and secure](#)
+  * [Orchestrate](#)
+* [Consume](#)
 
 ## Architecture
 ### Backend microservice data source
@@ -35,30 +40,31 @@ the plugin `PolicySDK` serves signed certificate to each Microgateway node based
 ### Microgateway
 Exposes and protect microservices APIs.
 
-## License
-### Live API Creator
+## Operate
+### License
+#### Live API Creator
 
 Add you Live API Creator license to the folder `api-live-creator/etc/license/`
 and name it `CA_Technologies_LiveAPI_License.json`.
 
-### OTK
+#### OTK
 
 Accept license by passing the value "true" to the environment variable `ACCEPT_LICENSE` in
 the OTK [license.env](../../external/otk/config/license.env) file.
 
-### Microgateway
+#### Microgateway
 
 By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
 the file [license.env](../../docker-compose/config/license.env), you are expressing
 your acceptance of the [Microservices Gateway Pre-Release Agreement](../../../LICENSE.md).
 
-## Start
+### Start
 ```
 cd get-started/get-further/demo-with-live-api-creator
 ./demo.sh start
 ```
 
-## Wait for the containers to be healthy
+### Wait for the containers to be healthy
 ```
 docker ps --format "table {{.Names}}\t{{.Status}}"
 ```
@@ -76,19 +82,66 @@ demo_recommendation-db_1   Up 23 minutes
 demo_orders-db_1           Up 23 minutes
 ```
 
-## Update
+### Update
 Simply re-run the command from the "Start" section. Docker will only relaunch
 modified configuration.
 
-## Stop / Destroy
+### Stop / Destroy
 ```
 cd get-started/get-further/demo-with-live-api-creator
 ./demo.sh stop
 ```
 
-## Debug mode
+### Debug mode
 ```
 export DEMO_DEBUG=1
 ```
 
 then run `demo.sh`.
+
+## Expose microservice APIs
+
+### Expose and secure
+
+*This step will typically be done by a microservice developer or a continuous
+integration and continuous delivery system like Jenkins*
+
+We will expose and secure with the Microgateway the two microservices "Orders"
+and "Recommendation" created in Live API Creator.
+
+Each API is defined in JSON in a file that we named "Gatewayfile".
+
+- Orders:
+
+```
+curl --insecure \
+     --user "admin:password" \
+     --url https://localhost/quickstart/1.0/services \
+     --data @microservices/orders/Gatewayfile
+```
+
+- Recommendation:
+
+```
+curl --insecure \
+     --user "admin:password" \
+     --url https://localhost/quickstart/1.0/services \
+     --data @microservices/recommendation/Gatewayfile
+```
+
+### Orchestrate
+
+*This step will typically be done by an API owner*
+
+We will create an API that orchestrates the two microservice APIs that we
+previously exposed in the Microgateway. This API will be exposed on the edge
+Gateway.
+
+```
+curl --insecure \
+     --user "admin:password" \
+     --url https://localhost:9443/quickstart/1.0/services \
+     --data @apis-orchestration/recommendator.json
+```
+
+## Consume

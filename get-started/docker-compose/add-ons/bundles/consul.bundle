@@ -20,7 +20,7 @@
             <l7:Resource>
                 <l7:ClusterProperty id="d1082092bb231dd046946ec61d23f3f5" version="4">
                     <l7:Name>consul.agentAddr</l7:Name>
-                    <l7:Value>http://172.16.2.1:8500</l7:Value>
+                    <l7:Value>http://consul:8500</l7:Value>
                 </l7:ClusterProperty>
             </l7:Resource>
         </l7:Item>

@@ -119,15 +119,15 @@
             <column name="name" value="microgateway"/>
             <column name="description" value="Test for microgateway"/>
             <column name="organization" value="CA Technologies"/>
-            <column name="registered_by" value="arose"/>
+            <column name="registered_by" value="lily"/>
             <column name="type" value="public"/>
             <column name="custom" value="{}"/>
         </insert>
         <insert tableName="oauth_client_key">
             <column name="client_key" value="clientkey"/>
-            <column name="secret" value="clientsecret"/>
+            <column name="secret" value="clientkey"/>
             <column name="status" value="ENABLED"/>
-            <column name="created_by" value="arose"/>
+            <column name="created_by" value="lily"/>
             <column name="client_ident" value="123456801-otk-microgateway"/>
             <column name="client_name" value="microgateway"/>
             <column name="scope" value="openid email profile phone address oob"/>

@@ -199,7 +199,7 @@
         "ident": 2000,
         "name": "Database: recommendation - root",
         "comments": "Created using Connect Wizard",
-        "url": "jdbc:mysql://mysql_recommendation:3306/recommendation",
+        "url": "jdbc:mysql://recommendation-db:3306/recommendation",
         "catalog_name": "recommendation",
         "schema_name": null,
         "user_name": "root",

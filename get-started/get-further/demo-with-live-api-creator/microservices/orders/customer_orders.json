@@ -438,7 +438,7 @@
         "ident": 2001,
         "name": "Database: customer_orders - root",
         "comments": "Created using Connect Wizard",
-        "url": "jdbc:mysql://mysql_orders:3306/customer_orders",
+        "url": "jdbc:mysql://orders-db:3306/customer_orders",
         "catalog_name": "customer_orders",
         "schema_name": null,
         "user_name": "root",

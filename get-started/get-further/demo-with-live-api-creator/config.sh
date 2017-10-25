@@ -16,9 +16,13 @@ MICROGATEWAY_PATH_ADDONS="${CWD}/microgateway/add-ons"
 MICROGATEWAY_PATH_CUSTOMIZATION="${CWD}/microgateway/customization"
 MICROGATEWAY_SSG_SCALE="1"
 MICROGATEWAY_DB_TYPE="consul" # postgresql or consul or empty (leave empty for the immutable mode)
+MICROGATEWAY_USERNAME="admin"
+MICROGATEWAY_PASSWORD="password"
 
 INGRESS_GATEWAY_PATH="${CWD}/gateway"
 INGRESS_GATEWAY_DB_TYPE="postgresql" # postgresql or consul or empty (leave empty for the immutable mode)
+INGRESS_GATEWAY_USERNAME="admin"
+INGRESS_GATEWAY_PASSWORD="password"
 
 OTK_HOST="localhost:8443"
 OTK_USERNAME="admin"

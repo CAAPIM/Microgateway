@@ -78,6 +78,13 @@ function main() {
             log::info "If timeout, you can wait manually with the command:"
             log::info "docker ps --format \"table {{.Names}}\\t{{.Status}}\""
             docker::wait_all_healthy "$START_TIMEOUT"
+
+            log::info "Enabling mTLS on gateways"
+            microgateway::beta::enable_mtls "ssg" "$DOCKER_PROJECT_NAME" "$MICROGATEWAY_PATH" "$MICROGATEWAY_USERNAME" "$MICROGATEWAY_PASSWORD" "policy" "RouteHttp"
+            microgateway::beta::enable_mtls "ssg" "$DOCKER_PROJECT_NAME" "$MICROGATEWAY_PATH" "$MICROGATEWAY_USERNAME" "$MICROGATEWAY_PASSWORD" "policy" "RouteOrchestrator"
+            microgateway::beta::enable_mtls "ingress-ssg" "$DOCKER_PROJECT_NAME" "$INGRESS_GATEWAY_PATH" "$INGRESS_GATEWAY_USERNAME" "$INGRESS_GATEWAY_PASSWORD" "policy" "RouteHttp"
+            microgateway::beta::enable_mtls "ingress-ssg" "$DOCKER_PROJECT_NAME" "$INGRESS_GATEWAY_PATH" "$INGRESS_GATEWAY_USERNAME" "$INGRESS_GATEWAY_PASSWORD" "policy" "RouteOrchestrator"
+
             log::info "done"
             ;;
 
@@ -299,6 +306,31 @@ function microgateway::destroy() {
   if [ "$db_type" == "consul" ]; then
     docker volume rm --force "${project}_consul"
   fi
+}
+
+function microgateway::beta::enable_mtls() {
+    # username, password: RESTMan credentials
+    # entity: service or policy
+    # entity_name: the name of the service or policy to update
+    local compose_service="$1"
+    local compose_project="$2"
+    local compose_base_path="$3"
+    local gw_username="$4"
+    local gw_password="$5"
+    local gw_entity="$6"
+    local gw_entity_name="$7"
+
+    local container_counter=0
+    for i in $(docker-compose --project-name "$compose_project" \
+                              --file "${compose_base_path}/docker-compose.yml" \
+                              ps -q "$compose_service"); do
+
+      container_counter=$(($container_counter + 1))
+      docker-compose --project-name "$compose_project" \
+                     --file "${compose_base_path}/docker-compose.yml" \
+                     exec --index=$container_counter "$compose_service" \
+                     curl --insecure "https://localhost:8443/darrin/updaterouting?username=${gw_username}&password=${gw_password}&entity=${gw_entity}&entity_name=${gw_entity_name}"
+    done
 }
 
 # Ingress Gateway functions

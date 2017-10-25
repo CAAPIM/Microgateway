@@ -44,6 +44,7 @@ function main() {
             log::info "Deploying Ingress Gateway"
             ingress_gateway::deploy "$INGRESS_GATEWAY_PATH" \
                                     "$DOCKER_PROJECT_NAME" \
+                                    "$INGRESS_GATEWAY_DB_TYPE"
 
             log::info "Bootstrapping CA Live API Creator"
             api_live_creator::deploy "${API_LIVE_CREATOR_PATH}" "$DOCKER_PROJECT_NAME" "0"
@@ -100,6 +101,7 @@ function main() {
             log::info "Destroying Ingress Gateway"
             ingress_gateway::destroy "$INGRESS_GATEWAY_PATH" \
                                      "$DOCKER_PROJECT_NAME" \
+                                     "$INGRESS_GATEWAY_DB_TYPE"
 
             log::info "Destroying CA OTK"
             otk::destroy "$OTK_PATH" "$DOCKER_PROJECT_NAME"
@@ -303,21 +305,39 @@ function microgateway::destroy() {
 function ingress_gateway::deploy {
   local path="$1"
   local project="$2"
+  local db_type="$3"
+
+  local docker_compose_options=""
+  if [ "$db_type" != "" ]; then
+    docker_compose_options="--file ${path}/docker-compose.db.${db_type}.yml"
+  fi
 
   docker-compose --project-name "$project" \
                  --file "${path}/docker-compose.yml" \
-                 --file "${path}/docker-compose.db.postgresql.yml" \
+                 --file "${path}/docker-compose.addons.yml" \
+                 $docker_compose_options \
                  up -d --build
 }
 
 function ingress_gateway::destroy {
   local path="$1"
   local project="$2"
+  local db_type="$3"
+
+  local docker_compose_options=""
+  if [ "$db_type" != "" ]; then
+    docker_compose_options="--file ${path}/docker-compose.db.${db_type}.yml"
+  fi
 
   docker-compose --project-name "$project" \
                  --file "${path}/docker-compose.yml" \
-                 --file "${path}/docker-compose.db.postgresql.yml" \
+                 --file "${path}/docker-compose.addons.yml" \
+                 $docker_compose_options \
                  rm --stop -v --force
+
+  if [ "$db_type" == "consul" ]; then
+    docker volume rm --force "${project}_consul"
+  fi
 }
 
 # OTK functions

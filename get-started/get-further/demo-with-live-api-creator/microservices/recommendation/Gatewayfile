@@ -1,7 +1,7 @@
 {
     "Service": {
         "name": "Recommendation",
-        "gatewayUri": "/v1/recommendation",
+        "gatewayUri": "/v1/recommendation*",
         "httpMethods": [ "get" ],
         "policy": [
             {

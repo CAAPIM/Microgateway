@@ -42,6 +42,11 @@
   - curl (or another HTTP client)
 
 ## Architecture <a name="architecture"></a>
+
+<p align="center">
+<img src="img/ca-microgateway-diagram-demo_draw-io.png" alt="CA Microgateway" title="CA Microgateway" />
+</p>
+
 ### Backend microservice data source <a name="datasource"></a>
 
 One database service is used per microservice. In our demo, the microservice

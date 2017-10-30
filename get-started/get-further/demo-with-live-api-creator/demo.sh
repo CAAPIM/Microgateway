@@ -79,6 +79,9 @@ function main() {
             log::info "docker ps --format \"table {{.Names}}\\t{{.Status}}\""
             docker::wait_all_healthy "$START_TIMEOUT"
 
+            log::info "Check that the demo is up"
+            docker::check_project_up "$DOCKER_PROJECT_NAME"
+
             log::info "Enabling mTLS on gateways"
             microgateway::beta::enable_mtls "ssg" "$DOCKER_PROJECT_NAME" "$MICROGATEWAY_PATH" "$MICROGATEWAY_USERNAME" "$MICROGATEWAY_PASSWORD" "policy" "RouteHttp"
             microgateway::beta::enable_mtls "ssg" "$DOCKER_PROJECT_NAME" "$MICROGATEWAY_PATH" "$MICROGATEWAY_USERNAME" "$MICROGATEWAY_PASSWORD" "policy" "RouteOrchestrator"
@@ -475,6 +478,20 @@ function docker::wait_all_healthy() {
 
   if ! $is_up; then
     log::error "The services were not healthy within $timeout seconds."
+  fi
+}
+
+function docker::check_project_up() {
+  local project="$1"
+  if docker ps --all \
+               --format "table {{.Names}}\t{{.Status}}" \
+               --filter "name=${project}_" \
+               | grep "Exited"; then
+
+    log::error "Some containers exited. This might be because of
+a license that was not accepted or because of resource limitation
+(memory, CPU, disk space). Please double check the README.md
+then re-run this script."
   fi
 }
 

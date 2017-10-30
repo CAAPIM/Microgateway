@@ -86,8 +86,9 @@ the OTK [license.env](../../external/otk/config/license.env) file.
 #### Microgateway
 
 By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-the file [license.env](../../docker-compose/config/license.env), you are expressing
-your acceptance of the [Microservices Gateway Pre-Release Agreement](../../../LICENSE.md).
+the file [license.env](../../docker-compose/config/license.env) and the file
+[license.env](gateway/config/license.env), you are expressing your acceptance of
+the [Microservices Gateway Pre-Release Agreement](../../../LICENSE.md).
 
 ### Start <a name="ops-start"></a>
 ```

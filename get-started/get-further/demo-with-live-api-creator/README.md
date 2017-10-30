@@ -74,11 +74,9 @@ Exposes and protect microservices APIs.
 ### License <a name="license"></a>
 #### Live API Creator
 
-Accept license by passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-the OTK [license.env](../../external/otk/config/license.env) file.
-
-Add you Live API Creator license to the folder `api-live-creator/etc/license/`
-and name it `CA_Technologies_LiveAPI_License.json`.
+Accept the [EULA](api-live-creator/etc/license/CA_Technologies_LiveAPI_License.json)
+by passing the value "ENU" to the environment variable `ca_accept_license` in
+the Live API Creator [eula.env](api-live-creator/etc/eula.env) file.
 
 #### OTK
 

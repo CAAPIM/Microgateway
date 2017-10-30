@@ -1,11 +1,11 @@
 # Sample end-to-end security and integration infrastructure for microservices using Microgateway
 
-* [Prerequisites](#prerequisites)
 * [Architecture](#architecture)
     * [Backend microservice data source](#datasource)
     * [Backend microservices](#microservices)
     * [Authentication and authorization service](#auth)
     * [Microgateway](#microgateway)
+* [Prerequisites](#prerequisites)
 * [Operate](#operate)
   * [License](#license)
   * [Start](#ops-start)
@@ -16,30 +16,6 @@
   * [Expose and secure microservices](#expose-microservices)
   * [Orchestrate](#orchestrate)
 * [Consume](#consume)
-
-## Prerequisites <a name="prerequisites"></a>
-
-- A docker host
-
-  You can use Docker on your laptop or in the Cloud. Docker-machine
-  (https://docs.docker.com/machine/drivers/) can be used as a quick way to deploy
-  a remote Docker host.
-
-  Run the following command to validate that you can reach your Docker host.
-  ```
-  docker info
-  ```
-
-- 8GB of memory allocated to the Docker host
-
-  See https://docs.docker.com/docker-for-mac/#advanced for guidance.
-
-- Commands:
-  - bash (for Windows users, see Git Bash https://git-for-windows.github.io/)
-  - docker-compose
-  - docker
-  - lacadmin (https://github.com/EspressoLogicCafe/CALiveAPICreatorAdminCLI)
-  - curl (or another HTTP client)
 
 ## Architecture <a name="architecture"></a>
 
@@ -69,6 +45,30 @@ the plugin `PolicySDK` serves signed certificate to each Microgateway node based
 
 ### Microgateway <a name="microgateway"></a>
 Exposes and protect microservices APIs.
+
+## Prerequisites <a name="prerequisites"></a>
+
+- A docker host
+
+  You can use Docker on your laptop or in the Cloud. Docker-machine
+  (https://docs.docker.com/machine/drivers/) can be used as a quick way to deploy
+  a remote Docker host.
+
+  Run the following command to validate that you can reach your Docker host.
+  ```
+  docker info
+  ```
+
+- 8GB of memory allocated to the Docker host
+
+  See https://docs.docker.com/docker-for-mac/#advanced for guidance.
+
+- Commands:
+  - bash (for Windows users, see Git Bash https://git-for-windows.github.io/)
+  - docker-compose
+  - docker
+  - lacadmin (https://github.com/EspressoLogicCafe/CALiveAPICreatorAdminCLI)
+  - curl (or another HTTP client)
 
 ## Operate <a name="operate"></a>
 ### License <a name="license"></a>

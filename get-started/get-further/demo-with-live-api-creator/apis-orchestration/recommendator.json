@@ -10,6 +10,19 @@
     ],
     "policy": [
       {
+        "RequireOauth2Token": {
+          "scope_required": "orders recommendation",
+          "scope_fail": "false",
+          "onetime": "false",
+          "given_access_token": ""
+        }
+      },
+
+      {
+        "OAuth2JWTHeader": {}
+      },
+
+      {
         "RouteOrchestrator": {
           "rule": {
             "orchestrator": [

@@ -10,23 +10,15 @@ services:
       context: .
     ports:
       - '8111:8080'
-    environment:
-      - RDS_HOSTNAME=lac_mysql
-      - RDS_PORT=3306
-      - RDS_USERNAME=lac_admin
-      - RDS_PASSWORD=CAdemo123
-      - RDS_DB_NAME=lac_admin
-      - ca_accept_license=ENU
+    env_file:
+      - ./etc/eula.env
+      - ./etc/db.env
 
   # Start one node of LAC without port exposed that can be dynamically scaled
   lac-node:
     image: caliveapicreator/4.0.00-demo
     build:
       context: .
-    environment:
-      - RDS_HOSTNAME=lac_mysql
-      - RDS_PORT=3306
-      - RDS_USERNAME=lac_admin
-      - RDS_PASSWORD=CAdemo123
-      - RDS_DB_NAME=lac_admin
-      - ca_accept_license=ENU
+    env_file:
+      - ./etc/eula.env
+      - ./etc/db.env

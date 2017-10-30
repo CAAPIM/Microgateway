@@ -74,6 +74,9 @@ Exposes and protect microservices APIs.
 ### License <a name="license"></a>
 #### Live API Creator
 
+Accept license by passing the value "true" to the environment variable `ACCEPT_LICENSE` in
+the OTK [license.env](../../external/otk/config/license.env) file.
+
 Add you Live API Creator license to the folder `api-live-creator/etc/license/`
 and name it `CA_Technologies_LiveAPI_License.json`.
 
@@ -181,6 +184,43 @@ curl --insecure \
 The public API is consumed from the ingress gateway securing and orchestrating
 backend microservice APIs.
 
+- Get an OAuth token:
+
+The user `cgriffin` was preconfigured with an OAuth client having the OAuth scopes
+profile, email, phone, address, orders, recommendation. The exposed microservice
+APIs on the Microgateway requires the scope "orders" for the first microservice
+and "recommendation" for the second one.
+
 ```
-curl --insecure 'https://localhost:9443/recommendator?customer=129'
+curl --insecure \
+     --data "client_id=oauthclientkey" \
+     --data "client_secret=oauthclientsecret" \
+     --data "scope=orders%20recommendation" \
+     --data "grant_type=password" \
+     --data "username=cgriffin" \
+     --data 'password=StRonG5^)' \
+    'https://localhost:8443/auth/oauth/v2/token'
 ```
+which should return:
+```
+{
+  "access_token":"b5445054-d9b6-4c42-9f0a-be5685dc67fa",
+  "token_type":"Bearer",
+  "expires_in":3600,
+  "refresh_token":"7a02ebd9-9b1a-4458-b5f4-843a7f2b1921",
+  "scope":"orders recommendation"
+}
+```
+
+Take note of the `access_token` to call the public API.
+
+- Call the public API:
+
+```
+curl --insecure \
+     --header "User-Agent: Mozilla/5.0" \
+     --header "Authorization: Bearer <access_token>" \
+     'https://localhost:9443/recommendator?customer=129'
+```
+with:
+  - `<access_token>`: the value of the token received in the previous step.

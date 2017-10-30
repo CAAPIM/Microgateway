@@ -48,6 +48,29 @@
             <column name="custom" value="{}"/>
         </insert>
     </changeSet>
+    <changeSet author="gateway" id="create-test-client">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="client"/>
+            <column name="name" value="client"/>
+            <column name="description" value="Example application for microgateway demonstrations"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="cgriffin"/>
+            <column name="type" value="confidential"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="oauthclientkey"/>
+            <column name="secret" value="oauthclientsecret"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="cgriffin"/>
+            <column name="client_ident" value="client"/>
+            <column name="client_name" value="client"/>
+            <column name="callback" value="oob"/>
+            <column name="scope" value="profile email phone address orders recommendation"/>
+            <column name="environment" value="ALL"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
     <changeSet author="gateway" id="create-microgateway-client">
         <insert tableName="oauth_client">
             <column name="client_ident" value="clientMS"/>

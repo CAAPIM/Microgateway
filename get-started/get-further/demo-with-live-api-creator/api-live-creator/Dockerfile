@@ -4,7 +4,8 @@ FROM caliveapicreator/4.0.00
 HEALTHCHECK CMD curl --fail http://localhost:8080/rest/abl/admin/v2/@heartbeat || exit 1
 
 # Add the license
-ADD ./etc/license/CA_Technologies_LiveAPI_License.json /usr/local/tomcat/bin/EvalLicense_exp20171007.txt
+# ENV LAC_DEFAULT_LICENSE_FILE /licenses/CA_Technologies_LiveAPI_License.json
+# ADD ./etc/license/CA_Technologies_LiveAPI_License.json /licenses/CA_Technologies_LiveAPI_License.json
 
 # Add the server private and public key (p12)
 ADD ./etc/tls/server.p12 $CATALINA_HOME/conf/server.p12

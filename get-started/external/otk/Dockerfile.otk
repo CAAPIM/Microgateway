@@ -12,8 +12,12 @@ RUN mkdir -p /opt/docker/rc.d/bootstrap/ && touch /opt/docker/rc.d/bootstrap/res
 # Add solution kits
 ADD ./solutionkits/*.skmult /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/
 
+# Add OTK bundles
+# ADD ./customize/bundle/*.bundle /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/
+
 # Add after start RESTMAN XML files (processed by the scripts below)
 ADD ./customize/bundle/after-start/*.xml /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/after-start/
+ADD ./customize/bundle/after-start/*.bundle /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/after-start/
 
 # Add after start scripts
 ADD ./customize/rc.d/*.sh /opt/docker/rc.d/after-start/

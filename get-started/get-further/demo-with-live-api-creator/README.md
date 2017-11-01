@@ -5,6 +5,7 @@
     * [Backend microservices](#microservices)
     * [Authentication and authorization service](#auth)
     * [Microgateway](#microgateway)
+    * [Edge Gateway](#edge-gateway)
 * [Prerequisites](#prerequisites)
 * [Operate](#operate)
   * [License](#license)
@@ -23,11 +24,19 @@
 <img src="img/ca-microgateway-diagram-demo_draw-io.png" alt="CA Microgateway" title="CA Microgateway" />
 </p>
 
+- As an API owner:
+  - Pass a JWT to the backend Microgateway and microservices with the OAuth information:
+    - to avoid token leak
+    - to provide a context of client request
+
+- As a microservice developer,
+  - Set the security expectation in the Microgateway independently of API owners and other microservices
+
 ### Backend microservice data source <a name="datasource"></a>
 
 One database service is used per microservice. In our demo, the microservice
 `order` uses the database service `orders-db` and the microservice `recommendation`
-used the database service `recommendation-db`
+uses the database service `recommendation-db`
 
 ### Backend microservices <a name="microservices"></a>
 
@@ -41,10 +50,15 @@ Microservices service: `lac-node`
 
 Operated by CA API Gateway OAuth Toolkit (CA OTK) to manage
 OAuth client authentication and authorization. Additionally,
-the plugin `PolicySDK` serves signed certificate to each Microgateway node based on the Microgateway OAuth client ID.
+the plugin `PolicySDK` serves signed certificates to each Microgateway node based
+on the Microgateway OAuth client ID. It can also serves signed certificates to
+microservices.
 
 ### Microgateway <a name="microgateway"></a>
-Exposes and protect microservices APIs.
+Exposes and protects microservices APIs.
+
+### Edge Gateway <a name="edge-gateway"></a>
+Exposes and protects public APIs and orchestrates backend Microgateway's APIs.
 
 ## Prerequisites <a name="prerequisites"></a>
 
@@ -103,15 +117,18 @@ docker ps --format "table {{.Names}}\t{{.Status}}"
 should return:
 ```
 NAMES                      STATUS
-demo_lb_1                  Up 21 minutes
-demo_ssg_1                 Up 21 minutes (healthy)
-demo_otk_1                 Up 23 minutes (healthy)
-demo_otk_mysqldb_1         Up 23 minutes
-demo_lac-admin_1           Up 23 minutes
-demo_lac-node_1            Up 23 minutes
-demo_lac_mysql_1           Up 23 minutes
-demo_recommendation-db_1   Up 23 minutes
-demo_orders-db_1           Up 23 minutes
+demo_lac-node_1            Up About a minute (healthy)
+demo_lac_mysql_1           Up 4 minutes
+demo_lac-admin_1           Up 4 minutes (healthy)
+demo_edge-ssg_1            Up 4 minutes (healthy)
+demo_edge-ssg_db_1         Up 4 minutes
+demo_lb_1                  Up 4 minutes
+demo_ssg_1                 Up 4 minutes (healthy)
+demo_consul_1              Up 4 minutes
+demo_otk_1                 Up 4 minutes (healthy)
+demo_otk_mysqldb_1         Up 4 minutes
+demo_recommendation-db_1   Up 4 minutes
+demo_orders-db_1           Up 4 minutes
 ```
 
 ### Update <a name="ops-update"></a>

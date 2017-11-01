@@ -5,6 +5,23 @@
         "httpMethods": [ "get" ],
         "policy": [
             {
+                "EncodeDecodeJWT" : {
+                    "jwt": "${request.http.header.x-ca-jwt}"
+                }
+            },
+            {
+                "ValidateJSON" : {
+                    "jsonMsg": "${jwt.payload}",
+                    "jsonPath": "$.ca_otk.['session.scope']"
+                }
+            },
+            {
+                "ValidateOAuthScopes" : {
+                    "expectedScopes": "orders",
+                    "receivedScopes": "${output}"
+                }
+            },
+            {
                 "RouteHttp" : {
                     "targetUrl": "https://lac-node:8443/rest/default/svcOrders/v1/Orders",
                     "preserveRequestPath": "true",

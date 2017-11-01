@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?><l7:Bundle xmlns:l7="http://ns.l7tech.com/2010/04/gateway-management">
+            <l7:References>
+                <l7:Item>
+                    <l7:Name>ValidateOAuthScopes</l7:Name>
+                    <l7:Id>e60fae6ca5b0d82c9d4829eadbf50ba6</l7:Id>
+                    <l7:Type>POLICY</l7:Type>
+                    <l7:TimeStamp>2017-11-01T21:22:10.504Z</l7:TimeStamp>
+                    <l7:Resource>
+                        <l7:Policy guid="b868ac94-2481-4c91-a456-6866076ee229" id="e60fae6ca5b0d82c9d4829eadbf50ba6" version="7">
+                            <l7:PolicyDetail folderId="2a97ddf9a6e77162832b9c27bc8f57e0" guid="b868ac94-2481-4c91-a456-6866076ee229" id="e60fae6ca5b0d82c9d4829eadbf50ba6" version="7">
+<l7:Name>ValidateOAuthScopes</l7:Name>
+<l7:PolicyType>Include</l7:PolicyType>
+<l7:Properties>
+    <l7:Property key="revision">
+        <l7:LongValue>8</l7:LongValue>
+    </l7:Property>
+    <l7:Property key="soap">
+        <l7:BooleanValue>false</l7:BooleanValue>
+    </l7:Property>
+</l7:Properties>
+                            </l7:PolicyDetail>
+                            <l7:Resources>
+<l7:ResourceSet tag="policy">
+    <l7:Resource type="policy">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"&gt;
+    &lt;wsp:All wsp:Usage="Required"&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="This assertion validates that the list of scopes in the variable"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="${expected_scopes} (comma-separated string) is contained"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="in the list of scopes ${received_scopes}"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:SetVariable&gt;
+            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="// initialize"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:AssertionComment&gt;
+            &lt;L7p:Base64Expression stringValue=""/&gt;
+            &lt;L7p:VariableToSet stringValue="error.msg"/&gt;
+        &lt;/L7p:SetVariable&gt;
+        &lt;L7p:SetVariable&gt;
+            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="// initialize"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:AssertionComment&gt;
+            &lt;L7p:Base64Expression stringValue=""/&gt;
+            &lt;L7p:VariableToSet stringValue="error.code"/&gt;
+        &lt;/L7p:SetVariable&gt;
+        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:ComparisonAssertion&gt;
+                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                    &lt;L7p:Expression1 stringValue="${receivedScopes}"/&gt;
+                    &lt;L7p:Expression2 stringValue=""/&gt;
+                    &lt;L7p:Negate booleanValue="true"/&gt;
+                    &lt;L7p:Operator operator="EMPTY"/&gt;
+                    &lt;L7p:Predicates predicates="included"&gt;
+                        &lt;L7p:item binary="included"&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:Negated booleanValue="true"/&gt;
+                            &lt;L7p:Operator operator="EMPTY"/&gt;
+                            &lt;L7p:RightValue stringValue=""/&gt;
+                        &lt;/L7p:item&gt;
+                    &lt;/L7p:Predicates&gt;
+                &lt;/L7p:ComparisonAssertion&gt;
+                &lt;L7p:ComparisonAssertion&gt;
+                    &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                    &lt;L7p:Expression1 stringValue="${expectedScopes}"/&gt;
+                    &lt;L7p:Expression2 stringValue=""/&gt;
+                    &lt;L7p:Negate booleanValue="true"/&gt;
+                    &lt;L7p:Operator operator="EMPTY"/&gt;
+                    &lt;L7p:Predicates predicates="included"&gt;
+                        &lt;L7p:item binary="included"&gt;
+                            &lt;L7p:CaseSensitive booleanValue="false"/&gt;
+                            &lt;L7p:Negated booleanValue="true"/&gt;
+                            &lt;L7p:Operator operator="EMPTY"/&gt;
+                            &lt;L7p:RightValue stringValue=""/&gt;
+                        &lt;/L7p:item&gt;
+                    &lt;/L7p:Predicates&gt;
+                &lt;/L7p:ComparisonAssertion&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// success"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:AuditDetailAssertion&gt;
+                    &lt;L7p:Detail stringValue="Missing parameter. Given: receivedScopes: '${receivedScopes}', expectedScopes: '${expectedScopes}'"/&gt;
+                &lt;/L7p:AuditDetailAssertion&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// missing parameter"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:AssertionComment&gt;
+                    &lt;L7p:Base64Expression stringValue="MTAz"/&gt;
+                    &lt;L7p:VariableToSet stringValue="error.code"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:FalseAssertion/&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// error"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;L7p:assertionComment&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="// check for parameters"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:assertionComment&gt;
+        &lt;/wsp:OneOrMore&gt;
+        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:Split&gt;
+                    &lt;L7p:InputVariable stringValue="expectedScopes"/&gt;
+                    &lt;L7p:OutputVariable stringValue="expectedScopesSplit"/&gt;
+                &lt;/L7p:Split&gt;
+                &lt;L7p:ForEachLoop L7p:Usage="Required"
+                    loopVariable="expectedScopesSplit" variablePrefix="scope"&gt;
+                    &lt;L7p:Regex&gt;
+                        &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                        &lt;L7p:CaptureVar stringValue="result"/&gt;
+                        &lt;L7p:IncludeEntireExpressionCapture booleanValue="false"/&gt;
+                        &lt;L7p:OtherTargetMessageVariable stringValue="receivedScopes"/&gt;
+                        &lt;L7p:PatternContainsVariables booleanValue="true"/&gt;
+                        &lt;L7p:Regex stringValue="\b${scope.current}\b"/&gt;
+                        &lt;L7p:Replacement stringValue=""/&gt;
+                        &lt;L7p:Target target="OTHER"/&gt;
+                    &lt;/L7p:Regex&gt;
+                &lt;/L7p:ForEachLoop&gt;
+            &lt;/wsp:All&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// Generic error code"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:AssertionComment&gt;
+                    &lt;L7p:Base64Expression stringValue="MQ=="/&gt;
+                    &lt;L7p:VariableToSet stringValue="error.code"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// initialize"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:AssertionComment&gt;
+                    &lt;L7p:Base64Expression stringValue="VW5leHBlY3RlZCBzY29wZSAke3Njb3BlLmN1cnJlbnR9"/&gt;
+                    &lt;L7p:VariableToSet stringValue="error.msg"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:AuditDetailAssertion&gt;
+                    &lt;L7p:Detail stringValue="${error.msg}"/&gt;
+                &lt;/L7p:AuditDetailAssertion&gt;
+                &lt;L7p:FalseAssertion/&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// error"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;L7p:assertionComment&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="// Validate scopes"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:assertionComment&gt;
+        &lt;/wsp:OneOrMore&gt;
+    &lt;/wsp:All&gt;
+&lt;/wsp:Policy&gt;
+</l7:Resource>
+</l7:ResourceSet>
+                            </l7:Resources>
+                        </l7:Policy>
+                    </l7:Resource>
+                </l7:Item>
+                <l7:Item>
+                    <l7:Name>ValidateOAuthScopes</l7:Name>
+                    <l7:Id>e60fae6ca5b0d82c9d4829eadbf50bb9</l7:Id>
+                    <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
+                    <l7:TimeStamp>2017-11-01T21:22:10.504Z</l7:TimeStamp>
+                    <l7:Resource>
+                        <l7:EncapsulatedAssertion id="e60fae6ca5b0d82c9d4829eadbf50bb9" version="5">
+                            <l7:Name>ValidateOAuthScopes</l7:Name>
+                            <l7:Guid>bccd94eb-c803-4690-ad5a-4a9e14a0e223</l7:Guid>
+                            <l7:PolicyReference id="e60fae6ca5b0d82c9d4829eadbf50ba6" resourceUri="http://ns.l7tech.com/2010/04/gateway-management/policies"/>
+                            <l7:EncapsulatedArguments>
+<l7:EncapsulatedAssertionArgument>
+    <l7:Ordinal>1</l7:Ordinal>
+    <l7:ArgumentName>expectedScopes</l7:ArgumentName>
+    <l7:ArgumentType>string</l7:ArgumentType>
+    <l7:GuiLabel>Expected scopes (comma-seperated)</l7:GuiLabel>
+    <l7:GuiPrompt>true</l7:GuiPrompt>
+</l7:EncapsulatedAssertionArgument>
+<l7:EncapsulatedAssertionArgument>
+    <l7:Ordinal>2</l7:Ordinal>
+    <l7:ArgumentName>receivedScopes</l7:ArgumentName>
+    <l7:ArgumentType>string</l7:ArgumentType>
+    <l7:GuiLabel>Received scopes</l7:GuiLabel>
+    <l7:GuiPrompt>true</l7:GuiPrompt>
+</l7:EncapsulatedAssertionArgument>
+                            </l7:EncapsulatedArguments>
+                            <l7:EncapsulatedResults>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>error.code</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>error.msg</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+                            </l7:EncapsulatedResults>
+                            <l7:Properties>
+<l7:Property key="allowTracing">
+    <l7:StringValue>false</l7:StringValue>
+</l7:Property>
+<l7:Property key="description">
+    <l7:StringValue>Validate that the list of scopes in the variable ${expectedScopes} (comma-separated string) is contained in the list of scopes ${receivedScopes}</l7:StringValue>
+</l7:Property>
+<l7:Property key="paletteFolder">
+    <l7:StringValue>xml</l7:StringValue>
+</l7:Property>
+<l7:Property key="passMetricsToParent">
+    <l7:StringValue>false</l7:StringValue>
+</l7:Property>
+<l7:Property key="policyGuid">
+    <l7:StringValue>b868ac94-2481-4c91-a456-6866076ee229</l7:StringValue>
+</l7:Property>
+                            </l7:Properties>
+                        </l7:EncapsulatedAssertion>
+                    </l7:Resource>
+                </l7:Item>
+            </l7:References>
+            <l7:Mappings>
+                <l7:Mapping action="NewOrExisting" srcId="2a97ddf9a6e77162832b9c27bc8f57e0" srcUri="/1.0/folders/2a97ddf9a6e77162832b9c27bc8f57e0" type="FOLDER">
+                    <l7:Properties>
+                        <l7:Property key="FailOnNew">
+                            <l7:BooleanValue>true</l7:BooleanValue>
+                        </l7:Property>
+                    </l7:Properties>
+                </l7:Mapping>
+                <l7:Mapping action="NewOrExisting" srcId="e60fae6ca5b0d82c9d4829eadbf50ba6" srcUri="/1.0/policies/e60fae6ca5b0d82c9d4829eadbf50ba6" type="POLICY"/>
+                <l7:Mapping action="NewOrExisting" srcId="e60fae6ca5b0d82c9d4829eadbf50bb9" srcUri="/1.0/encapsulatedAssertions/e60fae6ca5b0d82c9d4829eadbf50bb9" type="ENCAPSULATED_ASSERTION"/>
+            </l7:Mappings>
+        </l7:Bundle>

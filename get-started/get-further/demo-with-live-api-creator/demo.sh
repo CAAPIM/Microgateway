@@ -79,14 +79,14 @@ function main() {
             log::info "docker ps --format \"table {{.Names}}\\t{{.Status}}\""
             docker::wait_all_healthy "$START_TIMEOUT"
 
-            log::info "Check that the demo is up"
+            log::info "Checking that the demo is up"
             docker::check_project_up "$DOCKER_PROJECT_NAME"
 
             log::info "Enabling mTLS on gateways"
             microgateway::beta::enable_mtls "ssg" "$DOCKER_PROJECT_NAME" "$MICROGATEWAY_PATH" "$MICROGATEWAY_USERNAME" "$MICROGATEWAY_PASSWORD" "policy" "RouteHttp"
             microgateway::beta::enable_mtls "ssg" "$DOCKER_PROJECT_NAME" "$MICROGATEWAY_PATH" "$MICROGATEWAY_USERNAME" "$MICROGATEWAY_PASSWORD" "policy" "RouteOrchestrator"
-            microgateway::beta::enable_mtls "ingress-ssg" "$DOCKER_PROJECT_NAME" "$INGRESS_GATEWAY_PATH" "$INGRESS_GATEWAY_USERNAME" "$INGRESS_GATEWAY_PASSWORD" "policy" "RouteHttp"
-            microgateway::beta::enable_mtls "ingress-ssg" "$DOCKER_PROJECT_NAME" "$INGRESS_GATEWAY_PATH" "$INGRESS_GATEWAY_USERNAME" "$INGRESS_GATEWAY_PASSWORD" "policy" "RouteOrchestrator"
+            microgateway::beta::enable_mtls "edge-ssg" "$DOCKER_PROJECT_NAME" "$INGRESS_GATEWAY_PATH" "$INGRESS_GATEWAY_USERNAME" "$INGRESS_GATEWAY_PASSWORD" "policy" "RouteHttp"
+            microgateway::beta::enable_mtls "edge-ssg" "$DOCKER_PROJECT_NAME" "$INGRESS_GATEWAY_PATH" "$INGRESS_GATEWAY_USERNAME" "$INGRESS_GATEWAY_PASSWORD" "policy" "RouteOrchestrator"
 
             log::info "done"
             ;;

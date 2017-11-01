@@ -1,13 +1,13 @@
 version: '3'
 services:
-  ingress-ssg:
+  edge-ssg:
     environment:
       # dockercloud/haproxy configuration
       # VIRTUAL_HOST: https://gateway.mycompany.com
       TCP_PORTS: "8443"
       EXCLUDE_PORTS: "2124,8080"
 
-  ingress-lb:
+  edge-lb:
     image: 'dockercloud/haproxy:latest'
     restart: always
     # environment:

@@ -1,19 +1,19 @@
 version: '3'
 services:
-  ingress-ssg:
+  edge-ssg:
     environment:
       QUICKSTART_REST_MODE: "true"
       QUICKSTART_REPOSITORY_TYPE: "db"
       QUICKSTART_REPOSITORY_DB_TYPE: "postgresql"
-      QUICKSTART_REPOSITORY_DB_HOST: "ingress-ssg_db"
+      QUICKSTART_REPOSITORY_DB_HOST: "edge-ssg_db"
       QUICKSTART_REPOSITORY_DB_PORT: "5432"
       QUICKSTART_REPOSITORY_DB_NAME: "qstr"
       QUICKSTART_REPOSITORY_DB_USER: "causer"
       QUICKSTART_REPOSITORY_DB_PASSWORD: "capassword"
     links:
-      - ingress-ssg_db
+      - edge-ssg_db
 
-  ingress-ssg_db:
+  edge-ssg_db:
     build:
       context: .
       dockerfile: Dockerfile.postgresql

@@ -4,6 +4,6 @@ The Quick Start Solution may be extended by importing RESTMAN bundles on startup
 _Template design functionality is limited to CA customers who have signed up for trial and downloaded Microgateway Policy Manager. 
 
 Instructions:
-- Build Your Own QuickStart Templates: https://docops.ca.com/ca-microgateway/1-0/EN/build-your-own-quickstart-templates
-- Create a Microgateway plugin: https://docops.ca.com/ca-microgateway/1-0/EN/create-a-microgateway-plugin
-- Create your own Microgateway image: https://docops.ca.com/ca-microgateway/1-0/EN/create-your-own-microgateway-image
+- Build Your Own QuickStart Templates: https://docops.ca.com/ca-microgateway/1-0/EN/working-with-the-ca-microgateway/build-your-own-quickstart-templates
+- Create a Microgateway plugin: https://docops.ca.com/ca-microgateway/1-0/EN/working-with-the-ca-microgateway/create-a-microgateway-plugin
+- Create your own Microgateway image: https://docops.ca.com/ca-microgateway/1-0/EN/working-with-the-ca-microgateway/create-your-own-microgateway-image

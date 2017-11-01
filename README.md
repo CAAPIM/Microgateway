@@ -8,7 +8,7 @@
   * [Deploy CA Microgateway](#deploy)
   * [Expose a microservice API](#api)
 * [Next steps](#next-steps)
-  * [Get further to try more complex scenarios](#get-further)
+  * [Try more complex scenarios](#get-further)
   * [Documentation](#documentation)
 
 ## What is CA Microgateway <a name="intro"></a>
@@ -128,7 +128,7 @@ Other Docker admin tasks that you can do with the container ...
 
 The following steps will typically be done by a developer, and may be done at the command line (per instructions below), or via your favourite API development environment, such as [Postman](https://www.getpostman.com).
 
-- Fist, create a file named Gatewayfile with the following content:
+- First, create a file named Gatewayfile with the following content:
 
   ```json
   {

@@ -8,7 +8,7 @@
   * [Deploy CA Microgateway](#deploy)
   * [Expose a microservice API](#api)
 * [Next steps](#next-steps)
-  * [Try more complex scenarios](#get-further)
+  * [Try some more complex scenarios](#get-further)
   * [Documentation](#documentation)
 
 ## What is CA Microgateway <a name="intro"></a>
@@ -91,6 +91,16 @@ The following tasks will typically be done by a Gateway sysadmin.
   microgateway_consul_1    Up About a minute
   ```
 
+- Once the Microgateway is up and running, you can list the APIs that have been published to it:
+
+  ```
+  curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
+  ```
+  If the Microgateway has just been started for the first time, it should return an empty set:
+  ```
+  []
+  ```
+
 Other Docker admin tasks that you can do with the container ...
 
 - Print the logs:
@@ -157,7 +167,7 @@ The following steps will typically be done by a developer, and may be done at th
        --data @Gatewayfile
   ```
 
-- Now, verify that your API is exposed:
+- Now, verify that your API is exposed (by listing all published APIs):
 
   ```
   curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services

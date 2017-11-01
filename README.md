@@ -14,8 +14,6 @@
 ## What is CA Microgateway <a name="intro"></a>
 CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API Gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can also easily extend the capabilities of CA Microgateway by building your own policy using the policy building capability available to CA API Gateways.
 
-To download the Policy Manager that is needed to extend CA Microgateway, please get it from [here](https://www-qa.ca.com/us/trials/ca-microgateway.html).
-
 <p align="center">
 <img src="img/ca-microgateway-diagram_draw-io.png" alt="CA Microgateway" title="CA Microgateway" />
 </p>
@@ -29,6 +27,10 @@ To download the Policy Manager that is needed to extend CA Microgateway, please 
 ### Related microservices patterns <a name="patterns"></a>
 * API gateway/Backend for Frontend: http://microservices.io/patterns/apigateway.html
 * Access token: http://microservices.io/patterns/security/access-token.html
+
+### Extending CA Microgateway
+* After you try out the basic functionality in CA Microgateway, try [some more complex scenarios](#get-further), including [extending CA Microgateway](get-started/get-further/extend-microgateway-with-new-templates.md).
+* To download the Policy Manager that is needed to extend CA Microgateway, please get it from [here](https://www-qa.ca.com/us/trials/ca-microgateway.html).
 
 ## Get started <a name="get-started"></a>
 

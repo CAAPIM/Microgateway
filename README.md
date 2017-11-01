@@ -5,16 +5,16 @@
   * [Related microservices patterns](#patterns)
 * [Get started](#get-started)
   * [Prerequisites](#prerequisites)
-  * [Deploy the Microgateway](#deploy)
+  * [Deploy CA Microgateway](#deploy)
   * [Expose a microservice API](#api)
 * [Next steps](#next-steps)
   * [Get further to try more complex scenarios](#get-further)
   * [Documentation](#documentation)
 
 ## What is CA Microgateway <a name="intro"></a>
-CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA Microgateway by building your own policy with existing policy building capability in the API gateway family.
+CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API Gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can also easily extend the capabilities of CA Microgateway by building your own policy using the policy building capability available to CA API Gateways.
 
-More features available in the [free trial version](https://www.ca.com/us/products/ca-microgateway.html).
+To download the Policy Manager that is needed to extend CA Microgateway, please get it from [here](https://www.ca.com/us/products/ca-microgateway.html).
 
 <p align="center">
 <img src="img/ca-microgateway-diagram_draw-io.png" alt="CA Microgateway" title="CA Microgateway" />
@@ -48,11 +48,9 @@ Supported platforms:
   docker info
   ```
 
-### Deploy the CA Microgateway <a name="deploy"></a>
+- Cloned, or downloaded, content from this repository
 
-This step will typically be done by a Gateway sysadmin.
-
-- Accept the license:
+- Licensing terms will need to be accepted before starting the Gateway:
 
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
   the file `get-started/docker-compose/config/license.env`, you are expressing
@@ -63,6 +61,10 @@ This step will typically be done by a Gateway sysadmin.
   permitted only one (1) trial of CA Microgateway per Company, and you may not
   redeploy a new trial of CA Microgateway after the end of the initial Product
   Availability Period.
+
+### Deploy CA Microgateway <a name="deploy"></a>
+
+The following tasks will typically be done by a Gateway sysadmin.
 
 - Start the Gateway:
 
@@ -88,6 +90,8 @@ This step will typically be done by a Gateway sysadmin.
   microgateway_ssg_1   Up About a minute (healthy)
   microgateway_consul_1    Up About a minute
   ```
+
+Other Docker admin tasks that you can do with the container ...
 
 - Print the logs:
 
@@ -122,9 +126,9 @@ This step will typically be done by a Gateway sysadmin.
 
 ### Expose a microservice API <a name="api"></a>
 
-This step will typically be done by a microservice developer.
+The following steps will typically be done by a developer, and may be done at the command line (per instructions below), or via your favourite API development environment, such as [Postman](https://www.getpostman.com).
 
-- Create a file named Gatewayfile with the following content:
+- Fist, create a file named Gatewayfile with the following content:
 
   ```json
   {
@@ -144,7 +148,7 @@ This step will typically be done by a microservice developer.
   }
   ```
 
-- Add your API to the Gateway:
+- Then, add your API to CA Microgateway:
 
   ```
   curl --insecure \
@@ -153,7 +157,7 @@ This step will typically be done by a microservice developer.
        --data @Gatewayfile
   ```
 
-- Verify that your API is exposed:
+- Now, verify that your API is exposed:
 
   ```
   curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
@@ -161,7 +165,7 @@ This step will typically be done by a microservice developer.
   Should return a list containing your Google Search service.
 
 
-- Use your exposed API:
+- Finally, try using your exposed API:
 
   ```
   curl --insecure \
@@ -171,7 +175,7 @@ This step will typically be done by a microservice developer.
 
 ## Next steps  <a name="next-steps"></a>
 
-### Get further to try more complex scenarios  <a name="get-further"></a>
+### For more complex scenarios, try these other tutorials  <a name="get-further"></a>
 
 - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
 - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)

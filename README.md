@@ -172,13 +172,33 @@ The following steps will typically be done by a developer, and may be done at th
        --data @Gatewayfile
   ```
 
+  Should return confirmation from CA Microgateway that the Google Search API was successfully published:
+  
+  ```
+  {
+    "success": true,
+    "message": "Quickstart service created successfully. There maybe a delay of 10 seconds before the service is available."
+  }
+  ```
+
 - Now, verify that your API is exposed (by listing all published APIs):
 
   ```
   curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
   ```
-  Should return a list containing your Google Search service.
-
+  
+  Should return a list containing the new Google Search service:
+  
+  ```
+  [
+    {
+        "ServiceName": "Google Search",
+        "ServiceUri": "/google",
+        "ServiceId": "8d06f72fcf8447ad99ca4833714e0497",
+        "ServiceTimeStamp": "1509564356239"
+    }
+  ]
+  ```
 
 - Finally, try using your exposed API:
 

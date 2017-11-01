@@ -183,6 +183,17 @@ The following steps will typically be done by a developer, and may be done at th
        'https://localhost/google?q=CA'
   ```
 
+  This API call should return HTML content from the proxied website:
+  
+  ```
+  <!doctype html><html itemscope="" itemtype="http://schema.org/SearchResultsPage" lang="en"><head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta content="/images/branding/googleg/1x/googleg_standard_color_128dp.png" itemprop="image">
+  <link href="/images/branding/product/ico/googleg_lodp.ico" rel="shortcut icon">
+  ...
+  ```
+  Alternatively, you can call the API directly from the browser: https://localhost/google?q=CA
+
 ## Next steps  <a name="next-steps"></a>
 
 ### For more complex scenarios, try these other tutorials  <a name="get-further"></a>

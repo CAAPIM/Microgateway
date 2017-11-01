@@ -50,9 +50,9 @@ Supported platforms:
   docker info
   ```
 
-- Cloned, or downloaded, content from this repository
+- The cloned, or downloaded, content from this GitHub repository
 
-- Licensing terms will need to be accepted before starting the Gateway:
+- Accepted licensing terms (required to start the Microgateway):
 
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
   the file `get-started/docker-compose/config/license.env`, you are expressing
@@ -68,7 +68,7 @@ Supported platforms:
 
 The following tasks will typically be done by a Gateway sysadmin.
 
-- Start the Gateway:
+- Start CA Microgateway:
 
   ```
   cd get-started/docker-compose
@@ -80,7 +80,7 @@ The following tasks will typically be done by a Gateway sysadmin.
                  up -d --build
   ```
 
-- Verify that the Gateway is healthy (May need to repeat the command to refresh status):
+- Verify that CA Microgateway container is up and running:
 
   ```
   docker ps --format "table {{.Names}}\t{{.Status}}"
@@ -92,8 +92,9 @@ The following tasks will typically be done by a Gateway sysadmin.
   microgateway_ssg_1   Up About a minute (healthy)
   microgateway_consul_1    Up About a minute
   ```
+ Wait for "healthy" status (~2 minutes); you can repeat the command to refresh status.
 
-- Once the Microgateway is up and running, you can list the APIs that have been published to it:
+- Once CA Microgateway is up and running, you can list the APIs that have been published to it:
 
   ```
   curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
@@ -142,11 +143,11 @@ The following steps will typically be done by a developer, and may be done at th
 
 - First, create a file named Gatewayfile with the following content:
 
-  ```json
+  ```
   {
       "Service": {
       "name": "Google Search",
-      "gatewayUri": "/google",
+      "gatewayUri": "/demo_google",
       "httpMethods": [ "get" ],
       "policy": [
         {
@@ -159,6 +160,8 @@ The following steps will typically be done by a developer, and may be done at th
     }
   }
   ```
+  
+  Save the file into the same directory from which you will make the next API call.
 
 - Then, add your API to CA Microgateway:
 
@@ -182,7 +185,7 @@ The following steps will typically be done by a developer, and may be done at th
   ```
   curl --insecure \
        --header "User-Agent: Mozilla/5.0" \
-       'https://localhost/google?q=CA'
+       'https://localhost/demo_google?q=CA'
   ```
 
   This API call should return HTML content from the proxied website:
@@ -194,7 +197,7 @@ The following steps will typically be done by a developer, and may be done at th
   <link href="/images/branding/product/ico/googleg_lodp.ico" rel="shortcut icon">
   ...
   ```
-  Alternatively, you can call the API directly from the browser: https://localhost/google?q=CA
+  Alternatively, you can call the API directly from the browser: https://localhost/demo_google?q=CA
 
 ## Next steps  <a name="next-steps"></a>
 

@@ -23,6 +23,12 @@ function main() {
             log::info "Checking required commands"
             check::required_cli
 
+            log::info "Checking accepted licenses"
+            check::accepted_license "${MICROGATEWAY_PATH}/config/license.env" "ACCEPT_LICENSE=true"
+            check::accepted_license "${INGRESS_GATEWAY_PATH}/config/license.env" "ACCEPT_LICENSE=true"
+            check::accepted_license "${OTK_PATH}/config/license.env" "ACCEPT_LICENSE=true"
+            check::accepted_license "${API_LIVE_CREATOR_PATH}/etc/eula.env" "ca_accept_license=ENU"
+
             log::info "Deploying the database of the microservice Orders"
             microservice::deploy "${MICROSERVICE_BASE_PATH}/orders" "$DOCKER_PROJECT_NAME"
 
@@ -501,6 +507,15 @@ function check::required_cli() {
     command -v docker
     command -v lacadmin
     command -v sleep
+}
+
+function check::accepted_license() {
+  local license_file="${1}"
+  local expected_value="${2}"
+
+  if ! grep -E "^${expected_value}$" "${license_file}"; then
+    log::error "Expecting ${expected_value} in the file ${license_file}"
+  fi
 }
 
 # Start the main function

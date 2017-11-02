@@ -26,11 +26,11 @@
 
 - As an API owner:
   - Pass a JWT to the backend Microgateway and microservices with the OAuth information:
-    - to avoid token leak
-    - to provide a context of client request
+    - to avoid authorization token leak to backend services
+    - to provide a context of client requests
 
 - As a microservice developer,
-  - Set the security expectation in the Microgateway independently of API owners and other microservices
+  - Set the security rules in the Microgateway independently of API owners and other microservices
 
 ### Backend microservice data source <a name="datasource"></a>
 

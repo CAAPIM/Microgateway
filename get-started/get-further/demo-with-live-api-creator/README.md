@@ -88,9 +88,9 @@ Exposes and protects public APIs and orchestrates backend Microgateway's APIs.
 ### License <a name="license"></a>
 #### Live API Creator
 
-Accept the [EULA](api-live-creator/etc/license/CA_Technologies_LiveAPI_License.json)
+Accept the [EULA](live-api-creator/etc/license/CA_Technologies_LiveAPI_License.json)
 by passing the value "ENU" to the environment variable `ca_accept_license` in
-the Live API Creator [eula.env](api-live-creator/etc/eula.env) file.
+the Live API Creator [eula.env](live-api-creator/etc/eula.env) file.
 
 #### OTK
 

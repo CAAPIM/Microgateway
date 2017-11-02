@@ -3,7 +3,7 @@ START_TIMEOUT="600"
 DOCKER_PROJECT_NAME="demo" # do not change
 MICROSERVICE_BASE_PATH="${CWD}/microservices"
 
-API_LIVE_CREATOR_PATH="${CWD}/api-live-creator"
+API_LIVE_CREATOR_PATH="${CWD}/live-api-creator"
 API_LIVE_CREATOR_USER="admin"
 API_LIVE_CREATOR_PASSWORD="Password1"
 API_LIVE_CREATOR_HOST="http://localhost:8111"

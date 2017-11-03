@@ -1,0 +1,552 @@
+<?xml version="1.0" encoding="UTF-8"?><l7:Bundle xmlns:l7="http://ns.l7tech.com/2010/04/gateway-management">
+            <l7:References>
+                <l7:Item>
+                    <l7:Name>custom_recommendationsAPI</l7:Name>
+                    <l7:Id>6757b928201a829458c4cf9f8c847ccc</l7:Id>
+                    <l7:Type>POLICY</l7:Type>
+                    <l7:TimeStamp>2017-08-03T16:13:12.201Z</l7:TimeStamp>
+                    <l7:Resource>
+                        <l7:Policy guid="257d9d0a-e328-414f-846f-57e87eb1ced9" id="6757b928201a829458c4cf9f8c847ccc" version="0">
+                            <l7:PolicyDetail folderId="d1bf78b539c944534cc5d33d1ff4fc64" guid="257d9d0a-e328-414f-846f-57e87eb1ced9" id="6757b928201a829458c4cf9f8c847ccc" version="0">
+<l7:Name>custom_recommendationsAPI</l7:Name>
+<l7:PolicyType>Include</l7:PolicyType>
+<l7:Properties>
+    <l7:Property key="revision">
+        <l7:LongValue>1</l7:LongValue>
+    </l7:Property>
+    <l7:Property key="soap">
+        <l7:BooleanValue>false</l7:BooleanValue>
+    </l7:Property>
+</l7:Properties>
+                            </l7:PolicyDetail>
+                            <l7:Resources>
+<l7:ResourceSet tag="policy">
+    <l7:Resource type="policy">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"&gt;
+    &lt;wsp:All wsp:Usage="Required"&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="Policy Fragment: custom_recommendationsAPI"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:AuditDetailAssertion&gt;
+            &lt;L7p:Detail stringValue="orders: ${orders.mainpart}"/&gt;
+            &lt;L7p:Level stringValue="WARNING"/&gt;
+        &lt;/L7p:AuditDetailAssertion&gt;
+        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:ComparisonAssertion&gt;
+                    &lt;L7p:Enabled booleanValue="false"/&gt;
+                    &lt;L7p:Expression1 stringValue="${primaryRouteCode}"/&gt;
+                    &lt;L7p:Expression2 stringValue="true"/&gt;
+                    &lt;L7p:Predicates predicates="included"&gt;
+                        &lt;L7p:item binary="included"&gt;
+                            &lt;L7p:RightValue stringValue="true"/&gt;
+                        &lt;/L7p:item&gt;
+                    &lt;/L7p:Predicates&gt;
+                &lt;/L7p:ComparisonAssertion&gt;
+                &lt;L7p:HttpRoutingAssertion&gt;
+                    &lt;L7p:ProtectedServiceUrl stringValue="${primaryRoute}"/&gt;
+                    &lt;L7p:ProxyPassword stringValueNull="null"/&gt;
+                    &lt;L7p:ProxyUsername stringValueNull="null"/&gt;
+                    &lt;L7p:RequestHeaderRules httpPassthroughRuleSet="included"&gt;
+                        &lt;L7p:Rules httpPassthroughRules="included"&gt;
+                            &lt;L7p:item httpPassthroughRule="included"&gt;
+                                &lt;L7p:CustomizeValue stringValue="CALiveAPICreator Y1tmNkYbxu5t93ixTCtJ:1"/&gt;
+                                &lt;L7p:Name stringValue="Authorization"/&gt;
+                                &lt;L7p:UsesCustomizedValue booleanValue="true"/&gt;
+                            &lt;/L7p:item&gt;
+                        &lt;/L7p:Rules&gt;
+                    &lt;/L7p:RequestHeaderRules&gt;
+                    &lt;L7p:RequestParamRules httpPassthroughRuleSet="included"&gt;
+                        &lt;L7p:ForwardAll booleanValue="true"/&gt;
+                        &lt;L7p:Rules httpPassthroughRules="included"/&gt;
+                    &lt;/L7p:RequestParamRules&gt;
+                    &lt;L7p:ResponseHeaderRules httpPassthroughRuleSet="included"&gt;
+                        &lt;L7p:ForwardAll booleanValue="true"/&gt;
+                        &lt;L7p:Rules httpPassthroughRules="included"&gt;
+                            &lt;L7p:item httpPassthroughRule="included"&gt;
+                                &lt;L7p:Name stringValue="Set-Cookie"/&gt;
+                            &lt;/L7p:item&gt;
+                        &lt;/L7p:Rules&gt;
+                    &lt;/L7p:ResponseHeaderRules&gt;
+                    &lt;L7p:ResponseMsgDest stringValue="recommendations"/&gt;
+                    &lt;L7p:SamlAssertionVersion intValue="2"/&gt;
+                &lt;/L7p:HttpRoutingAssertion&gt;
+                &lt;L7p:EvaluateJsonPathExpression&gt;
+                    &lt;L7p:Expression stringValue="$..orderdetails_ibfk_2_products.productCode"/&gt;
+                    &lt;L7p:OtherTargetMessageVariable stringValue="orders"/&gt;
+                    &lt;L7p:Target target="OTHER"/&gt;
+                    &lt;L7p:VariablePrefix stringValue="productCodes"/&gt;
+                &lt;/L7p:EvaluateJsonPathExpression&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue="JHtwcm9kdWN0Q29kZXMucmVzdWx0c30="/&gt;
+                    &lt;L7p:VariableToSet stringValue="productCode"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:AuditDetailAssertion&gt;
+                    &lt;L7p:Detail stringValue="productCode:${productCode}"/&gt;
+                    &lt;L7p:Level stringValue="WARNING"/&gt;
+                &lt;/L7p:AuditDetailAssertion&gt;
+                &lt;L7p:Split&gt;
+                    &lt;L7p:InputVariable stringValue="productCode"/&gt;
+                    &lt;L7p:OutputVariable stringValue="productCode"/&gt;
+                &lt;/L7p:Split&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue="JHtwcm9kdWN0Q29kZS5sZW5ndGh9"/&gt;
+                    &lt;L7p:VariableToSet stringValue="productCodeLength"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue="ew=="/&gt;
+                    &lt;L7p:VariableToSet stringValue="out"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:AuditDetailAssertion&gt;
+                    &lt;L7p:Detail stringValue="productCode.length:${productCode.length}"/&gt;
+                    &lt;L7p:Level stringValue="WARNING"/&gt;
+                &lt;/L7p:AuditDetailAssertion&gt;
+                &lt;L7p:ResponseXpathAssertion&gt;
+                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// since array starts at 0, we want to match at length minus 1"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:AssertionComment&gt;
+                    &lt;L7p:VariablePrefix stringValue="productCodeLoop"/&gt;
+                    &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                        &lt;L7p:Expression stringValue="$productCodeLength - 1"/&gt;
+                        &lt;L7p:Namespaces mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="s"/&gt;
+                                &lt;L7p:value stringValue="http://schemas.xmlsoap.org/soap/envelope/"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Namespaces&gt;
+                        &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                    &lt;/L7p:XpathExpression&gt;
+                &lt;/L7p:ResponseXpathAssertion&gt;
+                &lt;L7p:Regex&gt;
+                    &lt;L7p:AssertionComment assertionComment="included"&gt;
+                        &lt;L7p:Properties mapValue="included"&gt;
+                            &lt;L7p:entry&gt;
+                                &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                &lt;L7p:value stringValue="// the math operand goes to 1 decimal --- convert to integer"/&gt;
+                            &lt;/L7p:entry&gt;
+                        &lt;/L7p:Properties&gt;
+                    &lt;/L7p:AssertionComment&gt;
+                    &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                    &lt;L7p:IncludeEntireExpressionCapture booleanValue="false"/&gt;
+                    &lt;L7p:OtherTargetMessageVariable stringValue="productCodeLoop.result"/&gt;
+                    &lt;L7p:Regex stringValue="\.0"/&gt;
+                    &lt;L7p:Replace booleanValue="true"/&gt;
+                    &lt;L7p:Replacement stringValue=""/&gt;
+                    &lt;L7p:Target target="OTHER"/&gt;
+                &lt;/L7p:Regex&gt;
+                &lt;L7p:ForEachLoop L7p:Usage="Required"
+                    loopVariable="productCode" variablePrefix="productCodeOut"&gt;
+                    &lt;L7p:EvaluateJsonPathExpression&gt;
+                        &lt;L7p:Expression stringValue="$..[?(@.productCode=='${productCodeOut.current}')].r_productName"/&gt;
+                        &lt;L7p:OtherTargetMessageVariable stringValue="recommendations"/&gt;
+                        &lt;L7p:Target target="OTHER"/&gt;
+                        &lt;L7p:VariablePrefix stringValue="r_productName"/&gt;
+                    &lt;/L7p:EvaluateJsonPathExpression&gt;
+                    &lt;L7p:EvaluateJsonPathExpression&gt;
+                        &lt;L7p:Expression stringValue="$..[?(@.productCode=='${productCodeOut.current}')].productName"/&gt;
+                        &lt;L7p:OtherTargetMessageVariable stringValue="recommendations"/&gt;
+                        &lt;L7p:Target target="OTHER"/&gt;
+                        &lt;L7p:VariablePrefix stringValue="productName"/&gt;
+                    &lt;/L7p:EvaluateJsonPathExpression&gt;
+                    &lt;wsp:All wsp:Usage="Required"&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="JHtyX3Byb2R1Y3ROYW1lLnJlc3VsdHN9"/&gt;
+                            &lt;L7p:VariableToSet stringValue="r_productName"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:Split&gt;
+                            &lt;L7p:InputVariable stringValue="r_productName"/&gt;
+                            &lt;L7p:OutputVariable stringValue="r_productName"/&gt;
+                        &lt;/L7p:Split&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="JHtyX3Byb2R1Y3ROYW1lLmxlbmd0aH0="/&gt;
+                            &lt;L7p:VariableToSet stringValue="r_productNameLength"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:SetVariable&gt;
+                            &lt;L7p:Base64Expression stringValue="Ww=="/&gt;
+                            &lt;L7p:VariableToSet stringValue="r_out"/&gt;
+                        &lt;/L7p:SetVariable&gt;
+                        &lt;L7p:ResponseXpathAssertion&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// since array starts at 0, we want to match at length minus 1"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:VariablePrefix stringValue="r_productNameLoop"/&gt;
+                            &lt;L7p:XpathExpression xpathExpressionValue="included"&gt;
+                                &lt;L7p:Expression stringValue="$r_productNameLength - 1"/&gt;
+                                &lt;L7p:Namespaces mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="s"/&gt;
+                                    &lt;L7p:value stringValue="http://schemas.xmlsoap.org/soap/envelope/"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Namespaces&gt;
+                                &lt;L7p:XpathVersion xpathVersion="XPATH_1_0"/&gt;
+                            &lt;/L7p:XpathExpression&gt;
+                        &lt;/L7p:ResponseXpathAssertion&gt;
+                        &lt;L7p:Regex&gt;
+                            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// the math operand goes to 1 decimal --- convert to integer"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:AssertionComment&gt;
+                            &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                            &lt;L7p:IncludeEntireExpressionCapture booleanValue="false"/&gt;
+                            &lt;L7p:OtherTargetMessageVariable stringValue="r_productNameLoop.result"/&gt;
+                            &lt;L7p:Regex stringValue="\.0"/&gt;
+                            &lt;L7p:Replace booleanValue="true"/&gt;
+                            &lt;L7p:Replacement stringValue=""/&gt;
+                            &lt;L7p:Target target="OTHER"/&gt;
+                        &lt;/L7p:Regex&gt;
+                        &lt;L7p:ForEachLoop L7p:Usage="Required"
+                            loopVariable="r_productName" variablePrefix="r_productNameOut"&gt;
+                            &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                                &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:Expression1 stringValue="${r_productNameOut.iterations}"/&gt;
+                                    &lt;L7p:Expression2 stringValue="${r_productNameLoop.result}"/&gt;
+                                    &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:RightValue stringValue="${r_productNameLoop.result}"/&gt;
+                                    &lt;/L7p:item&gt;
+                                    &lt;/L7p:Predicates&gt;
+                                    &lt;/L7p:ComparisonAssertion&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="JHtyX291dH0NCiIke3JfcHJvZHVjdE5hbWVPdXQuY3VycmVudH0iXQ=="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="r_out"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// this is the last match, so we close the json message with this one"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                &lt;/wsp:All&gt;
+                                &lt;wsp:All wsp:Usage="Required"&gt;
+                                    &lt;L7p:SetVariable&gt;
+                                    &lt;L7p:Base64Expression stringValue="JHtyX291dH0NCiIke3JfcHJvZHVjdE5hbWVPdXQuY3VycmVudH0iLA=="/&gt;
+                                    &lt;L7p:VariableToSet stringValue="r_out"/&gt;
+                                    &lt;/L7p:SetVariable&gt;
+                                    &lt;L7p:assertionComment&gt;
+                                    &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// this is all but last match, adding in each name value pair"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                    &lt;/L7p:Properties&gt;
+                                    &lt;/L7p:assertionComment&gt;
+                                &lt;/wsp:All&gt;
+                            &lt;/wsp:OneOrMore&gt;
+                        &lt;/L7p:ForEachLoop&gt;
+                    &lt;/wsp:All&gt;
+                    &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+                        &lt;wsp:All wsp:Usage="Required"&gt;
+                            &lt;L7p:ComparisonAssertion&gt;
+                                &lt;L7p:Expression1 stringValue="${productCodeOut.iterations}"/&gt;
+                                &lt;L7p:Expression2 stringValue="${productCodeLoop.result}"/&gt;
+                                &lt;L7p:Predicates predicates="included"&gt;
+                                    &lt;L7p:item binary="included"&gt;
+                                    &lt;L7p:RightValue stringValue="${productCodeLoop.result}"/&gt;
+                                    &lt;/L7p:item&gt;
+                                &lt;/L7p:Predicates&gt;
+                            &lt;/L7p:ComparisonAssertion&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:Base64Expression stringValue="JHtvdXR9DQoiJHtwcm9kdWN0Q29kZU91dC5jdXJyZW50fS0ke3Byb2R1Y3ROYW1lLnJlc3VsdH0iOiR7cl9vdXR9DQp9"/&gt;
+                                &lt;L7p:VariableToSet stringValue="out"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// this is the last match, so we close the json message with this one"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:All&gt;
+                        &lt;wsp:All wsp:Usage="Required"&gt;
+                            &lt;L7p:SetVariable&gt;
+                                &lt;L7p:Base64Expression stringValue="JHtvdXR9DQoiJHtwcm9kdWN0Q29kZU91dC5jdXJyZW50fS0ke3Byb2R1Y3ROYW1lLnJlc3VsdH0iOiR7cl9vdXR9LA=="/&gt;
+                                &lt;L7p:VariableToSet stringValue="out"/&gt;
+                            &lt;/L7p:SetVariable&gt;
+                            &lt;L7p:assertionComment&gt;
+                                &lt;L7p:Properties mapValue="included"&gt;
+                                    &lt;L7p:entry&gt;
+                                    &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                                    &lt;L7p:value stringValue="// this is all but last match, adding in each name value pair"/&gt;
+                                    &lt;/L7p:entry&gt;
+                                &lt;/L7p:Properties&gt;
+                            &lt;/L7p:assertionComment&gt;
+                        &lt;/wsp:All&gt;
+                    &lt;/wsp:OneOrMore&gt;
+                &lt;/L7p:ForEachLoop&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="LEFT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="ROUTE TO LAC Microservice"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:HttpRoutingAssertion&gt;
+                    &lt;L7p:FailOnErrorStatus booleanValue="false"/&gt;
+                    &lt;L7p:ProtectedServiceUrl stringValue="${secondaryRoute}"/&gt;
+                    &lt;L7p:ProxyPassword stringValueNull="null"/&gt;
+                    &lt;L7p:ProxyUsername stringValueNull="null"/&gt;
+                    &lt;L7p:RequestHeaderRules httpPassthroughRuleSet="included"&gt;
+                        &lt;L7p:ForwardAll booleanValue="true"/&gt;
+                        &lt;L7p:Rules httpPassthroughRules="included"&gt;
+                            &lt;L7p:item httpPassthroughRule="included"&gt;
+                                &lt;L7p:Name stringValue="Cookie"/&gt;
+                            &lt;/L7p:item&gt;
+                            &lt;L7p:item httpPassthroughRule="included"&gt;
+                                &lt;L7p:Name stringValue="SOAPAction"/&gt;
+                            &lt;/L7p:item&gt;
+                        &lt;/L7p:Rules&gt;
+                    &lt;/L7p:RequestHeaderRules&gt;
+                    &lt;L7p:RequestParamRules httpPassthroughRuleSet="included"&gt;
+                        &lt;L7p:ForwardAll booleanValue="true"/&gt;
+                        &lt;L7p:Rules httpPassthroughRules="included"/&gt;
+                    &lt;/L7p:RequestParamRules&gt;
+                    &lt;L7p:ResponseHeaderRules httpPassthroughRuleSet="included"&gt;
+                        &lt;L7p:ForwardAll booleanValue="true"/&gt;
+                        &lt;L7p:Rules httpPassthroughRules="included"&gt;
+                            &lt;L7p:item httpPassthroughRule="included"&gt;
+                                &lt;L7p:Name stringValue="Set-Cookie"/&gt;
+                            &lt;/L7p:item&gt;
+                        &lt;/L7p:Rules&gt;
+                    &lt;/L7p:ResponseHeaderRules&gt;
+                    &lt;L7p:SamlAssertionVersion intValue="2"/&gt;
+                &lt;/L7p:HttpRoutingAssertion&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue="JHtyZXNwb25zZS5tYWlucGFydH0="/&gt;
+                    &lt;L7p:VariableToSet stringValue="NYT"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:Split&gt;
+                    &lt;L7p:InputVariable stringValue="NYT"/&gt;
+                    &lt;L7p:OutputVariable stringValue="NYT"/&gt;
+                &lt;/L7p:Split&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue="ew0KCSJDaXJjdWl0QnJlYWtlclJlc3BvbnNlIjogWw0KCQkiJHtOWVRbMF19IiwNCgkJIiR7TllUWzFdfSIsDQoJCSIke05ZVFsyXX0iLA0KCQkiJHtOWVRbM119IiwNCgkJIiR7TllUWzRdfSIsDQoJCSIke05ZVFs1XX0iLA0KCQkiJHtOWVRbNl19IiwNCgkJIiR7TllUWzddfSIsDQoJCSIke05ZVFs4XX0iDQoJXQ0KfQ=="/&gt;
+                    &lt;L7p:ContentType stringValue="application/json; charset=utf-8"/&gt;
+                    &lt;L7p:DataType variableDataType="message"/&gt;
+                    &lt;L7p:VariableToSet stringValue="out"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="LEFT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="CIRCUIT BREAKER"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;L7p:assertionComment&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="LEFT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="GET RECOMMENDATION"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:assertionComment&gt;
+        &lt;/wsp:OneOrMore&gt;
+        &lt;L7p:HardcodedResponse&gt;
+            &lt;L7p:Base64ResponseBody stringValue="JHtvdXR9"/&gt;
+            &lt;L7p:ResponseContentType stringValue="application/json; charset=UTF-8"/&gt;
+        &lt;/L7p:HardcodedResponse&gt;
+    &lt;/wsp:All&gt;
+&lt;/wsp:Policy&gt;
+</l7:Resource>
+</l7:ResourceSet>
+                            </l7:Resources>
+                        </l7:Policy>
+                    </l7:Resource>
+                </l7:Item>
+                <l7:Item>
+                    <l7:Name>custom_recommendationsAPI</l7:Name>
+                    <l7:Id>6757b928201a829458c4cf9f8c847ce2</l7:Id>
+                    <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
+                    <l7:TimeStamp>2017-08-03T16:13:12.201Z</l7:TimeStamp>
+                    <l7:Resource>
+                        <l7:EncapsulatedAssertion id="6757b928201a829458c4cf9f8c847ce2" version="0">
+                            <l7:Name>custom_recommendationsAPI</l7:Name>
+                            <l7:Guid>d47d7d6c-8e48-44f8-b417-6abf4f02ee65</l7:Guid>
+                            <l7:PolicyReference id="6757b928201a829458c4cf9f8c847ccc" resourceUri="http://ns.l7tech.com/2010/04/gateway-management/policies"/>
+                            <l7:EncapsulatedArguments>
+<l7:EncapsulatedAssertionArgument>
+    <l7:Ordinal>1</l7:Ordinal>
+    <l7:ArgumentName>orders</l7:ArgumentName>
+    <l7:ArgumentType>message</l7:ArgumentType>
+    <l7:GuiPrompt>false</l7:GuiPrompt>
+</l7:EncapsulatedAssertionArgument>
+<l7:EncapsulatedAssertionArgument>
+    <l7:Ordinal>2</l7:Ordinal>
+    <l7:ArgumentName>primaryRoute</l7:ArgumentName>
+    <l7:ArgumentType>string</l7:ArgumentType>
+    <l7:GuiPrompt>false</l7:GuiPrompt>
+</l7:EncapsulatedAssertionArgument>
+<l7:EncapsulatedAssertionArgument>
+    <l7:Ordinal>3</l7:Ordinal>
+    <l7:ArgumentName>primaryRouteCode</l7:ArgumentName>
+    <l7:ArgumentType>string</l7:ArgumentType>
+    <l7:GuiPrompt>false</l7:GuiPrompt>
+</l7:EncapsulatedAssertionArgument>
+<l7:EncapsulatedAssertionArgument>
+    <l7:Ordinal>4</l7:Ordinal>
+    <l7:ArgumentName>secondaryRoute</l7:ArgumentName>
+    <l7:ArgumentType>string</l7:ArgumentType>
+    <l7:GuiPrompt>false</l7:GuiPrompt>
+</l7:EncapsulatedAssertionArgument>
+                            </l7:EncapsulatedArguments>
+                            <l7:EncapsulatedResults>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>httpRouting.latency</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>httpRouting.reasonCode</l7:ResultName>
+    <l7:ResultType>int</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>httpRouting.url</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>out</l7:ResultName>
+    <l7:ResultType>message</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productCodeLoop.count</l7:ResultName>
+    <l7:ResultType>int</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productCodeLoop.element</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productCodeLoop.elements</l7:ResultName>
+    <l7:ResultType>xml</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productCodeLoop.found</l7:ResultName>
+    <l7:ResultType>boolean</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productCodeLoop.results</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productCodeOut.exceededlimit</l7:ResultName>
+    <l7:ResultType>boolean</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productCodes.count</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productCodes.found</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productCodes.result</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productName.count</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productName.found</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>productName.results</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>r_productName.count</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>r_productName.found</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>r_productName.result</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>r_productNameLoop.count</l7:ResultName>
+    <l7:ResultType>int</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>r_productNameLoop.element</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>r_productNameLoop.elements</l7:ResultName>
+    <l7:ResultType>xml</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>r_productNameLoop.found</l7:ResultName>
+    <l7:ResultType>boolean</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>r_productNameLoop.results</l7:ResultName>
+    <l7:ResultType>string</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+<l7:EncapsulatedAssertionResult>
+    <l7:ResultName>r_productNameOut.exceededlimit</l7:ResultName>
+    <l7:ResultType>boolean</l7:ResultType>
+</l7:EncapsulatedAssertionResult>
+                            </l7:EncapsulatedResults>
+                            <l7:Properties>
+<l7:Property key="allowTracing">
+    <l7:StringValue>false</l7:StringValue>
+</l7:Property>
+<l7:Property key="paletteFolder">
+    <l7:StringValue>routing</l7:StringValue>
+</l7:Property>
+<l7:Property key="passMetricsToParent">
+    <l7:StringValue>false</l7:StringValue>
+</l7:Property>
+<l7:Property key="policyGuid">
+    <l7:StringValue>257d9d0a-e328-414f-846f-57e87eb1ced9</l7:StringValue>
+</l7:Property>
+                            </l7:Properties>
+                        </l7:EncapsulatedAssertion>
+                    </l7:Resource>
+                </l7:Item>
+            </l7:References>
+            <l7:Mappings>
+                <l7:Mapping action="NewOrExisting" srcId="00000000000000000000000000000002:SSL" srcUri="/1.0/privateKeys/00000000000000000000000000000002:SSL" type="SSG_KEY_ENTRY">
+                    <l7:Properties>
+                        <l7:Property key="FailOnNew">
+                            <l7:BooleanValue>true</l7:BooleanValue>
+                        </l7:Property>
+                    </l7:Properties>
+                </l7:Mapping>
+                <l7:Mapping action="NewOrExisting" srcId="d1bf78b539c944534cc5d33d1ff4fc64" srcUri="/1.0/folders/d1bf78b539c944534cc5d33d1ff4fc64" type="FOLDER">
+                    <l7:Properties>
+                        <l7:Property key="FailOnNew">
+                            <l7:BooleanValue>true</l7:BooleanValue>
+                        </l7:Property>
+                    </l7:Properties>
+                </l7:Mapping>
+                <l7:Mapping action="NewOrExisting" srcId="6757b928201a829458c4cf9f8c847ccc" srcUri="/1.0/policies/6757b928201a829458c4cf9f8c847ccc" type="POLICY"/>
+                <l7:Mapping action="NewOrExisting" srcId="6757b928201a829458c4cf9f8c847ce2" srcUri="/1.0/encapsulatedAssertions/6757b928201a829458c4cf9f8c847ce2" type="ENCAPSULATED_ASSERTION"/>
+            </l7:Mappings>
+        </l7:Bundle>

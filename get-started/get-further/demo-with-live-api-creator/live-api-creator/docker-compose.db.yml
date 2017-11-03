@@ -1,0 +1,21 @@
+# This docker-compose file will deploy all the base infrastructure for the LAC Cluster
+# This LAC node will have it's port exposed so that the CLI process (simulating CI/CD)
+# in the script will be able to deploy the API and modify it for consumption
+version: '3'
+# Declare the network to be an external network
+networks:
+  public:
+    external: true
+# List all service containers to start and their configuration
+services:
+  # LAC Admin DB
+  lac_mysql:
+    image: 'mysql:5.6.30'
+    # networks:
+    #   - demo
+    environment:
+      - SERVICE_IGNORE=true
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=lac_admin
+      - MYSQL_USER=lac_admin
+      - MYSQL_PASSWORD=CAdemo123

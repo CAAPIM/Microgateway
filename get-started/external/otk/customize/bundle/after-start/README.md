@@ -1,0 +1,30 @@
+#### Generate a private key
+
+The XML file `ca_msso_key.xml` must have the following struct:
+
+```
+<l7:PrivateKeyCreationContext xmlns:l7="http://ns.l7tech.com/2010/04/gateway-management">
+    <l7:Dn>CN=ca_msso</l7:Dn>
+    <l7:Properties>
+        <l7:Property key="rsaKeySize">
+            <l7:IntegerValue>2048</l7:IntegerValue>
+        </l7:Property>
+        <l7:Property key="daysUntilExpiry">
+            <l7:IntegerValue>1825</l7:IntegerValue>
+        </l7:Property>
+        <l7:Property key="caCapable">
+            <l7:BooleanValue>true</l7:BooleanValue>
+        </l7:Property>
+    </l7:Properties>
+```
+
+#### Import a private key
+
+The XML file `ca_msso_key.xml` must have the following struct:
+
+```
+<l7:PrivateKeyImportContext xmlns:l7="http://ns.l7tech.com/2010/04/gateway-management">
+    <l7:Pkcs12Data>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</l7:Pkcs12Data>
+    <l7:Password></l7:Password>
+</l7:PrivateKeyImportContext>
+```

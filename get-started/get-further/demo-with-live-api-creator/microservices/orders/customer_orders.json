@@ -1,0 +1,1259 @@
+[
+  {
+    "ident": 2000,
+    "ts": "2017-10-25T20:49:02+00:00",
+    "exportVersion": "v4",
+    "adminSchemaVersion": "20170930",
+    "name": "customer_orders",
+    "url_name": "svcOrders",
+    "comments": "Insert comments here",
+    "status": null,
+    "is_active": true,
+    "account_ident": 1000,
+    "authprovider_ident": 1000,
+    "@metadata": {
+      "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport/2000",
+      "checksum": "A:1a1619355224ed16",
+      "nonpersistent": [
+        "exportVersion",
+        "adminSchemaVersion"
+      ]
+    },
+    "Topics": [],
+    "Rules": [
+      {
+        "ident": 2000,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "entity_name": "orders:orderdetails",
+        "attribute_name": null,
+        "prop1": null,
+        "prop2": null,
+        "prop3": null,
+        "prop4": "javascript",
+        "prop5": null,
+        "rule_text1": "parent.comments = 'MANAGED';\nparent.orderDate = new Date();\nparent.requiredDate = new Date();\nparent.status = 'active';\nif (req.urlParameters && req.urlParameters.customerNumber) {\n    parent.customerNumber = parseInt(req.urlParameters.customerNumber);\n}",
+        "rule_text2": "orderdetails_ibfk_1_orders",
+        "rule_text3": null,
+        "rule_text4": null,
+        "rule_text5": null,
+        "predicate": null,
+        "name": null,
+        "auto_name": "Create parent orderdetails_ibfk_1_orders if it does not exist.",
+        "verbs": null,
+        "comments": null,
+        "active": true,
+        "sqlable": false,
+        "jit": false,
+        "project_ident": 2000,
+        "ruletype_ident": 13,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Rules/2000",
+          "checksum": "A:a987dc418a566308"
+        },
+        "RuleTopics": []
+      }
+    ],
+    "ApiKeys": [
+      {
+        "ident": 2002,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "name": "Admin key",
+        "description": "Created as part of this API. Feel free to change or delete this auth token.",
+        "apikey": "zFeg53T5ESosM2xqM86s",
+        "status": "A",
+        "expiration": null,
+        "logging": "*=FINE",
+        "user_identifier": null,
+        "data": null,
+        "origin": null,
+        "project_ident": 2000,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiKeys/2002",
+          "checksum": "A:768ef5a4c3a2268c"
+        }
+      }
+    ],
+    "ApiVersions": [
+      {
+        "ident": 2000,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "name": "v1",
+        "comments": null,
+        "project_ident": 2000,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions/2000",
+          "checksum": "A:4cbcd9699b3ad8d1"
+        },
+        "Resources": [
+          {
+            "ident": 2000,
+            "ts": "2017-10-25T21:02:34+00:00",
+            "resource_type_ident": 3,
+            "prefix": null,
+            "table_name": null,
+            "name": "smartOrders",
+            "description": null,
+            "is_collection": "Y",
+            "join_condition": null,
+            "filter": null,
+            "sorting": null,
+            "attach_path": null,
+            "caching": null,
+            "custom_class": null,
+            "code_text": "var json = JSON.parse(req.json);\nvar prefix = 'orders:';\nvar token = req.getApiKey().getApiKey();\nvar baseUrl = 'http://lac-admin:8080/rest/default/svcOrders/v1/';\nvar settings = {\n    headers : { Authorization: 'CALiveAPICreator ' + token + ':1' }\n};\nvar defaultOrderNumber = parseInt(new Date().getTime()/1000);\n \nvar orderDetail = {\n    orderNumber: json.orderNumber || defaultOrderNumber,\n    productCode: json.productCode,\n    quantityOrdered: json.quantityOrdered || 1,\n    orderLineNumber: json.orderLineItem || 0\n};\n \nvar product = SysUtility.getResource(prefix + 'products',\n    { sysfilter: 'equal(\"productCode\": \"' + json.productCode + '\")' } );\n \nif (product && product[0]) {\n    orderDetail.priceEach = product[0].buyPrice;\n}\n \nvar summary = SysUtility.restPost(baseUrl + prefix + 'orderdetails?customerNumber=' + json.customerNumber, null, settings, orderDetail);\n \nreturn JSON.parse(summary);\n ",
+            "filter_code": null,
+            "serial_filter": null,
+            "prop1": null,
+            "prop2": null,
+            "prop3": null,
+            "prop4": null,
+            "prop5": null,
+            "container_ident": null,
+            "sibling_rank": 100,
+            "combined": false,
+            "root_ident": null,
+            "apiversion_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources/2000",
+              "checksum": "A:fe229f4a02f80e1c"
+            },
+            "ResourceAttributes": []
+          },
+          {
+            "ident": 2001,
+            "ts": "2017-10-25T20:49:04+00:00",
+            "resource_type_ident": 1,
+            "prefix": "orders",
+            "table_name": "customers",
+            "name": "customerNumber",
+            "description": null,
+            "is_collection": "Y",
+            "join_condition": null,
+            "filter": null,
+            "sorting": null,
+            "attach_path": null,
+            "caching": null,
+            "custom_class": null,
+            "code_text": null,
+            "filter_code": "",
+            "serial_filter": null,
+            "prop1": null,
+            "prop2": null,
+            "prop3": null,
+            "prop4": null,
+            "prop5": null,
+            "container_ident": null,
+            "sibling_rank": 100,
+            "combined": false,
+            "root_ident": null,
+            "apiversion_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources/2001",
+              "checksum": "A:f01c70aa0587c376"
+            },
+            "ResourceAttributes": [
+              {
+                "ident": 2000,
+                "ts": "2017-10-25T20:49:02+00:00",
+                "name": "customerNumber",
+                "description": null,
+                "column_name": "customerNumber",
+                "formula": null,
+                "is_defined_key_part": false,
+                "resource_ident": 2001,
+                "code_type": null,
+                "@metadata": {
+                  "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources.ResourceAttributes/2000",
+                  "checksum": "A:4d80bf386440aafc"
+                }
+              },
+              {
+                "ident": 2001,
+                "ts": "2017-10-25T20:49:02+00:00",
+                "name": "customerName",
+                "description": null,
+                "column_name": "customerName",
+                "formula": null,
+                "is_defined_key_part": false,
+                "resource_ident": 2001,
+                "code_type": null,
+                "@metadata": {
+                  "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources.ResourceAttributes/2001",
+                  "checksum": "A:57a92d6573817110"
+                }
+              }
+            ]
+          },
+          {
+            "ident": 2002,
+            "ts": "2017-10-25T20:49:04+00:00",
+            "resource_type_ident": 1,
+            "prefix": "orders",
+            "table_name": "customers",
+            "name": "Orders",
+            "description": null,
+            "is_collection": "Y",
+            "join_condition": null,
+            "filter": null,
+            "sorting": null,
+            "attach_path": null,
+            "caching": null,
+            "custom_class": null,
+            "code_text": null,
+            "filter_code": "",
+            "serial_filter": null,
+            "prop1": null,
+            "prop2": null,
+            "prop3": null,
+            "prop4": null,
+            "prop5": null,
+            "container_ident": null,
+            "sibling_rank": 100,
+            "combined": false,
+            "root_ident": null,
+            "apiversion_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources/2002",
+              "checksum": "A:aa85f6628302ae30"
+            },
+            "ResourceAttributes": [
+              {
+                "ident": 2002,
+                "ts": "2017-10-25T20:49:02+00:00",
+                "name": "customerName",
+                "description": null,
+                "column_name": "customerName",
+                "formula": null,
+                "is_defined_key_part": false,
+                "resource_ident": 2002,
+                "code_type": null,
+                "@metadata": {
+                  "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources.ResourceAttributes/2002",
+                  "checksum": "A:57a92d6573817110"
+                }
+              }
+            ]
+          },
+          {
+            "ident": 2003,
+            "ts": "2017-10-25T20:49:04+00:00",
+            "resource_type_ident": 1,
+            "prefix": "orders",
+            "table_name": "orderdetails",
+            "name": "orderdetails_ibfk_1_orderdetails_List",
+            "description": null,
+            "is_collection": "Y",
+            "join_condition": "orderNumber = [orderNumber]",
+            "filter": null,
+            "sorting": null,
+            "attach_path": null,
+            "caching": null,
+            "custom_class": null,
+            "code_text": null,
+            "filter_code": "",
+            "serial_filter": null,
+            "prop1": null,
+            "prop2": null,
+            "prop3": null,
+            "prop4": null,
+            "prop5": null,
+            "container_ident": 2004,
+            "sibling_rank": 100,
+            "combined": false,
+            "root_ident": 2002,
+            "apiversion_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources/2003",
+              "checksum": "A:f6b790427b1bc3ff"
+            },
+            "ResourceAttributes": [
+              {
+                "ident": 2003,
+                "ts": "2017-10-25T20:49:02+00:00",
+                "name": "orderNumber",
+                "description": null,
+                "column_name": "orderNumber",
+                "formula": null,
+                "is_defined_key_part": false,
+                "resource_ident": 2003,
+                "code_type": null,
+                "@metadata": {
+                  "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources.ResourceAttributes/2003",
+                  "checksum": "A:0b4549ff609d4224"
+                }
+              }
+            ]
+          },
+          {
+            "ident": 2004,
+            "ts": "2017-10-25T20:49:04+00:00",
+            "resource_type_ident": 1,
+            "prefix": "orders",
+            "table_name": "orders",
+            "name": "orders_ibfk_1_orders_List",
+            "description": null,
+            "is_collection": "Y",
+            "join_condition": "\"customerNumber\" = [\"customerNumber\"]",
+            "filter": null,
+            "sorting": null,
+            "attach_path": null,
+            "caching": null,
+            "custom_class": null,
+            "code_text": null,
+            "filter_code": "",
+            "serial_filter": null,
+            "prop1": null,
+            "prop2": null,
+            "prop3": null,
+            "prop4": null,
+            "prop5": null,
+            "container_ident": 2002,
+            "sibling_rank": 100,
+            "combined": false,
+            "root_ident": 2002,
+            "apiversion_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources/2004",
+              "checksum": "A:bfb26f49c1d5d8d7"
+            },
+            "ResourceAttributes": [
+              {
+                "ident": 2004,
+                "ts": "2017-10-25T20:49:02+00:00",
+                "name": "orderNumber",
+                "description": null,
+                "column_name": "orderNumber",
+                "formula": null,
+                "is_defined_key_part": false,
+                "resource_ident": 2004,
+                "code_type": null,
+                "@metadata": {
+                  "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources.ResourceAttributes/2004",
+                  "checksum": "A:0b4549ff609d4224"
+                }
+              }
+            ]
+          },
+          {
+            "ident": 2005,
+            "ts": "2017-10-25T20:49:04+00:00",
+            "resource_type_ident": 1,
+            "prefix": "orders",
+            "table_name": "products",
+            "name": "orderdetails_ibfk_2_products",
+            "description": null,
+            "is_collection": "N",
+            "join_condition": "\"productCode\" = [\"productCode\"]",
+            "filter": null,
+            "sorting": null,
+            "attach_path": null,
+            "caching": null,
+            "custom_class": null,
+            "code_text": null,
+            "filter_code": "",
+            "serial_filter": null,
+            "prop1": null,
+            "prop2": null,
+            "prop3": null,
+            "prop4": null,
+            "prop5": null,
+            "container_ident": 2003,
+            "sibling_rank": 100,
+            "combined": false,
+            "root_ident": 2002,
+            "apiversion_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources/2005",
+              "checksum": "A:ad61394508b30eea"
+            },
+            "ResourceAttributes": [
+              {
+                "ident": 2005,
+                "ts": "2017-10-25T20:49:02+00:00",
+                "name": "productName",
+                "description": null,
+                "column_name": "productName",
+                "formula": null,
+                "is_defined_key_part": false,
+                "resource_ident": 2005,
+                "code_type": null,
+                "@metadata": {
+                  "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources.ResourceAttributes/2005",
+                  "checksum": "A:31222ef467a92c78"
+                }
+              },
+              {
+                "ident": 2006,
+                "ts": "2017-10-25T20:49:02+00:00",
+                "name": "productCode",
+                "description": null,
+                "column_name": "productCode",
+                "formula": null,
+                "is_defined_key_part": false,
+                "resource_ident": 2005,
+                "code_type": null,
+                "@metadata": {
+                  "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources.ResourceAttributes/2006",
+                  "checksum": "A:5396a866ec3ecbd9"
+                }
+              },
+              {
+                "ident": 2007,
+                "ts": "2017-10-25T20:49:02+00:00",
+                "name": "productAuthor",
+                "description": null,
+                "column_name": "productAuthor",
+                "formula": null,
+                "is_defined_key_part": false,
+                "resource_ident": 2005,
+                "code_type": null,
+                "@metadata": {
+                  "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources.ResourceAttributes/2007",
+                  "checksum": "A:e8323e87b611241b"
+                }
+              },
+              {
+                "ident": 2008,
+                "ts": "2017-10-25T20:49:02+00:00",
+                "name": "productYear",
+                "description": null,
+                "column_name": "productYear",
+                "formula": null,
+                "is_defined_key_part": false,
+                "resource_ident": 2005,
+                "code_type": null,
+                "@metadata": {
+                  "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources.ResourceAttributes/2008",
+                  "checksum": "A:1de00f05ea982bbd"
+                }
+              }
+            ]
+          },
+          {
+            "ident": 2006,
+            "ts": "2017-10-25T20:49:04+00:00",
+            "resource_type_ident": 1,
+            "prefix": "orders",
+            "table_name": "products",
+            "name": "prices",
+            "description": null,
+            "is_collection": "Y",
+            "join_condition": null,
+            "filter": null,
+            "sorting": null,
+            "attach_path": null,
+            "caching": null,
+            "custom_class": null,
+            "code_text": null,
+            "filter_code": null,
+            "serial_filter": null,
+            "prop1": null,
+            "prop2": null,
+            "prop3": null,
+            "prop4": null,
+            "prop5": null,
+            "container_ident": null,
+            "sibling_rank": 100,
+            "combined": false,
+            "root_ident": null,
+            "apiversion_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources/2006",
+              "checksum": "A:3261df2e1a743bf2"
+            },
+            "ResourceAttributes": [
+              {
+                "ident": 2009,
+                "ts": "2017-10-25T20:49:02+00:00",
+                "name": "productCode",
+                "description": null,
+                "column_name": "productCode",
+                "formula": null,
+                "is_defined_key_part": false,
+                "resource_ident": 2006,
+                "code_type": null,
+                "@metadata": {
+                  "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources.ResourceAttributes/2009",
+                  "checksum": "A:5396a866ec3ecbd9"
+                }
+              },
+              {
+                "ident": 2010,
+                "ts": "2017-10-25T20:49:02+00:00",
+                "name": "buyPrice",
+                "description": null,
+                "column_name": "buyPrice",
+                "formula": null,
+                "is_defined_key_part": false,
+                "resource_ident": 2006,
+                "code_type": null,
+                "@metadata": {
+                  "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ApiVersions.Resources.ResourceAttributes/2010",
+                  "checksum": "A:6304c7ccdd955902"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "Applications": [],
+    "Connections": [
+      {
+        "ident": 2000,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "name": "mosquitto",
+        "description": null,
+        "is_active": true,
+        "connect_code": null,
+        "disconnect_code": null,
+        "provider_ident": 3,
+        "project_ident": 2000,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Connections/2000",
+          "checksum": "A:c10ef8f99243c2de"
+        },
+        "ConnectionParameters": [
+          {
+            "ident": 2000,
+            "ts": "2017-10-25T20:49:02+00:00",
+            "value": "true",
+            "type_ident": 10,
+            "description": null,
+            "connection_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Connections.ConnectionParameters/2000",
+              "checksum": "A:4e46068de49d6049"
+            }
+          },
+          {
+            "ident": 2001,
+            "ts": "2017-10-25T20:49:02+00:00",
+            "value": "0",
+            "type_ident": 13,
+            "description": null,
+            "connection_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Connections.ConnectionParameters/2001",
+              "checksum": "A:39775bb0439f3604"
+            }
+          },
+          {
+            "ident": 2002,
+            "ts": "2017-10-25T20:49:02+00:00",
+            "value": "RANDOM",
+            "type_ident": 3,
+            "description": null,
+            "connection_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Connections.ConnectionParameters/2002",
+              "checksum": "A:4bf298f6c55acb4a"
+            }
+          },
+          {
+            "ident": 2003,
+            "ts": "2017-10-25T20:49:02+00:00",
+            "value": "tcp://mosquitto:1883",
+            "type_ident": 1,
+            "description": null,
+            "connection_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Connections.ConnectionParameters/2003",
+              "checksum": "A:14b04f8e3967db71"
+            }
+          }
+        ]
+      }
+    ],
+    "DbaseSchemas": [
+      {
+        "ident": 2000,
+        "name": "Database: customer_orders - root",
+        "comments": "Created using Connect Wizard",
+        "url": "jdbc:mysql://orders-db:3306/customer_orders",
+        "catalog_name": "customer_orders",
+        "schema_name": null,
+        "user_name": "root",
+        "password": null,
+        "salt": null,
+        "active": true,
+        "status": null,
+        "dbasetype_ident": 1,
+        "prefix": "orders",
+        "datasource_name": null,
+        "schema_editable": false,
+        "role_strategy": "simplicity",
+        "table_includes": null,
+        "proc_includes": null,
+        "table_excludes": null,
+        "proc_excludes": null,
+        "max_connections": 20,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.DbaseSchemas/2000",
+          "checksum": "A:b3e6d023133ba98c"
+        },
+        "NonPersistentAttributes": [],
+        "TableInfos": [],
+        "ViewInfos": []
+      }
+    ],
+    "EventHandlers": [],
+    "Functions": [
+      {
+        "ident": 2000,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "name": "custNumFunc",
+        "comments": "This is a skeleton function, you should most likely:\n1 - Give it a proper name (the default is a randomly generated 5-letter name)\n2 - Give it a proper comment\n3 - Change the code to do something useful",
+        "code": "// make an empty object\nvar rec_resp = {};\n\nvar customerName = parameters.customerName;\n\nif (customerName === null) {\n    cust_array =  SysUtility.getResource(\"customerNumber\");\n    return cust_array;\n}\nelse {\n    var settings = {sysfilter: \"equal(CustomerName: '\" + customerName + \"')\" };\n    cust_array = SysUtility.getResource(\"customerNumber\", settings)\n}\n\n//var orders_index;\n//var rec_index;\n\n//var orders_array_json = JSON.parse(JSON.stringify(orders_array));\n//var rec_array_json = JSON.parse(JSON.stringify(rec_array));\n//for(i=0;i<orders_array_json.length ;i++)\n//{\n\t\n//    var order = orders_array_json[i];\n//    for(j=0;j<rec_array_json.length;j++)\n//    {\n\t\t\n//        var code = rec_array_json[j].productCode;\n//        var o_name = rec_array_json[j].productName;\n//        var r_name = rec_array_json[j].rec_product_name;\n\n//\t\tif (order==code)\n//        {\n            \n//\t\t\tif (o_name in rec_resp) {\n//\t\t\t\trec_resp[o_name].push(r_name);\n//\t\t    }\n//\t\t    else\n//\t\t\t    {\n//\t\t\t        rec_resp[o_name] = [r_name];\n//\t\t\t    }\n//\t\t\n//        }\n//    }\n//}\n\nreturn(cust_array);",
+        "resource_names": null,
+        "return_type": "{\n  \"description\": \"This is an example of the type of data returned by this function\"\n}\n",
+        "is_active": true,
+        "project_ident": 2000,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Functions/2000",
+          "checksum": "A:a0c68f80d9bc1509"
+        },
+        "FunctionParameters": [
+          {
+            "ident": 2000,
+            "ts": "2017-10-25T20:49:02+00:00",
+            "name": "customerName",
+            "param_order": 0,
+            "comments": "Enter description here",
+            "is_required": false,
+            "function_ident": 2000,
+            "type_ident": 2,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Functions.FunctionParameters/2000",
+              "checksum": "A:16cefa00000e67ab"
+            }
+          }
+        ]
+      }
+    ],
+    "Handlers": [],
+    "Listeners": [
+      {
+        "ident": 2000,
+        "ts": "2017-10-25T20:57:56+00:00",
+        "name": "mosquitto",
+        "description": null,
+        "is_active": true,
+        "code": "// Getting the string equivalent of the message.\nvar messageContent = message.toString();\nvar token = \"zFeg53T5ESosM2xqM86s\";\n\n//var messageAudit = {};\n//var date  = new Date();\n//messageAudit.date = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' +  date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();\n//messageAudit.message = messageContent;\n\nvar resourceURL = 'http://lac-admin:8080/rest/default/svcOrders/v1/smartOrders';\nvar parms = {};\nvar settings = { 'headers': {'Authorization' : 'CALiveAPICreator ' + token + ':1'}};\nvar postResponse = listenerUtil.restPost(resourceURL, parms, settings, messageContent);\n//log.debug(postResponse);\nlog.debug('Logged '+messageContent+' into message_audit table.');\n",
+        "logging_level": 6,
+        "connection_ident": 2000,
+        "provider_ident": 3,
+        "project_ident": 2000,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Listeners/2000",
+          "checksum": "A:2f17be3bfd2da397"
+        },
+        "ListenerParameters": [
+          {
+            "ident": 2000,
+            "ts": "2017-10-25T20:49:02+00:00",
+            "value": "smartOrder",
+            "type_ident": 1,
+            "description": null,
+            "listener_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Listeners.ListenerParameters/2000",
+              "checksum": "A:d151563aee40c933"
+            }
+          },
+          {
+            "ident": 2001,
+            "ts": "2017-10-25T20:49:02+00:00",
+            "value": "1",
+            "type_ident": 2,
+            "description": "1",
+            "listener_ident": 2000,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Listeners.ListenerParameters/2001",
+              "checksum": "A:dbdd96f5d1bb850f"
+            }
+          }
+        ]
+      }
+    ],
+    "NamedFilters": [],
+    "NamedSorts": [],
+    "ProjectLibraries": [],
+    "ProjectOptions": [
+      {
+        "ident": 2000,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "https://docops.ca.com/ca-live-api-creator/3-1-1/en/tutorial/northwind",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 13,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2000",
+          "checksum": "A:1eed69b9691d422a"
+        }
+      },
+      {
+        "ident": 2001,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "true",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 12,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2001",
+          "checksum": "A:0e448bf37b3707a7"
+        }
+      },
+      {
+        "ident": 2002,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "true",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 29,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2002",
+          "checksum": "A:0e448bf37b3707a7"
+        }
+      },
+      {
+        "ident": 2003,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "false",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 3,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2003",
+          "checksum": "A:a98283c2669c5df0"
+        }
+      },
+      {
+        "ident": 2004,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "urn:caliveapicreator:",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 2,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2004",
+          "checksum": "A:cf70ad0fb6f52857"
+        }
+      },
+      {
+        "ident": 2005,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "2000",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 5,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2005",
+          "checksum": "A:e6c3763788606b2e"
+        }
+      },
+      {
+        "ident": 2006,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "2000",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 6,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2006",
+          "checksum": "A:e6c3763788606b2e"
+        }
+      },
+      {
+        "ident": 2007,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "@metadata",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 4,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2007",
+          "checksum": "A:a207203257e4c16a"
+        }
+      },
+      {
+        "ident": 2008,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "false",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 1,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2008",
+          "checksum": "A:a98283c2669c5df0"
+        }
+      },
+      {
+        "ident": 2009,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "2000",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 7,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2009",
+          "checksum": "A:e6c3763788606b2e"
+        }
+      },
+      {
+        "ident": 2010,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "100",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 10,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2010",
+          "checksum": "A:0b4cd05c9a1ec61c"
+        }
+      },
+      {
+        "ident": 2011,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "20",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 9,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2011",
+          "checksum": "A:c11cdd3553c0adb9"
+        }
+      },
+      {
+        "ident": 2012,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "2000",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 11,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2012",
+          "checksum": "A:e6c3763788606b2e"
+        }
+      },
+      {
+        "ident": 2013,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": null,
+        "project_ident": 2000,
+        "projectoptiontype_ident": 14,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2013",
+          "checksum": "A:8ba6b22d1d7a839e"
+        }
+      },
+      {
+        "ident": 2014,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "json",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 15,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2014",
+          "checksum": "A:0d19799d772aacbd"
+        }
+      },
+      {
+        "ident": 2015,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "false",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 16,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2015",
+          "checksum": "A:a98283c2669c5df0"
+        }
+      },
+      {
+        "ident": 2016,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "false",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 19,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2016",
+          "checksum": "A:a98283c2669c5df0"
+        }
+      },
+      {
+        "ident": 2017,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "null",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 22,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2017",
+          "checksum": "A:73b0567b548c5971"
+        }
+      },
+      {
+        "ident": 2018,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "false",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 18,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2018",
+          "checksum": "A:a98283c2669c5df0"
+        }
+      },
+      {
+        "ident": 2019,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "0",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 20,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2019",
+          "checksum": "A:899c9be4e6a88aec"
+        }
+      },
+      {
+        "ident": 2020,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "null",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 21,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2020",
+          "checksum": "A:73b0567b548c5971"
+        }
+      },
+      {
+        "ident": 2021,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "null",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 23,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2021",
+          "checksum": "A:73b0567b548c5971"
+        }
+      },
+      {
+        "ident": 2022,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "null",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 24,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2022",
+          "checksum": "A:73b0567b548c5971"
+        }
+      },
+      {
+        "ident": 2023,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "false",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 27,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2023",
+          "checksum": "A:a98283c2669c5df0"
+        }
+      },
+      {
+        "ident": 2024,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "hex",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 25,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2024",
+          "checksum": "A:e2c72fc8ddab4ce3"
+        }
+      },
+      {
+        "ident": 2025,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "false",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 26,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2025",
+          "checksum": "A:a98283c2669c5df0"
+        }
+      },
+      {
+        "ident": 2026,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": "root",
+        "project_ident": 2000,
+        "projectoptiontype_ident": 28,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2026",
+          "checksum": "A:208e19a17f3b352a"
+        }
+      },
+      {
+        "ident": 2027,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "option_value": null,
+        "project_ident": 2000,
+        "projectoptiontype_ident": 30,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.ProjectOptions/2027",
+          "checksum": "A:8ba6b22d1d7a839e"
+        }
+      }
+    ],
+    "ProjectProblems": [],
+    "Relationships": [
+      {
+        "ident": 2087,
+        "name": "a56a8369c9b3f13de87dc828f818c71d72131dd3",
+        "parent_entity_name": "orders:customers",
+        "child_entity_name": "orders:orders",
+        "role_to_child": "orders_ibfk_1_orders_List",
+        "role_to_parent": "orders_ibfk_1_customers",
+        "parent_columns": "\"customerNumber\"",
+        "child_columns": "\"customerNumber\"",
+        "update_rule": "R",
+        "delete_rule": "R",
+        "key_name": "orders_ibfk_1",
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Relationships/2087",
+          "checksum": "A:d0ce2e7588d2e140"
+        }
+      },
+      {
+        "ident": 2088,
+        "name": "c6f05bc111a89d751a7363ac55661859ea62d881",
+        "parent_entity_name": "orders:customers",
+        "child_entity_name": "orders:payments",
+        "role_to_child": "payments_ibfk_1_payments_List",
+        "role_to_parent": "payments_ibfk_1_customers",
+        "parent_columns": "\"customerNumber\"",
+        "child_columns": "\"customerNumber\"",
+        "update_rule": "R",
+        "delete_rule": "R",
+        "key_name": "payments_ibfk_1",
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Relationships/2088",
+          "checksum": "A:0c0f770aedb11866"
+        }
+      },
+      {
+        "ident": 2089,
+        "name": "85f0dc80d9bfddda3455bf9571b009644ef3944c",
+        "parent_entity_name": "orders:employees",
+        "child_entity_name": "orders:customers",
+        "role_to_child": "customers_ibfk_1_customers_List",
+        "role_to_parent": "customers_ibfk_1_employees",
+        "parent_columns": "\"employeeNumber\"",
+        "child_columns": "\"salesRepEmployeeNumber\"",
+        "update_rule": "R",
+        "delete_rule": "R",
+        "key_name": "customers_ibfk_1",
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Relationships/2089",
+          "checksum": "A:ba6d7ae91c4c1b1d"
+        }
+      },
+      {
+        "ident": 2090,
+        "name": "29389fd1aa7ce15b1c46d9215909c2511f26ca58",
+        "parent_entity_name": "orders:employees",
+        "child_entity_name": "orders:employees",
+        "role_to_child": "employees_ibfk_1_employees_List",
+        "role_to_parent": "employees_ibfk_1_employees",
+        "parent_columns": "\"employeeNumber\"",
+        "child_columns": "\"reportsTo\"",
+        "update_rule": "R",
+        "delete_rule": "R",
+        "key_name": "employees_ibfk_1",
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Relationships/2090",
+          "checksum": "A:8205c30abe05ae13"
+        }
+      },
+      {
+        "ident": 2091,
+        "name": "0bc826077d49fc7bfcbe36064592ffe56ee971f9",
+        "parent_entity_name": "orders:offices",
+        "child_entity_name": "orders:employees",
+        "role_to_child": "employees_ibfk_2_employees_List",
+        "role_to_parent": "employees_ibfk_2_offices",
+        "parent_columns": "\"officeCode\"",
+        "child_columns": "\"officeCode\"",
+        "update_rule": "R",
+        "delete_rule": "R",
+        "key_name": "employees_ibfk_2",
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Relationships/2091",
+          "checksum": "A:f801f0ae0d36b2a2"
+        }
+      },
+      {
+        "ident": 2092,
+        "name": "178add50e2e8fed67a3d39c95ecd9767a8167790",
+        "parent_entity_name": "orders:orders",
+        "child_entity_name": "orders:orderdetails",
+        "role_to_child": "orderdetails_ibfk_1_orderdetails_List",
+        "role_to_parent": "orderdetails_ibfk_1_orders",
+        "parent_columns": "\"orderNumber\"",
+        "child_columns": "\"orderNumber\"",
+        "update_rule": "R",
+        "delete_rule": "R",
+        "key_name": "orderdetails_ibfk_1",
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Relationships/2092",
+          "checksum": "A:b8a9ff9d061a0711"
+        }
+      },
+      {
+        "ident": 2093,
+        "name": "91814375fa6655c64dc0695191a6a82fad61e81b",
+        "parent_entity_name": "orders:productlines",
+        "child_entity_name": "orders:products",
+        "role_to_child": "products_ibfk_1_products_List",
+        "role_to_parent": "products_ibfk_1_productlines",
+        "parent_columns": "\"productLine\"",
+        "child_columns": "\"productAuthor\"",
+        "update_rule": "R",
+        "delete_rule": "R",
+        "key_name": "products_ibfk_1",
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Relationships/2093",
+          "checksum": "A:4781f660ea2253f4"
+        }
+      },
+      {
+        "ident": 2094,
+        "name": "a16e41292dfd23e0d194e13b914d0713cc334427",
+        "parent_entity_name": "orders:products",
+        "child_entity_name": "orders:orderdetails",
+        "role_to_child": "orderdetails_ibfk_2_orderdetails_List",
+        "role_to_parent": "orderdetails_ibfk_2_products",
+        "parent_columns": "\"productCode\"",
+        "child_columns": "\"productCode\"",
+        "update_rule": "R",
+        "delete_rule": "R",
+        "key_name": "orderdetails_ibfk_2",
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Relationships/2094",
+          "checksum": "A:63861d18f289c7bb"
+        }
+      }
+    ],
+    "Roles": [
+      {
+        "ident": 2000,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "name": "API Documentation",
+        "description": "This role is special and is used when generating OpenAPI(Swagger) documentation. It is recognized by the name special name 'API Documentation' and used only for documentation calls.\n Any Resources, Tables, Views, Procedures etc. that are defined and enabled by this role are used to generate the OpenAPI(Swagger) documentation.\n If this role is assigned to a user it will NOT be used for execution permissions.\n If this role is removed or otherwise unavailable, the Swagger/OpenAPI documentation will be nothing more that a name and version.",
+        "default_table_permission": "A",
+        "default_view_permission": "R",
+        "default_apivisibility": "TVPRMF",
+        "project_ident": 2000,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Roles/2000",
+          "checksum": "A:73953b2e89af4497"
+        },
+        "ApiKeyRoles": [],
+        "ApiVisibility": [],
+        "PermissionData": [],
+        "TablePermissions": []
+      },
+      {
+        "ident": 2001,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "name": "Full access",
+        "description": "Full access to everything in this project",
+        "default_table_permission": "A",
+        "default_view_permission": "R",
+        "default_apivisibility": "TVPRMF",
+        "project_ident": 2000,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Roles/2001",
+          "checksum": "A:7b49e5f1e453860a"
+        },
+        "ApiKeyRoles": [
+          {
+            "ident": 2004,
+            "ts": "2017-10-25T20:49:02+00:00",
+            "apikey_ident": 2002,
+            "role_ident": 2001,
+            "@metadata": {
+              "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Roles.ApiKeyRoles/2004",
+              "checksum": "A:2c8bc4761df12d0d"
+            }
+          }
+        ],
+        "ApiVisibility": [],
+        "PermissionData": [],
+        "TablePermissions": []
+      },
+      {
+        "ident": 2002,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "name": "Read only",
+        "description": "Read-only access to everything in this project",
+        "default_table_permission": "R",
+        "default_view_permission": "R",
+        "default_apivisibility": "TVPRMF",
+        "project_ident": 2000,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Roles/2002",
+          "checksum": "A:c510d57576a7dbad"
+        },
+        "ApiKeyRoles": [],
+        "ApiVisibility": [],
+        "PermissionData": [],
+        "TablePermissions": []
+      }
+    ],
+    "ScheduleItems": [],
+    "Users": [
+      {
+        "ident": 2000,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "name": "admin",
+        "fullname": "Admin Account with full access",
+        "email": null,
+        "status": "A",
+        "roles": "Full access",
+        "data": null,
+        "comments": null,
+        "apikey_lifespan": null,
+        "password_hash": "BDfimUwGmsCb8cTwoCeTeiw4Hwh30uBV8R44dmsFljBFjVbBkMf1rmd3uo7O475blW/HbrrpQAUx2moSxUk2WQ==",
+        "password_salt": "smbfMPAp/Rq3ogFNKjvjK+qUQgWYrS1R5kcER+/1",
+        "project_ident": 2000,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Users/2000",
+          "checksum": "A:79394161e1ed17d4"
+        }
+      },
+      {
+        "ident": 2001,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "name": "demo",
+        "fullname": "Demo Account with full access",
+        "email": null,
+        "status": "A",
+        "roles": "Full access",
+        "data": null,
+        "comments": null,
+        "apikey_lifespan": null,
+        "password_hash": "mHeIRlx6fTdXRZkfvTfESc6JKigCXbWl1ujvv5Tvr5IRJdkgdyuy0zHvvEH0srz1z7ldzlyV9srSV17S3BfXMw==",
+        "password_salt": "BO2SqKO/opi/V/CFZLpHchsWCYKIpiB+9YXWe6uI",
+        "project_ident": 2000,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Users/2001",
+          "checksum": "A:dd716a9098635ad9"
+        }
+      },
+      {
+        "ident": 2002,
+        "ts": "2017-10-25T20:49:02+00:00",
+        "name": "guest",
+        "fullname": "Guest Account with read-only access",
+        "email": null,
+        "status": "A",
+        "roles": "Read only",
+        "data": null,
+        "comments": null,
+        "apikey_lifespan": null,
+        "password_hash": "mYQLSMggBX93QAiyOSJLWWwMgUqyXRXVi7qcFT3JGeMUqagibhWvZoouyIOHl/yozIyr84vuXzxWRpK+mPP4zA==",
+        "password_salt": "BF6xy543hmodo7wk3DKAaEQFT4dB760zPHBGgYCC",
+        "project_ident": 2000,
+        "@metadata": {
+          "href": "http://localhost:8111/rest/abl/admin/v2/ProjectExport.Users/2002",
+          "checksum": "A:896924eb6176a46e"
+        }
+      }
+    ]
+  }
+]

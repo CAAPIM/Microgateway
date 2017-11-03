@@ -1,5 +1,9 @@
+**/.DS_Store
 **/bin
 **/pkg/*
 !**/pkg/README.md
 **/src/*
 !**/src/client
+get-started/get-further/demo-with-live-api-creator/api-live-creator/CA_Technologies_LiveAPI_License.json
+get-started/docker-compose/add-ons.orig
+get-started/external/otk/solutionkits/*.skmult

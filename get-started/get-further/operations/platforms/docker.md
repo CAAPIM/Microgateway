@@ -38,8 +38,16 @@ run in the same Docker machine as the Microgateway.*
 
 #### Configure <a name="configure"></a>
 
-*Note: please refer to the main documentation for the list of required and optional
+*Note 1: Please refer to the main documentation for the list of required and optional
 environment variables: https://docops.ca.com/ca-microgateway/1-0/EN.*
+
+*Note 2: By passing the value "true" to the environment variable `ACCEPT_LICENSE`
+in the file `get-started/docker-compose/config/license.env`, you are expressing
+your acceptance of the [CA Trial and Demonstration Agreement](LICENSE.md). The
+initial Product Availability Period for your trial of CA Microgateway shall be
+sixty (60) days from the date of your initial deployment. You are permitted only
+one (1) trial of CA Microgateway per Company, and you may not redeploy a new
+trial of CA Microgateway after the end of the initial Product Availability Period.*
 
 The environment variables of the Microgateway are set in the docker-compose.yml
 file. Here is an example setting the environment variables `CLUSTER_PROPERTY_cluster_hostname`

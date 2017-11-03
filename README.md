@@ -14,6 +14,8 @@
 ## What is CA Microgateway <a name="intro"></a>
 CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA Microgateway by building your own policy with existing policy building capability in the API gateway family.
 
+More features available in the [free trial version](https://www.ca.com/us/products/ca-microgateway.html).
+
 <p align="center">
 <img src="img/ca-microgateway-diagram_draw-io.png" alt="CA Microgateway" title="CA Microgateway" />
 </p>
@@ -46,7 +48,7 @@ Supported platforms:
   docker info
   ```
 
-### Deploy the Microgateway <a name="deploy"></a>
+### Deploy the CA Microgateway <a name="deploy"></a>
 
 This step will typically be done by a Gateway sysadmin.
 
@@ -54,7 +56,13 @@ This step will typically be done by a Gateway sysadmin.
 
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
   the file `get-started/docker-compose/config/license.env`, you are expressing
-  your acceptance of the [Microservices Gateway Pre-Release Agreement](LICENSE.md).
+  your acceptance of the [CA Trial and Demonstration Agreement](LICENSE.md).
+
+  The initial Product Availability Period for your trial of CA Microgateway
+  shall be sixty (60) days from the date of your initial deployment. You are
+  permitted only one (1) trial of CA Microgateway per Company, and you may not
+  redeploy a new trial of CA Microgateway after the end of the initial Product
+  Availability Period.
 
 - Start the Gateway:
 
@@ -68,7 +76,7 @@ This step will typically be done by a Gateway sysadmin.
                  up -d --build
   ```
 
-- Verify that the Gateway is healthy:
+- Verify that the Gateway is healthy (May need to repeat the command to refresh status):
 
   ```
   docker ps --format "table {{.Names}}\t{{.Status}}"
@@ -78,7 +86,7 @@ This step will typically be done by a Gateway sysadmin.
   NAMES                STATUS
   microgateway_lb_1    Up About a minute
   microgateway_ssg_1   Up About a minute (healthy)
-  microgateway_db_1    Up About a minute
+  microgateway_consul_1    Up About a minute
   ```
 
 - Print the logs:
@@ -118,7 +126,7 @@ This step will typically be done by a microservice developer.
 
 - Create a file named Gatewayfile with the following content:
 
-  ```
+  ```json
   {
       "Service": {
       "name": "Google Search",
@@ -170,13 +178,18 @@ This step will typically be done by a microservice developer.
 - [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
 - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
 - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
-- [Extend Microgateway with new templates](get-started/docker-compose/add-ons/bundles/README.md)
+- [Extend Microgateway with new templates](get-started/get-further/extend-microgateway-with-new-templates.md)
 - Operations:
   - Install, configuration, upgrade and scale
     - [Docker](get-started/get-further/operations/platforms/docker.md)
     - [OpenShift](get-started/get-further/operations/platforms/openshift.md)
   - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
   - [Performance tuning](get-started/get-further/operations/system/performance.md)
+
+### Samples
+- [Microgateway APIs](samples/APIs)
+- Plaforms:
+  - [OpenShift](samples/platforms/openshift)
 
 ### Documentation  <a name="documentation"></a>
 

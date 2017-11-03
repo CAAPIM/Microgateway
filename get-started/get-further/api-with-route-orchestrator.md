@@ -39,7 +39,7 @@ because the example 2 and 3 use the Google Maps APIs over HTTPS as backend servi
 
 - Create a file name RouteOrchestratorFile with the following content
 
-```
+```json
 {
   "Service": {
     "name": "Google RouteOrchestrator Service",
@@ -103,7 +103,7 @@ curl --insecure \
 - This is an example of exposing a microservice API using RouteOrchestrator with a single RouteHttp that uses Jolt transformation to do aggregation
 - Create a file name RouteOrchestratorFile with the following content
 
-```
+```json
 {
   "Service": {
     "name": "findPlaceDetails RouteOrchestrator",
@@ -203,7 +203,7 @@ curl --insecure \
 - This is an example of exposing a microservice API using RouteOrchestrator with multiple RouteHttp that use Jolt transformation to do aggregation
 - Create a file name RouteOrchestratorFile with the following content
 
-```
+```json
 {
   "Service": {
     "name": "findDistance RouteOrchestrator",
@@ -455,7 +455,7 @@ curl --insecure \
 #### Example 4 – expose micro-service API with orchestration: reference sub-level of orchestrated data<a name="Example4"></a>
 - This is an example of exposing a micro-service API using RouteOrchestrator with multiple aggregators, each of which produced an aggregated data.  The subsequent aggregator referencing data from the aggregated results of previous aggregators.
 - The first aggregator:
-  - accepts an origin and a destination locations/addresses from the request parameters (ie. ${request.http.parameters.origins} and ${request.http.parameters.destinations}) 
+  - accepts an origin and a destination locations/addresses from the request parameters (ie. ${request.http.parameters.origins} and ${request.http.parameters.destinations})
   - calling a backend Google API to resolve the locations/addresses into more details
 - The <b>orchestrator_transform</b> is the transformation applied to the aggregated data of previous aggregator(s).  Part or all of the result of the "orchestrator_transform" can be used to "orchestrate" the next aggregator(s)
 - The second aggregator:
@@ -465,7 +465,7 @@ curl --insecure \
 
 - Create a file name RouteOrchestratorFile with the following content
 
-```
+```json
 {
   "Service": {
     "name": "Get Travel Distance and Turn-by-Turn Driving Direction Between Location",
@@ -727,11 +727,11 @@ curl --insecure \
 
 - This is an example of exposing a micro-service API using RouteOrchestrator with multiple aggregators, each of which produced an aggregated data. The subsequent aggregator referencing data from the aggregated results of previous aggregators (ie. this is the definition of 'orchestrator').  In this case, the weather routing will reference the longitude (@##@{orchestrator.intermediate.location.lng}) and latitude (@##@{orchestrator.intermediate.location.lat}) values which are part of the previous aggregator's result.  The "location.lat" and "location.lng" are the top level of the orchestrated data.
 
-- In this example, by giving a location, it will, first, retrieve the detailed address of the given location.  From the detailed address, it will use/reference the longitude and latitude of the detailed address to retrieve the current weather of the location.  A 'location' can be an a partial or a full address; for example, 885 W Georgia Street, Vancouver.  A 'location' can be a named location such as "pacific center, vancouver, bc" or "BC stadium"..etc.  Whatever the 'location' is, this example will determine the address of the 'location'.  And, from the address, it will determine the current weather 
+- In this example, by giving a location, it will, first, retrieve the detailed address of the given location.  From the detailed address, it will use/reference the longitude and latitude of the detailed address to retrieve the current weather of the location.  A 'location' can be an a partial or a full address; for example, 885 W Georgia Street, Vancouver.  A 'location' can be a named location such as "pacific center, vancouver, bc" or "BC stadium"..etc.  Whatever the 'location' is, this example will determine the address of the 'location'.  And, from the address, it will determine the current weather
 
 - Create a file name RouteOrchestratorFile with the following content
 
-```
+```json
 {
   "Service": {
     "name": "Current Weather Info",
@@ -905,13 +905,13 @@ curl --insecure \
      --header "User-Agent: Mozilla/5.0" \
      'https://localhost/getCurrentWeather?location=CA+Technologies,+Vancouver,+BC,+Canada'
 
-or 
+or
 
 curl --insecure \
      --header "User-Agent: Mozilla/5.0" \
      'https://localhost/getCurrentWeather?location=Banff+National+Park,+AB,+Canada'
 
-or 
+or
 curl --insecure \
      --header "User-Agent: Mozilla/5.0" \
      'https://localhost/getCurrentWeather?location=885+W+Georgia+Street,+Vancouver,+BC,+Canada'
@@ -925,7 +925,7 @@ curl --insecure \
 - Create/Define an API endpoint:
   The service template has the following format.
 
-  ```
+  ```json
     {  
       "Service": {
         "name": "Sample to use RouteOrchestrator",
@@ -943,35 +943,36 @@ curl --insecure \
 
     where the <b><<... orchestrator meta data here ...>></b>, at the high-level, has the following format
 
-  ```
+  ```json
   {
     "rule": {
       "orchestrator": [
-      {
-        "aggregator": [
-          {
-            "RouteHttp": {
-              "targetUrl": "https://www.myurl.com",
-              "httpMethod": "GET",
-              "parameters": [
-              ],
-              "headers": [
-              ],
-              "requestTransform": [
-              ],
-              "responseTransform": [
-              ]
+        {
+          "aggregator": [
+            {
+              "RouteHttp": {
+                "targetUrl": "https:\/\/www.myurl.com",
+                "httpMethod": "GET",
+                "parameters": [
+
+                ],
+                "headers": [
+
+                ],
+                "requestTransform": [
+
+                ],
+                "responseTransform": [
+
+                ]
+              }
             }
-          }
-        ]
-      }
+          ]
+        }
+      ]
     }
   }
   ```
-
-
-
-
 
    The high-level skeleton above is the minimum/required meta data that needs to be pass-in as part of the API payload.
    - "orchestrator" can contain 1 or more 'aggregator'.  However, currently, we only support a single 'aggregator'.  
@@ -984,17 +985,20 @@ curl --insecure \
 
   - Each 'aggregator' can have 1 or more RouteHttp.
 
-  ```
+  ```json
   {
     "rule": {
       "orchestrator": [
-      {
-        "aggregator": [
-          {
-            "RouteHttp": {}
-          }
-        ]
-      }
+        {
+          "aggregator": [
+            {
+              "RouteHttp": {
+
+              }
+            }
+          ]
+        }
+      ]
     }
   }
   ```
@@ -1005,7 +1009,7 @@ curl --insecure \
 
   - if your api required <key=value>, as example, https://www.myhost.com/key1=value1&key2=value2   etc. then the format of the parameters as follow:
 
-  ```
+  ```json
     "parameters": [
       {
         "key1":"value1"
@@ -1019,7 +1023,7 @@ curl --insecure \
 #### headers:<a name="headers"></a>
   - if your api required to pass in headers to the API call, you can do so with the following format.  These headers will be added to the list of headers from the client requests headers.
 
-  ```
+  ```json
     "headers": [
     {
       "header1": "value1"
@@ -1037,7 +1041,7 @@ curl --insecure \
   - The responseTransform is the transformation to be applied to the request payload.  The result of the transformation will be concatenated as part of the result of the aggregation.  
     The format of the responseTransform is specified as follow:
 
-  ```
+  ```json
   "responseTransform": [
     {
       "jolt": [
@@ -1055,4 +1059,3 @@ curl --insecure \
 ### Additional Resources<a name="Resources"></a>
 #### Jolt Transformation <a name="Jolt"></a>
   - You can use ( http://jolt-demo.appspot.com ) to test and to try out your Jolt transformation to make sure the transformation is working as you expected.  Once the Jolt transformation is working as the way you wanted, you can copy/paste the "Jolt Spec" part into the "jolt" transform of the orchestrator.
-

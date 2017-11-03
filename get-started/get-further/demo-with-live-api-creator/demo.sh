@@ -36,7 +36,6 @@ function main() {
             microservice::deploy "${MICROSERVICE_BASE_PATH}/recommendation" "$DOCKER_PROJECT_NAME"
 
             log::info "Deploying CA OTK"
-            otk::solutionkit::add "$OTK_SOLUTIONKIT_POLICYSDK_PATH" "$OTK_PATH/solutionkits/"
             otk::deploy "$OTK_PATH" "$DOCKER_PROJECT_NAME"
 
             log::info "Deploying CA Microgateway"

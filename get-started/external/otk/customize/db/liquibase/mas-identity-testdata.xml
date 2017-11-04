@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.2.xsd">
+
+    <changeSet author="gateway" id="create-users">
+        <!-- Add internal users -->
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'150bb5f26f0811e691075b57b9f5bdbf'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Aaron Rose"/>
+            <column name="login" value="arose"/>
+            <column name="password" value="U3RSb25HNV4p"/>
+            <column name="first_name" value="Aaron"/>
+            <column name="last_name" value="Rose"/>
+            <column name="email" value="aaron.rose@companyx.com"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'80be31506fbf11e6b8443fd887d5f7fe'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Ana Steeves"/>
+            <column name="login" value="asteeves"/>
+            <column name="password" value="U3RSb25HNV4p"/>
+            <column name="first_name" value="Ana"/>
+            <column name="last_name" value="Steeves"/>
+            <column name="email" value="ana.steeves@companyx.com"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'8504e3946fbf11e6a945ef0e2fb8286e'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Andy Diaz"/>
+            <column name="login" value="adiaz"/>
+            <column name="password" value="U3RSb25HNV4p"/>
+            <column name="first_name" value="Andy"/>
+            <column name="last_name" value="Diaz"/>
+            <column name="email" value="andy.diaz@companyx.com"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'897b6b0a6fbf11e6a2edfb530ac19a13'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Brayden White"/>
+            <column name="login" value="bwhite"/>
+            <column name="password" value="U3RSb25HNV4p"/>
+            <column name="first_name" value="Brayden"/>
+            <column name="last_name" value="White"/>
+            <column name="email" value="braden.white@companyx.com"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'968e823c6fbf11e6ac12e3f0f6be184f'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Christina Griffin"/>
+            <column name="login" value="cgriffin"/>
+            <column name="password" value="U3RSb25HNV4p"/>
+            <column name="first_name" value="Christina"/>
+            <column name="last_name" value="Griffin"/>
+            <column name="email" value="christina.griffin@companyx.com"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'9ab57cb26fbf11e6a23c7fdb72fbcdc5'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Gilbert Rice"/>
+            <column name="login" value="grice"/>
+            <column name="password" value="U3RSb25HNV4p"/>
+            <column name="first_name" value="Gilbert"/>
+            <column name="last_name" value="Rice"/>
+            <column name="email" value="gilbert.rice@companyx.com"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'9efb54366fbf11e6ac8d3b913dd8a365'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Hazel Jones"/>
+            <column name="login" value="hjones"/>
+            <column name="password" value="U3RSb25HNV4p"/>
+            <column name="first_name" value="Hazel"/>
+            <column name="last_name" value="Jones"/>
+            <column name="email" value="hazel.jones@companyx.com"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'a2d483d46fbf11e6a19c2b6af9a7209c'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Jamie Torres"/>
+            <column name="login" value="jtorres"/>
+            <column name="password" value="U3RSb25HNV4p"/>
+            <column name="first_name" value="Jamie"/>
+            <column name="last_name" value="Torres"/>
+            <column name="email" value="jamie.torres@companyx.com"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'a656d85e6fbf11e6a00d9712f99ec9a0'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Tammy Richards"/>
+            <column name="login" value="trichards"/>
+            <column name="password" value="U3RSb25HNV4p"/>
+            <column name="first_name" value="Tammy"/>
+            <column name="last_name" value="Richards"/>
+            <column name="email" value="tammy.richards@companyx.com"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'aa4853166fbf11e6bfc1237f187749b9'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Vicki Peters"/>
+            <column name="login" value="vpeters"/>
+            <column name="password" value="U3RSb25HNV4p"/>
+            <column name="first_name" value="Vicki"/>
+            <column name="last_name" value="Peters"/>
+            <column name="email" value="vicki.peters@companyx.com"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'ae2d51f26fbf11e6b70b47c0cd98430a'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Zachary Shelton"/>
+            <column name="login" value="zshelton"/>
+            <column name="password" value="U3RSb25HNV4p"/>
+            <column name="first_name" value="Zachary"/>
+            <column name="last_name" value="Shelton"/>
+            <column name="email" value="zachary.shelton@companyx.com"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_user">
+            <column name="goid" valueComputed="X'd402dec810e746669e1629f220362ced'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="lily"/>
+            <column name="login" value="lily"/>
+            <column name="password" value="N2xheWVy"/>
+            <column name="expiration" valueNumeric="-1"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <!-- Add internal groups -->
+        <insert tableName="internal_group">
+            <column name="goid" valueComputed="X'15f9a5146f0811e695180fea8fd6de61'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Marketing"/>
+            <column name="description" value="A group for all Marketing Department employees"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_group">
+            <column name="goid" valueComputed="X'c289d4f46fbf11e6b4054fb92303e096'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Engineering"/>
+            <column name="description" value="A group for all Engineering Department employees"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_group">
+            <column name="goid" valueComputed="X'c6c209f66fbf11e6976e1bb1e186314d'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Legal"/>
+            <column name="description" value="A group for all Legal Department employees"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+        <insert tableName="internal_group">
+            <column name="goid" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="name" value="Company X"/>
+            <column name="description" value="A group for all employees of Company X"/>
+            <column name="enabled" valueNumeric="1"/>
+        </insert>
+
+        <!-- Add internal user groups -->
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'33a0046a6fa211e6a9047fbe67c789f3'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'15f9a5146f0811e695180fea8fd6de61'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'150bb5f26f0811e691075b57b9f5bdbf'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'3552bda26fc011e6be031b2f34af993a'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'15f9a5146f0811e695180fea8fd6de61'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'9efb54366fbf11e6ac8d3b913dd8a365'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'39d1c5446fc011e699cef728b3dea255'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'15f9a5146f0811e695180fea8fd6de61'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'ae2d51f26fbf11e6b70b47c0cd98430a'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'7c991aa86fc011e69f1677bd7e9ba841'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'c289d4f46fbf11e6b4054fb92303e096'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'a656d85e6fbf11e6a00d9712f99ec9a0'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'815c86606fc011e68a60cf7df121154b'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'c289d4f46fbf11e6b4054fb92303e096'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'897b6b0a6fbf11e6a2edfb530ac19a13'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'8524836a6fc011e6999d53fc8388835e'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'c289d4f46fbf11e6b4054fb92303e096'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'8504e3946fbf11e6a945ef0e2fb8286e'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'2bea463a6fc111e6a091a38061384c31'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'c6c209f66fbf11e6976e1bb1e186314d'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'80be31506fbf11e6b8443fd887d5f7fe'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'319e2b3c6fc111e69e43cb7a2aa02e73'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'c6c209f66fbf11e6976e1bb1e186314d'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'aa4853166fbf11e6bfc1237f187749b9'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'354055da6fc111e6bd67af3c88bc7452'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'c6c209f66fbf11e6976e1bb1e186314d'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'968e823c6fbf11e6ac12e3f0f6be184f'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'f9c5cfca6fc111e698d5ab9013522d5d'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'150bb5f26f0811e691075b57b9f5bdbf'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'fdc22ba06fc111e6b00eff0b94d780e9'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'80be31506fbf11e6b8443fd887d5f7fe'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'0233e0846fc211e6af8e3707fecd5457'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'8504e3946fbf11e6a945ef0e2fb8286e'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'0696bb106fc211e6bf874be2416d9f02'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'897b6b0a6fbf11e6a2edfb530ac19a13'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'0c5aacaa6fc211e6955def4dfe85b9d8'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'968e823c6fbf11e6ac12e3f0f6be184f'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'125a48546fc211e69130cbeb264471f4'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'9ab57cb26fbf11e6a23c7fdb72fbcdc5'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'19072da26fc211e68ef9b3ef64d8a131'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'9efb54366fbf11e6ac8d3b913dd8a365'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'1d0362cc6fc211e69462576919d5257e'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'a2d483d46fbf11e6a19c2b6af9a7209c'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'20f74eb66fc211e68872a7d89afd3434'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'a656d85e6fbf11e6a00d9712f99ec9a0'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'24e2fa206fc211e68279931bc1df7be3'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'aa4853166fbf11e6bfc1237f187749b9'"/>
+        </insert>
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'2904113e6fc211e69c5b7f7c504765e3'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'ae2d51f26fbf11e6b70b47c0cd98430a'"/>
+        </insert>
+        <!-- User: lily -->
+        <insert tableName="internal_user_group">
+            <column name="goid" valueComputed="X'd9920b65433b4f34b24896107152d66a'"/>
+            <column name="version" valueNumeric="1"/>
+            <column name="internal_group" valueComputed="X'ca1c2bd66fbf11e6be82270d1254c63c'"/>
+            <column name="provider_goid" valueComputed="X'0000000000000000FFFFFFFFFFFFFFFE'"/>
+            <column name="user_goid" valueComputed="X'd402dec810e746669e1629f220362ced'"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -41,8 +41,9 @@ Supported platforms:
 ### Prerequisites <a name="prerequisites"></a>
 - A docker host
 
-  You can use Docker on your laptop or in the Cloud. Docker-machine
-  (https://docs.docker.com/machine/drivers/) can be used as a quick way to deploy
+  You can use Docker on your laptop or in the Cloud. (You can [get Docker here](https://www.docker.com/get-docker).)
+  
+  Docker-machine (https://docs.docker.com/machine/drivers/) can be used as a quick way to deploy
   a remote Docker host.
 
   Run the following command to validate that you can reach your Docker host.
@@ -163,7 +164,11 @@ The following steps will typically be done by a developer, and may be done at th
   
   Save the file into the same directory from which you will make the next API call.
 
+  The Gatewayfile is a JSON file that describes a "meta-policy" that will be published to the Microgateway. Gatewayfile will create a new service that will be accessible at "/demo_google" and will route requests to htttp://www.google.com.
+
 - Then, add your API to CA Microgateway:
+
+  (note: if you stopped the Microgateway previously, please [start it up](#deploy) again.)
 
   ```
   curl --insecure \

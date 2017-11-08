@@ -179,8 +179,8 @@ This step will typically be done by a microservice developer.
 - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
 - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
 - [Extend Microgateway with new templates](get-started/get-further/extend-microgateway-with-new-templates.md)
-- [Configure and consume AWS Lambda APIs with JSON file] (get-started/get-further/configure-and-consume-AWS-Lambda-APIs-with-json-file.md)
-- [Configure and consume AWS S3 APIs with JSON file] (get-started/get-further/configure-and-consume-AWS-S3-APIs-with-json-file.md)
+- [Configure and consume AWS Lambda APIs with JSON file](get-started/get-further/configure-and-consume-AWS-Lambda-APIs-with-json-file.md)
+- [Configure and consume AWS S3 APIs with JSON file](get-started/get-further/configure-and-consume-AWS-S3-APIs-with-json-file.md)
 - Operations:
   - Install, configuration, upgrade and scale
     - [Docker](get-started/get-further/operations/platforms/docker.md)

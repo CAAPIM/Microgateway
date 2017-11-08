@@ -3,7 +3,7 @@
 **_Prerequisite:_**
 - You have access to AWS
 
-###General use case scenarios
+### General use case scenarios
 - Create a bucket:
     
     ```

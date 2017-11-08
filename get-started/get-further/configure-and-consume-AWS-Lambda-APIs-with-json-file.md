@@ -9,7 +9,7 @@ or
 We will use a sample Java deployment package of AWS Lambda (http://docs.aws.amazon.com/lambda/latest/dg/java-handler-io-type-pojo.html) in this guide. 
 
 
-###General use case scenarios
+### General use case scenarios
 
 - (prerequisite) Create a AWS Lambda function deployment package:
 

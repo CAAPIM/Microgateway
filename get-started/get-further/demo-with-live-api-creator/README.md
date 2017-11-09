@@ -148,9 +148,9 @@ export DEMO_DEBUG=1
 
 then run `demo.sh`.
 
-## Expose microservice APIs <a name="expose-apis"></a>
+## Expose APIs <a name="expose-apis"></a>
 
-### Expose and secure <a name="expose-microservices"></a>
+### Expose and secure microservices <a name="expose-microservices"></a>
 
 *This step will typically be done by a microservice developer or a continuous
 integration and continuous delivery system like Jenkins*

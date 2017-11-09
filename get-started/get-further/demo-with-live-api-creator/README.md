@@ -178,6 +178,16 @@ curl --insecure \
      --data @microservices/recommendation/Gatewayfile
 ```
 
+We can now verify that microservices require a valid client TLS certificate, here
+by calling directly the `Orders` service hosted on Live API Creator from any container:
+```
+docker exec --interactive --tty demo_edge-ssg_1 curl --insecure 'https://lac-node:8443/rest/default/svcOrders/v1/Orders?sysfilter=equal(customerNumber:129)&auth=zFeg53T5ESosM2xqM86s:1'
+```
+will return:
+```
+curl: (58) NSS: client certificate not found (nickname not specified)
+```
+
 ### Orchestrate <a name="orchestrate"></a>
 
 *This step will typically be done by an API owner*

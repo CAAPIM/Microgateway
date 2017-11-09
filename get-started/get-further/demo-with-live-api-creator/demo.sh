@@ -40,7 +40,8 @@ function main() {
             microservice::deploy "${MICROSERVICE_BASE_PATH}/recommendation" "$DOCKER_PROJECT_NAME"
 
             if [ "$MQTT_SCALE" -gt 0 ]; then
-              log::info "Deploying MQTT"
+              log::info "Deploying MQTT server"
+              log::info "A machine-to-machine (M2M)/\"Internet of Things\" connectivity protocol"
               mqtt::deploy "$MQTT_PATH" "$DOCKER_PROJECT_NAME" "$MQTT_SCALE"
             fi
 

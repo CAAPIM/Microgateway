@@ -1,4 +1,12 @@
 # Configuration
+
+# The initial Product Availability Period for your trial of CA Microgateway
+# shall be sixty (60) days from the date of your initial deployment. You
+# are permitted only one (1) trial of CA Microgateway per Company, and you
+# may not redeploy a new trial of CA Microgateway after the end of the initial
+# Product Availability Period.
+ACCEPT_LICENSE=false
+
 START_TIMEOUT="600"
 DOCKER_PROJECT_NAME="demo" # do not change
 MICROSERVICE_BASE_PATH="${CWD}/microservices"

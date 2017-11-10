@@ -86,23 +86,11 @@ Exposes and protects public APIs and orchestrates backend Microgateway's APIs.
 
 ## Operate <a name="operate"></a>
 ### License <a name="license"></a>
-#### CA Live API Creator
-
-Accept the [EULA](live-api-creator/etc/license/CA_Technologies_LiveAPI_License.json)
-by passing the value "ENU" to the environment variable `ca_accept_license` in
-the Live API Creator [eula.env](live-api-creator/etc/eula.env) file.
-
-#### CA OTK
-
-Accept license by passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-the OTK [license.env](../../external/otk/config/license.env) file.
-
-#### CA Microgateway
-
-By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-the following files you are expressing your acceptance of the [Microservices Gateway Pre-Release Agreement](../../../LICENSE.md):
-  - [license.env](../../docker-compose/config/license.env)
-  - [license.env](gateway/config/license.env)
+By passing the value "true" to the environment variable ACCEPT_LICENSE in the file,
+[config.sh](./config.sh) you are expressing your acceptance of:
+- the [CA Microservices Gateway Pre-Release Agreement](../../../LICENSE.md)
+- the [CA Live API Creator EULA](live-api-creator/etc/license/CA_Technologies_LiveAPI_License.json)
+- the [CA OTK license](https://github.com/CAAPIM/Docker-MAS/blob/master/LICENSE)
 
 ### Start <a name="ops-start"></a>
 ```
@@ -148,9 +136,9 @@ export DEMO_DEBUG=1
 
 then run `demo.sh`.
 
-## Expose microservice APIs <a name="expose-apis"></a>
+## Expose APIs <a name="expose-apis"></a>
 
-### Expose and secure <a name="expose-microservices"></a>
+### Expose and secure microservices <a name="expose-microservices"></a>
 
 *This step will typically be done by a microservice developer or a continuous
 integration and continuous delivery system like Jenkins*
@@ -176,6 +164,16 @@ curl --insecure \
      --user "admin:password" \
      --url https://localhost/quickstart/1.0/services \
      --data @microservices/recommendation/Gatewayfile
+```
+
+We can now verify that microservices require a valid client TLS certificate, here
+by calling directly the `Orders` service hosted on Live API Creator from any container:
+```
+docker exec --interactive --tty demo_edge-ssg_1 curl --insecure 'https://lac-node:8443/rest/default/svcOrders/v1/Orders?sysfilter=equal(customerNumber:129)&auth=zFeg53T5ESosM2xqM86s:1'
+```
+will return:
+```
+curl: (58) NSS: client certificate not found (nickname not specified)
 ```
 
 ### Orchestrate <a name="orchestrate"></a>

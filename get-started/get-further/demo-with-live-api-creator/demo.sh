@@ -24,10 +24,14 @@ function main() {
             check::required_cli
 
             log::info "Checking accepted licenses"
-            check::accepted_license "${MICROGATEWAY_PATH}/config/license.env" "ACCEPT_LICENSE=true"
-            check::accepted_license "${INGRESS_GATEWAY_PATH}/config/license.env" "ACCEPT_LICENSE=true"
-            check::accepted_license "${OTK_PATH}/config/license.env" "ACCEPT_LICENSE=true"
-            check::accepted_license "${API_LIVE_CREATOR_PATH}/etc/eula.env" "ca_accept_license=ENU"
+            if [ "$ACCEPT_LICENSE" == "true" ]; then
+              license::set "${MICROGATEWAY_PATH}/config/license-agreement.env" "ACCEPT_LICENSE=true"
+              license::set "${INGRESS_GATEWAY_PATH}/config/license-agreement.env" "ACCEPT_LICENSE=true"
+              license::set "${OTK_PATH}/config/license.env" "ACCEPT_LICENSE=true"
+              license::set "${API_LIVE_CREATOR_PATH}/etc/eula.env" "ca_accept_license=ENU"
+            else
+              log::error "Expecting ACCEPT_LICENSE=\"true\" but found ACCEPT_LICENSE=\"$ACCEPT_LICENSE\""
+            fi
 
             log::info "Deploying the database of the microservice Orders"
             microservice::deploy "${MICROSERVICE_BASE_PATH}/orders" "$DOCKER_PROJECT_NAME"
@@ -498,6 +502,14 @@ a license that was not accepted or because of resource limitation
 (memory, CPU, disk space). Please double check the README.md
 then re-run this script."
   fi
+}
+
+# Licnse
+function license::set() {
+  local license_path="${1}"
+  local license_accept_value="${2}"
+
+  echo "$license_accept_value" > "$license_path"
 }
 
 # Other functions

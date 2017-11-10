@@ -11,6 +11,7 @@ services:
           memory: 2048m
     env_file:
       - ./config/core.env
+      - ./config/license-agreement.env
       - ./config/license.env
       - ./config/certificates.env
       - ./config/otk.env

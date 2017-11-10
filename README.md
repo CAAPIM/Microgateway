@@ -55,7 +55,7 @@ This step will typically be done by a Gateway sysadmin.
 - Accept the license:
 
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-  the file `get-started/docker-compose/config/license.env`, you are expressing
+  the file `get-started/docker-compose/config/license-agreement.env`, you are expressing
   your acceptance of the [CA Trial and Demonstration Agreement](LICENSE.md).
 
   The initial Product Availability Period for your trial of CA Microgateway

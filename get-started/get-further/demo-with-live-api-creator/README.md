@@ -1,4 +1,4 @@
-# Sample end-to-end security and integration infrastructure for microservices using Microgateway
+# Security model for microservices using the CA Microgateway
 
 * [Architecture](#architecture)
     * [Backend microservice data source](#datasource)
@@ -195,7 +195,7 @@ curl --insecure \
 
 *This step will typically be done by an end user*
 
-The public API is consumed from the ingress gateway securing and orchestrating
+The public API is consumed from the edge gateway securing and orchestrating
 backend microservice APIs.
 
 - Get an OAuth token:

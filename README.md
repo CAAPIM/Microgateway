@@ -9,6 +9,9 @@
   * [Expose a microservice API](#api)
 * [Next steps](#next-steps)
   * [Get further to try more complex scenarios](#get-further)
+  * [End-to-End Demos](#end-to-end)
+    * <img src="img/ca-world-17-footer.png" alt="CA World 2017" width="100"> [Security model for microservices using the CA Microgateway](get-started/get-further/demo-with-live-api-creator)
+  * [Samples](#samples)
   * [Documentation](#documentation)
 
 ## What is CA Microgateway <a name="intro"></a>
@@ -169,9 +172,9 @@ This step will typically be done by a microservice developer.
        'https://localhost/google?q=CA'
   ```
 
-## Next steps  <a name="next-steps"></a>
+## Next steps <a name="next-steps"></a>
 
-### Get further to try more complex scenarios  <a name="get-further"></a>
+### Get further to try more complex scenarios <a name="get-further"></a>
 
 - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
 - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
@@ -186,7 +189,10 @@ This step will typically be done by a microservice developer.
   - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
   - [Performance tuning](get-started/get-further/operations/system/performance.md)
 
-### Samples
+### End-to-End Demos <a name="end-to-end"></a>
+- <img src="img/ca-world-17-footer.png" alt="CA World 2017" width="100"> [Security model for microservices using the CA Microgateway](get-started/get-further/demo-with-live-api-creator)
+
+### Samples <a name="samples"></a>
 - [Microgateway APIs](samples/APIs)
 - Plaforms:
   - [OpenShift](samples/platforms/openshift)

@@ -4,10 +4,12 @@ set -o pipefail # Exit if one command in a pipeline fails
 set -o nounset  # Treat  unset  variables and parameters as errors
 
 CWD="$(cd "$(dirname "$0")" && pwd)" # Script directory
-[ "${DEMO_DEBUG:-0}" -eq 1 ] && set -o xtrace
 
 # Load the configuration
 source "${CWD}/config.sh"
+
+# Debug mode
+[ "${DEMO_DEBUG:-0}" -eq 1 ] && set -o xtrace
 
 # COLORS
 COLOR_GREEN="\033[0;32m"   # green
@@ -38,6 +40,12 @@ function main() {
 
             log::info "Deploying the database of the microservice Recommendation"
             microservice::deploy "${MICROSERVICE_BASE_PATH}/recommendation" "$DOCKER_PROJECT_NAME"
+
+            if [ "$MQTT_SCALE" -gt 0 ]; then
+              log::info "Deploying MQTT server"
+              log::info "A machine-to-machine (M2M)/\"Internet of Things\" connectivity protocol"
+              mqtt::deploy "$MQTT_PATH" "$DOCKER_PROJECT_NAME" "$MQTT_SCALE"
+            fi
 
             log::info "Deploying CA OTK"
             otk::deploy "$OTK_PATH" "$DOCKER_PROJECT_NAME"
@@ -125,6 +133,11 @@ function main() {
             log::info "Destroying CA OTK"
             otk::destroy "$OTK_PATH" "$DOCKER_PROJECT_NAME"
             otk::solutionkit::remove "$OTK_PATH/solutionkits/$(basename $OTK_SOLUTIONKIT_POLICYSDK_PATH)"
+
+            if [ "$MQTT_SCALE" -gt 0 ]; then
+              log::info "Destroying MQTT"
+              mqtt::destroy "$MQTT_PATH" "$DOCKER_PROJECT_NAME"
+            fi
 
             log::info "Removing the Docker network ${DOCKER_PROJECT_NAME}_default"
             docker::network::rm "${DOCKER_PROJECT_NAME}_default"
@@ -430,6 +443,26 @@ function otk::add_otk_user() {
                                     "Gateway as a Client Identity Provider" \
                                     "$gw_hostname" \
                                     "$gw_certificate"
+}
+
+# MQTT functions
+function mqtt::deploy() {
+  local path="$1"
+  local project="$2"
+  local scale="$3"
+
+  docker-compose --project-name "$project" \
+                 --file "${path}/docker-compose.yml" \
+                 up -d --build --scale "mqtt=${scale}"
+}
+
+function mqtt::destroy() {
+  local path="$1"
+  local project="$2"
+
+  docker-compose --project-name "$project" \
+                 --file "${path}/docker-compose.yml" \
+                 rm --stop -v --force
 }
 
 # Docker functions

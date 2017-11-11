@@ -105,6 +105,7 @@ function main() {
             microgateway::beta::enable_mtls "edge-ssg" "$DOCKER_PROJECT_NAME" "$INGRESS_GATEWAY_PATH" "$INGRESS_GATEWAY_USERNAME" "$INGRESS_GATEWAY_PASSWORD" "policy" "RouteHttp"
             microgateway::beta::enable_mtls "edge-ssg" "$DOCKER_PROJECT_NAME" "$INGRESS_GATEWAY_PATH" "$INGRESS_GATEWAY_USERNAME" "$INGRESS_GATEWAY_PASSWORD" "policy" "RouteOrchestrator"
 
+            >&2 echo
             log::info "done"
             ;;
 
@@ -142,6 +143,7 @@ function main() {
             log::info "Removing the Docker network ${DOCKER_PROJECT_NAME}_default"
             docker::network::rm "${DOCKER_PROJECT_NAME}_default"
 
+            >&2 echo
             log::info "done"
             ;;
 
@@ -163,12 +165,12 @@ function usage() {
 # Logging functions
 function log::info() {
     local message="$1"
-    echo -e "${COLOR_GREEN}[info]${COLOR_DEFAULT} $message"
+    >&2 echo -e "${COLOR_GREEN}[info]${COLOR_DEFAULT} $message"
 }
 
 function log::error() {
     local message="$1"
-    echo -e "${COLOR_RED}[error]${COLOR_DEFAULT} $message"
+    >&2 echo -e "${COLOR_RED}[error]${COLOR_DEFAULT} $message"
     exit 1
 }
 

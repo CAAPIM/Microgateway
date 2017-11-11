@@ -4,10 +4,12 @@ set -o pipefail # Exit if one command in a pipeline fails
 set -o nounset  # Treat  unset  variables and parameters as errors
 
 CWD="$(cd "$(dirname "$0")" && pwd)" # Script directory
-[ "${DEMO_DEBUG:-0}" -eq 1 ] && set -o xtrace
 
 # Load the configuration
 source "${CWD}/config.sh"
+
+# Debug mode
+[ "${DEMO_DEBUG:-0}" -eq 1 ] && set -o xtrace
 
 # COLORS
 COLOR_GREEN="\033[0;32m"   # green

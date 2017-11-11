@@ -39,3 +39,5 @@ OTK_PATH="${CWD}/../../external/otk"
 
 MQTT_PATH="${CWD}/mqtt"
 MQTT_SCALE="0"
+
+DEMO_DEBUG=0

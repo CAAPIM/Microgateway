@@ -157,6 +157,12 @@ curl --insecure \
      --data @microservices/orders/Gatewayfile
 ```
 
+Here, the [Gatewayfile](microservices/orders/Gatewayfile) will:
+  1. validate the JSON Web Token (JWT) received from the edge gateway
+  2. extract the OAuth scopes from the JWT
+  3. validate the OAuth scopes
+  4. route to the `Orders` microservice using mutual TLS authentication
+
 - Recommendation:
 
 ```
@@ -165,6 +171,12 @@ curl --insecure \
      --url https://localhost/quickstart/1.0/services \
      --data @microservices/recommendation/Gatewayfile
 ```
+
+Here, the [Gatewayfile](microservices/recommendation/Gatewayfile) will:
+  1. validate the JSON Web Token (JWT) received from the edge gateway
+  2. extract the OAuth scopes from the JWT
+  3. validate the OAuth scopes
+  4. route to the `Recommendation` microservice using mutual TLS authentication
 
 We can now verify that microservices require a valid client TLS certificate, here
 by calling directly the `Orders` service hosted on Live API Creator from any container:
@@ -190,6 +202,11 @@ curl --insecure \
      --url https://localhost:9443/quickstart/1.0/services \
      --data @apis-orchestration/recommendator.json
 ```
+
+Here, the [Gatewayfile](apis-orchestration/recommendator.json) will:
+  1. validate the user OAuth token with the OAuth server
+  2. convert the OAuth token into a JSON Web Token (JWT) signed by the edge gateway private TLS key
+  3. orchestrate the `Orders` and `Recommendation` APIs
 
 ## Consume <a name="consume"></a>
 

@@ -73,7 +73,7 @@ Exposes and protects public APIs and orchestrates backend Microgateway's APIs.
   docker info
   ```
 
-- 8GB of memory allocated to the Docker host
+- 8GB of memory and 4 CPU allocated to the Docker host
 
   See https://docs.docker.com/docker-for-mac/#advanced for guidance.
 

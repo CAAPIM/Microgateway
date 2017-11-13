@@ -105,6 +105,7 @@ function main() {
             microgateway::beta::enable_mtls "ssg" "$DOCKER_PROJECT_NAME" "$MICROGATEWAY_PATH" "$MICROGATEWAY_USERNAME" "$MICROGATEWAY_PASSWORD" "policy" "RouteOrchestrator"
             microgateway::beta::enable_mtls "edge-ssg" "$DOCKER_PROJECT_NAME" "$INGRESS_GATEWAY_PATH" "$INGRESS_GATEWAY_USERNAME" "$INGRESS_GATEWAY_PASSWORD" "policy" "RouteHttp"
             microgateway::beta::enable_mtls "edge-ssg" "$DOCKER_PROJECT_NAME" "$INGRESS_GATEWAY_PATH" "$INGRESS_GATEWAY_USERNAME" "$INGRESS_GATEWAY_PASSWORD" "policy" "RouteOrchestrator"
+            microgateway::beta::enable_mtls "edge-ssg" "$DOCKER_PROJECT_NAME" "$INGRESS_GATEWAY_PATH" "$INGRESS_GATEWAY_USERNAME" "$INGRESS_GATEWAY_PASSWORD" "policy" "custom_RouteOrchestrator"
 
             >&2 echo
             log::info "done"

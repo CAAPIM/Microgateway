@@ -14,7 +14,7 @@
       },
       {
         "RouteHttp": {
-          "targetUrl": "http://lac-node:8443/rest/default/svcOrders/v1/custNumFunc?nometa=true&customerName=${customerName}&auth=zFeg53T5ESosM2xqM86s:1",
+          "targetUrl": "https://lac-node:8443/rest/default/svcOrders/v1/custNumFunc?nometa=true&customerName=${customerName}&auth=zFeg53T5ESosM2xqM86s:1",
           "preserveRequestPath": "true",
           "httpMethod": "Automatic"
         }

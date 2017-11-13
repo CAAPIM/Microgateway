@@ -89,7 +89,7 @@
             <column name="client_ident" value="clientMS"/>
             <column name="client_name" value="microgateway"/>
             <column name="callback" value="https://ios.ssosdk.ca.com/ios"/>
-            <column name="scope" value="openid msso profile email phone address oob"/>
+            <column name="scope" value="openid msso profile email phone address orders recommendation"/>
             <column name="environment" value="iOS"/>
             <column name="custom" value="{}"/>
         </insert>

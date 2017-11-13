@@ -135,7 +135,6 @@ function main() {
 
             log::info "Destroying CA OTK"
             otk::destroy "$OTK_PATH" "$DOCKER_PROJECT_NAME"
-            otk::solutionkit::remove "$OTK_PATH/solutionkits/$(basename "$OTK_SOLUTIONKIT_POLICYSDK_PATH")"
 
             if [ "$MQTT_SCALE" -gt 0 ]; then
               log::info "Destroying MQTT"

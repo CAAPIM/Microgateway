@@ -4,15 +4,15 @@
                     <l7:Name>newyorktimes</l7:Name>
                     <l7:Id>dac7a930dd7d072b42d8c76342d7fe9b</l7:Id>
                     <l7:Type>POLICY</l7:Type>
-                    <l7:TimeStamp>2017-08-03T16:13:13.240Z</l7:TimeStamp>
+                    <l7:TimeStamp>2017-10-26T21:53:35.303Z</l7:TimeStamp>
                     <l7:Resource>
-                        <l7:Policy guid="09570b68-7ae0-488b-9d34-81ef79b5eed4" id="dac7a930dd7d072b42d8c76342d7fe9b" version="0">
-                            <l7:PolicyDetail folderId="d1bf78b539c944534cc5d33d1ff4fc64" guid="09570b68-7ae0-488b-9d34-81ef79b5eed4" id="dac7a930dd7d072b42d8c76342d7fe9b" version="0">
+                        <l7:Policy guid="09570b68-7ae0-488b-9d34-81ef79b5eed4" id="dac7a930dd7d072b42d8c76342d7fe9b" version="1">
+                            <l7:PolicyDetail folderId="d1bf78b539c944534cc5d33d1ff4fc64" guid="09570b68-7ae0-488b-9d34-81ef79b5eed4" id="dac7a930dd7d072b42d8c76342d7fe9b" version="1">
 <l7:Name>newyorktimes</l7:Name>
 <l7:PolicyType>Include</l7:PolicyType>
 <l7:Properties>
     <l7:Property key="revision">
-        <l7:LongValue>1</l7:LongValue>
+        <l7:LongValue>2</l7:LongValue>
     </l7:Property>
     <l7:Property key="soap">
         <l7:BooleanValue>false</l7:BooleanValue>
@@ -25,8 +25,8 @@
 &lt;wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"&gt;
     &lt;wsp:All wsp:Usage="Required"&gt;
         &lt;L7p:HardcodedResponse&gt;
-            &lt;L7p:Base64ResponseBody stringValue="VGhlIEZhdWx0IGluIE91ciBTdGFycyxHb29kbmlnaHQgTW9vbixEaWUgdW5lbmRsaWNoZSBHZXNjaGljaHRlIChUaGUgTmV2ZXJlbmRpbmcgU3RvcnkpLEd1ZXNzIEhvdyBNdWNoIEkgTG92ZSBZb3UsSG93IHRvIFdpbiBGcmllbmRzIGFuZCBJbmZsdWVuY2UgUGVvcGxlLFRoZSBHcmFwZXMgb2YgV3JhdGgsVGhlIEhvcnNlIFdoaXNwZXJlcixUaGUgR2lybCBvbiB0aGUgVHJhaW4sVGhlIEhpdGNoaGlrZXIncyBHdWlkZSB0byB0aGUgR2FsYXh5"/&gt;
-            &lt;L7p:ResponseContentType stringValue="text/plain; charset=UTF-8"/&gt;
+            &lt;L7p:Base64ResponseBody stringValue="ewogICAgIkNpcmN1aXRCcmVha2VyUmVzcG9uc2UiOiBbCgkiUzE4XzE1ODk6VG9tIEJyb3ducyBTY2hvb2xkYXlzOjY1Ljk2IiwKCSJTMThfMTA5NzpUaGUgV2lkZSBXaWRlIFdvcmxkOjU4LjMzIiwKCSJTMTJfMjgyMzpOaWNob2xhcyBOaWNrZWxieTo2Ni4yNyIsCgkiUzE4XzE2NjI6R3JlYXQgRXhwZWN0YXRpb25zOjc3LjI3IiwKCSJTMThfMjU4MTpNcnMuIE92ZXJ0aGV3YXlzIFJlbWVtYnJhbmNlczo0OSIsCgkiUzEwXzE5NDk6VGhlIE51dGNyYWNrZXIgYW5kIHRoZSBNb3VzZSBLaW5nOjk4LjU4IiwKCSJTMThfMzQ4MjpBZHZlbnR1cmVzIG9mIEh1Y2tsZWJlcnJ5IEZpbm46NzMuNDkiCiAgICBdCn0="/&gt;
+            &lt;L7p:ResponseContentType stringValue="application/json; charset=UTF-8"/&gt;
         &lt;/L7p:HardcodedResponse&gt;
     &lt;/wsp:All&gt;
 &lt;/wsp:Policy&gt;
@@ -40,7 +40,7 @@
                     <l7:Name>newyorktimes</l7:Name>
                     <l7:Id>dac7a930dd7d072b42d8c76342d7feb1</l7:Id>
                     <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
-                    <l7:TimeStamp>2017-08-03T16:13:13.240Z</l7:TimeStamp>
+                    <l7:TimeStamp>2017-10-26T21:53:35.303Z</l7:TimeStamp>
                     <l7:Resource>
                         <l7:EncapsulatedAssertion id="dac7a930dd7d072b42d8c76342d7feb1" version="0">
                             <l7:Name>newyorktimes</l7:Name>

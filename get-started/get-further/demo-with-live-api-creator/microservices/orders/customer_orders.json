@@ -553,7 +553,7 @@
           {
             "ident": 2003,
             "ts": "2017-10-22T17:12:11+00:00",
-            "value": "tcp://mosquitto:1883",
+            "value": "tcp://mqtt:1883",
             "type_ident": 1,
             "description": null,
             "connection_ident": 2000,

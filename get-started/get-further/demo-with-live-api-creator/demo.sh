@@ -6,6 +6,7 @@ set -o nounset  # Treat  unset  variables and parameters as errors
 CWD="$(cd "$(dirname "$0")" && pwd)" # Script directory
 
 # Load the configuration
+# shellcheck source=./config.sh
 source "${CWD}/config.sh"
 
 # Debug mode
@@ -133,7 +134,7 @@ function main() {
 
             log::info "Destroying CA OTK"
             otk::destroy "$OTK_PATH" "$DOCKER_PROJECT_NAME"
-            otk::solutionkit::remove "$OTK_PATH/solutionkits/$(basename $OTK_SOLUTIONKIT_POLICYSDK_PATH)"
+            otk::solutionkit::remove "$OTK_PATH/solutionkits/$(basename "$OTK_SOLUTIONKIT_POLICYSDK_PATH")"
 
             if [ "$MQTT_SCALE" -gt 0 ]; then
               log::info "Destroying MQTT"
@@ -220,7 +221,7 @@ function api_live_creator::wait() {
     local password="$4"
 
     local is_up=false
-    for i in $(seq 1 $retry); do
+    for i in $(seq 1 "$retry"); do
       if lacadmin login \
                     --username "$user" \
                     --password "$password" \
@@ -404,14 +405,14 @@ function otk::solutionkit::add() {
     local source_path="$1"
     local dest_path="$2"
 
-    cp $source_path $dest_path
+    cp "$source_path" "$dest_path"
 }
 
 function otk::solutionkit::remove() {
     local path="$1"
 
     if [ -f "$path" ]; then
-      rm $path
+      rm "$path"
     fi
 }
 
@@ -431,20 +432,6 @@ function otk::destroy() {
   docker-compose --project-name "$project" \
                  --file "${path}/docker-compose.yml" \
                  rm --stop -v --force
-}
-
-function otk::add_otk_user() {
-  local path="$1"
-  local otk_host="$2"
-  local otk_user="$3"
-  local otk_password="$4"
-  local gw_hostname="$5"
-  local gw_certificate="$6"
-
-  ${path}/provision/add-otk-user.sh "$otk_host" "$otk_user" "$otk_password" \
-                                    "Gateway as a Client Identity Provider" \
-                                    "$gw_hostname" \
-                                    "$gw_certificate"
 }
 
 # MQTT functions
@@ -487,7 +474,9 @@ function docker::wait_healthy() {
   local timeout="$2"
 
   local is_up=false
-  for i in $(seq 1 $timeout); do
+  local counter=0
+
+  while [ "$counter" -lt "$timeout" ]; do
     if docker ps --filter "name=${container_name}" \
        | grep --only \
               --extended-regexp "\(healthy\)"; then
@@ -496,6 +485,7 @@ function docker::wait_healthy() {
       break
     fi
     sleep 1
+    counter=$(($counter + 1))
   done
 
   if ! $is_up; then
@@ -507,7 +497,9 @@ function docker::wait_all_healthy() {
   local timeout="$1"
 
   local is_up=false
-  for i in $(seq 1 $timeout); do
+  local counter=0
+
+  while [ "$counter" -lt "$timeout" ]; do
     log::info "Waiting for:"
     if ! docker ps --format "table {{.Names}}\t{{.Status}}" \
        | grep --extended-regexp "\(.*\)" \
@@ -518,6 +510,7 @@ function docker::wait_all_healthy() {
         break
     fi
     sleep 1
+    counter=$(($counter + 1))
   done
 
   if ! $is_up; then

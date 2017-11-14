@@ -125,14 +125,13 @@ payload NOT REQUIRED
 NOTE:
 	curl command to upload file using signed Url
 
-	format:
 	curl -v -H "Content-Type: <content type>"  --upload-file <filename> <signed url>
 
 	curl -v -H "Content-Type: plain/text" --upload-file history.txt
     "https://mgw-awsassertion.s3.ca-central-1.amazonaws.com/test-folder/uploadFile.txt?Content-Type=plain%2Ftext&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20171109T164534Z&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Expires=6000&X-Amz-Credential=AKIAISPYSVB5HOZI6ZOA%2F20171109%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Signature=1262c13cb8c211ba8bb34a019075bfc05b5b9c97803c29e06439a1f326c20265"
 
-	NOTE:
-	You MUST use -H "Content-Type" header in the curl command above otherwise the upload will failed with "403 Forbidden"
+NOTE:
+You MUST use -H "Content-Type" header in the curl command above otherwise the upload will failed with "403 Forbidden"
 
 6. Function Name: ```generatePresignedGetUrl```
 ```

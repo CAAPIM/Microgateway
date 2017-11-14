@@ -15,14 +15,14 @@ For each sample method in next section, you will follow the following configurat
 3. At the top left search box under ```Assertions```, type and click ```AWS```, then drag and drop it to the right pane under the service you created in the step 2
 4. AWS properties window will show up: 
     1. Click ```AWS Account Configuration``` tab and set your AWS access key, AWS secret access key, profile, and region
-    2. Click ```AWS Service Configuration``` tab and here is where you want to set ```Service Name```, ```Function Name```, and text field below it as you go through the example method below:
+    2. Click ```AWS Service Configuration``` tab and here is where you want to set ```Service Name```, ```AWS Method name```, and text field below it as you go through the example method below:
 
 ### Sample AWS Lambda Methods
 - Click ```Service Name``` dropdown and pick ```Lambda```
-- Click ```Function Name``` dropdown and pick each function name below
+- Click ```AWS Method name``` dropdown and pick each AWS Method name below
 - For each function, paste the following payloads
 
-1. Function Name: ```invokeAsync```
+1. AWS Method name: ```invokeAsync```
     ```
     {
         "functionName": "echo",
@@ -32,7 +32,7 @@ For each sample method in next section, you will follow the following configurat
     }
     ```
 
-2. Function Name: ```createFunction```
+2. AWS Method name: ```createFunction```
     ```
     {
         "handler": "lambda.echo::CommandHandler",
@@ -47,24 +47,24 @@ For each sample method in next section, you will follow the following configurat
     }
     ```
 
-3. Function Name: ```deleteFunction```
+3. AWS Method name: ```deleteFunction```
     ```
     {
         "functionName": "echo"
     }
     ```
 
-4. Function Name: ```listFunctions```
+4. AWS Method name: ```listFunctions```
 Payload NOT REQUIRED.
 
-5. Function Name: ```getFunction```
+5. AWS Method name: ```getFunction```
     ```
     {
-        "functionName": "lambda function name"
+        "functionName": "lambda AWS Method name"
     }
     ```
 
-6. Function Name: ```invoke```
+6. AWS Method name: ```invoke```
     ```
     {
         "functionName": "echo",
@@ -74,7 +74,7 @@ Payload NOT REQUIRED.
     }
     ```
 
-7. Function Name:  ```invokeAsync```
+7. AWS Method name:  ```invokeAsync```
     ```
     {
         "functionName": "echo",
@@ -86,21 +86,21 @@ Payload NOT REQUIRED.
 
 ### Sample AWS S3 Methods
 - Click ```Service Name``` dropdown and pick ```S3```
-- Click ```Function Name``` dropdown and pick each function name below
+- Click ```AWS Method name``` dropdown and pick each AWS Method name below
 - For each function, paste the following payloads
 
 
-1. Function Name:  ```createBucket```
+1. AWS Method name:  ```createBucket```
     ```
     {
         "bucketName": "mgw-awsassertion"
     }
     ```
 
-2. Function Name:  ```listBuckets```
+2. AWS Method name:  ```listBuckets```
 payload NOT REQUIRED
 
-3. Function Name:  ```createFolder```
+3. AWS Method name:  ```createFolder```
     ```
     {
         "bucketName": "mgw-awsassertion",
@@ -108,7 +108,7 @@ payload NOT REQUIRED
     }
     ```
 
-4. Function Name: ```deleteFolder```
+4. AWS Method name: ```deleteFolder```
     ```
     {
         "bucketName": "mgw-awsassertion",
@@ -116,7 +116,7 @@ payload NOT REQUIRED
     }
     ```
 
-5. Function Name: ```generatePresignedPutUrl```
+5. AWS Method name: ```generatePresignedPutUrl```
     ```
     {
         "bucketName": "mgw-awsassertion",
@@ -138,7 +138,7 @@ NOTE:
 NOTE:
 You MUST use -H "Content-Type" header in the curl command above otherwise the upload will failed with "403 Forbidden"
 
-6. Function Name: ```generatePresignedGetUrl```
+6. AWS Method name: ```generatePresignedGetUrl```
     ```
     {
         "bucketName": "mgw-sandbox",
@@ -154,14 +154,14 @@ NOTE:
     curl -v -X GET "https://mgw-sandbox.s3.ca-central-1.amazonaws.com/uploadFolder/awsLocationCopy.jar?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20171108T235520Z&X-Amz-SignedHeaders=host&X-Amz-Expires=555&X-Amz-Credential=AKIAISPYSVB5HOZI6ZOA%2F20171108%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Signature=ab212f36382f408ede89b9c6c6f16f047e83f5dd524d666f9be2c12ae73bb201" > awsLocation.jar
 
 
-7. Function Name: ```getBucketVersioningConfiguration```
+7. AWS Method name: ```getBucketVersioningConfiguration```
     ```
     {
         "bucketName": "mgw-awsassertion"
     }
     ```
 
-8. Function Name: ```deleteMultipleObjects```
+8. AWS Method name: ```deleteMultipleObjects```
     ```
     {
         "bucketName": "mgw-awsassertion",
@@ -172,14 +172,14 @@ NOTE:
     }
     ```
 
-9. Function Name: ```listObjects```
+9. AWS Method name: ```listObjects```
     ```
     {
         "bucketName": "mgw-awsassertion"
     }
     ```
 
-10. Function Name: ```copyObject```
+10. AWS Method name: ```copyObject```
     ```
     {
         "fromBucket": "mgw-sandbox",
@@ -189,7 +189,7 @@ NOTE:
     }
     ```
 
-11. Function Name: ```setObjectAcl```
+11. AWS Method name: ```setObjectAcl```
     ```
     {
         "bucketName": "mgw-awsassertion",
@@ -200,28 +200,28 @@ NOTE:
     }
     ```
 
-12. Function Name:  ```deepDeleteBucket```
+12. AWS Method name:  ```deepDeleteBucket```
     ```
     {
         "bucketName": "mgw-awsassertion"
     }
     ```
 
-13. Function Name:  ```deleteBucketVersion```
+13. AWS Method name:  ```deleteBucketVersion```
     ```
     {
         "bucketName": "mgw-awsassertion"
     }
     ```
 
-14. Function Name: ```deleteEmptyBucket```
+14. AWS Method name: ```deleteEmptyBucket```
     ```
     {
         "bucketName": "mgw-awsassertion"
     }
     ```
 
-15. Function Name: ```deleteObject```
+15. AWS Method name: ```deleteObject```
     ```
     {
         "bucketName": "mgw-awsassertion",
@@ -229,14 +229,14 @@ NOTE:
     }
     ```
 
-16. Function Name: ```getBucketAcl```
+16. AWS Method name: ```getBucketAcl```
     ```
     {
         "bucketName": "mgw-awsassertion"
     }
     ```
 
-17. Function Name: ```getObjectAcl```
+17. AWS Method name: ```getObjectAcl```
     ```
     {
         "bucketName": "mgw-awsassertion",

@@ -85,6 +85,11 @@ Payload NOT REQUIRED.
     ```
 
 ### Sample AWS S3 Methods
+- Click ```Service Name``` dropdown and pick ```S3```
+- Click ```Function Name``` dropdown and pick each function name below
+- For each function, paste the following payloads
+
+
 1. Function Name:  ```createBucket```
 ```
     {

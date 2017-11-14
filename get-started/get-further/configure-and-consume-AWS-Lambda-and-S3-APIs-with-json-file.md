@@ -91,33 +91,33 @@ Payload NOT REQUIRED.
 
 
 1. Function Name:  ```createBucket```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion"
     }
-```
+    ```
 
 2. Function Name:  ```listBuckets```
 payload NOT REQUIRED
 
 3. Function Name:  ```createFolder```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion",
         "folderName": "test-folder"
     }
-```
+    ```
 
 4. Function Name: ```deleteFolder```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion",
         "folderName": "test-folder"
     }
-```
+    ```
 
 5. Function Name: ```generatePresignedPutUrl```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion",
         "resourceKey": "test-folder/uploadFile.txt",
@@ -125,7 +125,7 @@ payload NOT REQUIRED
         "isPublicRead": "false",
         "contentType": "plain/text"
     }
-```
+    ```
 
 NOTE:
 	curl command to upload file using signed Url
@@ -139,13 +139,13 @@ NOTE:
 You MUST use -H "Content-Type" header in the curl command above otherwise the upload will failed with "403 Forbidden"
 
 6. Function Name: ```generatePresignedGetUrl```
-```
+    ```
     {
         "bucketName": "mgw-sandbox",
         "resourceKey": "uploadFolder/awsLocationCopy.jar",
         "expireTimeInMillis": "555555"
     }
-```
+    ```
 
 NOTE:
 	curl command to download object from S3 using signed Url
@@ -155,14 +155,14 @@ NOTE:
 
 
 7. Function Name: ```getBucketVersioningConfiguration```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion"
     }
-```
+    ```
 
 8. Function Name: ```deleteMultipleObjects```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion",
         "objects": [
@@ -170,27 +170,27 @@ NOTE:
             "test-folder/uploadFile2.txt"
         ]
     }
-```
+    ```
 
 9. Function Name: ```listObjects```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion"
     }
-```
+    ```
 
 10. Function Name: ```copyObject```
-```
+    ```
     {
         "fromBucket": "mgw-sandbox",
         "fromObject": "uploadFolder/awsLocationCopy.jar",
         "toObject": "test-folder/awsLocationNewCopy.jar",
         "toBucket": "mgw-awsassertion"
     }
-```
+    ```
 
 11. Function Name: ```setObjectAcl```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion",
         "granteeId": "3456f16bf4e105839c092836e84df884355c16ee0257e74a8d6d2af0a6b7924d",
@@ -198,48 +198,48 @@ NOTE:
         "permission": "Write",
         "granteeType": "canonical"
     }
-```
+    ```
 
 12. Function Name:  ```deepDeleteBucket```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion"
     }
-```
+    ```
 
 13. Function Name:  ```deleteBucketVersion```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion"
     }
-```
+    ```
 
 14. Function Name: ```deleteEmptyBucket```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion"
     }
-```
+    ```
 
 15. Function Name: ```deleteObject```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion",
         "objectName": "test-folder/uploadFile.txt"
     }
-```
+    ```
 
 16. Function Name: ```getBucketAcl```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion"
     }
-```
+    ```
 
 17. Function Name: ```getObjectAcl```
-```
+    ```
     {
         "bucketName": "mgw-awsassertion",
         "objectKey": "test-folder"
     }
-```
+    ```

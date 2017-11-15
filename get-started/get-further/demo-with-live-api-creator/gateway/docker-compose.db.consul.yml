@@ -1,0 +1,31 @@
+version: '3'
+services:
+  edge-ssg:
+    environment:
+      QUICKSTART_REST_MODE: "true"
+      QUICKSTART_REPOSITORY_TYPE: "consul"
+      QUICKSTART_REPOSITORY_CONSUL_HOST: "edge-consul"
+      QUICKSTART_REPOSITORY_CONSUL_PORT: "8500"
+      QUICKSTART_REPOSITORY_CONSUL_PROTOCOL: "http"
+      # QUICKSTART_REPOSITORY_CONSUL_ACL_TOKEN:
+      # cert for https mode (uncomment)
+      #QUICKSTART_REPOSITORY_CONSUL_CERT:
+      #QUICKSTART_REPOSITORY_CONSUL_CERT_TRUSTED_FOR_SSL: "true"
+      #QUICKSTART_REPOSITORY_CONSUL_CERT_TRUST_ANCHOR: "true"
+      #QUICKSTART_REPOSITORY_CONSUL_CERT_VERIFY_HOSTNAME: "false"
+    links:
+      - consul
+
+  edge-consul:
+      image: "consul"
+      # ports:
+      #   - "8400:8400"
+      #   - "8500:8500"
+      #   - "53:8600/tcp"
+      #   - "53:8600/udp"
+      command: "agent -server -client=0.0.0.0 -bind=0.0.0.0 -bootstrap-expect 1 -data-dir=/consul/data -ui"
+      volumes:
+        - "consul:/consul/data"
+
+volumes:
+  consul:

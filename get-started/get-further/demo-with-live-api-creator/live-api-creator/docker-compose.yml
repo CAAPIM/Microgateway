@@ -1,0 +1,26 @@
+# this lac node will have it's port exposed so that the cli process (simulating ci/cd)
+# in the script will be able to deploy the api and modify it for consumption
+version: '3'
+services:
+  # Start one node of lac with port exposed to host for admin/ui access
+  # this node cannot be scaled because of exposed port
+  lac-admin:
+    image: caliveapicreator/4.0.00-demo-admin
+    build:
+      context: .
+      dockerfile: Dockerfile.admin
+    ports:
+      - '8111:8080'
+    env_file:
+      - ./etc/eula.env
+      - ./etc/db.env
+
+  # Start one node of LAC without port exposed that can be dynamically scaled
+  lac-node:
+    image: caliveapicreator/4.0.00-demo-node
+    build:
+      context: .
+      dockerfile: Dockerfile.node
+    env_file:
+      - ./etc/eula.env
+      - ./etc/db.env

@@ -1,0 +1,7 @@
+version: '3'
+services:
+  edge-ssg:
+    image: caapim/edge-ssg:addons
+    build:
+      context: ./add-ons
+      dockerfile: Dockerfile.addon

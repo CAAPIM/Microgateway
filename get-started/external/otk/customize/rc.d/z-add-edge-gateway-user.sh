@@ -14,15 +14,18 @@ while [ "$(curl --insecure \
         sleep 5
 done
 
-RESTMAN_BUNDLE_PATH="/opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/after-start/add_edge_gateway_user.bundle"
+RESTMAN_BUNDLE_PATH="/opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/after-start/add_edge_gateway_user.bundle
+                     /opt/SecureSpan/Gateway/node/default/etc/bootstrap/bundle/after-start/add_microgateway_user.bundle"
 
-if curl --insecure \
-        --request PUT \
-        --header "Content-Type: application/xml" --data @${RESTMAN_BUNDLE_PATH} \
-        --user 'admin:password' \
-        --url https://localhost:8443/restman/1.0/bundle; then
+for bundle in ${RESTMAN_BUNDLE_PATH}; do
+  if curl --insecure \
+          --request PUT \
+          --header "Content-Type: application/xml" --data @${bundle} \
+          --user 'admin:password' \
+          --url https://localhost:8443/restman/1.0/bundle; then
 
-  echo "add-edge-gateway-user.sh : done"
-else
-  echo "add-edge-gateway-user.sh : failed"
-fi
+    echo "add-edge-gateway-user.sh : ${bundle} added"
+  else
+    echo "add-edge-gateway-user.sh : ${bundle} failed to load"
+  fi
+done

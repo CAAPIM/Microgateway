@@ -1,7 +1,7 @@
 {
     "Service": {
-    "name": "Google Search",
-    "gatewayUri": "/google",
+    "name": "Google Search Preloaded",
+    "gatewayUri": "/google-preloaded",
     "httpMethods": [ "get" ],
     "policy": [
       {

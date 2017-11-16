@@ -6,10 +6,8 @@
       <l7:Type>USER</l7:Type>
       <l7:Resource>
         <l7:User providerId="ada77b26afbc26b56accc9c84c0e3dfd" id="118ff2af84d24e05a8a6c21565a00c8d">
-          <l7:Login>
-          </l7:Login>
-          <l7:Email>
-          </l7:Email>
+          <l7:Login>edge-gateway</l7:Login>
+          <l7:Email></l7:Email>
           <l7:SubjectDn>cn=edge-ssg,ou=apim gateway,o=ca technologies,l=vancouver,st=british columbia,c=ca</l7:SubjectDn>
           <l7:Properties>
             <l7:Property key="name">
@@ -26,12 +24,6 @@
     </l7:Item>
   </l7:References>
   <l7:Mappings>
-    <l7:Mapping action="NewOrUpdate" srcId="118ff2af84d24e05a8a6c21565a00c8d" type="USER">
-      <l7:Properties>
-        <l7:Property key="MapBy">
-          <l7:StringValue>name</l7:StringValue>
-        </l7:Property>
-      </l7:Properties>
-    </l7:Mapping>
+    <l7:Mapping action="NewOrUpdate" srcId="118ff2af84d24e05a8a6c21565a00c8d" type="USER"/>
   </l7:Mappings>
 </l7:Bundle>

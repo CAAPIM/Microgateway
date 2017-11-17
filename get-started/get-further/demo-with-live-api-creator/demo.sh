@@ -542,10 +542,10 @@ function license::set() {
 
 # Other functions
 function check::required_cli() {
-    command -v docker-compose
-    command -v docker
-    command -v lacadmin
-    command -v sleep
+    command -v docker-compose 2>&1 || log::error "Command docker-compose not found."
+    command -v docker         2>&1 || log::error "Command docker not found."
+    command -v lacadmin       2>&1 || log::error "Command lacadmin not found."
+    command -v sleep          2>&1 || log::error "Command sleep not found."
 }
 
 function check::accepted_license() {

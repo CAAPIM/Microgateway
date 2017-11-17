@@ -40,4 +40,8 @@ OTK_PATH="${CWD}/../../external/otk"
 MQTT_PATH="${CWD}/mqtt"
 MQTT_SCALE="0"
 
+# Required tool version
+CHECK_VERSION="true"
+DOCKER_COMPOSE_MIN_VERSION="1.16.0"
+
 DEMO_DEBUG=0

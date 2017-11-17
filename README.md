@@ -178,7 +178,7 @@ This step will typically be done by a microservice developer.
 
 - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
 - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
-- [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
+- [Build a CA Microgateway image with preloaded APIs](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
 - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
 - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
 - [Extend Microgateway with new templates](get-started/get-further/extend-microgateway-with-new-templates.md)

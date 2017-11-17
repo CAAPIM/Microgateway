@@ -3,6 +3,8 @@ set -o errexit  # Exit if a command fails
 set -o pipefail # Exit if one command in a pipeline fails
 set -o nounset  # Treat  unset  variables and parameters as errors
 
+trap 'log::error ${LINENO}' ERR
+
 CWD="$(cd "$(dirname "$0")" && pwd)" # Script directory
 
 # Load the configuration
@@ -25,6 +27,11 @@ function main() {
         "start")
             log::info "Checking required commands"
             check::required_cli
+            if [ "$CHECK_VERSION" == "true" ]; then
+              check::required_version "docker-compose" \
+                                      "$(docker-compose --version | grep -E -o "[0-9.]+\.[0-9]+")" \
+                                      "$DOCKER_COMPOSE_MIN_VERSION"
+            fi
 
             log::info "Checking accepted licenses"
             if [ "$ACCEPT_LICENSE" == "true" ]; then
@@ -174,8 +181,6 @@ function log::error() {
     >&2 echo -e "${COLOR_RED}[error]${COLOR_DEFAULT} $message"
     exit 1
 }
-
-trap 'log::error ${LINENO}' ERR
 
 # Microservice functions
 function microservice::deploy() {
@@ -546,6 +551,19 @@ function check::required_cli() {
     command -v docker         2>&1 || log::error "Command docker not found."
     command -v lacadmin       2>&1 || log::error "Command lacadmin not found."
     command -v sleep          2>&1 || log::error "Command sleep not found."
+}
+
+function check::required_version() {
+  local cli_name="${1}"
+  local cli_version="${2}"
+  local required_version="${3}"
+
+  local cli_version_normalized="$(echo "$cli_version" | tr -d ".")"
+  local required_version_normalized="$(echo "$required_version" | tr -d ".")"
+
+  if [ "$cli_version_normalized" -lt "$required_version_normalized" ]; then
+    log::error "Please upgrade $cli_name at least to version $required_version (found version $cli_version)"
+  fi
 }
 
 function check::accepted_license() {

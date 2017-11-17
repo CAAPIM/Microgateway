@@ -50,8 +50,7 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
   cd get-started/docker-compose
   ```
 
-  Update `config/otk.env` and add the following in `environment` block of
-  the `ssg` service:
+  Confirm the OTK configuration file `config/otk.env` has the following content:
   ```
   OTK_SERVER_HOST=otk
   OTK_SERVER_SSL_PORT=8443

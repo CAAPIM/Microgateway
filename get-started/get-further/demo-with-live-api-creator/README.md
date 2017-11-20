@@ -1,4 +1,13 @@
+*Note: this demo is fully running in Docker containers*
+
 # Security model for microservices using the CA Microgateway
+
+This demo shows how a typical e-commerce experience can be implemented and secured
+with very little effort. There are two microservices implemented - `Orders` (an
+order history and processing system) and `Recommendations` (a service which will
+serve up recommendations based on previous orders). The implementation takes into
+consideration security first and foremost, and utilizes many microservices patterns
+such as the aggregation and orchestration, the access token and mutual TLS authentication.
 
 * [Architecture](#architecture)
     * [Backend microservice data source](#datasource)

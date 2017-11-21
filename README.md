@@ -30,7 +30,7 @@ CA Microgateway provides secure service mesh for microservices with rich functio
 
 ### Extending CA Microgateway
 * After you try out the basic functionality in CA Microgateway, try [some more complex scenarios](#get-further), including [extending CA Microgateway](get-started/get-further/extend-microgateway-with-new-templates.md).
-* To download the Policy Manager that is needed to extend CA Microgateway, please get it from [here](https://www-qa.ca.com/us/trials/ca-microgateway.html).
+* To download the Policy Manager that is needed to extend CA Microgateway, please get it from [here](https://www.ca.com/us/trials/ca-microgateway.html).
 
 ## Get started <a name="get-started"></a>
 

@@ -7,7 +7,7 @@ with very little effort. There are two microservices implemented - `Orders` (an
 order history and processing system) and `Recommendations` (a service which will
 serve up recommendations based on previous orders). The implementation takes into
 consideration security first and foremost, and utilizes many microservices patterns
-such as the aggregation and orchestration, the access token and mutual TLS authentication.
+such as aggregation and orchestration, access token and mutual TLS authentication.
 
 * [Architecture](#architecture)
     * [Backend microservice data source](#datasource)

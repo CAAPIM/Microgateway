@@ -1,0 +1,49 @@
+{  "Service": {
+    "name": "orders",
+    "gatewayUri": "/recSvc/v1/users/*/orders",
+    "httpMethods": [ "get", "put" ],
+    "policy": [
+      {
+        "RequireSsl": {
+          "sslTlsRequirement": "optional"
+        }
+      },
+	  {
+	          "RequireOauth2Token": {
+	            "scope_required": "oob",
+	            "scope_fail": "false",
+	            "onetime": "false",
+	            "given_access_token": ""
+	          }
+		},
+      {
+        "Cors" : {}
+      },
+      {
+        "custom_consul" : {
+            "consul_API1": "http://consul:8500/v1/health/service/lac_admin",
+            "consul_API2": "http://consul:8500/v1/health/service/orders_recommendations_microservice"	
+        }
+      },
+      {
+        "custom_circuitBreaker" : {
+          "primaryRoute": "http://${recommendations.result}:8080/rest/default/svcRecs/v1/recommendations",
+          "secondaryRoute": "http://localhost:8080/newyorktimes"
+        }
+      },
+      {
+        "custom_orderAPI" : {}
+      },
+      {
+        "custom_recommendationsAPI" : {}
+      },
+      {
+        "RateLimit" : {
+          "maxRequestsPerSecond": 250,
+          "hardLimit": true,
+          "counterName": "RateLimit-${request.clientId}-b0938b7ad6ff"
+        }
+      }
+    ]
+  }
+}

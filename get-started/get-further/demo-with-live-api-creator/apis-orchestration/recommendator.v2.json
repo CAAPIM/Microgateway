@@ -1,0 +1,117 @@
+{
+  "Service": {
+    "name": "Customer Recommendator v2",
+    "gatewayUri": "/v2/recommendator",
+    "httpMethods": [
+      "get",
+      "put"
+    ],
+    "policy": [
+      {
+        "RequireOauth2Token": {
+          "scope_required": "orders recommendation",
+          "scope_fail": "false",
+          "onetime": "false",
+          "given_access_token": ""
+        }
+      },
+      {
+        "OAuth2JWTHeader": {}
+      },
+      {
+        "custom_CircuitBreakerFailover": {
+          "primaryRoute": "https://ssg:8443/v1/orders",
+          "secondaryRoute": "https://ssg:8443/v1/recommendation",
+          "failoverRoute": "https://ssg:8443/newyorktimes",
+          "rule": {
+            "orchestrator": [
+              {
+                "aggregator": [
+                  {
+                    "RouteHttp": {
+                      "targetUrl": "https://ssg:8443/v1/orders",
+                      "httpMethod": "GET",
+                      "parameters": [
+                        {
+                          "sysfilter": "equal(customerNumber:${request.http.parameters.customer})"
+                        },
+                        {
+                          "auth": "zFeg53T5ESosM2xqM86s:1"
+                        }
+                      ],
+                      "headers": [],
+                      "requestTransform": [],
+                      "responseTransform": []
+                    }
+                  }
+                ]
+              },
+              {
+                "orchestrator_transform": {
+                  "jolt": [
+                    {
+                      "operation": "shift",
+                      "spec": {
+                        "*": {
+                          "*": {
+                            "customerNumber": "customerNumber",
+                            "orders_ibfk_1_orders_List": {
+                              "*": {
+                                "orderdetails_ibfk_1_orderdetails_List": {
+                                  "*": {
+                                    "orderNumber": "product.[#1].orderNumber",
+                                    "*": {
+                                      "productCode": "product.[#2].code",
+                                      "productName": "product.[#2].name"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "aggregator": [
+                  {
+                    "RouteHttp": {
+                      "targetUrl": "https://ssg:8443/v1/recommendation",
+                      "httpMethod": "GET",
+                      "parameters": [
+                        {
+                          "productCodes": "@##@{orchestrator.intermediate.product[*].code}"
+                        },
+                        {
+                          "auth": "Y1tmNkYbxu5t93ixTCtJ:1"
+                        }
+                      ],
+                      "headers": [],
+                      "requestTransform": [],
+                      "responseTransform": []
+                    }
+                  }
+                ]
+              },
+              {
+                "result_transform": {
+                  "jolt": [
+                    {
+                      "operation": "shift",
+                      "spec": {
+                        "1": ""
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+}

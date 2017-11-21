@@ -34,14 +34,14 @@ This step will typically be done by a devops engineer.
   ```
   curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
   ```
-  Should return a list containing your Google Search With Basic Auth service.
+  Should return a list containing your Google Search Preloaded service.
 
 - Use your exposed API:
 
   ```
   curl --insecure \
        --header "User-Agent: Mozilla/5.0" \
-       'https://localhost/google?q=CA'
+       'https://localhost/google-preloaded?q=CA'
   ```
 - Find your new microgateway image
 

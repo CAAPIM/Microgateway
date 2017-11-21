@@ -1,0 +1,20 @@
+version: '3'
+services:
+  edge-ssg:
+    environment:
+      # dockercloud/haproxy configuration
+      # VIRTUAL_HOST: https://gateway.mycompany.com
+      TCP_PORTS: "8443"
+      EXCLUDE_PORTS: "2124,8080"
+
+  edge-lb:
+    image: 'dockercloud/haproxy:latest'
+    restart: always
+    # environment:
+    #   - DEBUG="true"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    links:
+      - ssg
+    ports:
+      - '443:8443'

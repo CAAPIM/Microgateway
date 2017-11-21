@@ -1,0 +1,24 @@
+{
+  "Service": {
+    "name": "Customer",
+    "gatewayUri": "/custSvc/v1/customerNumbers*",
+    "httpMethods": [
+      "get"
+    ],
+    "policy": [
+      {
+        "SetVariable": {
+          "VariableToSet": "customerName",
+          "Expression": "${request.http.parameter.customerName}"
+        }
+      },
+      {
+        "RouteHttp": {
+          "targetUrl": "https://lac-node:8443/rest/default/svcOrders/v1/custNumFunc?nometa=true&customerName=${customerName}&auth=zFeg53T5ESosM2xqM86s:1",
+          "preserveRequestPath": "true",
+          "httpMethod": "Automatic"
+        }
+      }
+    ]
+  }
+}

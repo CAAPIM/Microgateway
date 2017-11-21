@@ -56,7 +56,7 @@ Supported platforms:
 - Accepted licensing terms (required to start the Microgateway):
 
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-  the file `get-started/docker-compose/config/license.env`, you are expressing
+  the file `get-started/docker-compose/config/license-agreement.env`, you are expressing
   your acceptance of the [CA Trial and Demonstration Agreement](LICENSE.md).
 
   The initial Product Availability Period for your trial of CA Microgateway
@@ -224,13 +224,13 @@ The following steps will typically be done by a developer, and may be done at th
   ```
   Alternatively, you can call the API directly from the browser: https://localhost/demo_google?q=CA
 
-## Next steps  <a name="next-steps"></a>
+## Next steps <a name="next-steps"></a>
 
 ### For more complex scenarios, try these other tutorials  <a name="get-further"></a>
 
 - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
 - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
-- [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
+- [Build a CA Microgateway image with preloaded APIs](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
 - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
 - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
 - [Extend Microgateway with new templates](get-started/get-further/extend-microgateway-with-new-templates.md)
@@ -241,7 +241,10 @@ The following steps will typically be done by a developer, and may be done at th
   - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
   - [Performance tuning](get-started/get-further/operations/system/performance.md)
 
-### Samples
+### End-to-End Demos <a name="end-to-end"></a>
+- <img src="img/ca-world-17-footer.png" alt="CA World 2017" width="100"> [Security model for microservices using the CA Microgateway](get-started/get-further/demo-with-live-api-creator)
+
+### Samples <a name="samples"></a>
 - [Microgateway APIs](samples/APIs)
 - Plaforms:
   - [OpenShift](samples/platforms/openshift)

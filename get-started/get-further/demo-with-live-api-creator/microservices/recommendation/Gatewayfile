@@ -1,0 +1,33 @@
+{
+    "Service": {
+        "name": "Recommendation",
+        "gatewayUri": "/v1/recommendation*",
+        "httpMethods": [ "get" ],
+        "policy": [
+            {
+                "EncodeDecodeJWT" : {
+                    "jwt": "${request.http.header.x-ca-jwt}"
+                }
+            },
+            {
+                "ValidateJSON" : {
+                    "jsonMsg": "${jwt.payload}",
+                    "jsonPath": "$.ca_otk.['session.scope']"
+                }
+            },
+            {
+                "ValidateOAuthScopes" : {
+                    "expectedScopes": "recommendation",
+                    "receivedScopes": "${output}"
+                }
+            },
+            {
+                "RouteHttp" : {
+                    "targetUrl": "https://lac-node:8443/rest/default/svcRecs/v1/rec_func",
+                    "preserveRequestPath": "true",
+                    "httpMethod": "Automatic"
+                }
+            }
+        ]
+    }
+}

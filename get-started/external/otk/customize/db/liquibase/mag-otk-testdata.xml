@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.2.xsd">
+    <changeSet author="gateway" id="create-microgateway">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="Microgateway"/>
+            <column name="name" value="Microgateway"/>
+            <column name="description" value="Microgateway cluster OAuth client"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="arose"/>
+            <column name="type" value="confidential"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="microgateway-cluster-oauth-key"/>
+            <column name="secret" value="microgateway-cluster-oauth-key"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="arose"/>
+            <column name="client_ident" value="Microgateway"/>
+            <column name="client_name" value="microgateway-cluster"/>
+            <column name="callback" value="oob"/>
+            <column name="scope" value="msso msso_client_register"/>
+            <column name="environment" value="ALL"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gateway" id="create-ingress-gateway">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="IngressGateway"/>
+            <column name="name" value="IngressGateway"/>
+            <column name="description" value="IngressGateway cluster OAuth client"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="arose"/>
+            <column name="type" value="confidential"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="ingressgateway-cluster-oauth-key"/>
+            <column name="secret" value="ingressgateway-cluster-oauth-key"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="arose"/>
+            <column name="client_ident" value="IngressGateway"/>
+            <column name="client_name" value="ingressgateway-cluster"/>
+            <column name="callback" value="oob"/>
+            <column name="scope" value="msso msso_client_register"/>
+            <column name="environment" value="ALL"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gateway" id="create-test-client">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="client"/>
+            <column name="name" value="client"/>
+            <column name="description" value="Example application for microgateway demonstrations"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="cgriffin"/>
+            <column name="type" value="confidential"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="oauthclientkey"/>
+            <column name="secret" value="oauthclientsecret"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="cgriffin"/>
+            <column name="client_ident" value="client"/>
+            <column name="client_name" value="client"/>
+            <column name="callback" value="oob"/>
+            <column name="scope" value="profile email phone address orders recommendation"/>
+            <column name="environment" value="ALL"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gateway" id="create-microgateway-client">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="clientMS"/>
+            <column name="name" value="clientMS"/>
+            <column name="description" value="Example application for microgateway demonstrations"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="lily"/>
+            <column name="type" value="confidential"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="clientkey"/>
+            <column name="secret" value="clientkey"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="lily"/>
+            <column name="client_ident" value="clientMS"/>
+            <column name="client_name" value="microgateway"/>
+            <column name="callback" value="https://ios.ssosdk.ca.com/ios"/>
+            <column name="scope" value="openid msso profile email phone address orders recommendation"/>
+            <column name="environment" value="iOS"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gateway" id="create-AppB-client">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="6438edb0-3e74-mag-test-msso-clientAppB"/>
+            <column name="name" value="AppB"/>
+            <column name="description" value="Example application for Mobile SSO demonstrations"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="admin"/>
+            <column name="type" value="confidential"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="7c1f4b13-3813-4d8a-91cf-cba60d668fd4"/>
+            <column name="secret" value="7c1f4b13-3813-4d8a-91cf-cba60d668fd4"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="admin"/>
+            <column name="client_ident" value="6438edb0-3e74-mag-test-msso-clientAppB"/>
+            <column name="client_name" value="AppB"/>
+            <column name="callback" value="https://android.ssosdk.ca.com/android"/>
+            <column name="scope" value="openid msso phone profile address email msso_register"/>
+            <column name="environment" value="Android"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="68d155e9-1402-48a2-9750-e5d9f0746e17"/>
+            <column name="secret" value="68d155e9-1402-48a2-9750-e5d9f0746e17"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="admin"/>
+            <column name="client_ident" value="6438edb0-3e74-mag-test-msso-clientAppB"/>
+            <column name="client_name" value="AppB"/>
+            <column name="callback" value="https://ios.ssosdk.ca.com/ios"/>
+            <column name="scope" value="openid msso phone profile address email msso_register"/>
+            <column name="environment" value="iOS"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gateway" id="create-AppC-client">
+        <insert tableName="oauth_client">
+            <column name="client_ident" value="6438edb0-3e74-mag-test-msso-clientAppC"/>
+            <column name="name" value="AppC"/>
+            <column name="description" value="PhoneGap example application for Mobile SSO demonstrations"/>
+            <column name="organization" value="CA Technologies"/>
+            <column name="registered_by" value="admin"/>
+            <column name="type" value="confidential"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="e53378b6-a07d-4c22-89da-8088f443fa95"/>
+            <column name="secret" value="e53378b6-a07d-4c22-89da-8088f443fa95"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="admin"/>
+            <column name="client_ident" value="6438edb0-3e74-mag-test-msso-clientAppC"/>
+            <column name="client_name" value="AppC"/>
+            <column name="callback" value="https://ios.ssosdk.ca.com/ios"/>
+            <column name="scope" value="openid msso phone profile address email msso_register"/>
+            <column name="environment" value="iOS"/>
+            <column name="custom" value="{}"/>
+        </insert>
+        <insert tableName="oauth_client_key">
+            <column name="client_key" value="8298bc51-f242-4c6d-b547-d1d8e8519cb4"/>
+            <column name="secret" value="8298bc51-f242-4c6d-b547-d1d8e8519cb4"/>
+            <column name="status" value="ENABLED"/>
+            <column name="created_by" value="admin"/>
+            <column name="client_ident" value="6438edb0-3e74-mag-test-msso-clientAppC"/>
+            <column name="client_name" value="AppC"/>
+            <column name="callback" value="https://android.ssosdk.ca.com/android"/>
+            <column name="scope" value="openid msso phone profile address email msso_register"/>
+            <column name="environment" value="Android"/>
+            <column name="custom" value="{}"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gateway" id="create-oauth_id_tokens">
+        <insert tableName="oauth_id_token">
+            <column name="resource_owner" value="username01"/>
+            <column name="azp" value="magidentifier01"/>
+            <column name="sub" value="sub01"/>
+            <column name="jwt" value="jwt01"/>
+            <column name="salt" value="salt01"/>
+            <column name="shared_secret" value="shared_secret01"/>
+            <column name="shared_secret_type" value="shared_secret_type01"/>
+            <column name="iss" value="iss01"/>
+            <column name="expiration" valueComputed="(unix_timestamp()+86400)"/>
+        </insert>
+        <insert tableName="oauth_id_token">
+            <column name="resource_owner" value="username01"/>
+            <column name="azp" value="magidentifier02"/>
+            <column name="sub" value="sub02"/>
+            <column name="jwt" value="jwt02"/>
+            <column name="salt" value="salt01"/>
+            <column name="shared_secret" value="shared_secret02"/>
+            <column name="shared_secret_type" value="shared_secret_type02"/>
+            <column name="iss" value="iss01"/>
+            <column name="expiration" valueComputed="(unix_timestamp()+86400)"/>
+        </insert>
+        <insert tableName="oauth_id_token">
+            <column name="resource_owner" value="username02"/>
+            <column name="azp" value="magidentifier06"/>
+            <column name="sub" value="sub06"/>
+            <column name="jwt" value="jwt06"/>
+            <column name="salt" value="salt06"/>
+            <column name="shared_secret" value="shared_secret06"/>
+            <column name="shared_secret_type" value="shared_secret_type06"/>
+            <column name="iss" value="iss06"/>
+            <column name="expiration" valueComputed="(unix_timestamp()+86400)"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

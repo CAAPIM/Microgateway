@@ -3,6 +3,7 @@
 * [What is CA Microgateway](#intro)
   * [Benefits](#benefits)
   * [Related microservices patterns](#patterns)
+  * [Extending CA Microgateway](#extending)
 * [Get started](#get-started)
   * [Prerequisites](#prerequisites)
   * [Deploy CA Microgateway](#deploy)
@@ -33,9 +34,9 @@ More features, including the Policy Manager needed to extend CA Microgateway, ar
 * API gateway/Backend for Frontend: http://microservices.io/patterns/apigateway.html
 * Access token: http://microservices.io/patterns/security/access-token.html
 
-### Extending CA Microgateway
+### Extending CA Microgateway <a name="extending"></a>
 * After you try out the basic functionality in CA Microgateway, try [some more complex scenarios](#get-further), including [extending CA Microgateway](get-started/get-further/extend-microgateway-with-new-templates.md).
-* To download the Policy Manager that is needed to extend CA Microgateway, please get it from [here](https://www-qa.ca.com/us/trials/ca-microgateway.html).
+* To download the Policy Manager that is needed to extend CA Microgateway, please get it from [here](https://www.ca.com/us/trials/ca-microgateway.html).
 
 ## Get started <a name="get-started"></a>
 
@@ -46,9 +47,9 @@ Supported platforms:
 ### Prerequisites <a name="prerequisites"></a>
 - A docker host
 
-  You can use Docker on your laptop or in the Cloud. (You can [get Docker here](https://www.docker.com/get-docker).)
-  
-  Docker-machine (https://docs.docker.com/machine/drivers/) can be used as a quick way to deploy
+  You can use Docker on your laptop or in the Cloud ([get Docker here](https://www.docker.com/get-docker))
+
+  Docker-machine (https://docs.docker.com/machine/drivers) can be used as a quick way to deploy
   a remote Docker host.
 
   Run the following command to validate that you can reach your Docker host.
@@ -166,14 +167,14 @@ The following steps will typically be done by a developer, and may be done at th
     }
   }
   ```
-  
+
   Save the file into the same directory from which you will make the next API call.
 
   The Gatewayfile is a JSON file that describes a "meta-policy" that will be published to the Microgateway. Gatewayfile will create a new service that will be accessible at "/demo_google" and will route requests to htttp://www.google.com.
 
 - Then, add your API to CA Microgateway:
 
-  (note: if you stopped the Microgateway previously, please [start it up](#deploy) again.)
+  **note: if you stopped the Microgateway previously, please [start it up](#deploy) again.**
 
   ```
   curl --insecure \
@@ -183,7 +184,7 @@ The following steps will typically be done by a developer, and may be done at th
   ```
 
   Should return confirmation from CA Microgateway that the Google Search API was successfully published:
-  
+
   ```
   {
     "success": true,
@@ -196,14 +197,14 @@ The following steps will typically be done by a developer, and may be done at th
   ```
   curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
   ```
-  
+
   Should return a list containing the new Google Search service:
-  
+
   ```
   [
     {
         "ServiceName": "Google Search",
-        "ServiceUri": "/google",
+        "ServiceUri": "/demo_google",
         "ServiceId": "8d06f72fcf8447ad99ca4833714e0497",
         "ServiceTimeStamp": "1509564356239"
     }
@@ -227,9 +228,9 @@ The following steps will typically be done by a developer, and may be done at th
   <link href="/images/branding/product/ico/googleg_lodp.ico" rel="shortcut icon">
   ...
   ```
-  Alternatively, you can call the API directly from the browser: https://localhost/demo_google?q=CA
+  Alternatively, you can call the API directly from the browser: https://localhost/demo_google?q=CA.
 
-## Next steps  <a name="next-steps"></a>
+## Next steps <a name="next-steps"></a>
 
 ### For more complex scenarios, try these other tutorials  <a name="get-further"></a>
 
@@ -251,7 +252,7 @@ The following steps will typically be done by a developer, and may be done at th
 
 ### Samples <a name="samples"></a>
 - [Microgateway APIs](samples/APIs)
-- Plaforms:
+- Alternative plaforms:
   - [OpenShift](samples/platforms/openshift)
 
 ### Documentation  <a name="documentation"></a>

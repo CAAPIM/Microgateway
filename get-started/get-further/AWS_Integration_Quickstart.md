@@ -44,13 +44,13 @@ You can use the following service template to publish an API that uses AWS servi
 }
 ```
 Where:
-  - <b>'AWS Service Name Here'</b> is one of 'Lambda' or 'S3'.  In the near future we will be supporting other service such as 'EC2', 'Kinesis', 'DynamoDB', 'SQS', 'SNS' and other AWS services.
+  - <b>'AWS Service Name Here'</b> is one of 'Lambda' or 'S3'.  In the near future, we will be supporting other services such as 'EC2', 'Kinesis', 'DynamoDB', 'SQS', 'SNS' and other AWS services.
 
-  - <b>'AWS method to call'</b> is one of the AWS methods from the selected AWS service above. The list of supported AWS methods depending which AWS service you selected is listed under <I>Supporting Services and Methods</I>
+  - <b>'AWS method to call'</b> is one of the AWS methods from the selected AWS service above. The list of supported AWS methods for the selected AWS services are  listed under <i>Supporting Services and Methods</i>
 
 
 ## How to Call Service Endpoints <a name="CallServiceEndpoints"></a>
-Different AWS service and different method that you selected required different parameters.  To make calls to endpoints easier, all the method parameters are pass-in as part of the <b>body</b> (ie. payload) of your api call to the endpoints.  The payload is pass-in as a JSON format.  For example, if you were going to call an API using curl command.  The body would be pass-in as the '-D' option of the command.
+Different AWS service and AWS method required different parameters.  To make API calls to endpoints easier, all the method parameters are pass-in as part of the <b>body</b> (ie. payload) of your api call to the endpoints.  The payload is pass-in as a JSON format.  For example, if you were going to call an API using curl command.  The body would be pass-in as the '-D' option of the command.
 
 curl -H "Content-Type: application/json" -X POST -d '{"parameter_name_1":"its_value","parameter_name_2":"its_value"}' http://localhost:8080/service_end_point
 
@@ -58,7 +58,7 @@ The details of each method's payload will be describe in details under <b>Suppor
 
 
 ## Supporting Services and Methods <a name="SupportServiceMethods"></a>
-Currently, we are supporting integration to AWS Lambda and S3 services. We will be soon releasing support integration to AWS EC2, Kinesis, DynamoDB, SQS, SNS and other AWS services. The following is a list of current supported services, their methods and sample of the payload.
+Currently, we are supporting integration to AWS Lambda and S3 services. We will be soon releasing support integration for AWS EC2, Kinesis, DynamoDB, SQS, SNS and other AWS services very soon. The following is a list of current supported services, their methods along with sample of the payload.
 
 ### Services:  Lambda  <a name="Lambda"></a>
 Depending on the method, some of the methods might not require any payload.  In that case, you do not need to send any payload with the request.  However, if the payload is required, the payload is a json payload and might contain of the following:
@@ -94,6 +94,11 @@ Expected response would be:
 ```json
 {"message":"Hello world !!!"}
 ```
+
+Currently, we are supporting the following Lambda methods:
+invokeAsync, invoke, listFunctions, getFunction, deleteFunction, createFunction, updateFunctionCode and updateFunctionConfiguration.
+
+
 
 #### Methods: invokeAsync <a name="invokeAsync"></a>
 invoke a lambda function which you specify in the <b>functionName</b> below, asynchronously.

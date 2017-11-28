@@ -298,7 +298,7 @@ function microgateway::deploy() {
 
   local docker_compose_options=""
   if [ "$db_type" != "" ]; then
-    docker_compose_options="--file ${path}/docker-compose.db.${db_type}.yml"
+    docker_compose_options=("--file" "${path}/docker-compose.db.${db_type}.yml")
   fi
 
   docker-compose --project-name "$project" \
@@ -307,7 +307,7 @@ function microgateway::deploy() {
                  --file "${path}/docker-compose.addons.yml" \
                  --file "${path_customization}/docker-compose.solutionkit.policysdk.yml" \
                  --file "${path_customization}/docker-compose.customize.yml" \
-                 $docker_compose_options \
+                 "${docker_compose_options[@]}" \
                  up -d --build --scale "ssg=${ssg_scale}"
 }
 
@@ -326,14 +326,14 @@ function microgateway::destroy() {
 
   local docker_compose_options=""
   if [ "$db_type" != "" ]; then
-    docker_compose_options="--file ${path}/docker-compose.db.${db_type}.yml"
+    docker_compose_options=("--file" "${path}/docker-compose.db.${db_type}.yml")
   fi
 
   docker-compose --project-name "$project" \
                  --file "${path}/docker-compose.yml" \
                  --file "${path}/docker-compose.lb.dockercloud.yml" \
                  --file "${path}/docker-compose.addons.yml" \
-                 $docker_compose_options \
+                 "${docker_compose_options[@]}" \
                  rm --stop -v --force
 
   if [ "$db_type" == "consul" ]; then
@@ -374,13 +374,13 @@ function ingress_gateway::deploy {
 
   local docker_compose_options=""
   if [ "$db_type" != "" ]; then
-    docker_compose_options="--file ${path}/docker-compose.db.${db_type}.yml"
+    docker_compose_options=("--file" "${path}/docker-compose.db.${db_type}.yml")
   fi
 
   docker-compose --project-name "$project" \
                  --file "${path}/docker-compose.yml" \
                  --file "${path}/docker-compose.addons.yml" \
-                 $docker_compose_options \
+                 "${docker_compose_options[@]}" \
                  up -d --build
 }
 
@@ -391,13 +391,13 @@ function ingress_gateway::destroy {
 
   local docker_compose_options=""
   if [ "$db_type" != "" ]; then
-    docker_compose_options="--file ${path}/docker-compose.db.${db_type}.yml"
+    docker_compose_options=("--file" "${path}/docker-compose.db.${db_type}.yml")
   fi
 
   docker-compose --project-name "$project" \
                  --file "${path}/docker-compose.yml" \
                  --file "${path}/docker-compose.addons.yml" \
-                 $docker_compose_options \
+                 "${docker_compose_options[@]}" \
                  rm --stop -v --force
 
   if [ "$db_type" == "consul" ]; then

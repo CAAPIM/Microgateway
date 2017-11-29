@@ -4,14 +4,80 @@ Table of Contents:
 
 * [Description](#Description)
 * [Installing AWS Solution Kit](#InstallingAWSSolutionKit)
-* [Sample Service Template using AWS services](#SampleServiceTemplate)
+* [Sample Service Template to use AWS services](#SampleServiceTemplate)
 * [How to Call Service Endpoints](#CallServiceEndpoints)
 * [Supporting Services and Methods](#SupportServiceMethods)
   * [Lambda](#Lambda)
-    * [Example of Accepted payload](#Expected_payload_Example)
-    * [Supported Methods](Methods)
-      * [invokeAsync](invokeAsync)
-
+      * [Methods: invokeAsync](#invokeAsync)
+        * [Accepted payload](#Lambda_invokeAsync_payload)
+        * [Expected response ](#Lambda_expected_response)
+      * [Methods: invoke](#invoke)
+        * [Accepted payload](#Lambda_invoke_payload)
+        * [Expected response](#Lambda_invoke_response)
+      * [Methods: listFunctions](#listFunctions)
+        * [Accepted payload](#Lambda_listFunctions_payload)
+        * [Expected response](#Lambda_listFunctions_response)
+      * [Methods: getFunction](#getFunction)
+        * [Accepted payload](#Lambda_getFunction_payload)
+        * [Expected response](#Lambda_getFunction_response)
+      * [Methods: createFunction](#createFunction)
+        * [Accepted payload](#Lambda_createFunction_payload)
+        * [Expected response](#Lambda_getFunction_response)
+      * [Methods: deleteFunction](#deleteFunction)
+        * [Accepted payload](#Lambda_deleteFunction_payload)
+        * [Accepted payload](#Lambda_deleteFunction_payload)
+  * [S3](#S3)
+      * [Methods: createBucket](#createBucket)
+        * [Accepted payload](#S3_createBucket_payload)
+        * [Expected response](#S3_createBucket_response)
+      * [Methods: listBucket](#listBucket)
+        * [Accepted payload](#S3_listBucket_payload)
+        * [Expected response](#S3_listBucket_response)
+      * [Methods: deepDeleteBucket](#deepDeleteBucket)
+        * [Accepted payload](#S3_deepDeleteBucket_payload)
+        * [Expected response](#S3_deepDeleteBucket_response)
+      * [Methods: deleteEmptyBucket](#deleteEmptyBucket)
+        * [Accepted payload](#S3_deleteEmptyBucket_payload)
+        * [Expected response](#S3_deleteEmptyBucket_response)
+      * [Methods: deleteBucketVersions](#deleteBucketVersions)
+        * [Accepted payload](#S3_deleteBucketVersions_payload)
+        * [Expected response](#S3_deleteBucketVersions_response)
+      * [Methods: setBucketACL](#setBucketACL)
+        * [Accepted payload](#S3_setBucketACL_payload)
+        * [Expected response](#S3_setBucketACL_response)
+      * [Methods: getBucketACL](#getBucketACL)
+        * [Accepted payload](#S3_getBucketACL_payload)
+        * [Expected response](#S3_getBucketACL_response)
+      * [Methods: copyObject](#copyObject)
+        * [Accepted payload](#S3_copyObject_payload)
+        * [Expected response](#S3_copyObject_response)
+      * [Methods: deleteObject](#deleteObject)
+        * [Accepted payload](#S3_deleteObject_payload)
+        * [Expected response](#S3_deleteObject_response)
+      * [Methods: deleteMultipleObjects](#deleteMultipleObjects)
+        * [Accepted payload](#S3_deleteMultipleObjects_payload)
+        * [Expected response](#S3_deleteMultipleObjects_response)
+      * [Methods: createFolder](#createFolder)
+        * [Accepted payload](#S3_deleteMultipleObjects_payload)
+        * [Expected response](#S3_createFolder_response)
+      * [Methods: deleteFolder](#deleteFolder)
+        * [Accepted payload](#S3_deleteFolder_payload)
+        * [Expected response](#S3_deleteFolder_response)
+      * [Methods: generatePresignedPutUrl](#generatePresignedPutUrl)
+        * [Accepted payload](#S3_generatePresignedPutUrl_payload)
+        * [Accepted payload](#S3_generatePresignedPutUrl_payload)
+      * [Methods: generatePresignedGetUrl](#generatePresignedGetUrl)
+        * [Accepted payload](#S3_generatePresignedPutUrl_payload)
+        * [Expected response](#S3_generatePresignedPutUrl_response)
+      * [Methods: setObjectACL](#setObjectACL)
+        * [Accepted payload](#S3_setObjectACL_payload)
+        * [Expected response](#S3_setObjectACL_response)
+      * [Methods: getObjectACL](#getObjectACL)
+        * [Accepted payload](#S3_getObjectACL_payload)
+        * [Expected response](#S3_getObjectACL_response)
+      * [Methods: getBucketVersioningConfiguration](#getBucketVersioningConfiguration)
+        * [Accepted payload](#S3_getBucketVersioningConfiguration_payload)
+        * [Expected response](#S3_getBucketVersioningConfiguration_response)
 
 ## Description <a name="Description"></a>
 AWS assertion provides a way to integrate the Microgateway with AWS Services.  It routes APIs calls to AWS services  
@@ -23,7 +89,7 @@ AWS assertion provides a way to integrate the Microgateway with AWS Services.  I
   - select: Task -> Extensions and Add-Ons -> Manage Solution Kits
   - within the "Manage Solution Kits", click "Install" and select the AWSSolutionKit.sskar file.
 
-## Sample Service Template using AWS services <a name="SampleServiceTemplate"></a>
+## Sample Service Template to use AWS services <a name="SampleServiceTemplate"></a>
 You can use the following service template to publish an API that uses AWS service
 
 ```json
@@ -34,6 +100,7 @@ You can use the following service template to publish an API that uses AWS servi
     "httpMethods": [
       "post",
       "get",
+      "put",
       "delete"
     ],
     "policy": [
@@ -63,7 +130,7 @@ Where:
 
 
 ## How to Call Service Endpoints <a name="CallServiceEndpoints"></a>
-Different AWS service and AWS method required different parameters.  To make API calls to endpoints easier, all the method parameters are pass-in as part of the <b>body</b> (ie. payload) of your api call to the endpoints.  The payload is pass-in as a JSON format.  For example, if you were going to call an API using curl command.  The body would be pass-in as the '-D' option of the command.
+Different AWS service and AWS method required different parameters.  To make API calls to endpoints easier, all the method parameters are pass-in as part of the <b>body</b> (ie. payload) of your api call to the endpoints.  The payload is pass-in as a JSON format.  For example, if you were going to call an API using curl command.  The body would be pass-in as the '-d' option of the command.
 
 curl -H "Content-Type: application/json" -X POST -d '{"parameter_name_1":"its_value","parameter_name_2":"its_value"}' http://localhost:8080/service_end_point
 
@@ -87,34 +154,7 @@ Depending on the method, some of the methods might not require any payload.  In 
 where <br> <b>functionName</b> is REQUIRED name of the Lambda function to call and <br>
 <b>functionPayload</b> NOT ALWAYS REQUIRED. If your Lambda function is expected a payload then the payload is sent as the body of the <b>functionPayload</b>.  If the payload is NOT REQUIRED then the <b>functionPayload</b> can be an empty json '{}' or just "".
 
-#### Example of Accepted payload <a name="Expected_payload_Example"></a>
-Assuming you have created a Lambda function 'echo' which will reply with whatever the content of the functionPayload. And you have create an endpoint, '/can_you_hear_me' the sample payload and calling the endpoint would be as follow:
-
-```json
-{
-  "functionName": "echo",
-  "functionPayload": {
-	"message": "Hello there !!!"
-	}
-}
-```
-To call the endpoints:<br>
-<i>
-curl -H "Content-Type: application/json" -X POST -d '{"functionName": "echo","functionPayload": {"message": "Hello world !!!"}}' http://localhost:8080/can_you_hear_me
-</i>
-
-Expected response would be:
-```json
-{"message":"Hello world !!!"}
-```
-
-Currently, we are supporting the following Lambda methods:
-invokeAsync, invoke, listFunctions, getFunction, deleteFunction, createFunction, updateFunctionCode and updateFunctionConfiguration.
-
-
-#### Supported Methods: <a name="Methods"></a>
-
-##### invokeAsync <a name="invokeAsync"></a>
+##### Methods: invokeAsync <a name="invokeAsync"></a>
 invoke a lambda function which you specify in the <b>functionName</b> below, asynchronously.
 
 ##### Accepted payload <a name="Lambda_invokeAsync_payload"></a>
@@ -164,6 +204,7 @@ get all Lambda functions and their details.
 *** NOT REQUIRED.  ***
 ```
 
+##### Expected response <a name="Lambda_listFunctions_response"></a>
 ```json
 {
     "listFunctions" : [
@@ -256,8 +297,26 @@ create a lambda function
   }
 ```
 
-### Services:  S3  <a name="S3"></a>
-Supporting various S3 related methods which will allow user to 'createBucket', 'listBucket', 'deepDeleteBucket', 'deleteEmptyBucket', 'deleteBucketVersions', 'setBucketAcl', 'getBucketAcl', 'listObjects', 'copyObject', 'deleteObject', 'deleteMultipleObjects', 'createFolder', 'deleteFolder', 'generatePresignedPutUrl', 'generatePresignedGetUrl', 'setObjectAcl', 'getObjectAcl' and 'getBucketVersioningConfiguration'
+### S3  <a name="S3"></a>
+Supporting various S3 related methods which will allow user to
+  - 'createBucket'
+  - 'listBucket'
+  - 'deepDeleteBucket'
+  - 'deleteEmptyBucket'
+  - 'deleteBucketVersions'
+  - 'setBucketAcl'
+  - 'getBucketAcl'
+  - 'listObjects'
+  - 'copyObject'
+  - 'deleteObject'
+  - 'deleteMultipleObjects'
+  - 'createFolder'
+  - 'deleteFolder'
+  - 'generatePresignedPutUrl'
+  - 'generatePresignedGetUrl'
+  - 'setObjectAcl'
+  - 'getObjectAcl'
+  - getBucketVersioningConfiguration'
 
 
 #### Methods: createBucket <a name="createBucket"></a>
@@ -467,6 +526,7 @@ copy an object from a fromBucket to a toObject under toBucket
     ]
 }
 ```
+
 #### Methods: deleteObject <a name="deleteObject"></a>
 copy an object from a fromBucket to a toObject under toBucket
 
@@ -537,29 +597,6 @@ create a folder under a bucket.
 {
     "bucketName": "your bucket name here",
     "folderName": "name of the folder to be created"
-}
-```
-
-#### Methods: deleteFolder <a name="deleteFolder"></a>
-This method first deletes all the files in given folder and than deleting the folder itself
-
-##### Accepted payload <a name="S3_deleteFolder_payload"></a>
- ```json
- {
-    "bucketName": "your bucket name here",
-    "folderName": "name of the folder to be created"
-}
-```
-
-##### Expected response <a name="S3_deleteFolder_response"></a>
-```json
-{
-    "bucketName": "your bucket name here",
-    "keys": [
-        "delete key 1",
-        "delete key 2",
-        "..."
-    ]
 }
 ```
 

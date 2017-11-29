@@ -8,74 +8,74 @@ Table of Contents:
 * [How to Call Service Endpoints](#CallServiceEndpoints)
 * [Supporting Services and Methods](#SupportServiceMethods)
   * [Lambda](#Lambda)
-      * [Methods: invokeAsync](#invokeAsync)
+      * [Method: invokeAsync](#invokeAsync)
         * [Accepted payload](#Lambda_invokeAsync_payload)
         * [Expected response ](#Lambda_expected_response)
-      * [Methods: invoke](#invoke)
+      * [Method: invoke](#invoke)
         * [Accepted payload](#Lambda_invoke_payload)
         * [Expected response](#Lambda_invoke_response)
-      * [Methods: listFunctions](#listFunctions)
+      * [Method: listFunctions](#listFunctions)
         * [Accepted payload](#Lambda_listFunctions_payload)
         * [Expected response](#Lambda_listFunctions_response)
-      * [Methods: getFunction](#getFunction)
+      * [Method: getFunction](#getFunction)
         * [Accepted payload](#Lambda_getFunction_payload)
         * [Expected response](#Lambda_getFunction_response)
-      * [Methods: createFunction](#createFunction)
+      * [Method: createFunction](#createFunction)
         * [Accepted payload](#Lambda_createFunction_payload)
         * [Expected response](#Lambda_getFunction_response)
-      * [Methods: deleteFunction](#deleteFunction)
+      * [Method: deleteFunction](#deleteFunction)
         * [Accepted payload](#Lambda_deleteFunction_payload)
         * [Accepted payload](#Lambda_deleteFunction_payload)
   * [S3](#S3)
-      * [Methods: createBucket](#createBucket)
+      * [Method: createBucket](#createBucket)
         * [Accepted payload](#S3_createBucket_payload)
         * [Expected response](#S3_createBucket_response)
-      * [Methods: listBucket](#listBucket)
+      * [Method: listBucket](#listBucket)
         * [Accepted payload](#S3_listBucket_payload)
         * [Expected response](#S3_listBucket_response)
-      * [Methods: deepDeleteBucket](#deepDeleteBucket)
+      * [Method: deepDeleteBucket](#deepDeleteBucket)
         * [Accepted payload](#S3_deepDeleteBucket_payload)
         * [Expected response](#S3_deepDeleteBucket_response)
-      * [Methods: deleteEmptyBucket](#deleteEmptyBucket)
+      * [Method: deleteEmptyBucket](#deleteEmptyBucket)
         * [Accepted payload](#S3_deleteEmptyBucket_payload)
         * [Expected response](#S3_deleteEmptyBucket_response)
-      * [Methods: deleteBucketVersions](#deleteBucketVersions)
+      * [Method: deleteBucketVersions](#deleteBucketVersions)
         * [Accepted payload](#S3_deleteBucketVersions_payload)
         * [Expected response](#S3_deleteBucketVersions_response)
-      * [Methods: setBucketACL](#setBucketACL)
+      * [Method: setBucketACL](#setBucketACL)
         * [Accepted payload](#S3_setBucketACL_payload)
         * [Expected response](#S3_setBucketACL_response)
-      * [Methods: getBucketACL](#getBucketACL)
+      * [Method: getBucketACL](#getBucketACL)
         * [Accepted payload](#S3_getBucketACL_payload)
         * [Expected response](#S3_getBucketACL_response)
-      * [Methods: copyObject](#copyObject)
+      * [Method: copyObject](#copyObject)
         * [Accepted payload](#S3_copyObject_payload)
         * [Expected response](#S3_copyObject_response)
-      * [Methods: deleteObject](#deleteObject)
+      * [Method: deleteObject](#deleteObject)
         * [Accepted payload](#S3_deleteObject_payload)
         * [Expected response](#S3_deleteObject_response)
-      * [Methods: deleteMultipleObjects](#deleteMultipleObjects)
+      * [Method: deleteMultipleObjects](#deleteMultipleObjects)
         * [Accepted payload](#S3_deleteMultipleObjects_payload)
         * [Expected response](#S3_deleteMultipleObjects_response)
-      * [Methods: createFolder](#createFolder)
+      * [Method: createFolder](#createFolder)
         * [Accepted payload](#S3_deleteMultipleObjects_payload)
         * [Expected response](#S3_createFolder_response)
-      * [Methods: deleteFolder](#deleteFolder)
+      * [Method: deleteFolder](#deleteFolder)
         * [Accepted payload](#S3_deleteFolder_payload)
         * [Expected response](#S3_deleteFolder_response)
-      * [Methods: generatePresignedPutUrl](#generatePresignedPutUrl)
+      * [Method: generatePresignedPutUrl](#generatePresignedPutUrl)
         * [Accepted payload](#S3_generatePresignedPutUrl_payload)
         * [Accepted payload](#S3_generatePresignedPutUrl_payload)
-      * [Methods: generatePresignedGetUrl](#generatePresignedGetUrl)
+      * [Method: generatePresignedGetUrl](#generatePresignedGetUrl)
         * [Accepted payload](#S3_generatePresignedPutUrl_payload)
         * [Expected response](#S3_generatePresignedPutUrl_response)
-      * [Methods: setObjectACL](#setObjectACL)
+      * [Method: setObjectACL](#setObjectACL)
         * [Accepted payload](#S3_setObjectACL_payload)
         * [Expected response](#S3_setObjectACL_response)
-      * [Methods: getObjectACL](#getObjectACL)
+      * [Method: getObjectACL](#getObjectACL)
         * [Accepted payload](#S3_getObjectACL_payload)
         * [Expected response](#S3_getObjectACL_response)
-      * [Methods: getBucketVersioningConfiguration](#getBucketVersioningConfiguration)
+      * [Method: getBucketVersioningConfiguration](#getBucketVersioningConfiguration)
         * [Accepted payload](#S3_getBucketVersioningConfiguration_payload)
         * [Expected response](#S3_getBucketVersioningConfiguration_response)
 
@@ -154,7 +154,7 @@ Depending on the method, some of the methods might not require any payload.  In 
 where <br> <b>functionName</b> is REQUIRED name of the Lambda function to call and <br>
 <b>functionPayload</b> NOT ALWAYS REQUIRED. If your Lambda function is expected a payload then the payload is sent as the body of the <b>functionPayload</b>.  If the payload is NOT REQUIRED then the <b>functionPayload</b> can be an empty json '{}' or just "".
 
-##### Methods: invokeAsync <a name="invokeAsync"></a>
+##### Method: invokeAsync <a name="invokeAsync"></a>
 invoke a lambda function which you specify in the <b>functionName</b> below, asynchronously.
 
 ##### Accepted payload <a name="Lambda_invokeAsync_payload"></a>
@@ -175,7 +175,7 @@ invoke a lambda function which you specify in the <b>functionName</b> below, asy
 }
 ```
 
-#### Methods: invoke <a name="invoke"></a>
+#### Method: invoke <a name="invoke"></a>
 invoke a lambda function, which you specify in the <b>functionName</b> below, synchronously.
 
 ##### Accepted payload <a name="Lambda_invoke_payload"></a>
@@ -196,7 +196,7 @@ invoke a lambda function, which you specify in the <b>functionName</b> below, sy
 ```
 
 
-#### Methods: listFunctions <a name="listFunctions"></a>
+#### Method: listFunctions <a name="listFunctions"></a>
 get all Lambda functions and their details.
 
 ##### Accepted payload <a name="Lambda_listFunctions_payload"></a>
@@ -228,7 +228,7 @@ get all Lambda functions and their details.
 }
 ```
 
-#### Methods: getFunction <a name="getFunction"></a>
+#### Method: getFunction <a name="getFunction"></a>
 get information about a lambda function
 
 ##### Accepted payload <a name="Lambda_getFunction_payload"></a>
@@ -255,7 +255,7 @@ get information about a lambda function
 }
 ```
 
-##### Methods: createFunction <a name="createFunction"></a>
+##### Method: createFunction <a name="createFunction"></a>
 create a lambda function
 
 ###### Accepted payload <a name="Lambda_createFunction_payload"></a>
@@ -279,7 +279,7 @@ create a lambda function
 }        
 ```
 
-#### Methods: deleteFunction <a name="deleteFunction"></a>
+#### Method: deleteFunction <a name="deleteFunction"></a>
  delete a lambda function
 
 ##### Accepted payload <a name="Lambda_deleteFunction_payload"></a>
@@ -319,7 +319,7 @@ Supporting various S3 related methods which will allow user to
   - getBucketVersioningConfiguration'
 
 
-#### Methods: createBucket <a name="createBucket"></a>
+#### Method: createBucket <a name="createBucket"></a>
 create an S3 bucket
 
 ##### Accepted payload <a name="S3_createBucket_payload"></a>
@@ -338,7 +338,7 @@ create an S3 bucket
 }
 ```
 
-#### Methods: listBucket <a name="listBucket"></a>
+#### Method: listBucket <a name="listBucket"></a>
 list all buckets under your account
 
 ##### Accepted payload <a name="S3_listBucket_payload"></a>
@@ -359,7 +359,7 @@ list all buckets under your account
 }
 ```
 
-#### Methods: deepDeleteBucket <a name="deepDeleteBucket"></a>
+#### Method: deepDeleteBucket <a name="deepDeleteBucket"></a>
 delete bucket and its objects within the bucket.
 
 ##### Accepted payload <a name="S3_deepDeleteBucket_payload"></a>
@@ -396,7 +396,7 @@ The list of the details of the objects have been deleted.
 }
 ```
 
-#### Methods: deleteEmptyBucket <a name="deleteEmptyBucket"></a>
+#### Method: deleteEmptyBucket <a name="deleteEmptyBucket"></a>
 delete an empty bucket.
 
 ##### Accepted payload <a name="S3_deleteEmptyBucket_payload"></a>
@@ -414,7 +414,7 @@ delete an empty bucket.
 }
 ```
 
-#### Methods: deleteBucketVersions <a name="deleteBucketVersions"></a>
+#### Method: deleteBucketVersions <a name="deleteBucketVersions"></a>
 delete all of the bucket versions.
 
 ##### Accepted payload <a name="S3_deleteBucketVersions_payload"></a>
@@ -441,7 +441,7 @@ delete all of the bucket versions.
 }
 ```
 
-#### Methods: setBucketACL <a name="setBucketACL"></a>
+#### Method: setBucketACL <a name="setBucketACL"></a>
 Setting Access Control List (Acl) for a bucket
 
 ##### Accepted payload <a name="S3_setBucketACL_payload"></a>
@@ -473,7 +473,7 @@ Setting Access Control List (Acl) for a bucket
 }
 ```
 
-#### Methods: getBucketACL <a name="getBucketACL"></a>
+#### Method: getBucketACL <a name="getBucketACL"></a>
 Getting Access Control List (Acl) for a bucket
 
 ##### Accepted payload <a name="S3_getBucketACL_payload"></a>
@@ -502,7 +502,7 @@ Getting Access Control List (Acl) for a bucket
 }
 ```
 
-#### Methods: copyObject <a name="copyObject"></a>
+#### Method: copyObject <a name="copyObject"></a>
 copy an object from a fromBucket to a toObject under toBucket
 
 ##### Accepted payload <a name="S3_copyObject_payload"></a>
@@ -527,7 +527,7 @@ copy an object from a fromBucket to a toObject under toBucket
 }
 ```
 
-#### Methods: deleteObject <a name="deleteObject"></a>
+#### Method: deleteObject <a name="deleteObject"></a>
 copy an object from a fromBucket to a toObject under toBucket
 
 ##### Accepted payload <a name="S3_deleteObject_payload"></a>
@@ -552,7 +552,7 @@ copy an object from a fromBucket to a toObject under toBucket
 }
 ```
 
-#### Methods: deleteMultipleObjects <a name="deleteMultipleObjects"></a>
+#### Method: deleteMultipleObjects <a name="deleteMultipleObjects"></a>
 deleting more than one objects from the same bucket.
 
 ##### Accepted payload <a name="S3_deleteMultipleObjects_payload"></a>
@@ -581,7 +581,7 @@ deleting more than one objects from the same bucket.
 }
 ```
 
-#### Methods: createFolder <a name="createFolder"></a>
+#### Method: createFolder <a name="createFolder"></a>
 create a folder under a bucket.
 
 ##### Accepted payload <a name="S3_createFolder_payload"></a>
@@ -600,7 +600,7 @@ create a folder under a bucket.
 }
 ```
 
-#### Methods: deleteFolder <a name="deleteFolder"></a>
+#### Method: deleteFolder <a name="deleteFolder"></a>
 This method first deletes all the files in given folder and than deleting the folder itself
 
 ##### Accepted payload <a name="S3_deleteFolder_payload"></a>
@@ -623,7 +623,7 @@ This method first deletes all the files in given folder and than deleting the fo
 }
 ```
 
-#### Methods: generatePresignedPutUrl <a name="generatePresignedPutUrl"></a>
+#### Method: generatePresignedPutUrl <a name="generatePresignedPutUrl"></a>
 request for a pre-signed URL to use in PUT operation.  The gateway will return a signed Url to allow user to securely uploading content to a specific bucket. The user can then either use curl or other tools to upload content directly to S3 bucket using the returned URL.  Please, look at the example below to learn how to upload a file using the return URL.
 
 ##### Accepted payload <a name="S3_generatePresignedPutUrl_payload"></a>
@@ -658,7 +658,7 @@ https://mgw-awsassertion.s3.ca-central-1.amazonaws.com/test-folder/uploadFile.tx
 	You MUST use -H "Content-Type" header in the curl command above otherwise the upload will failed with "403 Forbidden"
 
 
-#### Methods: generatePresignedGetUrl <a name="generatePresignedGetUrl"></a>
+#### Method: generatePresignedGetUrl <a name="generatePresignedGetUrl"></a>
   request for a pre-signed URL to use in GET operation.  The gateway will return a signed Url to allow user to securely downloading content from a specific bucket. The user can then either use curl or other tools to download content directly from S3 bucket using the returned URL.  Please, look at the example below to learn how to download a file using the return URL.
 
 ##### Accepted payload <a name="S3_generatePresignedGetUrl_payload"></a>
@@ -684,7 +684,7 @@ NOTE:
 curl -v -X GET "https://mgw-sandbox.s3.ca-central-1.amazonaws.com/uploadFolder/awsLocationCopy.jar?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20171108T235520Z&X-Amz-SignedHeaders=host&X-Amz-Expires=555&X-Amz-Credential=GSEUDNRTSB5HOZI6ZOA%2F20171108%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Signature=ab212f36382f408ede89b9c6c6f16f047e83f5dd524d666f9be2c12ae73bb201" > myDownloadedJarFile.jar
 
 
-#### Methods: setObjectACL <a name="setObjectACL"></a>
+#### Method: setObjectACL <a name="setObjectACL"></a>
 Setting object ACL.
 
 ##### Accepted payload <a name="S3_setObjectACL_payload"></a>
@@ -717,7 +717,7 @@ where 'objectKey' is the 'folder/filename' of the destination filename.
 }
 ```
 
-#### Methods: getObjectACL <a name="getObjectACL"></a>
+#### Method: getObjectACL <a name="getObjectACL"></a>
 Getting object ACL
 
 ##### Accepted payload <a name="S3_getObjectACL_payload"></a>
@@ -747,7 +747,7 @@ where 'objectKey' is the 'folder/filename' of the destination filename.
  }
 ```
 
-#### Methods: getBucketVersioningConfiguration <a name="getBucketVersioningConfiguration"></a>
+#### Method: getBucketVersioningConfiguration <a name="getBucketVersioningConfiguration"></a>
 Returns the versioning configuration for the specified bucket
 
 ##### Accepted payload <a name="S3_getBucketVersioningConfiguration_payload"></a>

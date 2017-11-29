@@ -3,14 +3,25 @@
 Table of Contents:
 
 * [Description](#Description)
+* [Installing AWS Solution Kit](#InstallingAWSSolutionKit)
 * [Sample Service Template using AWS services](#SampleServiceTemplate)
 * [How to Call Service Endpoints](#CallServiceEndpoints)
 * [Supporting Services and Methods](#SupportServiceMethods)
-
+  * [Lambda](#Lambda)
+    * [Example of Accepted payload](#Expected_payload_Example)
+    * [Supported Methods](Methods)
+      * [invokeAsync](invokeAsync)
 
 
 ## Description <a name="Description"></a>
 AWS assertion provides a way to integrate the Microgateway with AWS Services.  It routes APIs calls to AWS services  
+
+## Installing AWS Solution Kit <a name="Installing"></a>
+- Assuming that you already have a gateway up and running and already downloaded the AWS solution kit (AWSSolutionKit.sskar) from the 'validator'
+- start the Policy Manager
+- within the Policy Manager,  
+  - select: Task -> Extensions and Add-Ons -> Manage Solution Kits
+  - within the "Manage Solution Kits", click "Install" and select the AWSSolutionKit.sskar file.
 
 ## Sample Service Template using AWS services <a name="SampleServiceTemplate"></a>
 You can use the following service template to publish an API that uses AWS service
@@ -21,7 +32,9 @@ You can use the following service template to publish an API that uses AWS servi
     "name": "Short name of your service",
     "gatewayUri": "/service_end_point",
     "httpMethods": [
-      "post"
+      "post",
+      "get",
+      "delete"
     ],
     "policy": [
       {
@@ -74,7 +87,7 @@ Depending on the method, some of the methods might not require any payload.  In 
 where <br> <b>functionName</b> is REQUIRED name of the Lambda function to call and <br>
 <b>functionPayload</b> NOT ALWAYS REQUIRED. If your Lambda function is expected a payload then the payload is sent as the body of the <b>functionPayload</b>.  If the payload is NOT REQUIRED then the <b>functionPayload</b> can be an empty json '{}' or just "".
 
-##### Example of Accepted payload <a name="Expected_payload_Example"></a>
+#### Example of Accepted payload <a name="Expected_payload_Example"></a>
 Assuming you have created a Lambda function 'echo' which will reply with whatever the content of the functionPayload. And you have create an endpoint, '/can_you_hear_me' the sample payload and calling the endpoint would be as follow:
 
 ```json
@@ -99,8 +112,9 @@ Currently, we are supporting the following Lambda methods:
 invokeAsync, invoke, listFunctions, getFunction, deleteFunction, createFunction, updateFunctionCode and updateFunctionConfiguration.
 
 
+#### Supported Methods: <a name="Methods"></a>
 
-#### Methods: invokeAsync <a name="invokeAsync"></a>
+##### invokeAsync <a name="invokeAsync"></a>
 invoke a lambda function which you specify in the <b>functionName</b> below, asynchronously.
 
 ##### Accepted payload <a name="Lambda_invokeAsync_payload"></a>

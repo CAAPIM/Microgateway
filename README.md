@@ -126,48 +126,48 @@ This step will typically be done by a microservice developer.
 
 - Create a file named Gatewayfile with the following content:
 
-  ```json
-  {
-      "Service": {
-      "name": "Google Search",
-      "gatewayUri": "/google",
-      "httpMethods": [ "get" ],
-      "policy": [
-        {
-          "RouteHttp" : {
-            "targetUrl": "http://www.google.com/search${request.url.query}",
-            "httpMethod" : "Automatic"
-          }
+```json
+{
+    "Service": {
+    "name": "Google Search",
+    "gatewayUri": "/google",
+    "httpMethods": [ "get" ],
+    "policy": [
+      {
+        "RouteHttp" : {
+          "targetUrl": "http://www.google.com/search${request.url.query}",
+          "httpMethod" : "Automatic"
         }
-      ]
-    }
+      }
+    ]
   }
-  ```
+}
+```
 
 - Add your API to the Gateway:
 
-  ```
-  curl --insecure \
-       --user "admin:password" \
-       --url https://localhost/quickstart/1.0/services \
-       --data @Gatewayfile
-  ```
+```
+curl --insecure \
+     --user "admin:password" \
+     --url https://localhost/quickstart/1.0/services \
+     --data @Gatewayfile
+```
 
 - Verify that your API is exposed:
 
-  ```
-  curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
-  ```
+```
+curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
+```
   Should return a list containing your Google Search service.
 
 
 - Use your exposed API:
 
-  ```
-  curl --insecure \
-       --header "User-Agent: Mozilla/5.0" \
-       'https://localhost/google?q=CA'
-  ```
+```
+curl --insecure \
+     --header "User-Agent: Mozilla/5.0" \
+     'https://localhost/google?q=CA'
+```
 
 ## Next steps  <a name="next-steps"></a>
 
@@ -179,7 +179,8 @@ This step will typically be done by a microservice developer.
 - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
 - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
 - [Extend Microgateway with new templates](get-started/get-further/extend-microgateway-with-new-templates.md)
-- [AWS Lambda and S3 extension examples](get-started/get-further/configure-and-consume-AWS-Lambda-and-S3-APIs-with-json-file.md)
+- [Secured AWS Integration with Microgateway - Quickstart](get-started/get-further/AWS_Integration_Quickstart.md)
+- [Secured AWS Integration with Microgateway - Samples](get-started/get-further/configure-and-consume-AWS-Lambda-and-S3-APIs-with-json-file.md)
 - Operations:
   - Install, configuration, upgrade and scale
     - [Docker](get-started/get-further/operations/platforms/docker.md)

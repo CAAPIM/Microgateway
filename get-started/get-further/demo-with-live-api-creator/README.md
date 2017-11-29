@@ -34,12 +34,15 @@ such as aggregation and orchestration, access token and mutual TLS authenticatio
 </p>
 
 - As an API owner:
+  - Function at the Edge CA API Gateway
+  - Create the product API by aggregating microservice APIs from the CA Microgateway
   - Pass a JWT to the backend Microgateway and microservices with the OAuth information:
     - to avoid authorization token leak to backend services
     - to provide a context of client requests
 
 - As a microservice developer,
-  - Set the security rules in the Microgateway independently of API owners and other microservices
+  - Function at the CA Microgateway
+  - Set the security rules in the Microgateway independently of API owners and other microservice teams
 
 ### Backend microservice data source <a name="datasource"></a>
 

@@ -180,7 +180,7 @@ curl --insecure \
 - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
 - [Extend Microgateway with new templates](get-started/get-further/extend-microgateway-with-new-templates.md)
 - [Secured AWS Integration with Microgateway - Quickstart](get-started/get-further/AWS_Integration_Quickstart.md)
-- [Secured AWS Integration with Microgateway - Samples](get-started/get-further/configure-and-consume-AWS-Lambda-and-S3-APIs-with-json-file.md)
+- [Secured AWS Integration with Microgateway - Samples](get-started/get-further/AWS_Integration_Sample_use_cases.md)
 - Operations:
   - Install, configuration, upgrade and scale
     - [Docker](get-started/get-further/operations/platforms/docker.md)

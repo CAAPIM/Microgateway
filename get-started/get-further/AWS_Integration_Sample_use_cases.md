@@ -57,8 +57,8 @@ This use case will describe steps on how a user can use the APIs to implement a 
               "method": "createBucket"
             },
             "account": {
-              "key": "AKIAISPYSVB5HOZI6ZOA",
-              "secret": "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",
+              "key": "AKIMSC2WSOR3OZI6ZOA",
+              "secret": "VOWX3e2XdPWotFq5oHdTMgL4hSHsoFog0uiCCqlxy",
               "region": "ca-central-1"
             }
           }
@@ -103,8 +103,8 @@ This use case will describe steps on how a user can use the APIs to implement a 
               "method": "generatePresignedPutUrl"
             },
             "account": {
-              "key": "AKIAISPYSVB5HOZI6ZOA",
-              "secret": "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",
+              "key": "AKIMSC2WSOR3OZI6ZOA",
+              "secret": "VOWX3e2XdPWotFq5oHdTMgL4hSHsoFog0uiCCqlxy",
               "region": "ca-central-1"
             }
           }
@@ -138,7 +138,7 @@ curl -v -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" --up
 ```
   - command
   ```
-curl -v -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" --upload-file echo.jar "https://mgw-deployment-bucket.s3.ca-central-1.amazonaws.com/echo.jar?Content-Type=application%2Fx-www-form-urlencoded%3B%20charset%3Dutf-8&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20171201T004807Z&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Expires=599&X-Amz-Credential=AKIAISPYSVB5HOZI6ZOA%2F20171201%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Signature=58d9f43eec7732f72f6b3f299a86b997ba36c221d610869910c8dd70c241eed1"
+curl -v -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" --upload-file echo.jar "https://mgw-deployment-bucket.s3.ca-central-1.amazonaws.com/echo.jar?Content-Type=application%2Fx-www-form-urlencoded%3B%20charset%3Dutf-8&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20171201T004807Z&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Expires=599&X-Amz-Credential=AKIMSC2WSOR3OZI6ZOA%2F20171201%2Fca-central-1%2Fs3%2Faws4_request&X-Amz-Signature=58d9f43eec7732f72f6b3f299a86b997ba36c221d610869910c8dd70c241eed1"
 ```
 
 ##### create a Lambda function <a name="create_lambda_function"></a>
@@ -164,8 +164,8 @@ curl -v -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" --up
               "method": "createFunction"
             },
             "account": {
-              "key": "AKIAISPYSVB5HOZI6ZOA",
-              "secret": "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",
+              "key": "AKIMSC2WSOR3OZI6ZOA",
+              "secret": "VOWX3e2XdPWotFq5oHdTMgL4hSHsoFog0uiCCqlxy",
               "region": "ca-central-1"
             }
           }
@@ -218,8 +218,8 @@ curl -H "Content-Type: application/json" -X GET -d '{"handler": "lambda.echo::Co
               "method": "invokeAsync"
             },
             "account": {
-              "key": "AKIAISPYSVB5HOZI6ZOA",
-              "secret": "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",
+              "key": "AKIMSC2WSOR3OZI6ZOA",
+              "secret": "VOWX3e2XdPWotFq5oHdTMgL4hSHsoFog0uiCCqlxy",
               "region": "ca-central-1"
             }
           }

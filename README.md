@@ -9,12 +9,15 @@
   * [Expose a microservice API](#api)
 * [Next steps](#next-steps)
   * [Get further to try more complex scenarios](#get-further)
+  * [End-to-End Demos](#end-to-end)
+    * <img src="img/ca-world-17-footer.png" alt="CA World 2017" width="100"> [Security model for microservices using the CA Microgateway](get-started/get-further/demo-with-live-api-creator)
+  * [Samples](#samples)
   * [Documentation](#documentation)
 
 ## What is CA Microgateway <a name="intro"></a>
 CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA Microgateway by building your own policy with existing policy building capability in the API gateway family.
 
-More features available in the [free trial version](https://www.ca.com/us/products/ca-microgateway.html).
+More features, including the Policy Manager, available in the [free trial version](https://www.ca.com/us/trials/ca-microgateway.html).
 
 <p align="center">
 <img src="img/ca-microgateway-diagram_draw-io.png" alt="CA Microgateway" title="CA Microgateway" />
@@ -55,7 +58,7 @@ This step will typically be done by a Gateway sysadmin.
 - Accept the license:
 
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-  the file `get-started/docker-compose/config/license.env`, you are expressing
+  the file `get-started/docker-compose/config/license-agreement.env`, you are expressing
   your acceptance of the [CA Trial and Demonstration Agreement](LICENSE.md).
 
   The initial Product Availability Period for your trial of CA Microgateway
@@ -126,56 +129,56 @@ This step will typically be done by a microservice developer.
 
 - Create a file named Gatewayfile with the following content:
 
-```json
-{
-    "Service": {
-    "name": "Google Search",
-    "gatewayUri": "/google",
-    "httpMethods": [ "get" ],
-    "policy": [
-      {
-        "RouteHttp" : {
-          "targetUrl": "http://www.google.com/search${request.url.query}",
-          "httpMethod" : "Automatic"
+  ```json
+  {
+      "Service": {
+      "name": "Google Search",
+      "gatewayUri": "/google",
+      "httpMethods": [ "get" ],
+      "policy": [
+        {
+          "RouteHttp" : {
+            "targetUrl": "http://www.google.com/search${request.url.query}",
+            "httpMethod" : "Automatic"
+          }
         }
-      }
-    ]
+      ]
+    }
   }
-}
-```
+  ```
 
 - Add your API to the Gateway:
 
-```
-curl --insecure \
-     --user "admin:password" \
-     --url https://localhost/quickstart/1.0/services \
-     --data @Gatewayfile
-```
+  ```
+  curl --insecure \
+       --user "admin:password" \
+       --url https://localhost/quickstart/1.0/services \
+       --data @Gatewayfile
+  ```
 
 - Verify that your API is exposed:
 
-```
-curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
-```
+  ```
+  curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
+  ```
   Should return a list containing your Google Search service.
 
 
 - Use your exposed API:
 
-```
-curl --insecure \
-     --header "User-Agent: Mozilla/5.0" \
-     'https://localhost/google?q=CA'
-```
+  ```
+  curl --insecure \
+       --header "User-Agent: Mozilla/5.0" \
+       'https://localhost/google?q=CA'
+  ```
 
-## Next steps  <a name="next-steps"></a>
+## Next steps <a name="next-steps"></a>
 
-### Get further to try more complex scenarios  <a name="get-further"></a>
+### Get further to try more complex scenarios <a name="get-further"></a>
 
 - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
 - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
-- [Load a microservice API from JSON file](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
+- [Build a CA Microgateway image with preloaded APIs](get-started/get-further/build-microgateway-with-custom-templates-and-services.md)
 - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
 - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
 - [Extend Microgateway with new templates](get-started/get-further/extend-microgateway-with-new-templates.md)
@@ -188,7 +191,10 @@ curl --insecure \
   - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
   - [Performance tuning](get-started/get-further/operations/system/performance.md)
 
-### Samples
+### End-to-End Demos <a name="end-to-end"></a>
+- <img src="img/ca-world-17-footer.png" alt="CA World 2017" width="100"> [Security model for microservices using the CA Microgateway](get-started/get-further/demo-with-live-api-creator)
+
+### Samples <a name="samples"></a>
 - [Microgateway APIs](samples/APIs)
 - Plaforms:
   - [OpenShift](samples/platforms/openshift)

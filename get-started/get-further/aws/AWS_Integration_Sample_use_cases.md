@@ -2,7 +2,7 @@
 
 Table of Contents:
 
-* [Description](#Description)
+* [Get Started](#Get Started)
 * [Prerequisite](#Prerequisite)
 * [Use case #1 - AlertMessenger using Lambda function](#Usercase1)
   * [Description](#Usecase1_description)
@@ -18,11 +18,12 @@ Table of Contents:
   * [Step-by-step](#Usecase2_step_by_step)
     * [Publish an API to invoke a Lambda function](#case2_publish_api)
     * [Use the "invokeLambdaFunction" API to invoke the "AlertMessenger" Lambda function](#Usecase2_invoke)
+    
+ * [Secured AWS Integration with Microgateway - Quickstart]((get-started/get-further/aws/AWS_Integration_Quickstart.md))
+  
 
 
-
-
-## Description <a name="Description"></a>
+## Get Started <a name="Get Started"></a>
 This document will describe step-by-step of some sample use cases.  The intention is to show how users can expose and use AWS services through Microgateway.  
 As an example, we have implemented all of the sample of the Lambda function and packaged them in the Samples.jar file.
 Users can download the "Samples.jar" file and use as described in the sample below.
@@ -230,3 +231,6 @@ This use case describes how a company using Lambda function to send out email al
 - result<br>
 Alert email message is sent to the emails "your.email@ca.com" and "another.email@gmail.com"
 
+### Get further to try more complex scenarios <a name="get-further"></a>
+
+- [Orchestrate API with Secured AWS Integration ](get-started/get-further/aws/AWS_Integration_Sample_use_case_1.md)

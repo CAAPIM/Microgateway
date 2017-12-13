@@ -1,19 +1,20 @@
-# Secured AWS Services Integration with Microgateway -- Sample Use Cases <a name="AWS Sample_Use_Case"></a>
+# Orchestrate API with Secured AWS Integration <a name="AWS Sample_Use_Case_1"></a>
 
 Table of Contents:
 
-* [Description](#Description)
+* [Get started](#Description)
 * [Prerequisite](#Prerequisite)
-* [Use case #1](#Usercase1)
+* [Use Case : 'echo'](#Usercase1)
   * [Step-by-step](#Usecase1_step_by_step)
     * [create an S3 bucket](#create_S3_bucket)
     * [upload file to S3 bucket](#upload_S3_bucket)
     * [create a Lambda function](#create_lambda_function)
     * [invoke a Lambda function](#invoke_lambda_function)
 
+* [Use Case : 'replicate' ](get-started/get-further/aws/AWS_Integration_Sample_use_case_2.md)
 
-## Description <a name="Description"></a>
-This document will describe some sample use cases.  It attempts to describe step-by-step of each of the use cases with the intention to show how users can use the supported AWS services and APIs to orchestrate such use cases.  
+## Get started <a name="Description"></a>
+This document will describe step-by-step of each of the use case with the intention to show how users can use the supported AWS services and APIs to orchestrate such use case.  
 
 ## Prerequisite <a name="Prerequisite"></a>
 All the use cases below will assume that user already have AWS account and its credentials.  
@@ -26,15 +27,15 @@ Assume:
 
 There might be other assumptions for each specific use case describe below.  Those specific assumptions will be mentioned with the specific use case.
 
-## Use case #1 <a name="Usecase1"></a>
+## Use case : 'echo' <a name="Usecase1"></a>
 This use case will assume:
 - User has implemented an 'echo' Lambda function which will response/echo the data payload it received to the caller.
 - User already package AWS Lambda function into a jar file called 'echo.jar'.   User can download our sample of implementation of the 'echo' function "echo.jar" from the "Validator" site. 
 
 This use case will describe steps on how a user can use the APIs to implement a simple CI/CD to deploy a Lambda function to AWS Lambda service using S3 and Lambda service.  The workflow is as follow:
-- user create a 'deployment-bucket' on S3
+- user create a 'mgw-deployment-bucket' named bucket on S3
 - user request for signed url to deploy 'echo.jar' to S3
-- user uses curl or any appropriate tool to upload the 'echo.jar' to 'deployment-bucket'
+- user uses curl or any appropriate tool to upload the 'echo.jar' to 'mgw-deployment-bucket'
 - user create an 'echo' Lambda function which has its implementation as part of the 'echo.jar'
 - client/user can invoke the create Lambda function which was created.
 - the result, the user will received whatever the data/message user sent to the 'echo' Lambda function.
@@ -78,7 +79,7 @@ This use case will describe steps on how a user can use the APIs to implement a 
   - payload format:
       ```json
       {
-          "bucketName": "your bucket name here",
+          "bucketName": "your bucket name here"
       }
       ```
 

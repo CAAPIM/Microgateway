@@ -1,18 +1,18 @@
- Secured AWS Services Integration with Microgateway -- Sample Use Cases <a name="AWS Sample_Use_Case"></a>
+# Orchestrate API with Secured AWS Integration <a name="AWS Sample_Use_Case_2"></a>
 
 Table of Contents:
 
-* [Description](#Description)
+* [Get Started](#Description)
 * [Prerequisite](#Prerequisite)
-* [Use case #2](#Usercase1)
-  * [Step-by-step](#Usecase1_step_by_step)
+* [Use case # replicate](#Usercase2)
+  * [Step-by-step](#Usecase2_step_by_step)
     * [create an S3 bucket](#create_S3_bucket)
     * [upload file to S3 bucket](#upload_S3_bucket)
     * [create a Lambda function](#create_lambda_function)
     * [invoke a Lambda function](#invoke_lambda_function)
 
 
-## Description <a name="Description"></a>
+## Get started <a name="Get started"></a>
 This document will describe a scenario when you need to replicate objects in multiple S3 buckets..  
 
 ## Prerequisite <a name="Prerequisite"></a>
@@ -80,7 +80,7 @@ This use case will describe steps on how a user can use the APIs to implement a 
   - payload format:
       ```json
       {
-          "bucketName": "your bucket name here",
+          "bucketName": "your bucket name here"
       }
       ```
 
@@ -90,7 +90,7 @@ This use case will describe steps on how a user can use the APIs to implement a 
       ```
 
 ##### upload file to S3 bucket <a name="upload_S3_bucket"></a>
-- create an API to request for a signed url to upload file 'echo.jar' to "mgw-deployment-bucket"
+- create an API to request for a signed url to upload file 'replicate.zip' to "deployment-bucket-test"
     ```json
     {
       "Service": {
@@ -122,7 +122,7 @@ This use case will describe steps on how a user can use the APIs to implement a 
       }
     }
     ```
-- invoke the 'getUploadUrl' API to request for a signed Url to upload 'echo.jar' to 'mgw-deployment-bucket'
+- invoke the 'getUploadUrl' API to request for a signed Url to upload 'replicate.zip' to 'deployment-bucket-test'
 
   - payload format
       ```json
@@ -143,7 +143,7 @@ This use case will describe steps on how a user can use the APIs to implement a 
   - curl command format
   
     ```
-    curl -v -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" --upload-file echo.jar "<copy and paste the signed url here>"
+    curl -v -H "Content-Type: application/x-www-form-urlencoded; charset=utf-8" --upload-file replicate.zip "<copy and paste the signed url here>"
     ```
   - command
     ```

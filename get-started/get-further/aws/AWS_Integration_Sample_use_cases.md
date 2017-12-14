@@ -19,7 +19,7 @@ Table of Contents:
     * [Publish an API to invoke a Lambda function](#case2_publish_api)
     * [Use the "invokeLambdaFunction" API to invoke the "AlertMessenger" Lambda function](#Usecase2_invoke)
     
- * [Secured AWS Integration with Microgateway - Quickstart]((get-started/get-further/aws/AWS_Integration_Quickstart.md))
+ * [Secured AWS Integration with Microgateway - Quickstart](AWS_Integration_Quickstart.md)
   
 
 
@@ -234,6 +234,6 @@ Alert email message is sent to the emails "your.email@ca.com" and "another.email
 ### Get further to try more complex scenarios <a name="get-further"></a>
 
 - Orchestrate API with Secured AWS Integration
-    - [Echo your message](get-started/get-further/aws/AWS_Integration_Sample_use_case_1.md)
-    - [Replicate your files](get-started/get-further/aws/AWS_Integration_Sample_use_case_2.md)
-- [Documentation](get-started/get-further/configure-and-consume-AWS-Lambda-and-S3-APIs-with-json-file.md)
+    - [Echo your message](AWS_Integration_Sample_use_case_1.md)
+    - [Replicate your files](AWS_Integration_Sample_use_case_2.md)
+- [Documentation](configure-and-consume-AWS-Lambda-and-S3-APIs-with-json-file.md)

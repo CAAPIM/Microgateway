@@ -182,7 +182,7 @@ This step will typically be done by a microservice developer.
 - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
 - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
 - [Extend Microgateway with new templates](get-started/get-further/extend-microgateway-with-new-templates.md)
-- [Secured AWS Integration with Microgateway](get-started/get-further/aws/AWS_Integration_Sample_use_cases.md)
+- [Secured AWS Resources with Microgateway](get-started/get-further/aws/AWS_Integration_Sample_use_cases.md)
 - Operations:
   - Install, configuration, upgrade and scale
     - [Docker](get-started/get-further/operations/platforms/docker.md)

@@ -233,4 +233,7 @@ Alert email message is sent to the emails "your.email@ca.com" and "another.email
 
 ### Get further to try more complex scenarios <a name="get-further"></a>
 
-- [Orchestrate API with Secured AWS Integration ](get-started/get-further/aws/AWS_Integration_Sample_use_case_1.md)
+- Orchestrate API with Secured AWS Integration
+    - [Echo your message](get-started/get-further/aws/AWS_Integration_Sample_use_case_1.md)
+    - [Replicate your files](get-started/get-further/aws/AWS_Integration_Sample_use_case_2.md)
+- [Documentation](get-started/get-further/configure-and-consume-AWS-Lambda-and-S3-APIs-with-json-file.md)

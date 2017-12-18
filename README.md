@@ -3,21 +3,22 @@
 * [What is CA Microgateway](#intro)
   * [Benefits](#benefits)
   * [Related microservices patterns](#patterns)
+  * [Extending CA Microgateway](#extending)
 * [Get started](#get-started)
   * [Prerequisites](#prerequisites)
-  * [Deploy the Microgateway](#deploy)
+  * [Deploy CA Microgateway](#deploy)
   * [Expose a microservice API](#api)
 * [Next steps](#next-steps)
-  * [Get further to try more complex scenarios](#get-further)
+  * [Try more complex scenarios](#get-further)
   * [End-to-End Demos](#end-to-end)
     * <img src="img/ca-world-17-footer.png" alt="CA World 2017" width="100"> [Security model for microservices using the CA Microgateway](get-started/get-further/demo-with-live-api-creator)
   * [Samples](#samples)
   * [Documentation](#documentation)
 
 ## What is CA Microgateway <a name="intro"></a>
-CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can easily extend the capabilities of CA Microgateway by building your own policy with existing policy building capability in the API gateway family.
+CA Microgateway provides secure service mesh for microservices with rich functionalities of the [CA API Gateway family](https://www.ca.com/us/products/api-management.html) including SSL/TLS, OAuth, service discovery packed in a docker container. You can also easily extend the capabilities of CA Microgateway by building your own policy using the policy building capability available to CA API Gateways.
 
-More features, including the Policy Manager, available in the [free trial version](https://www.ca.com/us/trials/ca-microgateway.html).
+More features, including the Policy Manager needed to extend CA Microgateway, are available in the [free trial version](https://www.ca.com/us/trials/ca-microgateway.html).
 
 <p align="center">
 <img src="img/ca-microgateway-diagram_draw-io.png" alt="CA Microgateway" title="CA Microgateway" />
@@ -33,6 +34,10 @@ More features, including the Policy Manager, available in the [free trial versio
 * API gateway/Backend for Frontend: http://microservices.io/patterns/apigateway.html
 * Access token: http://microservices.io/patterns/security/access-token.html
 
+### Extending CA Microgateway <a name="extending"></a>
+* After you try out the basic functionality in CA Microgateway, try [some more complex scenarios](#get-further), including [extending CA Microgateway](get-started/get-further/extend-microgateway-with-new-templates.md).
+* To download the Policy Manager that is needed to extend CA Microgateway, please get it from [here](https://www.ca.com/us/trials/ca-microgateway.html).
+
 ## Get started <a name="get-started"></a>
 
 Supported platforms:
@@ -42,8 +47,9 @@ Supported platforms:
 ### Prerequisites <a name="prerequisites"></a>
 - A docker host
 
-  You can use Docker on your laptop or in the Cloud. Docker-machine
-  (https://docs.docker.com/machine/drivers/) can be used as a quick way to deploy
+  You can use Docker on your laptop or in the Cloud ([get Docker here](https://www.docker.com/get-docker))
+
+  Docker-machine (https://docs.docker.com/machine/drivers) can be used as a quick way to deploy
   a remote Docker host.
 
   Run the following command to validate that you can reach your Docker host.
@@ -51,11 +57,9 @@ Supported platforms:
   docker info
   ```
 
-### Deploy the CA Microgateway <a name="deploy"></a>
+- The cloned, or downloaded, content from this GitHub repository
 
-This step will typically be done by a Gateway sysadmin.
-
-- Accept the license:
+- Accepted licensing terms (required to start the Microgateway):
 
   By passing the value "true" to the environment variable `ACCEPT_LICENSE` in
   the file `get-started/docker-compose/config/license-agreement.env`, you are expressing
@@ -67,7 +71,11 @@ This step will typically be done by a Gateway sysadmin.
   redeploy a new trial of CA Microgateway after the end of the initial Product
   Availability Period.
 
-- Start the Gateway:
+### Deploy CA Microgateway <a name="deploy"></a>
+
+The following tasks will typically be done by a Gateway sysadmin.
+
+- Start CA Microgateway:
 
   ```
   cd get-started/docker-compose
@@ -79,7 +87,7 @@ This step will typically be done by a Gateway sysadmin.
                  up -d --build
   ```
 
-- Verify that the Gateway is healthy (May need to repeat the command to refresh status):
+- Verify that CA Microgateway container is up and running:
 
   ```
   docker ps --format "table {{.Names}}\t{{.Status}}"
@@ -91,6 +99,19 @@ This step will typically be done by a Gateway sysadmin.
   microgateway_ssg_1   Up About a minute (healthy)
   microgateway_consul_1    Up About a minute
   ```
+ Wait for "healthy" status (~2 minutes); you can repeat the command to refresh status.
+
+- Once CA Microgateway is up and running, you can list the APIs that have been published to it:
+
+  ```
+  curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
+  ```
+  If the Microgateway has just been started for the first time, it should return an empty set:
+  ```
+  []
+  ```
+
+Other Docker admin tasks that you can do with the container ...
 
 - Print the logs:
 
@@ -125,15 +146,15 @@ This step will typically be done by a Gateway sysadmin.
 
 ### Expose a microservice API <a name="api"></a>
 
-This step will typically be done by a microservice developer.
+The following steps will typically be done by a developer, and may be done at the command line (per instructions below), or via your favourite API development environment, such as [Postman](https://www.getpostman.com).
 
-- Create a file named Gatewayfile with the following content:
+- First, create a file named Gatewayfile with the following content:
 
-  ```json
+  ```
   {
       "Service": {
       "name": "Google Search",
-      "gatewayUri": "/google",
+      "gatewayUri": "/demo_google",
       "httpMethods": [ "get" ],
       "policy": [
         {
@@ -147,7 +168,13 @@ This step will typically be done by a microservice developer.
   }
   ```
 
-- Add your API to the Gateway:
+  Save the file into the same directory from which you will make the next API call.
+
+  The Gatewayfile is a JSON file that describes a "meta-policy" that will be published to the Microgateway. Gatewayfile will create a new service that will be accessible at "/demo_google" and will route requests to htttp://www.google.com.
+
+- Then, add your API to CA Microgateway:
+
+  **note: if you stopped the Microgateway previously, please [start it up](#deploy) again.**
 
   ```
   curl --insecure \
@@ -156,25 +183,56 @@ This step will typically be done by a microservice developer.
        --data @Gatewayfile
   ```
 
-- Verify that your API is exposed:
+  Should return confirmation from CA Microgateway that the Google Search API was successfully published:
+
+  ```
+  {
+    "success": true,
+    "message": "Quickstart service created successfully. There maybe a delay of 10 seconds before the service is available."
+  }
+  ```
+
+- Now, verify that your API is exposed (by listing all published APIs):
 
   ```
   curl --insecure --user "admin:password" https://localhost/quickstart/1.0/services
   ```
-  Should return a list containing your Google Search service.
 
+  Should return a list containing the new Google Search service:
 
-- Use your exposed API:
+  ```
+  [
+    {
+        "ServiceName": "Google Search",
+        "ServiceUri": "/demo_google",
+        "ServiceId": "8d06f72fcf8447ad99ca4833714e0497",
+        "ServiceTimeStamp": "1509564356239"
+    }
+  ]
+  ```
+
+- Finally, try using your exposed API:
 
   ```
   curl --insecure \
        --header "User-Agent: Mozilla/5.0" \
-       'https://localhost/google?q=CA'
+       'https://localhost/demo_google?q=CA'
   ```
+
+  This API call should return HTML content from the proxied website:
+
+  ```
+  <!doctype html><html itemscope="" itemtype="http://schema.org/SearchResultsPage" lang="en"><head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta content="/images/branding/googleg/1x/googleg_standard_color_128dp.png" itemprop="image">
+  <link href="/images/branding/product/ico/googleg_lodp.ico" rel="shortcut icon">
+  ...
+  ```
+  Alternatively, you can call the API directly from the browser: https://localhost/demo_google?q=CA.
 
 ## Next steps <a name="next-steps"></a>
 
-### Get further to try more complex scenarios <a name="get-further"></a>
+### For more complex scenarios, try these other tutorials  <a name="get-further"></a>
 
 - [Secure a microservice API with Basic Authentication](get-started/get-further/api-with-basic-auth.md)
 - [Secure a microservice API with OAuth](get-started/get-further/api-with-oauth.md)
@@ -195,10 +253,9 @@ This step will typically be done by a microservice developer.
 
 ### Samples <a name="samples"></a>
 - [Microgateway APIs](samples/APIs)
-- Plaforms:
+- Alternative plaforms:
   - [OpenShift](samples/platforms/openshift)
 
 ### Documentation  <a name="documentation"></a>
 
 - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local Microgateway
-- [CA Microgateway Documentation](https://docops.ca.com/ca-microgateway/1-0/EN)

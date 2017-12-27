@@ -4,7 +4,7 @@ Table of Contents:
 
 * [Get Started](#Get Started)
 * [Prerequisite](#Prerequisite)
-* [Use case #1 - Hosting video on S3](#Usercase1)
+* [Use case #1 - Hosting video on S3](#Usecase1)
   * [Description](#Usecase1_description)
        * [Assumption](#Usecase1_assumption)
   * [Step-by-step](#Usecase1_step_by_step)

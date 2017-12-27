@@ -240,6 +240,7 @@ The following steps will typically be done by a developer, and may be done at th
 - [Register the Google Root TLS certificate](get-started/get-further/register-google-tls-certificate.md)
 - [Orchestrate API with RouteOrchestrator](get-started/get-further/api-with-route-orchestrator.md)
 - [Extend Microgateway with new templates](get-started/get-further/extend-microgateway-with-new-templates.md)
+- [Secure AWS Resources with Microgateway](get-started/get-further/aws/AWS_Integration_Sample_use_cases.md)
 - Operations:
   - Install, configuration, upgrade and scale
     - [Docker](get-started/get-further/operations/platforms/docker.md)
@@ -258,4 +259,3 @@ The following steps will typically be done by a developer, and may be done at th
 ### Documentation  <a name="documentation"></a>
 
 - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local Microgateway
-- [CA Microgateway Documentation](https://docops.ca.com/ca-microgateway/1-0/EN)

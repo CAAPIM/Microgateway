@@ -1,0 +1,143 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consulserverconfig
+data:
+  consulserver.json: |
+    {
+        "bootstrap": true,
+        "bind_addr": "0.0.0.0",
+        "client_addr": "0.0.0.0",
+        "server": true,
+        "datacenter": "yvr",
+        "data_dir": "/consul/data",
+        "log_level": "INFO"
+    }
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consulpk
+data:
+  consul.key: |
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consulcert
+data:
+  consul.crt: |
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consulbundle
+data:
+  consul-bundle.crt: |
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: consul-svc
+    service: consul
+  name: consul-svc
+  annotations:
+    description: "The Consul server node service"
+spec:
+  selector:
+    app: consul-dc
+  type: ClusterIP
+  ports:
+    - port: 8500
+      targetPort: 8500
+      protocol: TCP
+      name: consul-rest-http-port
+    - port: 8501
+      targetPort: 8501
+      protocol: TCP
+      name: consul-rest-https-port
+    - port: 8400
+      targetPort: 8400
+      protocol: TCP
+      name: consul-rpc-port
+    - port: 8300
+      targetPort: 8300
+      protocol: TCP
+      name: consul-broadcast-tcp-port-1
+    - port: 8300
+      targetPort: 8300
+      protocol: UDP
+      name: consul-broadcast-udp-port-1
+    - port: 8301
+      targetPort: 8301
+      protocol: TCP
+      name: consul-broadcast-tcp-port-2
+    - port: 8301
+      targetPort: 8301
+      protocol: UDP
+      name: consul-broadcast-udp-port-2
+      
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: consul-dc
+  labels:
+     app: consul-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: consul-dc
+    spec:
+      containers:
+      - name: consul-server-container
+        image: isl-dsdc.ca.com:5000/apim-gateway/twelvefactorgateway/consul:latest
+        imagePullPolicy: IfNotPresent
+        args:
+          - agent
+          - -config-file=/consul/config/consulserver.json
+        command:
+          - consul
+        env:
+          - name: CONSUL_CLIENT_INTERFACE
+            value: "eth0"
+          - name: CONSUL_BIND_INTERFACE
+            value: "eth0"
+        ports:
+          - containerPort: 8300
+            protocol: TCP
+          - containerPort: 8301
+            protocol: TCP
+          - containerPort: 8301
+            protocol: UDP
+          - containerPort: 8302
+            protocol: TCP
+          - containerPort: 8302
+            protocol: UDP
+          - containerPort: 8500
+            protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        volumeMounts:
+          - mountPath: /consul/data
+            name: consul
+          - mountPath: /consul/config/consulserver.json
+            name: consulserverconfig
+            subPath: consulserver.json
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 60
+      securityContext: {}
+      volumes:
+      - name: consul
+        emptyDir: {}
+      - name: consulserverconfig
+        configMap:
+          name: consulserverconfig

@@ -1,0 +1,53 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgresql-svc
+spec:
+  selector:
+    app: postgresql
+  type: ClusterIP
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: postgresql
+  labels:
+    app: postgresql
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: postgresql
+    spec:
+      containers:
+      - name: postgresql
+        image: isl-dsdc.ca.com:5000/apim-gateway/twelvefactorgateway/postgres:latest
+        imagePullPolicy: IfNotPresent  
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: msgw-db-secret
+              key: msgw.dbuser
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: msgw-db-secret
+              key: msgw.dbpass
+        - name: POSTGRES_DB
+          valueFrom: 
+              configMapKeyRef:
+                name: databaseconfig
+                key: quickstart.respository.db.name
+        resources:
+          limits:
+            memory: 512Mi
+        ports:
+        - containerPort: 5432

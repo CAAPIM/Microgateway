@@ -2,7 +2,7 @@
 
 Table of Contents:
 
-* [Get Started](#Get Started)
+* [Get Started](#Get_Started)
 * [Prerequisite](#Prerequisite)
 * [Use case #1 - Hosting video on S3](#Usecase1)
   * [Description](#Usecase1_description)
@@ -23,7 +23,7 @@ Table of Contents:
   
 
 
-## Get Started <a name="Get Started"></a>
+## Get Started <a name="Get_Started"></a>
 This document will describe step-by-step of some sample use cases.  The intention is to show how users can expose and use AWS services through Microgateway.  
 As an example, we have implemented all of the sample of the Lambda function and packaged them in the Samples.jar file.
 Users can download the "Samples.jar" file and use as described in the sample below.

@@ -470,12 +470,6 @@
         </l7:Mapping>
         <l7:Mapping action="NewOrExisting" srcId="d1ed9015a1e2fd925b24499bd0d67aec" srcUri="https://localhost:8443/restman/1.0/policies/d1ed9015a1e2fd925b24499bd0d67aec" type="POLICY"/>
         <l7:Mapping action="NewOrExisting" srcId="d1ed9015a1e2fd925b24499bd0d67b02" srcUri="https://localhost:8443/restman/1.0/encapsulatedAssertions/d1ed9015a1e2fd925b24499bd0d67b02" type="ENCAPSULATED_ASSERTION"/>
-            <l7:Properties>
-                <l7:Property key="MapBy">
-                    <l7:StringValue>moduleSha256</l7:StringValue>
-                </l7:Property>
-            </l7:Properties>
-        </l7:Mapping>
         <l7:Mapping action="NewOrExisting" srcId="3f1925f4eef6caf68d5df8b2771b3525" srcUri="https://localhost:8443/restman/1.0/folders/3f1925f4eef6caf68d5df8b2771b3525" type="FOLDER">
             <l7:Properties>
                 <l7:Property key="FailOnNew">

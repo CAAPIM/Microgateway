@@ -21,7 +21,7 @@ CA Microgateway provides secure service mesh for microservices with rich functio
 More features, including the Policy Manager needed to extend CA Microgateway, are available in the [free trial version](https://www.ca.com/us/trials/ca-microgateway.html).
 
 <p align="center">
-<img src="img/Microgateway_Deployment.png" alt="CA Microgateway" title="CA Microgateway" />
+<img src="img/ca-microgateway-diagram_draw-io.png" alt="CA Microgateway" title="CA Microgateway" />
 </p>
 
 ### Benefits <a name="benefits"></a>

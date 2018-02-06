@@ -39,19 +39,13 @@ CA Microgateway containers synchronize exposed API definitions with a database o
 key/value store.
 
 *Note: The database/KV store and microservices can optionally run in the same
-Minikube*
+Kubernetes*
 
 ### Operation commands <a name="ops-commands"></a>
 
+The Kubernetes YAML files deploying CA Microgateway are located in the folder [/samples/platforms/kubernetes/](../../../samples/platforms/kubernetes/)
 
 #### Configure <a name="configure"></a>
-   Deployment related files
- - config.yml which contains all the configurations settings (../../../kubernetes/config.yml)
- - postgres.yml which deploys a postgres database(../../../kubernetes/postgres.yml)
- - consul.yml which deploys consul server(../../../kubernetes/consul.yml)
- - msgw.yml which deploys the Microgateway Service (../../../kubernetes/msgw.yml)
- 
-*Note: please refer to the main documentation for the list of required and optional
 
 *Note 1: Please refer to the main documentation for the list of required and optional
 environment variables: https://docops.ca.com/ca-microgateway/1-0/EN.*
@@ -67,33 +61,26 @@ trial of CA Microgateway after the end of the initial Product Availability Perio
 The Kubernetes configuration file for CA Microgateway: [config.yml](../../../samples/platforms/kubernetes/config.yml)
 
 #### Install <a name="install"></a>
-- Start Minikube
-```
-minikube start --memory=6000
-```
-as by default minikube is assigned 2G memory which is not sufficient to start microgteway
 
-- MSGW with Consul
+Three deployment modes of the CA Microgateway are listed here.
 
-```
-kubectl apply -f config.yml -f consul.yml -f msgw.yml
-```
-(to deploy with consul configuration. Requires "quickstart.rest.mode" set to "true" and "quickstart.respository.type" set to "consul")
+- CA Microgateway with Consul as a service datastore
 
--   MSGW with Database
+  ```
+  kubectl apply --filename microgateway.yml --filename config.yml --filename db-consul.yml
+  ```
 
-```
-kubectl apply -f config.yml -f postgresql.yml -f msgw.yml 
-```
-(to deploy with postgres configuration. Requires "quickstart.rest.mode" set to "true" and "quickstart.respository.type" set to "db")
+- CA Microgateway with PostgreSQL as a service datastore
 
+  ```
+  kubectl apply --filename microgateway.yml --filename config.yml  --filename db-postgresql.yml
+  ```
 
 - Immutable CA Microgateway
 
-```
-kubectl apply -f config.yml -f msgw.yml 
-```
-(to deploy with microgateway in immutable configuration. Requires "quickstart.rest.mode" set to "false")
+  ```
+  kubectl apply ---filename microgateway.yml --filename config.yml --filename immutable.yml
+  ```
 
 #### DNS Settings
 Map the the CA Microgateway route to the Kubernetes external IP by editing `/etc/hosts` with the following content:
@@ -113,10 +100,8 @@ Follow steps mentioned to Expose microserverice API as mentioned at https://gith
 
 #### Update <a name="upgrade"></a>
 
-Write the new configuration in the `msgw.yml` file and config file `config.yml`
-, then re-run the `kubectl apply ` command. Apply
-command  will redeploy only the updated services.
-
+Write the new configuration in the configuration file `config.yml`, then re-run
+the `kubectl apply` command. Apply command  will redeploy only the updated services.
 
 #### Scale up/down <a name="scale"></a>
 

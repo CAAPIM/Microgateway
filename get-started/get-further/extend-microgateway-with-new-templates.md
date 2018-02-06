@@ -3,6 +3,8 @@ The Quick Start Solution may be extended by importing RESTMAN bundles on startup
 
 * Policy template design functionality requires the Policy Manager, which is available for download [here](https://www-qa.ca.com/us/trials/ca-microgateway.html) (requires trial sign up).
 
+Note: the Policy Manager 9.2.09 download is available in the [free trial version](https://www.ca.com/us/trials/ca-microgateway.html).
+
 Instructions:
 - Build Your Own QuickStart Templates: https://docops.ca.com/ca-microgateway/1-0/EN/working-with-the-ca-microgateway/build-your-own-quickstart-templates
 - Create a Microgateway plugin: https://docops.ca.com/ca-microgateway/1-0/EN/working-with-the-ca-microgateway/create-a-microgateway-plugin

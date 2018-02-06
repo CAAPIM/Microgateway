@@ -13,19 +13,21 @@
   * [Uninstall](#uninstall)
 
 ### Prerequisites <a name="prerequisites"></a>
- - A machine running the Kubernetes cluster, which can be:
-    - a laptop with Kubernetes via Minikube installed (https://kubernetes.io/docs/tasks/tools/install-minikube)
-- Kubectl (Kubernetes command-line tool) (https://kubernetes.io/docs/tasks/tools/install-kubectl) to operate the Microgateway on Docker
-operate the Microgateway on Kubernetes via Minikube
-- kube config file is configured on the machine. The file should be present at ~/.kube/config. This file contains the credentials and server details of kubernetes setup
+ - A machine running the Kubernetes cluster with a minimum 4GB of memory:
+    - Minikube on a laptop (https://github.com/kubernetes/minikube)
 
-# Deployment types
-The following deployments are currently supported
--   MSGW with Consul
--   MSGW with Database
--   MSGW (Immutable Mode)
+      ```
+      minikube start --cpus 4 --memory 6144
+      ```
 
-[microgateway-on-kubernetes]: img/kubernetes_draw.io.png "Microgateway on Kubernetes"
+    - Any other Kubernetes (https://kubernetes.io/docs/setup/pick-right-solution)
+- Kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl) to operate the
+CA Microgateway on Kubernetes
+- Your Kubernetes credentials set in the file `~/.kube/config`
+
+# Deployment diagram
+
+[microgateway-on-kubernetes]: img/kubernetes_draw.io.png "CA Microgateway on Kubernetes"
 ![alt text][microgateway-on-kubernetes]
 
 The CA Microgateway cluster running on Kubernetes is at least composed of:
@@ -41,10 +43,6 @@ Minikube*
 
 ### Operation commands <a name="ops-commands"></a>
 
-Note 1. - Accept the license
-        
-          To accept the license agreement [Microservices Gateway Pre-Release Agreement], set the value of "accept.license" to true. This variable is present in configmap "licenseconfig" in config.yaml file.
-
 
 #### Configure <a name="configure"></a>
    Deployment related files
@@ -54,7 +52,19 @@ Note 1. - Accept the license
  - msgw.yml which deploys the Microgateway Service (../../../kubernetes/msgw.yml)
  
 *Note: please refer to the main documentation for the list of required and optional
+
+*Note 1: Please refer to the main documentation for the list of required and optional
 environment variables: https://docops.ca.com/ca-microgateway/1-0/EN.*
+
+*Note 2: By passing the value "true" to the key `accept.license`
+in the file [config.yml](../../../samples/platforms/kubernetes/config.yml), you are expressing
+your acceptance of the [CA Trial and Demonstration Agreement](../../../LICENSE.md). The
+initial Product Availability Period for your trial of CA Microgateway shall be
+sixty (60) days from the date of your initial deployment. You are permitted only
+one (1) trial of CA Microgateway per Company, and you may not redeploy a new
+trial of CA Microgateway after the end of the initial Product Availability Period.*
+
+The Kubernetes configuration file for CA Microgateway: [config.yml](../../../samples/platforms/kubernetes/config.yml)
 
 #### Install <a name="install"></a>
 - Start Minikube

@@ -1,8 +1,28 @@
 ---
+# CA Microgateway Consul configuration
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: consulserverconfig
+  name: microgateway-quickstartconfig
+  annotations:
+    description: Quickstart Related Parameters
+data:
+  QUICKSTART_REST_MODE: "true"
+  QUICKSTART_REPOSITORY_TYPE: "consul"
+  QUICKSTART_REPOSITORY_CONSUL_HOST: "microgateway-db-svc"
+  QUICKSTART_REPOSITORY_CONSUL_PORT: "8500"
+  QUICKSTART_REPOSITORY_CONSUL_PROTOCOL: "http"
+  # QUICKSTART_REPOSITORY_CONSUL_ACL_TOKEN:
+  # cert for https mode (uncomment)
+  #QUICKSTART_REPOSITORY_CONSUL_CERT:
+  #QUICKSTART_REPOSITORY_CONSUL_CERT_TRUSTED_FOR_SSL: "true"
+  #QUICKSTART_REPOSITORY_CONSUL_CERT_TRUST_ANCHOR: "true"
+  #QUICKSTART_REPOSITORY_CONSUL_CERT_VERIFY_HOSTNAME: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consul-server-config
 data:
   consulserver.json: |
     {
@@ -19,7 +39,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: consulpk
+  name: consul-pk
 data:
   consul.key: |
 
@@ -27,7 +47,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: consulcert
+  name: consul-cert
 data:
   consul.crt: |
 
@@ -35,7 +55,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: consulbundle
+  name: consul-bundle
 data:
   consul-bundle.crt: |
 
@@ -46,7 +66,7 @@ metadata:
   labels:
     name: consul-svc
     service: consul
-  name: consul-svc
+  name: microgateway-db-svc
   annotations:
     description: "The Consul server node service"
 spec:
@@ -82,7 +102,7 @@ spec:
       targetPort: 8301
       protocol: UDP
       name: consul-broadcast-udp-port-2
-      
+
 ---
 apiVersion: extensions/v1beta1
 kind: Deployment
@@ -130,7 +150,7 @@ spec:
           - mountPath: /consul/data
             name: consul
           - mountPath: /consul/config/consulserver.json
-            name: consulserverconfig
+            name: consul-server-config
             subPath: consulserver.json
       restartPolicy: Always
       terminationGracePeriodSeconds: 60
@@ -138,6 +158,6 @@ spec:
       volumes:
       - name: consul
         emptyDir: {}
-      - name: consulserverconfig
+      - name: consul-server-config
         configMap:
-          name: consulserverconfig
+          name: consul-server-config

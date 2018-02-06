@@ -1,8 +1,26 @@
 ---
+# Quickstart configuration when using a database (PostgreSQL)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: microgateway-quickstartconfig
+  annotations:
+    description: Quickstart Related Parameters
+data:
+  QUICKSTART_REST_MODE: "true"
+  QUICKSTART_REPOSITORY_TYPE: "db"
+  QUICKSTART_REPOSITORY_DB_TYPE: "postgresql"
+  QUICKSTART_REPOSITORY_DB_HOST: "microgateway-db-svc"
+  QUICKSTART_REPOSITORY_DB_PORT: "5432"
+  QUICKSTART_REPOSITORY_DB_NAME: "qstr"
+  QUICKSTART_REPOSITORY_DB_USER: "causer"
+  QUICKSTART_REPOSITORY_DB_PASSWORD: "capassword"
+
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgresql-svc
+  name: microgateway-db-svc
 spec:
   selector:
     app: postgresql
@@ -29,7 +47,7 @@ spec:
       containers:
       - name: postgresql
         image: isl-dsdc.ca.com:5000/apim-gateway/twelvefactorgateway/postgres:latest
-        imagePullPolicy: IfNotPresent  
+        imagePullPolicy: IfNotPresent
         env:
         - name: POSTGRES_USER
           valueFrom:
@@ -42,7 +60,7 @@ spec:
               name: msgw-db-secret
               key: msgw.dbpass
         - name: POSTGRES_DB
-          valueFrom: 
+          valueFrom:
               configMapKeyRef:
                 name: databaseconfig
                 key: quickstart.respository.db.name

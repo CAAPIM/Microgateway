@@ -170,7 +170,7 @@ The following steps will typically be done by a developer, and may be done at th
 
   Save the file into the same directory from which you will make the next API call.
 
-  The Gatewayfile is a JSON file that describes a "meta-policy" that will be published to the Microgateway. Gatewayfile will create a new service that will be accessible at "/demo_google" and will route requests to htttp://www.google.com.
+  The Gatewayfile is a JSON file that describes a "meta-policy" that will be published to the Microgateway. Gatewayfile will create a new service that will be accessible at "/demo_google" and will route requests to http://www.google.com.
 
 - Then, add your API to CA Microgateway:
 

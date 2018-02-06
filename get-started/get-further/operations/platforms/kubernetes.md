@@ -1,4 +1,4 @@
-## Microgateway on Kubernetes via Minikube : configure, install, upgrade, scale and more
+## CA Microgateway on Kubernetes: configure, install, upgrade, scale and more
 
 * [Prerequisites](#prerequisites)
 * [Deployment diagram](#diagram)
@@ -28,12 +28,12 @@ The following deployments are currently supported
 [microgateway-on-kubernetes]: img/kubernetes_draw.io.png "Microgateway on Kubernetes"
 ![alt text][microgateway-on-kubernetes]
 
-The Microgateway cluster running on Minikube is at least composed of:
-- a Kubernetes route exposing the Microgateway to users
-- an Kubernetes service load balancing requests to the Microgateway containers
-- Minikube pods hosting respectively a Microgateway container
+The CA Microgateway cluster running on Kubernetes is at least composed of:
+- a Kubernetes route exposing the CA Microgateway service to users
+- an Kubernetes service load balancing requests to the CA Microgateway containers
+- Kubernetes pods hosting respectively a CA Microgateway container
 
-Microgateway containers synchronize exposed API definitions with a database or a
+CA Microgateway containers synchronize exposed API definitions with a database or a
 key/value store.
 
 *Note: The database/KV store and microservices can optionally run in the same
@@ -78,7 +78,7 @@ kubectl apply -f config.yml -f postgresql.yml -f msgw.yml
 (to deploy with postgres configuration. Requires "quickstart.rest.mode" set to "true" and "quickstart.respository.type" set to "db")
 
 
--   MSGW (Immutable Mode)
+- Immutable CA Microgateway
 
 ```
 kubectl apply -f config.yml -f msgw.yml 
@@ -86,15 +86,15 @@ kubectl apply -f config.yml -f msgw.yml
 (to deploy with microgateway in immutable configuration. Requires "quickstart.rest.mode" set to "false")
 
 #### DNS Settings
-Map the the microgateway route to the Kubernetes external IP by editing `/etc/hosts` with the following content:
+Map the the CA Microgateway route to the Kubernetes external IP by editing `/etc/hosts` with the following content:
 ```
 <KUBERNETES PUBLIC IP> microgateway.mycompany.com
 ```
 with:
 - `<KUBERNETES PUBLIC IP>`: the public IP address of your Kubernetes machine
 
-To access the microgteway , Kubernetes gives various options like hostNetwork, hostPort, NodePort, LoadBalancer and Ingress.
-In this documentation , ingress is used to access the microgateway
+To access the CA Microgateway, Kubernetes gives various options like hostNetwork, hostPort, NodePort, LoadBalancer and Ingress.
+In this documentation, ingress is used to access the CA Microgateway
 
 ```
 minikube addons enable ingress
@@ -111,55 +111,55 @@ command  will redeploy only the updated services.
 #### Scale up/down <a name="scale"></a>
 
 - Manual scaling:
-  - Using the Kubernetes YAML file (e.g. `msgw.yml`)
+  - Using the Kubernetes YAML file (e.g. `microgateway.yml`)
 
   The `replicas` key of the Deployment configuration block sets the number of
-  Microgateway pods to deploy:
+  CA Microgateway pods to deploy:
 
   ```
- 
+
     apiVersion: extensions/v1beta1
     kind: Deployment
     metadata:
-        name: msgw-dc
+        name: microgateway-dc
         labels:
-            app: msgw
+            app: microgateway
     spec:
     replicas: 1
   ```
 
   Then push the new configuration:
   ```
-  kubectl apply -f msgw.yml
+  kubectl apply -f microgateway.yml
   ```
 
   - Using the Kuberetes command line "kubectl":
 
-  In the previous example, the deployment configuration is named `msgw-dc`.
+  In the previous example, the deployment configuration is named `microgateway-dc`.
   Instead of pushing a new deployment configuration, the `kubectl autoscale` command can
   be used:
 
   ```
-  kubectl scale -f msgw.yml
+  kubectl scale -f microgateway.yml
   ```
 
 - Autoscaling:
 
   Autoscaling is done by adding an Kubernetes element `HorizontalPodAutoscaler` to
-  the Kubernets YML file (e.g. `msgw.yml`).
+  the Kubernets YML file (e.g. `microgateway.yml`).
 
   The following example scales up the Kubernetes Deployment Configuration
-  `msgw-dc` if the CPU reaches 80%.
+  `microgateway-dc` if the CPU reaches 80%.
 
   ```
   apiVersion: autoscaling/v1
   kind: HorizontalPodAutoscaler
   metadata:
-    name: msgw-hpa
+    name: microgateway-hpa
   spec:
     scaleTargetRef:
       kind: Deployment
-      name: msgw-dc
+      name: microgateway-dc
     minReplicas: 1
     maxReplicas: 10
     targetCPUUtilizationPercentage: 80
@@ -167,7 +167,7 @@ command  will redeploy only the updated services.
 
   Then push the new configuration:
   ```
-  kubectl apply -f msgw.yml
+  kubectl apply -f microgateway.yml
   ```
 
   Details about autoscaling can be found at
@@ -178,10 +178,10 @@ command  will redeploy only the updated services.
 - Print logs:
 
 ```
-kubectl logs -f deployment/msgw-dc
+kubectl logs -f deployment/microgateway-dc
 ```
-Where `msgw-dc` is the name of our Deployment Configuration defined
-in `msgw.yml`.
+Where `microgateway-dc` is the name of our Deployment Configuration defined
+in `microgateway.yml`.
 
 #### Health check <a name="health-check"></a>
 
@@ -190,9 +190,9 @@ in `msgw.yml`.
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: msgw-dc
+  name: microgateway-dc
   labels:
-    app: msgw
+    app: microgateway
 spec:
 containers:
 - name: microgateway
@@ -220,7 +220,7 @@ containers:
     timeoutSeconds: 1
 ```
 Where:
-  - `msgw-dc` is the name of our Deployment Configuration defined in `msgw.yml`
+  - `microgateway-dc` is the name of our Deployment Configuration defined in `microgateway.yml`
   - `readinessProbe` determines if a container is ready to service requests
   - `livenessProbe` determines if a container is running properly to serve requests
   - `/opt/docker/rc.d/diagnostic/health_check.sh` is the Microgateway health check script running inside the container
@@ -234,9 +234,9 @@ kubectl get deployments
 Will return the list of Kubernetes deployments with their associated status
 
 ```
-NAME        DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-consul-dc   1         1         1            1           21m
-msgw-dc     1         1         1            1           20m
+NAME                DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+consul-dc           1         1         1            1           21m
+microgateway-dc     1         1         1            1           20m
 ```
 
 Details about Kubernetes Application Health Check can be found at
@@ -245,11 +245,11 @@ https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-read
 #### Uninstall <a name="uninstall"></a>
 
 ```
-kubectl delete -f msgw.yml
+kubectl delete -f microgateway.yml
 ```
 or
 ```
-kubectl delete deployment/msgw-dc
+kubectl delete deployment/microgateway-dc
 ```
 
 ```

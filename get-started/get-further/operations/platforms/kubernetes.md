@@ -105,26 +105,39 @@ kubectl logs microgateway-dc-6dc7b56cd7-986m6
 
 There might be NPE, in which case it's likely that microgateway's license is not valid or expired or unset.
 
-#### DNS Settings
-Map the the CA Microgateway route to the Kubernetes external IP. First get the IP of the node:
+#### Add DNS Settings To Access A Service From Outside Network through Ingress
+The microgateway container inside pods in a cluster is not accessble outside the internal network. 
+To access the CA Microgateway, Kubernetes gives various options like hostNetwork, hostPort, NodePort, LoadBalancer and Ingress to expose services to external network. In this documentation, ingress is used to access the CA Microgateway.
+
+_Currently, ingress's mapping of the microgateway in [microgateway.yml](https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway/blob/kubernetes-guides-2/samples/platforms/kubernetes/microgateway.yml#L43) for host and backend service hardcodes the host name as `microgateway.mycompany.com`,
+meaning you need to use this exact name._
+
+First get the public IP of the node:
 ```
 Minikube ip
 ```
 
-Edit `/etc/hosts` with the following content:
+Then map the the CA Microgateway host name to the Kubernetes external IP. Edit `/etc/hosts` (for Mac) with the following content:
 ```
 <KUBERNETES PUBLIC IP> microgateway.mycompany.com
 ```
-with:
-- `<KUBERNETES PUBLIC IP>`: the public IP address of your Kubernetes machine
+where:
+- `<KUBERNETES PUBLIC IP>` is the public IP address of your Kubernetes machine
 
-To access the CA Microgateway, Kubernetes gives various options like hostNetwork, hostPort, NodePort, LoadBalancer and Ingress.
-In this documentation, ingress is used to access the CA Microgateway
+Then enable Ingress:
 
 ```
 minikube addons enable ingress
 ```
-Follow steps mentioned to Expose microserverice API as mentioned at https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway
+
+Verify that the microgateway service is accessible:
+```
+curl http://microgateway.mycompany.com:443
+```
+
+Now that the microgateway is running in Kubernetes, we can publish and consume services.
+
+Follow steps mentioned [here](https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway) to expose microserverice API.
 
 #### Update <a name="upgrade"></a>
 

@@ -64,26 +64,54 @@ The Kubernetes configuration file for CA Microgateway: [config.yml](../../../sam
 
 Three deployment modes of the CA Microgateway are listed here.
 
-- CA Microgateway with Consul as a service datastore
+1. CA Microgateway with Consul as a service datastore,
 
   ```
   kubectl apply --filename microgateway.yml --filename config.yml --filename db-consul.yml
   ```
 
-- CA Microgateway with PostgreSQL as a service datastore
+2. CA Microgateway with PostgreSQL as a service datastore, or
 
   ```
   kubectl apply --filename microgateway.yml --filename config.yml  --filename db-postgresql.yml
   ```
 
-- Immutable CA Microgateway
+3. Immutable CA Microgateway
 
   ```
   kubectl apply ---filename microgateway.yml --filename config.yml --filename immutable.yml
   ```
 
+
+Wait for a few miniutes for pods to get ready.
+You can get status of deployments by: 
+```
+kubectl get deployments -o wide
+```
+
+and also check web dashboard by:
+```
+Minikube dashboard
+```
+
+You might see that microgateway doesn't become available after a few minutes. In that case, see what went wrong by getting logs from the pod/container by:
+```
+// i.e. kubectl logs deployment/DEPLOYMENT_NAME -c CONTAINER_NAME
+kubectl logs deployment/microgateway-dc -c microgateway
+
+// i.e. kubectl logs POD_NAME
+kubectl logs microgateway-dc-6dc7b56cd7-986m6
+```
+
+There might be NPE, in which case it's likely that microgateway's license is not valid or expired or unset.
+
 #### DNS Settings
-Map the the CA Microgateway route to the Kubernetes external IP by editing `/etc/hosts` with the following content:
+Map the the CA Microgateway route to the Kubernetes external IP. First get the IP of the node:
+```
+Minikube ip
+```
+
+Edit `/etc/hosts` with the following content:
 ```
 <KUBERNETES PUBLIC IP> microgateway.mycompany.com
 ```

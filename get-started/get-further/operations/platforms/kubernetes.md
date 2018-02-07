@@ -94,7 +94,7 @@ and also check web dashboard by:
 Minikube dashboard
 ```
 
-You might see that microgateway doesn't become available after a few minutes. In that case, see what went wrong by getting logs from the pod/container by:
+You might see that the microgateway doesn't become available after a few minutes. In that case, see what went wrong by getting logs from the pod/container by:
 ```
 // i.e. kubectl logs deployment/DEPLOYMENT_NAME -c CONTAINER_NAME
 kubectl logs deployment/microgateway-dc -c microgateway
@@ -109,10 +109,9 @@ There might be NPE, in which case it's likely that microgateway's license is not
 The microgateway container inside pods in a cluster is not accessble outside the internal network. 
 To access the CA Microgateway, Kubernetes gives various options like hostNetwork, hostPort, NodePort, LoadBalancer and Ingress to expose services to external network. In this documentation, ingress is used to access the CA Microgateway.
 
-_Currently, ingress's mapping of the microgateway in [microgateway.yml](https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway/blob/kubernetes-guides-2/samples/platforms/kubernetes/microgateway.yml#L43) for host and backend service hardcodes the host name as `microgateway.mycompany.com`,
-meaning you need to use this exact name._
+_Currently, Ingress's DNS resolution in [microgateway.yml](https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway/blob/kubernetes-guides-2/samples/platforms/kubernetes/microgateway.yml#L43) uses a hardcoded host name as `microgateway.mycompany.com`, meaning you need to use this exact name._
 
-First get the public IP of the node:
+First get the public IP of the node - this is the IP where the Ingress controller is running:
 ```
 Minikube ip
 ```
@@ -130,9 +129,11 @@ Then enable Ingress:
 minikube addons enable ingress
 ```
 
-Verify that the microgateway service is accessible:
+Verify that the microgateway service is accessible using port 80 or 443
+(Why port 443? [Ingress listens for 80 and 443 for HTTP and HTTPS](http://alesnosek.com/blog/2017/02/14/accessing-kubernetes-pods-from-outside-of-the-cluster/)). 
+
 ```
-curl http://microgateway.mycompany.com:443
+curl https://microgateway.mycompany.com:443
 ```
 
 Now that the microgateway is running in Kubernetes, we can publish and consume services.

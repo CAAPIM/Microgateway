@@ -65,28 +65,22 @@ The Kubernetes configuration file for CA Microgateway: [config.yml](../../../sam
 Three deployment modes of the CA Microgateway are listed here.
 
 1. CA Microgateway with Consul as a service datastore,
-
-  ```
-  kubectl apply --filename microgateway.yml --filename config.yml --filename db-consul.yml
-  ```
-
+    ```
+    kubectl apply --filename microgateway.yml --filename config.yml --filename db-consul.yml
+    ```
 2. CA Microgateway with PostgreSQL as a service datastore, or
-
-  ```
-  kubectl apply --filename microgateway.yml --filename config.yml  --filename db-postgresql.yml
-  ```
-
+    ```
+    kubectl apply --filename microgateway.yml --filename config.yml  --filename db-postgresql.yml
+    ```
 3. Immutable CA Microgateway
-
-  ```
-  kubectl apply ---filename microgateway.yml --filename config.yml --filename immutable.yml
-  ```
-
+    ```
+    kubectl apply ---filename microgateway.yml --filename config.yml --filename immutable.yml
+    ```
 
 Wait for a few miniutes for pods to get ready.
 You can get status of deployments by: 
 ```
-kubectl get deployments -o wide
+kubectl get all
 ```
 
 and also check web dashboard by:
@@ -96,44 +90,70 @@ Minikube dashboard
 
 You might see that the microgateway doesn't become available after a few minutes. In that case, see what went wrong by getting logs from the pod/container by:
 ```
-// i.e. kubectl logs deployment/DEPLOYMENT_NAME -c CONTAINER_NAME
-kubectl logs deployment/microgateway-dc -c microgateway
-
 // i.e. kubectl logs POD_NAME
 kubectl logs microgateway-dc-6dc7b56cd7-986m6
 ```
 
 There might be NPE, in which case it's likely that microgateway's license is not valid or expired or unset.
 
-#### Add DNS Settings To Access A Service From Outside Network through Ingress
-The microgateway container inside pods in a cluster is not accessble outside the internal network. 
+#### Enable Ingress to proxy a traffic from external network to internal nodes
+The microgateway container inside pods in a cluster is not accessble from outside the internal network. 
 To access the CA Microgateway, Kubernetes gives various options like hostNetwork, hostPort, NodePort, LoadBalancer and Ingress to expose services to external network. In this documentation, ingress is used to access the CA Microgateway.
 
-_Currently, Ingress's DNS resolution in [microgateway.yml](https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway/blob/kubernetes-guides-2/samples/platforms/kubernetes/microgateway.yml#L43) uses a hardcoded host name as `microgateway.mycompany.com`, meaning you need to use this exact name._
-
-First get the public IP of the node - this is the IP where the Ingress controller is running:
+Verify that `ingress` and `kube-dns` are both `enabled`:
 ```
-Minikube ip
+minikube addons list
 ```
 
-Then map the the CA Microgateway host name to the Kubernetes external IP. Edit `/etc/hosts` (for Mac) with the following content:
-```
-<KUBERNETES PUBLIC IP> microgateway.mycompany.com
-```
-where:
-- `<KUBERNETES PUBLIC IP>` is the public IP address of your Kubernetes machine
-
-Then enable Ingress:
-
+If `ingress` is disabled, make sure to enable it:
 ```
 minikube addons enable ingress
 ```
 
-Verify that the microgateway service is accessible using port 80 or 443
-(Why port 443? [Ingress listens for 80 and 443 for HTTP and HTTPS](http://alesnosek.com/blog/2017/02/14/accessing-kubernetes-pods-from-outside-of-the-cluster/)). 
-
+You can check host, IP, and port # of the Ingress:
 ```
-curl https://microgateway.mycompany.com:443
+kubectl get ing
+```
+
+#### Now that Ingress is set up, expose the microgateway container as a service to external network
+```
+kubectl expose deployment microgateway-dc --type=NodePort
+``` 
+
+Get urls and port #s of the exposed microgateway:
+```
+minikube service microgateway-dc --url
+
+# then you should get something like these
+http://192.168.99.100:32710
+http://192.168.99.100:30801 # remember this port number
+http://192.168.99.100:30399
+```
+192.168.99.100 is Minikube's (aka node) public IP address accessible from outside.
+
+Consume QST service and you will get an empty list of services, which means accessing the microgateway from external network worked! 
+```
+curl --insecure --user "admin:password" https://192.168.99.100:30801/quickstart/1.0/services
+
+# then you should get an empty list 
+[]
+```
+
+#### Add DNS Settings so you can use hostname in addition to IP
+For hostname to work instead of IP address, you can add DNS mapping to a host file
+```
+KUBERNETES_PUBLIC_IP microgateway.mycompany.com
+```
+Where KUBERNETES_PUBLIC_IP is
+```
+Minikube ip
+```
+which is 192.168.99.100 in this case. microgateway.mycompany.com is set in the [microgateway.yml config file](https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway/blob/kubernetes-guides-2/samples/platforms/kubernetes/microgateway.yml#L43)
+
+You can access the gateway using the hostname:
+```
+curl --insecure --user "admin:password" https://microgateway.mycompany.com:30801/quickstart/1.0/services
+[]
 ```
 
 Now that the microgateway is running in Kubernetes, we can publish and consume services.

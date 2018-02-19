@@ -26,3 +26,6 @@ ADD ./customize/rc.d/*.sh /opt/docker/rc.d/after-start/
 
 # Add OTK users and OAuth clients automatically
 COPY ./customize/db/liquibase/*.xml /db/liquibase/
+
+# Add licenses
+ADD ./customize/license/*.xml /opt/SecureSpan/Gateway/node/default/etc/bootstrap/license/

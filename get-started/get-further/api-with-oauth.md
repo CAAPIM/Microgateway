@@ -12,34 +12,11 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
 (microservice B)-----(microgateway) <--
 ```
 
-- Deploy the CA API [Mobile App Services](https://www.ca.com/us/developers/mas) trial with OAuth Toolkit (OTK) as OAuth Server
-
-  Accept license by passing the value "true" to the environment variable `ACCEPT_LICENSE` in
-  the file `get-started/external/otk/config/license.env`
+- Deploy the CA API [Mobile App Services](https://www.ca.com/us/developers/mas) with OAuth Toolkit (OTK) as OAuth Server
 
   *This step will typically be done by a Gateway sysadmin.*
-  ```
-  cd get-started/external/otk
-  docker-compose --project-name microgateway up --build -d
-  ```
 
-  Wait for Mobile App Services trial (as OAuth server) to be healthy:
-  ```
-  docker ps --filter "name=otk" --format "table {{.Names}}\t{{.Status}}" --all
-  ```
-  Should return:
-  ```
-  NAMES                        STATUS
-  microgateway_otk_1           Up 5 minutes (healthy)
-  microgateway_otk_mysqldb_1   Up 6 minutes
-  ```
-
-  You can also verify the logs:
-  ```
-  docker-compose --project-name microgateway logs -f
-  ```
-  The message `Gateway is now up and running!` will appear once the OTK is
-  running.
+  See [tutorial](../external/otk).
 
 - Update the Gateway to connect to OAuth
 

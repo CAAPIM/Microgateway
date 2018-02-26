@@ -6,3 +6,5 @@
 !**/src/client
 get-started/get-further/demo-with-live-api-creator/api-live-creator/CA_Technologies_LiveAPI_License.json
 get-started/docker-compose/add-ons.orig
+get-started/external/otk/customize/license/*
+!get-started/external/otk/customize/license/README.md

@@ -1,5 +1,9 @@
 ## CA Microgateway on Kubernetes: configure, install, upgrade, scale and more
 
+Watch the demo!
+[![asciicast](https://asciinema.org/a/42383.png)](https://asciinema.org/a/UTvWrf4YEdzITeclhV4yAqvKP)
+
+
 * [Prerequisites](#prerequisites)
 * [Deployment diagram](#diagram)
 * [Operation commands](#ops-commands)
@@ -15,11 +19,6 @@
 ### Prerequisites <a name="prerequisites"></a>
  - A machine running the Kubernetes cluster with a minimum 4GB of memory:
     - Minikube on a laptop (https://github.com/kubernetes/minikube)
-
-      ```
-      minikube start --cpus 4 --memory 6144
-      ```
-
     - Any other Kubernetes (https://kubernetes.io/docs/setup/pick-right-solution)
 - Kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl) to operate the
 CA Microgateway on Kubernetes
@@ -45,7 +44,11 @@ Kubernetes*
 
 The Kubernetes YAML files deploying CA Microgateway are located in the folder [/samples/platforms/kubernetes/](../../../samples/platforms/kubernetes/)
 
-#### Configure <a name="configure"></a>
+## 1. FIRST, ACCEPT THE LICENCE OF THE MICROGATEWAY
+Open [config.yml](../../../samples/platforms/kubernetes/config.yml) and set `ACCEPT_LICENSE` value to `true`:
+```
+ACCEPT_LICENSE: "true"
+```
 
 *Note 1: Please refer to the main documentation for the list of required and optional
 environment variables: https://docops.ca.com/ca-microgateway/1-0/EN.*
@@ -58,9 +61,12 @@ sixty (60) days from the date of your initial deployment. You are permitted only
 one (1) trial of CA Microgateway per Company, and you may not redeploy a new
 trial of CA Microgateway after the end of the initial Product Availability Period.*
 
-The Kubernetes configuration file for CA Microgateway: [config.yml](../../../samples/platforms/kubernetes/config.yml)
+## 2. START SINGLE-NODE CLUSTER IN LOCAL ENVIRONMENT: GIVING ENOUGH RESOURCE HERE
+```
+minikube start --cpus 4 --memory 6144
+```
 
-#### Install <a name="install"></a>
+## 3. START DEPLOYMENTS OF PODS AND SERVICES DEFINED IN YAML
 
 Three deployment modes of the CA Microgateway are listed here.
 
@@ -77,16 +83,84 @@ Three deployment modes of the CA Microgateway are listed here.
     kubectl apply ---filename microgateway.yml --filename config.yml --filename immutable.yml
     ```
 
-Wait for a few miniutes for pods to get ready.
-You can get status of deployments by: 
+## 4. CHECK THE STATUS OF DEPLOYMENTS: WAIT FOR 3-5 MINITES UNTIL "deploy/microgateway-dc" AVAILABLE COLUMN SHOWS 1
 ```
-kubectl get all
+watch kubectl get all
 ```
 
-and also check web dashboard by:
+You can also check the web dashboard by:
 ```
 Minikube dashboard
 ```
+
+## 5. DEPLOYMENTS DONE! LET'S GET PUBLIC IP OF CLUSTER NODE
+```
+minikube ip  
+```
+
+## 6. LET'S ADD THE PUBLIC CLUSTER IP AND HOSTNAME MAPPING TO THE HOST FILE
+```
+echo "192.168.99.100 microgateway.mycompany.com" | sudo tee -a /etc/hosts
+```
+
+## 7. VERIFY YOU CAN REACH THE MICROGATEWAY RUNNING IN KUBERNETES CLUSTER (NOTE: HTTPS PORT OF THE EXPOSED SERVICE IS HARD-CODED IN YAML TO 30443)
+### 7.1. FIRST VERIFY BY REACHING THE IP
+```
+curl --insecure \
+    --user "admin:password" \
+    --url https://192.168.99.100:30443/quickstart/1.0/services
+```
+
+### 7.2. THEN VERIFY BY REACHING THE HOSTNAME
+```
+curl --insecure \
+    --user "admin:password" \
+    --url https://microgateway.mycompany.com:30443/quickstart/1.0/services
+```
+
+## 8. VERIFY YOU CAN CREATE A SIMPLE SERVICE TO ROUTE TO GOOGLE IN THE MICROGATEWAY (YOU SHOULD GET "Quickstart service created successfully" IN RESPONSE)
+```
+curl --insecure \
+    --user "admin:password" \
+    --url https://microgateway.mycompany.com:30443/quickstart/1.0/services \
+    --data '{  
+            "Service":{  
+                    "name":"Google",
+                    "gatewayUri":"/google",
+                    "httpMethods":[  
+                        "get"
+                    ],
+                    "policy":[  
+                        {  
+                            "RouteHttp":{  
+                            "targetUrl":"http://www.google.com"
+                            }
+                        }
+                    ]
+                }
+            }'
+```
+
+## 9. VERIFY THE SERVICE ENDPOINT CREATED ACTUALLY ROUTES TO GOOGLE (YOU SHOULD GET HTML CONTENTS IN RESPONSE)
+```
+curl --insecure \
+    --location \
+    --user "admin:password" \
+    --url https://microgateway.mycompany.com:30443/google
+```    
+
+## 10. STOP THE CLUSTER
+```
+minikube stop
+```
+
+## 11. DELETE THE CLUSTER
+```
+minikube delete
+```
+
+
+## TROUBLE SHOOTING
 
 You might see that the microgateway doesn't become available after a few minutes. In that case, see what went wrong by getting logs from the pod/container by:
 ```
@@ -94,11 +168,11 @@ You might see that the microgateway doesn't become available after a few minutes
 kubectl logs microgateway-dc-6dc7b56cd7-986m6
 ```
 
-There might be NPE, in which case it's likely that microgateway's license is not valid or expired or unset.
+There might be null pointer exception, in which case it's likely that microgateway's license is not valid or expired or unset.
 
-#### Enable Ingress to proxy a traffic from external network to internal nodes
+#### How to enable Ingress to proxy a traffic from external network to internal nodes
 The microgateway container inside pods in a cluster is not accessble from outside the internal network. 
-To access the CA Microgateway, Kubernetes gives various options like hostNetwork, hostPort, NodePort, LoadBalancer and Ingress to expose services to external network. In this documentation, ingress is used to access the CA Microgateway.
+To access the CA Microgateway, Kubernetes gives various options like hostNetwork, hostPort, NodePort, LoadBalancer and Ingress to expose services to external network. In this documentation, NodePort is used to access the CA Microgateway.
 
 Verify that `ingress` and `kube-dns` are both `enabled`:
 ```
@@ -109,56 +183,6 @@ If `ingress` is disabled, make sure to enable it:
 ```
 minikube addons enable ingress
 ```
-
-You can check host, IP, and port # of the Ingress:
-```
-kubectl get ing
-```
-
-#### Now that Ingress is set up, expose the microgateway container as a service to external network
-```
-kubectl expose deployment microgateway-dc --type=NodePort
-``` 
-
-Get urls and port #s of the exposed microgateway:
-```
-minikube service microgateway-dc --url
-
-# then you should get something like these
-http://192.168.99.100:32710
-http://192.168.99.100:30801 # remember this port number
-http://192.168.99.100:30399
-```
-192.168.99.100 is Minikube's (aka node) public IP address accessible from outside.
-
-Consume QST service and you will get an empty list of services, which means accessing the microgateway from external network worked! 
-```
-curl --insecure --user "admin:password" https://192.168.99.100:30801/quickstart/1.0/services
-
-# then you should get an empty list 
-[]
-```
-
-#### Add DNS Settings so you can use hostname in addition to IP
-For hostname to work instead of IP address, you can add DNS mapping to a host file
-```
-KUBERNETES_PUBLIC_IP microgateway.mycompany.com
-```
-Where KUBERNETES_PUBLIC_IP is
-```
-Minikube ip
-```
-which is 192.168.99.100 in this case. microgateway.mycompany.com is set in the [microgateway.yml config file](https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway/blob/kubernetes-guides-2/samples/platforms/kubernetes/microgateway.yml#L43)
-
-You can access the gateway using the hostname:
-```
-curl --insecure --user "admin:password" https://microgateway.mycompany.com:30801/quickstart/1.0/services
-[]
-```
-
-Now that the microgateway is running in Kubernetes, we can publish and consume services.
-
-Follow steps mentioned [here](https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway) to expose microserverice API.
 
 #### Update <a name="upgrade"></a>
 

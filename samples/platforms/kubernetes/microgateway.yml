@@ -11,19 +11,22 @@ metadata:
 spec:
   selector:
     app: microgateway
-  type: ClusterIP
+  type: NodePort
   ports:
     - protocol: TCP
       port: 8080
       targetPort: 8080
+      nodePort: 30080
       name: microgateway-http-port
     - protocol: TCP
       port: 8443
       targetPort: 8443
+      nodePort: 30443
       name: microgateway-https-port
     - protocol: TCP
       port: 9443
       targetPort: 9443
+      nodePort: 30444
       name: microgateway-pm-port
 
 ---

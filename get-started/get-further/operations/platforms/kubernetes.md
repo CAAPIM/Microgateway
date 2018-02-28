@@ -6,9 +6,8 @@ Watch the demo!
 
 * [Prerequisites](#prerequisites)
 * [Deployment diagram](#diagram)
+* [Deploy](#deploy)
 * [Operation commands](#ops-commands)
-  * [Configure](#configure)
-  * [Install](#install)
   * [Update strategies](#upgrade)
   * [Scale up/down](#scale)
   * [Autoscaling](#autoscaling)
@@ -40,9 +39,7 @@ key/value store.
 *Note: The database/KV store and microservices can optionally run in the same
 Kubernetes*
 
-### Operation commands <a name="ops-commands"></a>
-
-The Kubernetes YAML files deploying CA Microgateway are located in the folder [/samples/platforms/kubernetes/](../../../samples/platforms/kubernetes/)
+# Deploy  <a name="deploy"></a>
 
 ## 1. First, accept the licence of the microgateway
 Open [config.yml](../../../samples/platforms/kubernetes/config.yml) and set `ACCEPT_LICENSE` value to `true`:
@@ -173,7 +170,9 @@ minikube delete
 ```
 
 
-## Trouble shooting
+# Operation commands <a name="ops-commands"></a>
+
+The Kubernetes YAML files deploying CA Microgateway are located in the folder [/samples/platforms/kubernetes/](../../../samples/platforms/kubernetes/)
 
 You might see that the microgateway doesn't become available after a few minutes. In that case, see what went wrong by getting logs from the pod/container by:
 ```

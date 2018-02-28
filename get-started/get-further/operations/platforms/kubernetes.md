@@ -44,7 +44,7 @@ Kubernetes*
 
 The Kubernetes YAML files deploying CA Microgateway are located in the folder [/samples/platforms/kubernetes/](../../../samples/platforms/kubernetes/)
 
-## 1. FIRST, ACCEPT THE LICENCE OF THE MICROGATEWAY
+## 1. First, accept the licence of the microgateway
 Open [config.yml](../../../samples/platforms/kubernetes/config.yml) and set `ACCEPT_LICENSE` value to `true`:
 ```
 ACCEPT_LICENSE: "true"
@@ -61,12 +61,12 @@ sixty (60) days from the date of your initial deployment. You are permitted only
 one (1) trial of CA Microgateway per Company, and you may not redeploy a new
 trial of CA Microgateway after the end of the initial Product Availability Period.*
 
-## 2. START SINGLE-NODE CLUSTER IN LOCAL ENVIRONMENT: GIVING ENOUGH RESOURCE HERE
+## 2. Start single-node cluster in local environment: giving enough resource here
 ```
 minikube start --cpus 4 --memory 6144
 ```
 
-## 3. START DEPLOYMENTS OF PODS AND SERVICES DEFINED IN YAML
+## 3. Start deployments of pods and services defined in yaml
 
 Three deployment modes of the CA Microgateway are listed here.
 
@@ -83,7 +83,7 @@ Three deployment modes of the CA Microgateway are listed here.
     kubectl apply ---filename microgateway.yml --filename config.yml --filename immutable.yml
     ```
 
-## 4. CHECK THE STATUS OF DEPLOYMENTS: WAIT FOR 3-5 MINITES UNTIL "deploy/microgateway-dc" AVAILABLE COLUMN SHOWS 1
+## 4. Check the status of deployments: wait for 3-5 minites until "deploy/microgateway-dc" available column shows 1
 ```
 watch kubectl get all
 ```
@@ -93,32 +93,32 @@ You can also check the web dashboard by:
 Minikube dashboard
 ```
 
-## 5. DEPLOYMENTS DONE! LET'S GET PUBLIC IP OF CLUSTER NODE
+## 5. Get public ip of cluster node
 ```
 minikube ip  
 ```
 
-## 6. LET'S ADD THE PUBLIC CLUSTER IP AND HOSTNAME MAPPING TO THE HOST FILE
+## 6. Add the public cluster ip and hostname mapping to the host file
 ```
 echo "192.168.99.100 microgateway.mycompany.com" | sudo tee -a /etc/hosts
 ```
 
-## 7. VERIFY YOU CAN REACH THE MICROGATEWAY RUNNING IN KUBERNETES CLUSTER (NOTE: HTTPS PORT OF THE EXPOSED SERVICE IS HARD-CODED IN YAML TO 30443)
-### 7.1. FIRST VERIFY BY REACHING THE IP
+## 7. Verify you can reach the microgateway running in kubernetes cluster (note: https port of the exposed service is hard-coded in yaml to 30443)
+### 7.1. First verify by reaching the ip
 ```
 curl --insecure \
     --user "admin:password" \
     --url https://192.168.99.100:30443/quickstart/1.0/services
 ```
 
-### 7.2. THEN VERIFY BY REACHING THE HOSTNAME
+### 7.2. Then verify by reaching the hostname
 ```
 curl --insecure \
     --user "admin:password" \
     --url https://microgateway.mycompany.com:30443/quickstart/1.0/services
 ```
 
-## 8. VERIFY YOU CAN CREATE A SIMPLE SERVICE TO ROUTE TO GOOGLE IN THE MICROGATEWAY (YOU SHOULD GET "Quickstart service created successfully" IN RESPONSE)
+## 8. Verify you can create a simple service to route to google in the microgateway
 ```
 curl --insecure \
     --user "admin:password" \
@@ -141,7 +141,15 @@ curl --insecure \
             }'
 ```
 
-## 9. VERIFY THE SERVICE ENDPOINT CREATED ACTUALLY ROUTES TO GOOGLE (YOU SHOULD GET HTML CONTENTS IN RESPONSE)
+You should get:
+```
+{
+   "success" : true,
+   "message" : "Quickstart service created successfully. There maybe a delay of 10 seconds before the service is available."
+}
+```
+
+## 9. Verify the service endpoint created actually routes to google
 ```
 curl --insecure \
     --location \
@@ -149,18 +157,23 @@ curl --insecure \
     --url https://microgateway.mycompany.com:30443/google
 ```    
 
-## 10. STOP THE CLUSTER
+You should get HTML response:
+```
+<!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" lang="en-CA"><head><met
+```
+
+## 10. Stop the cluster
 ```
 minikube stop
 ```
 
-## 11. DELETE THE CLUSTER
+## 11. Delete the cluster
 ```
 minikube delete
 ```
 
 
-## TROUBLE SHOOTING
+## Trouble shooting
 
 You might see that the microgateway doesn't become available after a few minutes. In that case, see what went wrong by getting logs from the pod/container by:
 ```

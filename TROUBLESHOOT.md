@@ -5,7 +5,7 @@
   ```
   docker-compose -f docker-compose.yml down --volumes
   ```
-  
+
   And try this again:
 
   ```
@@ -13,13 +13,13 @@
   ```
 
 - If you get an error `Failed to connect to localhost port 443: Connection refused`, then check if `dockercompose_proxy_1` container is running by:
-  
+
   ```
   docker-compose ps
   ```
-  
-  To run the proxy container, run the following command from get-started/docker-comose directory:
-  
+
+  To run the proxy container, run the following command from get-started/docker-compose directory:
+
   ```
   docker-compose -f docker-compose.yml -f docker-compose.dockercloudproxy.yml up -d --build
   ```
@@ -36,4 +36,15 @@
   docker-compose up --build –d
   ```
 
-  You should now be able to acces https://localhost:8443/oauth/manager.
+  You should now be able to access https://localhost:8443/oauth/manager.
+
+- If the internal docker network conflicts with one of your network's subnets, add the following to `docker-compose.yml` at the same level as `version` and `services`:
+
+  ```yaml
+  networks:
+    default:
+      ipam:
+        driver: default
+        config:
+          - subnet: 172.28.0.0/16 # set this to the CIDR for a subnet that won't conflict
+  ```

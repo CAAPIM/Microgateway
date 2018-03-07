@@ -25,7 +25,7 @@ CA Microgateway on Kubernetes
 
 # Deployment diagram
 
-[microgateway-on-kubernetes]: img/kubernetes_draw.io.png "CA Microgateway on Kubernetes"
+[microgateway-on-kubernetes]: ../img/kubernetes_draw.io.png "CA Microgateway on Kubernetes"
 ![alt text][microgateway-on-kubernetes]
 
 The CA Microgateway cluster running on Kubernetes is at least composed of:

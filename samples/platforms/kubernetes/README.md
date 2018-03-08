@@ -22,13 +22,13 @@ The folder consists of 4 deployment related files
 
 - Start
 ```
-kubectl apply -f config.yml -f consul.yml -f msgw.yml (to deploy with consul configuration. Requires "quickstart.rest.mode" set to "true" and "quickstart.respository.type" set to "consul")
+kubectl apply -f config.yml -f db-consul.yml -f microgateway.yml (to deploy with consul configuration. Requires "quickstart.rest.mode" set to "true" and "quickstart.respository.type" set to "consul")
 ```
 ```
-kubectl apply -f config.yml -f postgresql.yml -f msgw.yml (to deploy with postgres configuration. Requires "quickstart.rest.mode" set to "true" and "quickstart.respository.type" set to "db")
+kubectl apply -f config.yml -f db-postgresql.yml -f microgateway.yml (to deploy with postgres configuration. Requires "quickstart.rest.mode" set to "true" and "quickstart.respository.type" set to "db")
 ```
 ```
-kubectl apply -f config.yml -f msgw.yml (to deploy with microgateway in immutable configuration. Requires "quickstart.rest.mode" set to "false")
+kubectl apply -f config.yml -f microgateway.yml (to deploy with microgateway in immutable configuration. Requires "quickstart.rest.mode" set to "false")
 ```
 
 #### DNS Settings

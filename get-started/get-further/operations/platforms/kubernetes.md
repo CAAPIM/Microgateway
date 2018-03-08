@@ -3,7 +3,6 @@
 Watch the demo!
 [![asciicast](https://asciinema.org/a/42383.png)](https://asciinema.org/a/UTvWrf4YEdzITeclhV4yAqvKP)
 
-
 * [Prerequisites](#prerequisites)
 * [Deployment diagram](#diagram)
 * [Deploy](#deploy)
@@ -25,12 +24,12 @@ CA Microgateway on Kubernetes
 
 # Deployment diagram
 
-[microgateway-on-kubernetes]: ../img/kubernetes_draw.io.png "CA Microgateway on Kubernetes"
+[microgateway-on-kubernetes]: img/kubernetes_draw.io.png "CA Microgateway on Kubernetes"
 ![alt text][microgateway-on-kubernetes]
 
 The CA Microgateway cluster running on Kubernetes is at least composed of:
 - a Kubernetes route exposing the CA Microgateway service to users
-- an Kubernetes service load balancing requests to the CA Microgateway containers
+- a Kubernetes service load balancing requests to the CA Microgateway containers
 - Kubernetes pods hosting respectively a CA Microgateway container
 
 CA Microgateway containers synchronize exposed API definitions with a database or a
@@ -41,7 +40,7 @@ Kubernetes*
 
 # Deploy  <a name="deploy"></a>
 
-## 1. First, accept the licence of the microgateway
+## 1. First, accept the license of the microgateway
 Open [config.yml](../../../samples/platforms/kubernetes/config.yml) and set `ACCEPT_LICENSE` value to `true`:
 ```
 ACCEPT_LICENSE: "true"
@@ -80,7 +79,7 @@ Three deployment modes of the CA Microgateway are listed here.
     kubectl apply ---filename microgateway.yml --filename config.yml --filename immutable.yml
     ```
 
-## 4. Check the status of deployments: wait for 3-5 minites until "deploy/microgateway-dc" available column shows 1
+## 4. Check the status of deployments: wait for 3-5 minutes until "deploy/microgateway-dc" available column shows 1
 ```
 watch kubectl get all
 ```
@@ -90,18 +89,18 @@ You can also check the web dashboard by:
 Minikube dashboard
 ```
 
-## 5. Get public ip of cluster node
+## 5. Get public IP of cluster node
 ```
 minikube ip  
 ```
 
-## 6. Add the public cluster ip and hostname mapping to the host file
+## 6. Add the public cluster IP and hostname mapping to the host file
 ```
 echo "192.168.99.100 microgateway.mycompany.com" | sudo tee -a /etc/hosts
 ```
 
 ## 7. Verify you can reach the microgateway running in kubernetes cluster (note: https port of the exposed service is hard-coded in yaml to 30443)
-### 7.1. First verify by reaching the ip
+### 7.1. First verify by reaching the IP
 ```
 curl --insecure \
     --user "admin:password" \
@@ -142,7 +141,7 @@ You should get:
 ```
 {
    "success" : true,
-   "message" : "Quickstart service created successfully. There maybe a delay of 10 seconds before the service is available."
+   "message" : "Quickstart service created successfully. There may be a delay of 10 seconds before the service is available."
 }
 ```
 
@@ -169,7 +168,6 @@ minikube stop
 minikube delete
 ```
 
-
 # Operation commands <a name="ops-commands"></a>
 
 The Kubernetes YAML files deploying CA Microgateway are located in the folder [/samples/platforms/kubernetes/](../../../samples/platforms/kubernetes/)
@@ -183,7 +181,7 @@ kubectl logs microgateway-dc-6dc7b56cd7-986m6
 There might be null pointer exception, in which case it's likely that microgateway's license is not valid or expired or unset.
 
 #### How to enable Ingress to proxy a traffic from external network to internal nodes
-The microgateway container inside pods in a cluster is not accessble from outside the internal network. 
+The microgateway container inside pods in a cluster is not accessible from outside the internal network. 
 To access the CA Microgateway, Kubernetes gives various options like hostNetwork, hostPort, NodePort, LoadBalancer and Ingress to expose services to external network. In this documentation, NodePort is used to access the CA Microgateway.
 
 Verify that `ingress` and `kube-dns` are both `enabled`:
@@ -199,7 +197,7 @@ minikube addons enable ingress
 #### Update <a name="upgrade"></a>
 
 Write the new configuration in the configuration file `config.yml`, then re-run
-the `kubectl apply` command. Apply command  will redeploy only the updated services.
+the `kubectl apply` command. Apply command will redeploy only the updated services.
 
 #### Scale up/down <a name="scale"></a>
 
@@ -238,8 +236,8 @@ the `kubectl apply` command. Apply command  will redeploy only the updated servi
 
 - Autoscaling:
 
-  Autoscaling is done by adding an Kubernetes element `HorizontalPodAutoscaler` to
-  the Kubernets YML file (e.g. `microgateway.yml`).
+  Autoscaling is done by adding a Kubernetes element `HorizontalPodAutoscaler` to
+  the Kubernetes YML file (e.g. `microgateway.yml`).
 
   The following example scales up the Kubernetes Deployment Configuration
   `microgateway-dc` if the CPU reaches 80%.
@@ -277,7 +275,6 @@ Where `microgateway-dc` is the name of our Deployment Configuration defined
 in `microgateway.yml`.
 
 #### Health check <a name="health-check"></a>
-
 
 ```
 apiVersion: extensions/v1beta1

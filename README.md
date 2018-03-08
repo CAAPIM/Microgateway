@@ -244,8 +244,8 @@ The following steps will typically be done by a developer, and may be done at th
 - Operations:
   - Install, configuration, upgrade and scale
     - [Docker](get-started/get-further/operations/platforms/docker.md)
-    - [OpenShift](get-started/get-further/operations/platforms/openshift.md)
-    - [Kubernetes](get-started/get-further/operations/platforms/kubernetes.md)
+    - [OpenShift](get-started/get-further/operations/platforms//openshift/openshift.md)
+    - [Kubernetes](get-started/get-further/operations/platforms/kubernetes/kubernetes.md)
   - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
   - [Performance tuning](get-started/get-further/operations/system/performance.md)
 
@@ -255,8 +255,8 @@ The following steps will typically be done by a developer, and may be done at th
 ### Samples <a name="samples"></a>
 - [Microgateway APIs](samples/APIs)
 - Alternative plaforms:
-  - [OpenShift](samples/platforms/openshift)
-  - [Kubernetes](samples/platforms/kubernetes)
+  - [OpenShift](get-started/get-further/operations/platforms/openshift)
+  - [Kubernetes](get-started/get-further/operations/platforms/kubernetes)
 
 ### Documentation  <a name="documentation"></a>
 

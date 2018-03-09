@@ -13,6 +13,7 @@ data:
   QUICKSTART_REPOSITORY_DB_HOST: "microgateway-db-svc"
   QUICKSTART_REPOSITORY_DB_PORT: "5432"
   QUICKSTART_REPOSITORY_DB_NAME: "qstr"
+  POSTGRES_DB: "qstr"
   QUICKSTART_REPOSITORY_DB_USER: "causer"
   QUICKSTART_REPOSITORY_DB_PASSWORD: "capassword"
 
@@ -46,24 +47,24 @@ spec:
     spec:
       containers:
       - name: postgresql
-        image: isl-dsdc.ca.com:5000/apim-gateway/twelvefactorgateway/postgres:latest
+        image: asahi02/postgres:9.6
         imagePullPolicy: IfNotPresent
         env:
         - name: POSTGRES_USER
           valueFrom:
-            secretKeyRef:
-              name: msgw-db-secret
-              key: msgw.dbuser
+            configMapKeyRef:
+              name: microgateway-quickstartconfig
+              key: QUICKSTART_REPOSITORY_DB_USER
         - name: POSTGRES_PASSWORD
           valueFrom:
-            secretKeyRef:
-              name: msgw-db-secret
-              key: msgw.dbpass
+            configMapKeyRef:
+              name: microgateway-quickstartconfig
+              key: QUICKSTART_REPOSITORY_DB_PASSWORD
         - name: POSTGRES_DB
           valueFrom:
-              configMapKeyRef:
-                name: databaseconfig
-                key: quickstart.respository.db.name
+            configMapKeyRef:
+              name: microgateway-quickstartconfig
+              key: POSTGRES_DB
         resources:
           limits:
             memory: 512Mi

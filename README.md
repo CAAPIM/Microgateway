@@ -259,3 +259,4 @@ The following steps will typically be done by a developer, and may be done at th
 ### Documentation  <a name="documentation"></a>
 
 - Quick Start Template Documentation - https://localhost/quickstart/1.0/doc on your local Microgateway
+- [Reference documentation](https://docops.ca.com/microgateway)

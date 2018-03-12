@@ -80,11 +80,11 @@ spec:
     spec:
       containers:
       - name: microgateway
-        image: isl-dsdc.ca.com:5000/apim-gateway/twelvefactorgateway:v1.0.0.00-114-g4dd97b4
+        image: caapim/microgateway:1.0.0-CR01
         imagePullPolicy: Always
         resources:
           limits:
-            cpu: 2500m
+            cpu: 2400m
             memory: 2560Mi
           requests:
             cpu: 1500m

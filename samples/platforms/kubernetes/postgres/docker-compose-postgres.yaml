@@ -1,0 +1,12 @@
+version: '2'
+services:
+  cadbhost:
+    build:
+      context: .
+      dockerfile: Dockerfile.postgresql
+    mem_limit: 512m
+    ports:
+      # ref: using .env file to set env variable for host environment (https://github.com/docker/compose/issues/3208)
+      - "${QUICKSTART_REPOSITORY_DB_PORT}:${QUICKSTART_REPOSITORY_DB_PORT}"
+    env_file:
+     - ./postgres.env

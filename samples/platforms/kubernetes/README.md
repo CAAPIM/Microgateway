@@ -20,6 +20,13 @@ The folder consists of 4 deployment related files
 To accept the license agreement [Microservices Gateway Pre-Release Agreement](https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway/blob/master/LICENSE.md), set the value of "ACCEPT_LICENSE" to true. This variable is present in configmap `microgateway-license` in config.yml file.
 
 ### Start
+First start minikube locally:
+```
+minikube start --cpus 4 --memory 6144
+```
+
+Then deploy the CA Microgateway by executing one of the following commands:
+
 1. With Consul storage option
     ```
     kubectl apply -f config.yml -f db-consul.yml -f microgateway.yml 

@@ -4,69 +4,13 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: microgateway-quickstartconfig
-  annotations:
-    description: Quickstart Related Parameters
 data:
   QUICKSTART_REST_MODE: "true"
   QUICKSTART_REPOSITORY_TYPE: "db"
   QUICKSTART_REPOSITORY_DB_TYPE: "postgresql"
-  QUICKSTART_REPOSITORY_DB_HOST: "microgateway-db-svc"
+  QUICKSTART_REPOSITORY_DB_HOST: "10.137.227.146" # this IP should be machine IP if Postgres container is running locally
   QUICKSTART_REPOSITORY_DB_PORT: "5432"
   QUICKSTART_REPOSITORY_DB_NAME: "qstr"
   POSTGRES_DB: "qstr"
   QUICKSTART_REPOSITORY_DB_USER: "causer"
   QUICKSTART_REPOSITORY_DB_PASSWORD: "capassword"
-
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: microgateway-db-svc
-spec:
-  selector:
-    app: postgresql
-  type: ClusterIP
-  ports:
-    - protocol: TCP
-      port: 5432
-      targetPort: 5432
-
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: postgresql
-  labels:
-    app: postgresql
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: postgresql
-    spec:
-      containers:
-      - name: postgresql
-        image: asahi02/postgres:9.6
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: POSTGRES_USER
-          valueFrom:
-            configMapKeyRef:
-              name: microgateway-quickstartconfig
-              key: QUICKSTART_REPOSITORY_DB_USER
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: microgateway-quickstartconfig
-              key: QUICKSTART_REPOSITORY_DB_PASSWORD
-        - name: POSTGRES_DB
-          valueFrom:
-            configMapKeyRef:
-              name: microgateway-quickstartconfig
-              key: POSTGRES_DB
-        resources:
-          limits:
-            memory: 512Mi
-        ports:
-        - containerPort: 5432

@@ -20,11 +20,11 @@ The folder consists of 4 deployment related files
 To accept the license agreement [Microservices Gateway Pre-Release Agreement](https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway/blob/master/LICENSE.md), set the value of "ACCEPT_LICENSE" to true. This variable is present in configmap `microgateway-license` in config.yml file.
 
 ### Start
-1. With Consul storate option
+1. With Consul storage option
     ```
     kubectl apply -f config.yml -f db-consul.yml -f microgateway.yml 
     ```
-2.  With Postgres storate option
+2.  With Postgres storage option
     ```
     # from kubernetes/postgres folder
     docker-compose -f docker-compose-postgres.yaml up --build

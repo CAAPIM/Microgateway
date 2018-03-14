@@ -41,7 +41,7 @@ Kubernetes*
 # Deploy  <a name="deploy"></a>
 
 ## 1. First, accept the license of the microgateway
-Open [config.yml](../../../samples/platforms/kubernetes/config.yml) and set `ACCEPT_LICENSE` value to `true`:
+Open config.yml and set `ACCEPT_LICENSE` value to `true`:
 ```
 ACCEPT_LICENSE: "true"
 ```
@@ -49,9 +49,9 @@ ACCEPT_LICENSE: "true"
 *Note 1: Please refer to the main documentation for the list of required and optional
 environment variables: https://docops.ca.com/ca-microgateway/1-0/EN.*
 
-*Note 2: By passing the value "true" to the key `accept.license`
-in the file [config.yml](../../../samples/platforms/kubernetes/config.yml), you are expressing
-your acceptance of the [CA Trial and Demonstration Agreement](../../../LICENSE.md). The
+*Note 2: By passing the value "true" to the key `ACCEPT_LICENSE`
+in the file config.yml, you are expressing
+your acceptance of the CA Trial and Demonstration Agreement. The
 initial Product Availability Period for your trial of CA Microgateway shall be
 sixty (60) days from the date of your initial deployment. You are permitted only
 one (1) trial of CA Microgateway per Company, and you may not redeploy a new
@@ -182,7 +182,7 @@ minikube delete
 
 # Operation commands <a name="ops-commands"></a>
 
-The Kubernetes YAML files deploying CA Microgateway are located in the folder [/samples/platforms/kubernetes/](../../../samples/platforms/kubernetes/)
+The Kubernetes YAML files deploying CA Microgateway are located in the folder `/samples/platforms/kubernetes/`.
 
 You might see that the microgateway doesn't become available after a few minutes. In that case, see what went wrong by getting logs from the pod/container by:
 ```

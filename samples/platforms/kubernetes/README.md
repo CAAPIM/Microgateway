@@ -20,15 +20,30 @@ The folder consists of 4 deployment related files
 To accept the license agreement [Microservices Gateway Pre-Release Agreement](https://github-isl-01.ca.com/APIM-Gateway/ca-microgateway/blob/master/LICENSE.md), set the value of "ACCEPT_LICENSE" to true. This variable is present in configmap `microgateway-license` in config.yml file.
 
 ### Start
-```
-kubectl apply -f config.yml -f db-consul.yml -f microgateway.yml 
-```
-```
-kubectl apply -f config.yml -f db-postgresql.yml -f microgateway.yml
-```
-```
-kubectl apply -f config.yml -f microgateway.yml
-```
+1. With Consul storate option
+    ```
+    kubectl apply -f config.yml -f db-consul.yml -f microgateway.yml 
+    ```
+2.  With Postgres storate option
+    ```
+    # from kubernetes/postgres folder
+    docker-compose -f docker-compose-postgres.yaml up --build
+    ```
+
+    Then configure `db-postgresql.yml` 
+    ```
+    # this IP should be machine IP if Postgres container is running locally
+    QUICKSTART_REPOSITORY_DB_HOST: "10.137.227.146"
+    ```
+    Finally
+    ```
+    # from kubernetes folder
+    kubectl apply -f config.yml -f db-postgresql.yml -f microgateway.yml
+    ```
+3. Immutable mode
+    ```
+    kubectl apply -f config.yml -f microgateway.yml
+    ```
 
 #### DNS Settings
 Map the the microgateway route to the Kubernetes external IP by editing `/etc/hosts` with the following content:

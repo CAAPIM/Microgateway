@@ -72,7 +72,19 @@ Three deployment modes of the CA Microgateway are listed here.
     ```
 2. CA Microgateway with PostgreSQL as a service datastore, or
     ```
-    kubectl apply --filename microgateway.yml --filename config.yml  --filename db-postgresql.yml
+    # from kubernetes/postgres folder
+    docker-compose -f docker-compose-postgres.yaml up --build
+    ```
+
+    Then configure `db-postgresql.yml` 
+    ```
+    # this IP should be machine IP if Postgres container is running locally
+    QUICKSTART_REPOSITORY_DB_HOST: "10.137.227.146"
+    ```
+    Finally
+    ```
+    # from kubernetes folder
+    kubectl apply -f config.yml -f db-postgresql.yml -f microgateway.yml
     ```
 3. Immutable CA Microgateway
     ```

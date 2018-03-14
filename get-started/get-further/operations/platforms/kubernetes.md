@@ -1,7 +1,7 @@
 ## CA Microgateway on Kubernetes: configure, install, upgrade, scale and more
 
 Watch the demo!
-[![asciicast](https://asciinema.org/a/42383.png)](https://asciinema.org/a/UTvWrf4YEdzITeclhV4yAqvKP)
+[![asciicast](img/kubernetes_demo_thumbnail.png)](https://asciinema.org/a/UTvWrf4YEdzITeclhV4yAqvKP)
 
 * [Prerequisites](#prerequisites)
 * [Deployment diagram](#diagram)

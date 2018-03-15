@@ -8,7 +8,6 @@ Watch the demo!
 * [Operation commands](#ops-commands)
   * [Configure](#configure)
   * [Install](#install)
-  * [Test](#test)
   * [Update strategies](#upgrade)
   * [Scale up/down](#scale)
   * [Autoscaling](#autoscaling)
@@ -18,13 +17,13 @@ Watch the demo!
 
 ### Prerequisites <a name="prerequisites"></a>
  - A machine running the Kubernetes cluster with a minimum 4GB of memory:
-    - Minikube on a laptop (https://github.com/kubernetes/minikube)
+    - Minikube on a laptop (https://github.com/kubernetes/minikube)([quickstart](./kubernetes-minikube.md))
     - Any other Kubernetes (https://kubernetes.io/docs/setup/pick-right-solution)
 - Kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl) to operate the
 CA Microgateway on Kubernetes
 - Your Kubernetes credentials set in the file `~/.kube/config`
 
-# Deployment diagram
+### Deployment diagram <a name="diagram"></a>
 
 [microgateway-on-kubernetes]: img/kubernetes_draw.io.png "CA Microgateway on Kubernetes"
 ![alt text][microgateway-on-kubernetes]
@@ -40,23 +39,21 @@ key/value store.
 *Note: The database/KV store and microservices can optionally run in the same
 Kubernetes*
 
-## Configure <a name="configure"></a>
+## Operation commands <a name="ops-commands"></a>
 
-Open `config.yml` and set `ACCEPT_LICENSE` value to `true`:
+The Kubernetes YAML files deploying CA Microgateway are located in the folder [/samples/platforms/kubernetes/](../../samples/platforms/kubernetes/).
+
+### Configure <a name="configure"></a>
+
+*Note: please refer to the main documentation for the list of required and optional
+environment variables: https://docops.ca.com/ca-microgateway/1-0/EN.*
+
+Open [config.yml](../../samples/platforms/kubernetes/config.yml) and set `ACCEPT_LICENSE` value to `true`:
 ```
 ACCEPT_LICENSE: "true"
 ```
 
-For Postgres storage, edit `db-postgresql.yml` 
-```
-# this IP should be machine IP if Postgres container is running locally
-QUICKSTART_REPOSITORY_DB_HOST: "10.137.227.146"
-```
-
-*Note 1: Please refer to the main documentation for the list of required and optional
-environment variables: https://docops.ca.com/ca-microgateway/1-0/EN.*
-
-*Note 2: By passing the value "true" to the key `ACCEPT_LICENSE`
+*By passing the value "true" to the key `ACCEPT_LICENSE`
 in the file config.yml, you are expressing
 your acceptance of the CA Trial and Demonstration Agreement. The
 initial Product Availability Period for your trial of CA Microgateway shall be
@@ -64,14 +61,18 @@ sixty (60) days from the date of your initial deployment. You are permitted only
 one (1) trial of CA Microgateway per Company, and you may not redeploy a new
 trial of CA Microgateway after the end of the initial Product Availability Period.*
 
-## Install <a name="install"></a>
-
-### Start single-node cluster in local environment: giving enough resource here
+For Postgres storage, edit `db-postgresql.yml`.
 ```
-minikube start --cpus 4 --memory 6144
+#
+QUICKSTART_REPOSITORY_DB_HOST: "10.137.227.146"
 ```
 
-### Start deployments of pods and services defined in yaml
+The IP should be machine IP if Postgres container is running locally
+
+
+### Install <a name="install"></a>
+
+#### Start deployments of pods and services defined in yaml
 
 Three deployment modes of the CA Microgateway are listed here.
 
@@ -94,100 +95,18 @@ Three deployment modes of the CA Microgateway are listed here.
     kubectl apply ---filename microgateway.yml --filename config.yml --filename immutable.yml
     ```
 
-## Test <a name="test"></a>
-### Check the status of deployments: wait for 3-5 minutes until "deploy/microgateway-dc" available column shows 1
+Wait for the Gateway to be up by looking at deployment status of "deploy/microgateway-dc":
 ```
-watch kubectl get all
-```
-
-You can also check the web dashboard by running:
-```
-minikube dashboard
+kubectl get all
 ```
 
-### Get public IP of cluster node
-```
-minikube ip  
-```
-
-### Add the public cluster IP and hostname mapping to the host file
+#### Add the public cluster IP and hostname mapping to the host file
 ```
 echo "192.168.99.100 microgateway.mycompany.com" | sudo tee -a /etc/hosts
 ```
 
-### Verify you can reach the microgateway running in kubernetes cluster (note: https port of the exposed service is hard-coded in yaml to 30443)
-### First verify by reaching the IP
-```
-curl --insecure \
-    --user "admin:password" \
-    --url https://192.168.99.100:30443/quickstart/1.0/services
-```
-
-### Then verify by reaching the hostname
-```
-curl --insecure \
-    --user "admin:password" \
-    --url https://microgateway.mycompany.com:30443/quickstart/1.0/services
-```
-
-### Verify you can create a simple service to route to google in the microgateway
-```
-curl --insecure \
-    --user "admin:password" \
-    --url https://microgateway.mycompany.com:30443/quickstart/1.0/services \
-    --data '{  
-            "Service":{  
-                    "name":"Google",
-                    "gatewayUri":"/google",
-                    "httpMethods":[  
-                        "get"
-                    ],
-                    "policy":[  
-                        {  
-                            "RouteHttp":{  
-                            "targetUrl":"http://www.google.com"
-                            }
-                        }
-                    ]
-                }
-            }'
-```
-
-You should get:
-```
-{
-   "success" : true,
-   "message" : "Quickstart service created successfully. There may be a delay of 10 seconds before the service is available."
-}
-```
-
-### Verify the service endpoint created actually routes to google
-```
-curl --insecure \
-    --location \
-    --user "admin:password" \
-    --url https://microgateway.mycompany.com:30443/google
-```    
-
-You should get HTML response:
-```
-<!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" lang="en-CA"><head><met
-```
-
-## Operation commands <a name="ops-commands"></a>
-
-The Kubernetes YAML files deploying CA Microgateway are located in the folder `/samples/platforms/kubernetes/`.
-
-You might see that the microgateway doesn't become available after a few minutes. In that case, see what went wrong by getting logs from the pod/container by:
-```
-// i.e. kubectl logs POD_NAME
-kubectl logs microgateway-dc-6dc7b56cd7-986m6
-```
-
-There might be null pointer exception, in which case it's likely that microgateway's license is not valid or expired or unset.
-
 #### How to enable Ingress to proxy a traffic from external network to internal nodes
-The microgateway container inside pods in a cluster is not accessible from outside the internal network. 
+The microgateway container inside pods in a cluster is not accessible from outside the internal network.
 To access the CA Microgateway, Kubernetes gives various options like hostNetwork, hostPort, NodePort, LoadBalancer and Ingress to expose services to external network. In this documentation, NodePort is used to access the CA Microgateway.
 
 Verify that `ingress` and `kube-dns` are both `enabled`:
@@ -241,7 +160,6 @@ the `kubectl apply` command. Apply command will redeploy only the updated servic
   ```
 
 ## Autoscaling <a name="autoscaling"></a>
-
 
   Autoscaling is done by adding a Kubernetes element `HorizontalPodAutoscaler` to
   the Kubernetes YML file (e.g. `microgateway.yml`).
@@ -341,12 +259,9 @@ https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-read
 
 ## Uninstall <a name="uninstall"></a>
 
-Run `kubectl delete` with the same -f options as in the install section:
+Run `kubectl delete` with the same -f options as in the install section.
+
+For example:
 ```
-# e.g.
 kubectl delete --filename microgateway.yml --filename config.yml --filename db-consul.yml
-```
-or
-```
-kubectl delete deployment/microgateway-dc
 ```

@@ -5,8 +5,10 @@ Watch the demo!
 
 * [Prerequisites](#prerequisites)
 * [Deployment diagram](#diagram)
-* [Deploy](#deploy)
 * [Operation commands](#ops-commands)
+  * [Configure](#configure)
+  * [Install](#install)
+  * [Test](#test)
   * [Update strategies](#upgrade)
   * [Scale up/down](#scale)
   * [Autoscaling](#autoscaling)
@@ -38,12 +40,17 @@ key/value store.
 *Note: The database/KV store and microservices can optionally run in the same
 Kubernetes*
 
-# Deploy  <a name="deploy"></a>
+## Configure <a name="configure"></a>
 
-## 1. First, accept the license of the microgateway
-Open config.yml and set `ACCEPT_LICENSE` value to `true`:
+Open `config.yml` and set `ACCEPT_LICENSE` value to `true`:
 ```
 ACCEPT_LICENSE: "true"
+```
+
+For Postgres storage, edit `db-postgresql.yml` 
+```
+# this IP should be machine IP if Postgres container is running locally
+QUICKSTART_REPOSITORY_DB_HOST: "10.137.227.146"
 ```
 
 *Note 1: Please refer to the main documentation for the list of required and optional
@@ -57,12 +64,14 @@ sixty (60) days from the date of your initial deployment. You are permitted only
 one (1) trial of CA Microgateway per Company, and you may not redeploy a new
 trial of CA Microgateway after the end of the initial Product Availability Period.*
 
-## 2. Start single-node cluster in local environment: giving enough resource here
+## Install <a name="install"></a>
+
+### Start single-node cluster in local environment: giving enough resource here
 ```
 minikube start --cpus 4 --memory 6144
 ```
 
-## 3. Start deployments of pods and services defined in yaml
+### Start deployments of pods and services defined in yaml
 
 Three deployment modes of the CA Microgateway are listed here.
 
@@ -75,12 +84,6 @@ Three deployment modes of the CA Microgateway are listed here.
     # from kubernetes/postgres folder
     docker-compose -f docker-compose-postgres.yaml up --build
     ```
-
-    Then configure `db-postgresql.yml` 
-    ```
-    # this IP should be machine IP if Postgres container is running locally
-    QUICKSTART_REPOSITORY_DB_HOST: "10.137.227.146"
-    ```
     Finally
     ```
     # from kubernetes folder
@@ -91,7 +94,8 @@ Three deployment modes of the CA Microgateway are listed here.
     kubectl apply ---filename microgateway.yml --filename config.yml --filename immutable.yml
     ```
 
-## 4. Check the status of deployments: wait for 3-5 minutes until "deploy/microgateway-dc" available column shows 1
+## Test <a name="test"></a>
+### Check the status of deployments: wait for 3-5 minutes until "deploy/microgateway-dc" available column shows 1
 ```
 watch kubectl get all
 ```
@@ -101,32 +105,32 @@ You can also check the web dashboard by:
 Minikube dashboard
 ```
 
-## 5. Get public IP of cluster node
+### Get public IP of cluster node
 ```
 minikube ip  
 ```
 
-## 6. Add the public cluster IP and hostname mapping to the host file
+### Add the public cluster IP and hostname mapping to the host file
 ```
 echo "192.168.99.100 microgateway.mycompany.com" | sudo tee -a /etc/hosts
 ```
 
-## 7. Verify you can reach the microgateway running in kubernetes cluster (note: https port of the exposed service is hard-coded in yaml to 30443)
-### 7.1. First verify by reaching the IP
+### Verify you can reach the microgateway running in kubernetes cluster (note: https port of the exposed service is hard-coded in yaml to 30443)
+### First verify by reaching the IP
 ```
 curl --insecure \
     --user "admin:password" \
     --url https://192.168.99.100:30443/quickstart/1.0/services
 ```
 
-### 7.2. Then verify by reaching the hostname
+### Then verify by reaching the hostname
 ```
 curl --insecure \
     --user "admin:password" \
     --url https://microgateway.mycompany.com:30443/quickstart/1.0/services
 ```
 
-## 8. Verify you can create a simple service to route to google in the microgateway
+### Verify you can create a simple service to route to google in the microgateway
 ```
 curl --insecure \
     --user "admin:password" \
@@ -157,7 +161,7 @@ You should get:
 }
 ```
 
-## 9. Verify the service endpoint created actually routes to google
+### Verify the service endpoint created actually routes to google
 ```
 curl --insecure \
     --location \
@@ -170,17 +174,7 @@ You should get HTML response:
 <!doctype html><html itemscope="" itemtype="http://schema.org/WebPage" lang="en-CA"><head><met
 ```
 
-## 10. Stop the cluster
-```
-minikube stop
-```
-
-## 11. Delete the cluster
-```
-minikube delete
-```
-
-# Operation commands <a name="ops-commands"></a>
+## Operation commands <a name="ops-commands"></a>
 
 The Kubernetes YAML files deploying CA Microgateway are located in the folder `/samples/platforms/kubernetes/`.
 
@@ -206,12 +200,12 @@ If `ingress` is disabled, make sure to enable it:
 minikube addons enable ingress
 ```
 
-#### Update <a name="upgrade"></a>
+## Update <a name="upgrade"></a>
 
 Write the new configuration in the configuration file `config.yml`, then re-run
 the `kubectl apply` command. Apply command will redeploy only the updated services.
 
-#### Scale up/down <a name="scale"></a>
+## Scale up/down <a name="scale"></a>
 
 - Manual scaling:
   - Using the Kubernetes YAML file (e.g. `microgateway.yml`)
@@ -246,7 +240,8 @@ the `kubectl apply` command. Apply command will redeploy only the updated servic
   kubectl scale -f microgateway.yml
   ```
 
-- Autoscaling:
+## Autoscaling <a name="autoscaling"></a>
+
 
   Autoscaling is done by adding a Kubernetes element `HorizontalPodAutoscaler` to
   the Kubernetes YML file (e.g. `microgateway.yml`).
@@ -276,7 +271,7 @@ the `kubectl apply` command. Apply command will redeploy only the updated servic
   Details about autoscaling can be found at
   https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
 
-#### Logs <a name="logs"></a>
+## Logs <a name="logs"></a>
 
 - Print logs:
 
@@ -286,7 +281,7 @@ kubectl logs -f deployment/microgateway-dc
 Where `microgateway-dc` is the name of our Deployment Configuration defined
 in `microgateway.yml`.
 
-#### Health check <a name="health-check"></a>
+## Health check <a name="health-check"></a>
 
 ```
 apiVersion: extensions/v1beta1
@@ -344,7 +339,7 @@ microgateway-dc     1         1         1            1           20m
 Details about Kubernetes Application Health Check can be found at
 https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
 
-#### Uninstall <a name="uninstall"></a>
+## Uninstall <a name="uninstall"></a>
 
 ```
 kubectl delete -f microgateway.yml

@@ -100,9 +100,9 @@ Three deployment modes of the CA Microgateway are listed here.
 watch kubectl get all
 ```
 
-You can also check the web dashboard by:
+You can also check the web dashboard by running:
 ```
-Minikube dashboard
+minikube dashboard
 ```
 
 ### Get public IP of cluster node
@@ -225,9 +225,9 @@ the `kubectl apply` command. Apply command will redeploy only the updated servic
     replicas: 1
   ```
 
-  Then push the new configuration:
+  Then push the new configuration by running something like:
   ```
-  kubectl apply -f microgateway.yml
+  kubectl apply --filename microgateway.yml --filename config.yml --filename db-consul.yml
   ```
 
   - Using the Kuberetes command line "kubectl":
@@ -237,7 +237,7 @@ the `kubectl apply` command. Apply command will redeploy only the updated servic
   be used:
 
   ```
-  kubectl scale -f microgateway.yml
+  kubectl scale --replicas=3 -f microgateway.yml
   ```
 
 ## Autoscaling <a name="autoscaling"></a>
@@ -293,7 +293,7 @@ metadata:
 spec:
 containers:
 - name: microgateway
-  image: caapimcollab/microgateway:latest
+  image: [...]
   env:
     [...]
 
@@ -341,15 +341,12 @@ https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-read
 
 ## Uninstall <a name="uninstall"></a>
 
+Run `kubectl delete` with the same -f options as in the install section:
 ```
-kubectl delete -f microgateway.yml
+# e.g.
+kubectl delete --filename microgateway.yml --filename config.yml --filename db-consul.yml
 ```
 or
 ```
 kubectl delete deployment/microgateway-dc
-```
-
-```
-minikube stop
-minikube delete
 ```

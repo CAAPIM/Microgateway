@@ -1,0 +1,11 @@
+version: '2'
+services:
+  cadbhost:
+    image: postgres:9.6
+    mem_limit: 512m
+    ports:
+      - "5432:5432"
+    env_file:
+     - ./postgres.env
+    volumes:
+      - ./scalerDbSchemaPostgreSql.sql:/docker-entrypoint-initdb.d/schema.sql

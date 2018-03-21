@@ -33,8 +33,13 @@ Then deploy the CA Microgateway by executing one of the following commands:
     ```
 2.  With Postgres storage option
     ```
-    # from kubernetes folder
-    docker-compose -f docker-compose-postgres.yml up --build
+    # from ca-microgateway/get-started/docker-compose folder
+    # Build and Run Postgres image 
+     
+     docker image build --file Dockerfile.postgresql . -t postgres:<tag>
+     
+     docker run -p 5432:5432 --env POSTGRES_DB=qstr  --env POSTGRES_USER=causer --env POSTGRES_PASSWORD=capassword postgres:micro
+
     ```
 
     Then configure `db-postgresql.yml` 

@@ -82,8 +82,13 @@ Three deployment modes of the CA Microgateway are listed here.
     ```
 2. CA Microgateway with PostgreSQL as a service datastore, or
     ```
-    # from kubernetes folder
-    docker-compose -f docker-compose-postgres.yml up --build
+    # from ca-microgateway/get-started/docker-compose folder
+    # Build and Run Postgres image 
+         
+         docker image build --file Dockerfile.postgresql . -t postgres:<tag>
+         
+         docker run -p 5432:5432 --env POSTGRES_DB=qstr  --env POSTGRES_USER=causer --env POSTGRES_PASSWORD=capassword postgres:micro
+
     ```
     Finally
     ```

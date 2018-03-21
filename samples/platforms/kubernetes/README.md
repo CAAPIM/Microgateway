@@ -1,5 +1,5 @@
 # Prerequisites
-kubectl CLI is installed on the machine 
+kubectl CLI is installed on the machine
 kube config file is configured on the machine. The file should be present at ~/.kube/config. This file contains the credentials and server details of kubernetes setup
 
 # Deployment types
@@ -29,20 +29,20 @@ Then deploy the CA Microgateway by executing one of the following commands:
 
 1. With Consul storage option
     ```
-    kubectl apply -f config.yml -f db-consul.yml -f microgateway.yml 
+    kubectl apply -f config.yml -f db-consul.yml -f microgateway.yml
     ```
 2.  With Postgres storage option
     ```
     # from ca-microgateway/get-started/docker-compose folder
-    # Build and Run Postgres image 
-     
-     docker image build --file Dockerfile.postgresql . -t postgres:<tag>
-     
+    # Build and Run Postgres image
+
+     docker image build --file Dockerfile.postgresql . -t postgres:micro
+
      docker run -p 5432:5432 --env POSTGRES_DB=qstr  --env POSTGRES_USER=causer --env POSTGRES_PASSWORD=capassword postgres:micro
 
     ```
 
-    Then configure `db-postgresql.yml` 
+    Then configure `db-postgresql.yml`
     ```
     # this IP should be machine IP if Postgres container is running locally
     QUICKSTART_REPOSITORY_DB_HOST: "10.137.227.146"
@@ -66,7 +66,7 @@ with:
 - `<KUBERNETES PUBLIC IP>`: the public IP address of your Kubernetes machine
 
 #### Accessing CA Microgateway Service
-Port `30443` is exposed to an enxternal network to reach services running on clusters. 
+Port `30443` is exposed to an enxternal network to reach services running on clusters.
 ```
 curl --insecure --user admin:password https://microgateway.mycompany.com:30443/quickstart/1.0/services
 ```

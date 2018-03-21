@@ -85,9 +85,9 @@ Three deployment modes of the CA Microgateway are listed here.
     # from ca-microgateway/get-started/docker-compose folder
     # Build and Run Postgres image 
          
-         docker image build --file Dockerfile.postgresql . -t postgres:<tag>
+     docker image build --file Dockerfile.postgresql . -t postgres:<tag>
          
-         docker run -p 5432:5432 --env POSTGRES_DB=qstr  --env POSTGRES_USER=causer --env POSTGRES_PASSWORD=capassword postgres:micro
+     docker run -p 5432:5432 --env POSTGRES_DB=qstr  --env POSTGRES_USER=causer --env POSTGRES_PASSWORD=capassword postgres:micro
 
     ```
     Finally

@@ -93,11 +93,11 @@ Three deployment modes of the CA Microgateway are listed here.
     Finally
     ```
     # from kubernetes folder
-    kubectl apply -f config.yml -f db-postgresql.yml -f microgateway.yml
+    kubectl apply --filename config.yml --filename db-postgresql.yml --filename microgateway.yml
     ```
 3. Immutable CA Microgateway
     ```
-    kubectl apply ---filename microgateway.yml --filename config.yml --filename immutable.yml
+    kubectl apply --filename microgateway.yml --filename config.yml 
     ```
 
 Wait for the Gateway to be up by looking at deployment status of "deploy/microgateway-dc":
@@ -161,7 +161,7 @@ the `kubectl apply` command. Apply command will redeploy only the updated servic
   be used:
 
   ```
-  kubectl scale --replicas=3 -f microgateway.yml
+  kubectl scale --replicas=3 --filename microgateway.yml
   ```
 
 ## Autoscaling <a name="autoscaling"></a>
@@ -188,7 +188,7 @@ the `kubectl apply` command. Apply command will redeploy only the updated servic
 
   Then push the new configuration:
   ```
-  kubectl apply -f microgateway.yml
+  kubectl apply --filename microgateway.yml
   ```
 
   Details about autoscaling can be found at
@@ -264,7 +264,7 @@ https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-read
 
 ## Uninstall <a name="uninstall"></a>
 
-Run `kubectl delete` with the same -f options as in the install section.
+Run `kubectl delete` with the same --filename options as in the install section.
 
 For example:
 ```

@@ -29,7 +29,7 @@ Then deploy the CA Microgateway by executing one of the following commands:
 
 1. With Consul storage option
     ```
-    kubectl apply -f config.yml -f db-consul.yml -f microgateway.yml
+    kubectl apply --filename config.yml --filename db-consul.yml --filename microgateway.yml
     ```
 2.  With Postgres storage option
     ```
@@ -50,11 +50,11 @@ Then deploy the CA Microgateway by executing one of the following commands:
     Finally
     ```
     # from kubernetes folder
-    kubectl apply -f config.yml -f db-postgresql.yml -f microgateway.yml
+    kubectl apply --filename config.yml --filename db-postgresql.yml --filename microgateway.yml
     ```
 3. Immutable mode
     ```
-    kubectl apply -f config.yml -f microgateway.yml
+    kubectl apply --filename config.yml --filename microgateway.yml
     ```
 
 #### DNS Settings

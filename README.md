@@ -170,7 +170,7 @@ The following steps will typically be done by a developer, and may be done at th
 
   Save the file into the same directory from which you will make the next API call.
 
-  The Gatewayfile is a JSON file that describes a "meta-policy" that will be published to the Microgateway. Gatewayfile will create a new service that will be accessible at "/demo_google" and will route requests to htttp://www.google.com.
+  The Gatewayfile is a JSON file that describes a "meta-policy" that will be published to the Microgateway. Gatewayfile will create a new service that will be accessible at "/demo_google" and will route requests to http://www.google.com.
 
 - Then, add your API to CA Microgateway:
 
@@ -245,6 +245,7 @@ The following steps will typically be done by a developer, and may be done at th
   - Install, configuration, upgrade and scale
     - [Docker](get-started/get-further/operations/platforms/docker.md)
     - [OpenShift](get-started/get-further/operations/platforms/openshift.md)
+    - [Kubernetes](get-started/get-further/operations/platforms/kubernetes.md)
   - [Logging and auditing](get-started/get-further/operations/system/logging-auditing.md)
   - [Performance tuning](get-started/get-further/operations/system/performance.md)
 
@@ -255,6 +256,7 @@ The following steps will typically be done by a developer, and may be done at th
 - [Microgateway APIs](samples/APIs)
 - Alternative plaforms:
   - [OpenShift](samples/platforms/openshift)
+  - [Kubernetes](samples/platforms/kubernetes)
 
 ### Documentation  <a name="documentation"></a>
 

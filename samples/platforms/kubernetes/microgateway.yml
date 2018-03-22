@@ -1,0 +1,134 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: microgateway
+    service: microgateway-svc
+  name: microgateway-svc
+  annotations:
+    description: "The Microservices Gateway service"
+spec:
+  selector:
+    app: microgateway
+  type: NodePort
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 30080
+      name: microgateway-http-port
+    - protocol: TCP
+      port: 8443
+      targetPort: 8443
+      nodePort: 30443
+      name: microgateway-https-port
+    - protocol: TCP
+      port: 9443
+      targetPort: 9443
+      nodePort: 30444
+      name: microgateway-pm-port
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+    ingress.kubernetes.io/ssl-passthrough: "true"
+    description: "The route to expose the Microservices Gateway's HTTPS port"
+  name: microgateway-pm-route
+spec:
+  tls:
+  - hosts:
+    - microgateway.mycompany.com
+  rules:
+  - host: microgateway.mycompany.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: microgateway-svc
+          servicePort: 8443 # named ports won't work in kube at the time of authoring the template(https://github.com/kubernetes/ingress-nginx/issues/1459)
+
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: microgateway-hpa
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: microgateway-dc
+  minReplicas: 1
+  maxReplicas: 1
+  targetCPUUtilizationPercentage: 75
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: microgateway-dc
+  labels:
+    app: microgateway
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: microgateway
+    spec:
+      containers:
+      - name: microgateway
+        image: caapim/microgateway:1.0.0-CR01
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: 2400m
+            memory: 2560Mi
+          requests:
+            cpu: 1500m
+            memory: 2048Mi
+        terminationMessagePath: /dev/termination-log
+        ports:
+          - containerPort: 8080
+          - containerPort: 8443
+          - containerPort: 9443
+
+        envFrom:
+        - configMapRef:
+            name: microgateway-core
+        - configMapRef:
+            name: microgateway-license
+        - secretRef:
+            name: microgateway-secret
+        - configMapRef:
+            name: microgateway-quickstartconfig
+        - configMapRef:
+            name: microgateway-otk
+        - configMapRef:
+            name: microgateway-certificates
+        - configMapRef:
+            name: microgateway-jwt
+        - configMapRef:
+            name: microgateway-feature-flags
+        - configMapRef:
+            name: microgateway-policysdk
+
+        livenessProbe:
+          exec:
+            command:
+            - /opt/docker/rc.d/diagnostic/health_check.sh
+          initialDelaySeconds: 480
+          periodSeconds: 15
+          timeoutSeconds: 1
+          successThreshold: 1
+
+        readinessProbe:
+          exec:
+            command:
+            - /opt/docker/rc.d/diagnostic/health_check.sh
+          initialDelaySeconds: 90
+          periodSeconds: 15
+          timeoutSeconds: 1
+          successThreshold: 1

@@ -24,7 +24,7 @@ operate the Microgateway on OpenShift
 ![alt text][microgateway-on-openshift]
 
 The Microgateway cluster running on OpenShift is at least composed of:
-- an OpenShift route exposing the Microgateway to users
+- an OpenShift route exposing the Microgateway service to users
 - an OpenShift service load balancing requests to the Microgateway containers
 - OpenShift pods hosting respectively a Microgateway container
 

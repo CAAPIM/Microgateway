@@ -1,0 +1,163 @@
+---
+# CA Microgateway Consul configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: microgateway-quickstartconfig
+  annotations:
+    description: Quickstart Related Parameters
+data:
+  QUICKSTART_REST_MODE: "true"
+  QUICKSTART_REPOSITORY_TYPE: "consul"
+  QUICKSTART_REPOSITORY_CONSUL_HOST: "microgateway-db-svc"
+  QUICKSTART_REPOSITORY_CONSUL_PORT: "8500"
+  QUICKSTART_REPOSITORY_CONSUL_PROTOCOL: "http"
+  # QUICKSTART_REPOSITORY_CONSUL_ACL_TOKEN:
+  # cert for https mode (uncomment)
+  #QUICKSTART_REPOSITORY_CONSUL_CERT:
+  #QUICKSTART_REPOSITORY_CONSUL_CERT_TRUSTED_FOR_SSL: "true"
+  #QUICKSTART_REPOSITORY_CONSUL_CERT_TRUST_ANCHOR: "true"
+  #QUICKSTART_REPOSITORY_CONSUL_CERT_VERIFY_HOSTNAME: "false"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consul-server-config
+data:
+  consulserver.json: |
+    {
+        "bootstrap": true,
+        "bind_addr": "0.0.0.0",
+        "client_addr": "0.0.0.0",
+        "server": true,
+        "datacenter": "yvr",
+        "data_dir": "/consul/data",
+        "log_level": "INFO"
+    }
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consul-pk
+data:
+  consul.key: |
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consul-cert
+data:
+  consul.crt: |
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: consul-bundle
+data:
+  consul-bundle.crt: |
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: consul-svc
+    service: consul
+  name: microgateway-db-svc
+  annotations:
+    description: "The Consul server node service"
+spec:
+  selector:
+    app: consul-dc
+  type: ClusterIP
+  ports:
+    - port: 8500
+      targetPort: 8500
+      protocol: TCP
+      name: consul-rest-http-port
+    - port: 8501
+      targetPort: 8501
+      protocol: TCP
+      name: consul-rest-https-port
+    - port: 8400
+      targetPort: 8400
+      protocol: TCP
+      name: consul-rpc-port
+    - port: 8300
+      targetPort: 8300
+      protocol: TCP
+      name: consul-broadcast-tcp-port-1
+    - port: 8300
+      targetPort: 8300
+      protocol: UDP
+      name: consul-broadcast-udp-port-1
+    - port: 8301
+      targetPort: 8301
+      protocol: TCP
+      name: consul-broadcast-tcp-port-2
+    - port: 8301
+      targetPort: 8301
+      protocol: UDP
+      name: consul-broadcast-udp-port-2
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: consul-dc
+  labels:
+     app: consul-server
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: consul-dc
+    spec:
+      containers:
+      - name: consul-server-container
+        image: docker.io/consul:0.9.2
+        imagePullPolicy: IfNotPresent
+        args:
+          - agent
+          - -config-file=/consul/config/consulserver.json
+        command:
+          - consul
+        env:
+          - name: CONSUL_CLIENT_INTERFACE
+            value: "eth0"
+          - name: CONSUL_BIND_INTERFACE
+            value: "eth0"
+        ports:
+          - containerPort: 8300
+            protocol: TCP
+          - containerPort: 8301
+            protocol: TCP
+          - containerPort: 8301
+            protocol: UDP
+          - containerPort: 8302
+            protocol: TCP
+          - containerPort: 8302
+            protocol: UDP
+          - containerPort: 8500
+            protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        volumeMounts:
+          - mountPath: /consul/data
+            name: consul
+          - mountPath: /consul/config/consulserver.json
+            name: consul-server-config
+            subPath: consulserver.json
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 60
+      securityContext: {}
+      volumes:
+      - name: consul
+        emptyDir: {}
+      - name: consul-server-config
+        configMap:
+          name: consul-server-config

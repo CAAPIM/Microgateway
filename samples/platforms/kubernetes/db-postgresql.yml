@@ -1,0 +1,16 @@
+---
+# Quickstart configuration when using a database (PostgreSQL)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: microgateway-quickstartconfig
+data:
+  QUICKSTART_REST_MODE: "true"
+  QUICKSTART_REPOSITORY_TYPE: "db"
+  QUICKSTART_REPOSITORY_DB_TYPE: "postgresql"
+  QUICKSTART_REPOSITORY_DB_HOST: "10.137.227.146" # this IP should be machine IP if Postgres container is running locally
+  QUICKSTART_REPOSITORY_DB_PORT: "5432"
+  QUICKSTART_REPOSITORY_DB_NAME: "qstr"
+  POSTGRES_DB: "qstr"
+  QUICKSTART_REPOSITORY_DB_USER: "causer"
+  QUICKSTART_REPOSITORY_DB_PASSWORD: "capassword"

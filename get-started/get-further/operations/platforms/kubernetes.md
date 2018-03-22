@@ -17,7 +17,7 @@ Watch the demo!
 
 ### Prerequisites <a name="prerequisites"></a>
  - A machine running the Kubernetes cluster with a minimum 4GB of memory:
-    - Minikube on a laptop (https://github.com/kubernetes/minikube)([quickstart](./kubernetes-minikube.md))
+    - Minikube on a laptop (https://github.com/kubernetes/minikube) ([quickstart](./kubernetes-minikube.md))
     - Any other Kubernetes (https://kubernetes.io/docs/setup/pick-right-solution)
 - Kubectl (https://kubernetes.io/docs/tasks/tools/install-kubectl) to operate the
 CA Microgateway on Kubernetes
@@ -41,17 +41,14 @@ Kubernetes*
 
 ## Operation commands <a name="ops-commands"></a>
 
-The Kubernetes YAML files deploying CA Microgateway are located in the folder [/samples/platforms/kubernetes/](../../samples/platforms/kubernetes/).
+The Kubernetes YAML files deploying CA Microgateway are located in the folder [/samples/platforms/kubernetes/](../../../../samples/platforms/kubernetes/).
 
 ### Configure <a name="configure"></a>
 
 *Note: please refer to the main documentation for the list of required and optional
 environment variables: https://docops.ca.com/ca-microgateway/1-0/EN.*
 
-Open [config.yml](../../samples/platforms/kubernetes/config.yml) and set `ACCEPT_LICENSE` value to `true`:
-```
-ACCEPT_LICENSE: "true"
-```
+Open [config.yml](../../../../samples/platforms/kubernetes/config.yml) and set `ACCEPT_LICENSE` value to `true`.
 
 *By passing the value "true" to the key `ACCEPT_LICENSE`
 in the file config.yml, you are expressing
@@ -63,11 +60,10 @@ trial of CA Microgateway after the end of the initial Product Availability Perio
 
 For Postgres storage, edit `db-postgresql.yml`.
 ```
-#
 QUICKSTART_REPOSITORY_DB_HOST: "10.137.227.146"
 ```
 
-The IP should be machine IP if Postgres container is running locally
+The IP should be your public laptop IP if the Postgres container is running on your laptop.
 
 
 ### Install <a name="install"></a>
@@ -81,31 +77,36 @@ Three deployment modes of the CA Microgateway are listed here.
     kubectl apply --filename microgateway.yml --filename config.yml --filename db-consul.yml
     ```
 2. CA Microgateway with PostgreSQL as a service datastore, or
-    ```
-    # from ca-microgateway/get-started/docker-compose folder
-    # Build and Run Postgres image
+    - Deploy PostgreSQL:
 
-     docker image build --file Dockerfile.postgresql . -t postgres:micro
+      From the folder /get-started/docker-compose folder, build and run Postgres:
 
-     docker run -p 5432:5432 --env POSTGRES_DB=qstr  --env POSTGRES_USER=causer --env POSTGRES_PASSWORD=capassword postgres:micro
+      ```
+       docker image build --file Dockerfile.postgresql . -t postgres:micro
+       docker run -d -p 5432:5432 --env POSTGRES_DB=qstr  --env POSTGRES_USER=causer --env POSTGRES_PASSWORD=capassword postgres:micro
+      ```
 
-    ```
-    Finally
-    ```
-    # from kubernetes folder
-    kubectl apply --filename config.yml --filename db-postgresql.yml --filename microgateway.yml
-    ```
+    - Start CA Microgateway:
+
+      From the folder `/samples/platforms/kubernetes/`, update the variable `QUICKSTART_REPOSITORY_DB_HOST`
+      in the file `db-postgresql.yml` to the IP address or hostname of your PostgreSQL database. Then, start CA Microgateway:
+
+      ```
+      kubectl apply --filename config.yml --filename db-postgresql.yml --filename microgateway.yml
+      ```
+
 3. Immutable CA Microgateway
     ```
-    kubectl apply --filename microgateway.yml --filename config.yml 
+    kubectl apply --filename microgateway.yml --filename config.yml
     ```
 
-Wait for the Gateway to be up by looking at deployment status of "deploy/microgateway-dc":
+Wait for the Gateway to be up by looking at deployment status of "deploy/microgateway-dc"
+to have AVAILABLE=1:
 ```
 kubectl get all
 ```
 
-#### Add the public cluster IP and hostname mapping to the host file
+#### Add the public Kubernetes cluster IP and hostname mapping to the host file
 ```
 echo "192.168.99.100 microgateway.mycompany.com" | sudo tee -a /etc/hosts
 ```
@@ -124,6 +125,8 @@ If `ingress` is disabled, make sure to enable it:
 minikube addons enable ingress
 ```
 
+CA Microgateway is reachable on https://microgateway.mycompany.com/.
+
 ## Update <a name="upgrade"></a>
 
 Write the new configuration in the configuration file `config.yml`, then re-run
@@ -131,8 +134,7 @@ the `kubectl apply` command. Apply command will redeploy only the updated servic
 
 ## Scale up/down <a name="scale"></a>
 
-- Manual scaling:
-  - Using the Kubernetes YAML file (e.g. `microgateway.yml`)
+- Using the Kubernetes YAML file (e.g. `microgateway.yml`)
 
   The `replicas` key of the Deployment configuration block sets the number of
   CA Microgateway pods to deploy:
@@ -154,7 +156,7 @@ the `kubectl apply` command. Apply command will redeploy only the updated servic
   kubectl apply --filename microgateway.yml --filename config.yml --filename db-consul.yml
   ```
 
-  - Using the Kuberetes command line "kubectl":
+- Using the Kuberetes command line "kubectl":
 
   In the previous example, the deployment configuration is named `microgateway-dc`.
   Instead of pushing a new deployment configuration, the `kubectl autoscale` command can

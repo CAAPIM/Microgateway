@@ -1,0 +1,119 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: microgateway-template
+  labels:
+    name: microgateway-template
+  annotations:
+    description: Template for the Microservices Gateway
+objects:
+
+  # Secret
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: msgw-secrets
+    stringData:
+      SSG_ADMIN_USERNAME: ${SSG_ADMIN_USERNAME}
+      SSG_ADMIN_PASSWORD: ${SSG_ADMIN_PASSWORD}
+      SSG_LICENSE: "${SSG_LICENSE}"
+      SSG_SSL_KEY_PASS: ${SSG_SSL_KEY_PASS}
+      SSG_SSL_KEY: "${SSG_SSL_KEY}"
+  
+  # Core
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: microgateway-core
+      annotations:
+        description: CA Microgateway core properties
+    data:
+      # Hostname of the Gateway cluster, usually the hostname used by the load balancer
+      CLUSTER_PROPERTY_cluster_hostname: ${CLUSTER_PROPERTY_CLUSTER_HOSTNAME}
+      SSG_JVM_HEAP: ${SSG_JVM_HEAP}
+      SSG_INTERNAL_SERVICES: ${SSG_INTERNAL_SERVICES}
+
+  # License
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: microgateway-license
+      annotations:
+        description: CA Microgateway license
+    data:
+      ACCEPT_LICENSE: ${ACCEPT_LICENSE}
+  
+  # OTK
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: microgateway-otk
+      annotations:
+        description: CA Microgateway connection to OTK
+    data:
+      OTK_SERVER_HOST: ${OTK_SERVER_HOST}
+      OTK_SERVER_SSL_PORT: ${OTK_SERVER_SSL_PORT}
+
+  # PolicySDK
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: microgateway-policysdk
+    data:
+      CLUSTER_PROPERTY_CLUSTER_HOSTNAME: 
+      SOLUTION_KIT_POLICYSDK_INGRESS: ${SOLUTION_KIT_POLICYSDK_INGRESS}
+      SOLUTION_KIT_POLICYSDK_MASTER_KEY: ${SOLUTION_KIT_POLICYSDK_MASTER_KEY}
+      SOLUTION_KIT_POLICYSDK_ISS: ${SOLUTION_KIT_POLICYSDK_ISS}
+parameters:
+  - name: SSG_ADMIN_USERNAME
+    description: credential you need to access the Gateway API
+    required: true
+  - name: SSG_ADMIN_PASSWORD
+    description: credential you need to access the Gateway API
+    required: true
+  - name: SSG_SSL_KEY_PASS
+    description: SSG_SSL_KEY_PASS
+    required: true
+  - name: SSG_SSL_KEY
+    description: SSG_SSL_KEY
+    required: true
+
+  - name: SSG_LICENSE
+    description: Microgateway license
+    required: true
+
+  - name: SSG_JVM_HEAP
+    value: 1024m
+    required: false
+  - name: SSG_INTERNAL_SERVICES
+    description: Which Gateway internal services should be enabled, as a space separated string.
+    value: ""
+    required: false
+
+  - name: ACCEPT_LICENSE
+    description: Indicate whether you are accepting the CA Microservices Gateway Pre-Release Agreement inside the LICENSE.md file within this repository
+    required: true
+
+  - name: OTK_SERVER_HOST
+    description: The OTK server to use
+    required: true
+  - name: OTK_SERVER_SSL_PORT
+    description: The port of the OTK server to use
+    required: true
+
+  - name: CLUSTER_PROPERTY_CLUSTER_HOSTNAME
+    description: CLUSTER_PROPERTY_CLUSTER_HOSTNAME
+    required: true
+
+  - name: SOLUTION_KIT_POLICYSDK_COMPANY
+    description: SOLUTION_KIT_POLICYSDK_COMPANY
+    required: true
+  - name: SOLUTION_KIT_POLICYSDK_INGRESS
+    description: SOLUTION_KIT_POLICYSDK_INGRESS
+    required: true
+  - name: SOLUTION_KIT_POLICYSDK_MASTER_KEY
+    description: SOLUTION_KIT_POLICYSDK_MASTER_KEY
+    required: true
+  - name: SOLUTION_KIT_POLICYSDK_ISS
+    description: SOLUTION_KIT_POLICYSDK_ISS
+    required: true

@@ -1,0 +1,223 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: db-consul-template
+  labels:
+    name: db-consul-template
+  annotations:
+    description: Template for Microservices Gateway with embedded Consul 
+objects:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      name: db-consul-secrets
+    stringData:
+  
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: microgateway-quickstartconfig
+    data:
+      QUICKSTART_REST_MODE: ${QUICKSTART_REST_MODE}
+      QUICKSTART_REPOSITORY_TYPE: ${QUICKSTART_REPOSITORY_TYPE}
+      QUICKSTART_REPOSITORY_CONSUL_HOST: ${QUICKSTART_REPOSITORY_DB_HOST}
+      QUICKSTART_REPOSITORY_CONSUL_PORT: ${QUICKSTART_REPOSITORY_DB_PORT}
+      QUICKSTART_REPOSITORY_CONSUL_PROTOCOL: ${QUICKSTART_REPOSITORY_CONSUL_PROTOCOL} 
+
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      annotations:
+        description: Consul image stream
+        openshift.io/image.insecureRepository: ${DOCKER_REGISTRY_INSECURE}
+      labels:
+        name: consul
+      name: consul-is
+    spec:
+      tags:
+      - annotations:
+        from:
+          kind: DockerImage
+          name: "${DOCKER_REGISTRY}/${DOCKER_CONSUL_IMAGE_NAME}:${DOCKER_CONSUL_IMAGE_TAG}"
+        importPolicy:
+          scheduled: true
+          insecure: ${{DOCKER_REGISTRY_INSECURE}}
+  
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: consul-server-config
+    data:
+      consulserver.json: |
+        {
+            "bootstrap": true,
+            "bind_addr": "0.0.0.0",
+            "client_addr": "0.0.0.0",
+            "server": true,
+            "datacenter": "yvr",
+            "data_dir": "/consul/data",
+            "encrypt": "X4SYOinf2pTAcAHRhpj7dA==",
+            "log_level": "INFO",
+            "acl_datacenter": "yvr"
+        }
+
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: consul-pk
+    data:
+      consul.key: |
+
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: consul-cert
+    data:
+      consul.crt: |
+
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: consul-bundle
+    data:
+      consul-bundle.crt: |
+
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        name: consul-svc
+        service: consul
+      name: microgateway-db-svc
+      annotations:
+        description: "The Consul server node service"
+    spec:
+      selector:
+        app: consul-dc
+      type: ClusterIP
+      ports:
+        - port: 8500
+          targetPort: 8500
+          protocol: TCP
+          name: consul-rest-http-port
+        - port: 8501
+          targetPort: 8501
+          protocol: TCP
+          name: consul-rest-https-port
+        - port: 8400
+          targetPort: 8400
+          protocol: TCP
+          name: consul-rpc-port
+        - port: 8300
+          targetPort: 8300
+          protocol: TCP
+          name: consul-broadcast-tcp-port-1
+        - port: 8300
+          targetPort: 8300
+          protocol: UDP
+          name: consul-broadcast-udp-port-1
+        - port: 8301
+          targetPort: 8301
+          protocol: TCP
+          name: consul-broadcast-tcp-port-2
+        - port: 8301
+          targetPort: 8301
+          protocol: UDP
+          name: consul-broadcast-udp-port-2
+
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      name: consul-dc
+      labels:
+        name: consul-server
+      annotations:
+        description: "The Consul server node deployment configuration"
+    spec:
+      strategy:
+        type: Recreate
+        resources: {}
+      triggers:
+        - type: ConfigChange
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: consul-dc
+        spec:
+          containers:
+          - name: consul-server-container
+            image: isl-dsdc.ca.com:5000/apim-gateway/twelvefactorgateway/consul:latest
+            imagePullPolicy: IfNotPresent
+            args:
+              - agent
+              - -config-file=/consul/config/consulserver.json
+            command:
+              - consul
+            env:
+              - name: CONSUL_CLIENT_INTERFACE
+                value: "eth0"
+              - name: CONSUL_BIND_INTERFACE
+                value: "eth0"
+            ports:
+              - containerPort: 8300
+                protocol: TCP
+              - containerPort: 8301
+                protocol: TCP
+              - containerPort: 8301
+                protocol: UDP
+              - containerPort: 8302
+                protocol: TCP
+              - containerPort: 8302
+                protocol: UDP
+              - containerPort: 8500
+                protocol: TCP
+            resources: {}
+            terminationMessagePath: /dev/termination-log
+            volumeMounts:
+              - mountPath: /consul/data
+                name: consul
+              - mountPath: /consul/config/consulserver.json
+                name: consul-server-config
+                subPath: consulserver.json
+          dnsPolicy: ClusterFirst
+          restartPolicy: Always
+          securityContext: {}
+          terminationGracePeriodSeconds: 60
+          volumes:
+          - name: consul
+            emptyDir: {}
+          - name: consul-server-config
+            configMap:
+              name: consul-server-config
+        test: false
+      status: {}
+parameters:
+  - name: QUICKSTART_REST_MODE
+    description: Whether or not the Scaler service should be enabled
+    required: true
+  - name: QUICKSTART_REPOSITORY_TYPE
+    description: 
+    required: true
+  - name: QUICKSTART_REPOSITORY_DB_HOST
+    description: The FQDN for the database server for the Scaler database.
+    required: true
+  - name: QUICKSTART_REPOSITORY_DB_PORT
+    description: The port number for the database server for the Scaler database.
+    required: true
+  - name: QUICKSTART_REPOSITORY_CONSUL_PROTOCOL
+    description: QUICKSTART_REPOSITORY_CONSUL_PROTOCOL
+    required: true
+
+  - name: DOCKER_REGISTRY
+    description: The Docker registry to pull the Docker image from
+    required: true
+  - name: DOCKER_REGISTRY_INSECURE
+    description: Whether the Docker Registry we're pulling from uses self signed certs.
+    required: true
+  - name: DOCKER_CONSUL_IMAGE_NAME
+    description: The name of the Docker consul image to pull (i.e. the part between the registry and the tag when running docker pull)
+    required: true
+  - name: DOCKER_CONSUL_IMAGE_TAG
+    description: The tag of the Docker consul image to deploy
+    required: true

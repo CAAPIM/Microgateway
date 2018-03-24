@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: db-postgres-template
+  labels:
+    name: db-postgres-template
+  annotations:
+    description: Template for Microservices Gateway Postgres 
+objects:
+  - apiVersion: v1
+    kind: ConfigMap
+    metadata:
+      name: microgateway-quickstartconfig
+    data:
+      QUICKSTART_REST_MODE: ${QUICKSTART_REST_MODE}
+      QUICKSTART_REPOSITORY_TYPE: ${QUICKSTART_REPOSITORY_TYPE}
+      QUICKSTART_REPOSITORY_DB_TYPE: ${QUICKSTART_REPOSITORY_DB_TYPE}
+      QUICKSTART_REPOSITORY_DB_HOST: ${QUICKSTART_REPOSITORY_DB_HOST}
+      QUICKSTART_REPOSITORY_DB_PORT: ${QUICKSTART_REPOSITORY_DB_PORT}
+      QUICKSTART_REPOSITORY_DB_NAME: ${POSTGRES_DB}
+      POSTGRES_DB: ${POSTGRES_DB}
+      QUICKSTART_REPOSITORY_DB_USER: ${POSTGRES_USER}
+      QUICKSTART_REPOSITORY_DB_PASSWORD: ${POSTGRES_PASSWORD}
+parameters:
+  - name: POSTGRES_DB
+    description: Postgres db name
+    required: true
+  - name: POSTGRES_USER
+    description: Postgres username
+    required: true
+  - name: POSTGRES_PASSWORD
+    description: Postgres password
+    required: true
+  - name: QUICKSTART_REST_MODE
+    description: Whether or not the Scaler service should be enabled
+    required: true
+  - name: QUICKSTART_REPOSITORY_TYPE
+    description: 
+    required: true
+  - name: QUICKSTART_REPOSITORY_DB_TYPE
+    description: The type of database system to connect to for the Scaler database. The only current valid value is mysql.
+    required: true
+  - name: QUICKSTART_REPOSITORY_DB_HOST
+    description: The FQDN for the database server for the Scaler database.
+    required: true
+  - name: QUICKSTART_REPOSITORY_DB_PORT
+    description: The port number for the database server for the Scaler database.
+    required: true

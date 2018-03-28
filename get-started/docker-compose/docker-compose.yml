@@ -1,7 +1,7 @@
 version: '3'
 services:
   ssg:
-    image: caapim/microgateway:1.0.00
+    image: caapim/microgateway:1.0.0-CR01
     extra_hosts:
       - "httpbin.mycompany.com:10.7.36.179"
       - "otk.mycompany.com:10.7.32.187"

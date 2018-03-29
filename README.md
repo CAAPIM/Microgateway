@@ -4,6 +4,7 @@
   * [Benefits](#benefits)
   * [Related microservices patterns](#patterns)
   * [Extending CA Microgateway](#extending)
+  * [Changelog](./CHANGELOG.md)
 * [Get started](#get-started)
   * [Prerequisites](#prerequisites)
   * [Deploy CA Microgateway](#deploy)

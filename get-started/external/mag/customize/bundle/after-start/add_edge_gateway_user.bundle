@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<l7:Bundle xmlns:l7="http://ns.l7tech.com/2010/04/gateway-management">
+  <l7:References>
+    <l7:Item>
+      <l7:Id>118ff2af84d24e05a8a6c21565a00c8d</l7:Id>
+      <l7:Type>USER</l7:Type>
+      <l7:Resource>
+        <l7:User providerId="ada77b26afbc26b56accc9c84c0e3dfd" id="118ff2af84d24e05a8a6c21565a00c8d">
+          <l7:Login>edge-gateway</l7:Login>
+          <l7:Email></l7:Email>
+          <l7:SubjectDn>cn=edge-ssg,ou=apim gateway,o=ca technologies,l=vancouver,st=british columbia,c=ca</l7:SubjectDn>
+          <l7:Properties>
+            <l7:Property key="name">
+              <l7:StringValue>edge-gateway</l7:StringValue>
+            </l7:Property>
+          </l7:Properties>
+          <l7:Extension>
+            <l7:CertificateData>
+              <l7:Encoded>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURqekNDQW5jQ0NRQzY0T3J5Z0VQVHdqQU5CZ2txaGtpRzl3MEJBUXNGQURDQmtURUxNQWtHQTFVRUJoTUMKUTBFeEdUQVhCZ05WQkFnVEVFSnlhWFJwYzJnZ1EyOXNkVzFpYVdFeEVqQVFCZ05WQkFjVENWWmhibU52ZFhabApjakVZTUJZR0ExVUVDaE1QUTBFZ1ZHVmphRzV2Ykc5bmFXVnpNUlV3RXdZRFZRUUxFd3hCVUVsTklFZGhkR1YzCllYa3hJakFnQmdOVkJBTVRHVTFwWTNKdloyRjBaWGRoZVNCVVpYTjBJRkp2YjNRZ1EwRXdIaGNOTVRjeE1ETXgKTWpBd09ETTVXaGNOTkRZd016RTRNakF3T0RNNVdqQ0JnREVMTUFrR0ExVUVCaE1DUTBFeEdUQVhCZ05WQkFnVApFRUp5YVhScGMyZ2dRMjlzZFcxaWFXRXhFakFRQmdOVkJBY1RDVlpoYm1OdmRYWmxjakVZTUJZR0ExVUVDaE1QClEwRWdWR1ZqYUc1dmJHOW5hV1Z6TVJVd0V3WURWUVFMRXd4QlVFbE5JRWRoZEdWM1lYa3hFVEFQQmdOVkJBTVQKQ0dWa1oyVXRjM05uTUlJQklqQU5CZ2txaGtpRzl3MEJBUUVGQUFPQ0FROEFNSUlCQ2dLQ0FRRUFxcVRyMUV3cgprU0JQbzNhMDNabVIvZ3ljbHJENWZoSXh1d2gxT1RBbityMmo5elM3NzdhbnA3cSt3TDRoVER0WVcyc08zdnVOClNZRG8zQ2dmYTlmTGhBM0dZaHYycmRWWG5TTzd6TlNPODBDYWk0Q05PemlnMytuYWZ5TXRwSk1pL2pUdjNPWU4KV1lXRXk2aWJNVCtxME1BOGFhVlJmV0xEalg5dEltUE5sWGRwQ1M1NWVOUmVScEFtQnZrNW1QWVNwbFY4Tm9nOApvK2h1V3k0dGI2cHdmM1hScnVrNU82dng5bzBPU1NTSmJXUUs4MUk2SkFDeGh2L0lnVHE4SzkyMFVER1FIMHRVCnJWcmhwd09UZ25lS1RGdy9URGNFUUZ0ZGZlUjErcEFkV0FzYStYZUliQ0pNaVRyWWZzSkdSUmJJUjBzSnZ4S2EKYzZRcWNvbmpQd1RQUXdJREFRQUJNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUMxd1JZK2M0Rm1pOVZnd2ZUWQpMazlLQ295UWhFaWovTlBhc3hiUk5YRHRRazdqSVZ3dlNNSXJhUW5PVldRQ3Zqdm9jTW5CNjZFL3ZZWm14RlFiCktlQUx3QnpBUXhTdDB4MlVwNjcrRFBrK2tVSUlsVEg0bzZHdHorTlBtWnNHRnhvU3BXSGlqOTdGQTlrb2JuUlUKWERBb3pZLzVpZ21vM0ZnekhEaDNsczNocUo2SG40d1A5Vi9PZE1JWUZ2MXJDSkIzempsa1pVS0VUVWtGdjcybQpNMDBwMVVBRFVPVXFqcWVwb0JjVVpqUmxVNnBhZXpzcGpBTUZyajBvREt0eE15MVdFN0dUdndob2pQcEVoaVcvCjl1TTdZSDluN3o0UDNDbVY4dkd0RFVXai9zUkh0T2lHbDdZMEFsNDJlQW5FZ3hMZjRWRG1TZExYR0F6aTZReFIKV1JvVgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==</l7:Encoded>
+            </l7:CertificateData>
+          </l7:Extension>
+        </l7:User>
+      </l7:Resource>
+    </l7:Item>
+  </l7:References>
+  <l7:Mappings>
+    <l7:Mapping action="NewOrUpdate" srcId="118ff2af84d24e05a8a6c21565a00c8d" type="USER"/>
+  </l7:Mappings>
+</l7:Bundle>

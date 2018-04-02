@@ -1,0 +1,33 @@
+#
+#  Copyright (c) 2017 CA. All rights reserved.
+#
+#  This software may be modified and distributed under the terms
+#  of the MIT license. See the LICENSE file for details.
+#
+version: '3'
+services:
+  otk_mysqldb:
+    image: mysql:5.5
+    env_file:
+      - ./config/otk-db.env
+
+  otk:
+    build:
+      context: .
+      dockerfile: Dockerfile.otk
+    hostname: localhost
+    ports:
+      - "8443:8443"
+    env_file:
+      - ./config/license.env
+      - ./config/otk.env
+      - ./config/otk-db.env
+      - ./config/otk-hostname.env
+    environment:
+      SSG_ADMIN_USERNAME: "admin"
+      SSG_ADMIN_PASSWORD: "password"
+      # P12 archive containing the TLS private key and certificate of otk and signed by the root CA certificate "Microgateway Test Root CA"
+      SSG_SSL_KEY: MIIJyQIBAzCCCY8GCSqGSIb3DQEHAaCCCYAEggl8MIIJeDCCBC8GCSqGSIb3DQEHBqCCBCAwggQcAgEAMIIEFQYJKoZIhvcNAQcBMBwGCiqGSIb3DQEMAQYwDgQI5l2V+P0e2MsCAggAgIID6ORPdcVrA+ZFiFcov6tqFOfNSjSwoL409uUELC0FURySRTZVNtNJgZ9zZb2T2xJhVz94A+EwjCptuiXODMwNlwAgeaqKWuOc/jjr1A1uthn4E62MbVztuKRAh2M5aMzPrhgskRlLwyMEoErukRbdotbRfsKhPQc8EZsOq0ti3BBXE+cVv6a0MCpoplRPjr2MdROyzDmjYHxSS/t4VvwNZtSyyXNMCeP97F6uFGjmjCQTprlpY0T5oq7ElwVuTRpdZIVatljfbTlFvsu7/XMrhcfw40Ci5G8xJrZrsKiBpg/oPn7yOxCHk/xkMb2wvm6uTpXZYH/b6osfcMgMP5k+Tx3ZpijWq0Hm0fiKpJyOBXWXkYFFH2mNTdWZWVLJgXyStoIxZs9HrXzF9WHiI+dqgZyzYwDkOsYhCVJUNTYaz8L57sy0vYkjkJHCfanjStLhhSRwWvHMIT6ZI1XmBL2/gFw1IrSINpPejfIIA9lZsSWz3uCdQoXrCAsqFSOYqo82UY4DhmA7BcxxsLHR4uHXASPhLPfnWQ4WB5ykNSRRElAtlVJAoZ+qJTEQMGUgXnskNn2nkSWz8+TxLx9HpJ2mVoBxyd440K84R8qTKdSBSG63hsHKzJJjMjWHoGHxJtKMlQmco37/g0iOsGSTiGjKpi5vmkzFCQmMYSk0W6+yr9LlHa1shln3JTy0x5JqBTBX1WeRY06hGs0o6dBz6rSap+3lSVsDv9So/rxrkcHJkqbND5Z30KH4X/fZQ/RtF+irq1TU0eSqHoWf820f/X/s+KZqGzfipnk3SA4PllHQYO+vnxQJ1GBJa7gbfnIutkKM/Nfil3m4kAKkgqzv11MkzGiekuFIIuGbyeoSeC8vTB2ZdQdtwdtcLIt2UYl3/gbWlHxSV4o37ev28uW9IvYgCByDPq0wCaiP24TT1Vmmh6J6UVA8mUoDrX1Q0g72gJLd0DXPaCaTltkOwNZXoNr7KzUu83XpawQB9nsvq6zYfUBQlebg0pUGORX0hdASchNr7pCbu9r+N6DhYMJLW6Bijqvj0DGJ/ErvL3TBSNJ86WpjnCjRBzVtJ4sKloIWFnD8R7GvvdISNZEb0EyeM3CKeILVrBKbdanL/2xlQjgZlJ47avoTdDsWYuzsOoeEvREC0hJ758u5YmS3ajXNBKF0JcXU1Vz7BJdJYHcCP8lYD8bKVHSFiuOQs2Kzp1wa7tCWcdOdgQIQ36mScclxNutVug6P0RZQQfp2g0BUNwqtjKSW57EThYQ036UdlwUcXKj3dQx5nC+oNwdoHPsMayuptgeKYuJPNUNijGnKkIUEgdmaXTTVfukdB5EwggVBBgkqhkiG9w0BBwGgggUyBIIFLjCCBSowggUmBgsqhkiG9w0BDAoBAqCCBO4wggTqMBwGCiqGSIb3DQEMAQMwDgQIXqjW7pSTmc8CAggABIIEyPZMIO+zQtI5SClrfDe2Ny421uvPbL3vyCYneUJ3+gghri80ZL65kzs7jyreJFOJEA2aA6pBtAJIy4xFk7DpHjIQi3AsFz9TnJqciyG9fij836QUMZj9s8HXadAZc3DaLlHnUzh11h5a81fdK1Gxo4cs4pn5yJB66PKUEeyCKF3F6ijO8gBmliCYA7F/J9l1cZP2LPRd6XBIBkKh+U9rONn+QtWW3dNZ0TL72uw+W437U8QgGL9aM5VQZmdbAVHFBGw/dJonrSZySMD6upmZXQbmrQ9OKoAYCl0tA1Hc72306qgUl9q1zLuwq3YtVyozvSV35hW5ElA6y3nSYqekm7LbMkHdJYWv/uooiQD1Guy26TEiUdWmGMLZGYwmdz9PllZ6VjaFxs7RFwx+WrCNNRvgaRHn9SmHOuy8jo0UhEIJ0BErPQxdQHwMMFMVhKUk7AhCz0UNJVfSJWuRQBXgU7A7zELa4KXrU75dXqtv+3vTGIAznAYOHzGsn4yWR+6+pnXicumWlizCHwo9UOeZAY4rCp14zvhs8ctRAMVbYS9uGHlRXqRLJfEvLaqacVjZzUV300UJFxjImylJ21ZC7gouYOwIx6Gy0UmPQVc61hJlclhpnOSW1Au1xedIxaZoaYubjoTqlve3OITA5ljDBwpjkIn+GJOoryspT6YI8NuhvANbt+9TnmvM0nGMm0/ubEma5RO96xfsbqsRbuR6+/xV/nArQqD3E1EMp7Oe5Pal/AanK2awrhK2cDJh9fTPwZdJDO2UqudA+RZ1f152dXTXtJciEwxJXduN5PE9s5YGy82XR/uIHrVWFWPkZwuWumEP2hAhtwxSwcOyJwE2gZfayFT80X+O+az9WLSs/6INVzZ/8IZjoYjzPAAiSQQerJ47IJXe9BOKKVeTKl2u03mhAtpxJ52sA2UU5EtsR+rv5/Ch0Uw9QN1Yf7466V3yf7eRQb6OnwovR8QCJ4ONuE870BK9MIZlDp4KtQgdpAwjnuD37QIE4aEkGbw8WDymVVAW9Oekhlc1Fke16d7nKqQm6Hff7QBf8yyT+WKvF6xPSX+d9MDeyR6IFvRHOYx4aTElf6RmWThfjGIOre9W8oUEYc4SHsoDL4ETLsT0nK5OveJCwvaQFaDEqtMUrBX/r4wT/1bXwo/gjVt6X1rYxEvBCnOLyLgTRkiYmDZi1HBesam+YJbW7kZKsJFiABddf5ITU3btY/tQe22QfPw49VnfZ3LqtMD38+mPOvrtxDc7041FLfrU1/GR/hRvJNimaeVrRgkStcAKc1Q9YMxE23DDiFUp848nP5pOmIlJ5NwnOMq6yaqQ0alifDeJcYW4FZslpc/2OnT6Z5i09CTMM2q2NzVbePHDMAMuxdyratRi4vY4ZKetex+U9FYw14bvUFjr7uCZnFN2rXpYQVtBeKf+YQPk0Ui8tuLwC2yAC6ht3jV257glcNZ6zP/ACGHS/YitiFusmn/SqjzmvlLuWWdup4ZIAs3mxKMyZYwAG7h6KWzioXd0XQwVMTiSXxFTcrvXGi7bF1uei+SYCj22Bv7P/jH/U/11UOH9jSeS/R2BQBLja8tMuaeEM54cIGjs9QG1zGlnXzSz3d0NGWQq0FUmkqYKJ3TZsjElMCMGCSqGSIb3DQEJFTEWBBRkdzR8WZ7swNdHlxsP+P8zndKFPDAxMCEwCQYFKw4DAhoFAAQUth8rm+kGFbZ1117si5WmQO1HIOEECNgX4/Mr4JXgAgIIAA==
+      SSG_SSL_KEY_PASS: password
+    links:
+      - otk_mysqldb

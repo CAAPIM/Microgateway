@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.2.xsd">
+    <changeSet author="gateway" id="create-mag_msso_device">
+        <insert tableName="mag_msso_device">
+            <column name="certdn" value="certdn01"/>
+            <column name="magidentifier" value="magidentifier01"/>
+            <column name="username" value="username01"/>
+            <column name="deviceid" value="deviceid01"/>
+            <column name="devicename" value="devicename01"/>
+            <column name="devicestatus" value="activated"/>
+            <column name="created" valueComputed="(unix_timestamp()+86400)"/>
+            <column name="updated" valueComputed="(unix_timestamp()+86400)"/>
+            <column name="grace_expiration" valueComputed="(unix_timestamp()+186400)"/>
+            <column name="multiuser" value="TRUE"/>
+        </insert>
+        <insert tableName="mag_msso_device">
+            <column name="certdn" value="certdn02"/>
+            <column name="magidentifier" value="magidentifier02"/>
+            <column name="username" value="username01"/>
+            <column name="deviceid" value="deviceid02"/>
+            <column name="devicename" value="devicename02"/>
+            <column name="devicestatus" value="activated"/>
+            <column name="created" valueComputed="(unix_timestamp()+86400)"/>
+            <column name="updated" valueComputed="(unix_timestamp()+86400)"/>
+            <column name="grace_expiration" valueComputed="(unix_timestamp()+186400)"/>
+            <column name="multiuser" value="TRUE"/>
+        </insert>
+        <insert tableName="mag_msso_device">
+            <column name="certdn" value="certdn06"/>
+            <column name="magidentifier" value="magidentifier06"/>
+            <column name="username" value="username02"/>
+            <column name="deviceid" value="deviceid06"/>
+            <column name="devicename" value="devicename06"/>
+            <column name="devicestatus" value="registered"/>
+            <column name="created" valueComputed="(unix_timestamp()+86400)"/>
+            <column name="updated" valueComputed="(unix_timestamp()+86400)"/>
+            <column name="grace_expiration" valueComputed="(unix_timestamp()+186400)"/>
+            <column name="multiuser" value="TRUE"/>
+        </insert>
+        <insert tableName="mag_msso_device">
+            <column name="certdn" value="certdn03"/>
+            <column name="magidentifier" value="magidentifier03"/>
+            <column name="username" value="username01"/>
+            <column name="deviceid" value="deviceid03"/>
+            <column name="devicename" value="devicename03"/>
+            <column name="devicestatus" value="activated"/>
+            <column name="created" valueComputed="(unix_timestamp()+86400)"/>
+            <column name="updated" valueComputed="(unix_timestamp()+86400)"/>
+            <column name="grace_expiration" valueComputed="(unix_timestamp()+186400)"/>
+            <column name="multiuser" value="TRUE"/>
+        </insert>
+        <insert tableName="mag_msso_device">
+            <column name="certdn" value="certdn04"/>
+            <column name="magidentifier" value="magidentifier04"/>
+            <column name="username" value="username01"/>
+            <column name="deviceid" value="deviceid04"/>
+            <column name="devicename" value="devicename04"/>
+            <column name="devicestatus" value="activated"/>
+            <column name="created" valueComputed="(unix_timestamp()+86400)"/>
+            <column name="updated" valueComputed="(unix_timestamp()+86400)"/>
+            <column name="grace_expiration" valueComputed="(unix_timestamp()+186400)"/>
+            <column name="multiuser" value="TRUE"/>
+        </insert>
+    </changeSet>
+    <changeSet author="gateway" id="create-mag_device_app">
+        <insert tableName="mag_device_app">
+            <column name="magidentifier" value="magidentifier01"/>
+            <column name="client_key" value="client_key01"/>
+            <column name="access_token" value="access_token01"/>
+        </insert>
+        <insert tableName="mag_device_app">
+            <column name="magidentifier" value="magidentifier01"/>
+            <column name="client_key" value="client_key02"/>
+            <column name="access_token" value="access_token05"/>
+        </insert>
+        <insert tableName="mag_device_app">
+            <column name="magidentifier" value="magidentifier02"/>
+            <column name="client_key" value="client_key01"/>
+            <column name="access_token" value="access_token02"/>
+        </insert>
+        <insert tableName="mag_device_app">
+            <column name="magidentifier" value="magidentifier06"/>
+            <column name="client_key" value="client_key01"/>
+            <column name="access_token" value="access_token06"/>
+        </insert>
+        <insert tableName="mag_device_app">
+            <column name="magidentifier" value="magidentifier02"/>
+            <column name="client_key" value="client_key02"/>
+            <column name="access_token" value="access_token04"/>
+        </insert>
+        <insert tableName="mag_device_app">
+            <column name="magidentifier" value="magidentifier04"/>
+            <column name="client_key" value="client_key01"/>
+            <column name="access_token" value="access_token04"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

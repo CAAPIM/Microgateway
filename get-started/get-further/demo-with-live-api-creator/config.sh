@@ -35,7 +35,7 @@ INGRESS_GATEWAY_PASSWORD="password"
 OTK_HOST="localhost:8443"
 OTK_USERNAME="admin"
 OTK_PASSWORD="password"
-OTK_PATH="${CWD}/../../external/otk"
+OTK_PATH="${CWD}/../../external/mag"
 
 MQTT_PATH="${CWD}/mqtt"
 MQTT_SCALE="0"

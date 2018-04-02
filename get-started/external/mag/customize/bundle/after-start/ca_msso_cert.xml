@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<l7:TrustedCertificate xmlns:l7="http://ns.l7tech.com/2010/04/gateway-management">
+    <l7:Name>ca_msso</l7:Name>
+    <l7:CertificateData>
+        <l7:IssuerName>CN=ca_msso</l7:IssuerName>
+        <l7:SubjectName>CN=ca_msso</l7:SubjectName>
+        <l7:Encoded>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUVvVENDQTRtZ0F3SUJBZ0lKQU02OFZIQ2lXMzRQTUEwR0NTcUdTSWIzRFFFQkN3VUFNSUdSTVFzd0NRWUQKVlFRR0V3SkRRVEVaTUJjR0ExVUVDQk1RUW5KcGRHbHphQ0JEYjJ4MWJXSnBZVEVTTUJBR0ExVUVCeE1KVm1GdQpZMjkxZG1WeU1SZ3dGZ1lEVlFRS0V3OURRU0JVWldOb2JtOXNiMmRwWlhNeEZUQVRCZ05WQkFzVERFRlFTVTBnClIyRjBaWGRoZVRFaU1DQUdBMVVFQXhNWlRXbGpjbTluWVhSbGQyRjVJRlJsYzNRZ1VtOXZkQ0JEUVRBZUZ3MHgKTnpBNE1ERXhOakEyTURWYUZ3MHpOREF4TURReE5qQTJNRFZhTUlHUk1Rc3dDUVlEVlFRR0V3SkRRVEVaTUJjRwpBMVVFQ0JNUVFuSnBkR2x6YUNCRGIyeDFiV0pwWVRFU01CQUdBMVVFQnhNSlZtRnVZMjkxZG1WeU1SZ3dGZ1lEClZRUUtFdzlEUVNCVVpXTm9ibTlzYjJkcFpYTXhGVEFUQmdOVkJBc1RERUZRU1UwZ1IyRjBaWGRoZVRFaU1DQUcKQTFVRUF4TVpUV2xqY205bllYUmxkMkY1SUZSbGMzUWdVbTl2ZENCRFFUQ0NBU0l3RFFZSktvWklodmNOQVFFQgpCUUFEZ2dFUEFEQ0NBUW9DZ2dFQkFOUU1xT2w1MndlY0RMN1p3MmdpNUpJM2ptU0RxZkgxOU0rZHZsd2l1S00xCm85OFpieUoybDFqSEJjem5rV2NHWFQ3OXV5NmsvN2RGTEJyekJGdmViY3h2UlhBQi95dlgxWnRCY0RQQWZsT28KaDYzTlpMdlBlNmpIUXgzaXRkYkRyNE1FSUh0WnhsWVRxV0xJTHFyWHU4KytFN2hybEVsQ2NRUEF3bXBZT2w5LworU3ovVW9BdDNHSS9xOXVSSFduTGR2Q3Z3SEl5bUdmVzBvTmlHd3pWOVB3b0prcTlMTGxFejFLNjRBcE1xRWNECndMMjVRQk5OeWc5MDlMeTBRdkVZU1ZkU3RIUWdxaUlFTE1CTEVncERONmZWbG9taEJjTGJEZmtpemdCNFg4eUMKNUFac0dFNkVLZitaY3RkMWhpNkI3T2pkdjVvMUxDRUliUUNtRDB5TmhlY0NBd0VBQWFPQitUQ0I5akFkQmdOVgpIUTRFRmdRVW9vc1VnVkNJRHQ4VE1XNXQ1RTNiQ2ROd0hSSXdnY1lHQTFVZEl3U0J2akNCdTRBVW9vc1VnVkNJCkR0OFRNVzV0NUUzYkNkTndIUktoZ1pla2daUXdnWkV4Q3pBSkJnTlZCQVlUQWtOQk1Sa3dGd1lEVlFRSUV4QkMKY21sMGFYTm9JRU52YkhWdFltbGhNUkl3RUFZRFZRUUhFd2xXWVc1amIzVjJaWEl4R0RBV0JnTlZCQW9URDBOQgpJRlJsWTJodWIyeHZaMmxsY3pFVk1CTUdBMVVFQ3hNTVFWQkpUU0JIWVhSbGQyRjVNU0l3SUFZRFZRUURFeGxOCmFXTnliMmRoZEdWM1lYa2dWR1Z6ZENCU2IyOTBJRU5CZ2drQXpyeFVjS0piZmc4d0RBWURWUjBUQkFVd0F3RUIKL3pBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQUNXV2U3UzVKRXlmRkRKejhaaDZxekZaQjRHL1F1OGFRamg5WQpMZUcxQTRVbTBiN3JYcWZGRjVoTUFiMXlvZ3RGV3FPcUpiL0FWYXZycjlFQTJPejd1NEM0WmlpY2E4aEpnb2RkClhjV2d6dnJmL2NiN3JDSEFUdmErbzFic1J3ZzRkZ3dtQi9LSlVQcHJidXBWWjEydU5uekRQY3JaTUdNaFVrOEIKYnpjVmdrRm43T3QvT0M0VEdxZERkT04wckozR3JqbHN3L252bGloem96NjhtR2RrRzFoWXNoT3dRQkZ3ZUFrdAp4ZEVJYWFIWGxDWmRWaXRIaDdjVVhHNWFkMEw2bUFZL2xSdHM0WGxDek0vaEhMVFNQNHhEcmpYanB0ejUzL1dRCmEvLzlGMkNqSXhXLzF2aVZ5RTdCOUpTc0NqY0p6dm5OYytjTE0rVnVtSjVCamNFWUV3PT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=</l7:Encoded>
+    </l7:CertificateData>
+    <l7:Properties>
+        <l7:Property key="revocationCheckingEnabled">
+            <l7:BooleanValue>true</l7:BooleanValue>
+        </l7:Property>
+        <l7:Property key="trustAnchor">
+            <l7:BooleanValue>true</l7:BooleanValue>
+        </l7:Property>
+        <l7:Property key="trustedAsSamlAttestingEntity">
+            <l7:BooleanValue>true</l7:BooleanValue>
+        </l7:Property>
+        <l7:Property key="trustedAsSamlIssuer">
+            <l7:BooleanValue>true</l7:BooleanValue>
+        </l7:Property>
+        <l7:Property key="trustedForSigningClientCerts">
+            <l7:BooleanValue>true</l7:BooleanValue>
+        </l7:Property>
+        <l7:Property key="trustedForSigningServerCerts">
+            <l7:BooleanValue>true</l7:BooleanValue>
+        </l7:Property>
+        <l7:Property key="trustedForSsl">
+            <l7:BooleanValue>true</l7:BooleanValue>
+        </l7:Property>
+        <l7:Property key="verifyHostname">
+            <l7:BooleanValue>false</l7:BooleanValue>
+        </l7:Property>
+    </l7:Properties>
+</l7:TrustedCertificate>

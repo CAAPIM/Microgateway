@@ -1,0 +1,491 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<l7:Bundle xmlns:l7="http://ns.l7tech.com/2010/04/gateway-management">
+    <l7:References>
+        <l7:Item>
+            <l7:Name>MAS-M Extension: Pre-Publish to Client</l7:Name>
+            <l7:Id>d1ed9015a1e2fd925b24499bd0d67aec</l7:Id>
+            <l7:Type>POLICY</l7:Type>
+            <l7:TimeStamp>2017-10-22T22:12:24.602Z</l7:TimeStamp>
+            <l7:Resource>
+                <l7:Policy guid="44e5d3be-d0ae-41f9-83d2-f9e3dd534e76" id="d1ed9015a1e2fd925b24499bd0d67aec" version="0">
+                    <l7:PolicyDetail folderId="919abdc5850cb9f9e6abcb2d88c05036" guid="44e5d3be-d0ae-41f9-83d2-f9e3dd534e76" id="d1ed9015a1e2fd925b24499bd0d67aec" version="0">
+                        <l7:Name>MAS-M Extension: Pre-Publish to Client</l7:Name>
+                        <l7:PolicyType>Include</l7:PolicyType>
+                        <l7:Properties>
+                            <l7:Property key="revision">
+                                <l7:LongValue>1</l7:LongValue>
+                            </l7:Property>
+                            <l7:Property key="soap">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                        </l7:Properties>
+                    </l7:PolicyDetail>
+                    <l7:Resources>
+                        <l7:ResourceSet tag="policy">
+                            <l7:Resource type="policy">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"&gt;
+    &lt;wsp:All wsp:Usage="Required"&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue=" ============================================"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue=" === ***  THIS POLICY IS READ ONLY ***"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue=" === If you have the need to customize this policy"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue=" === please contact CA APIM Support so we can improve customization capability"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue=" ============================================"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="******************************************************************************************************************"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* Policy fragment for &amp;quot;MAS-M Extension: Pre-Publish to Client&amp;quot; encapsulated assertion"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* "/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* "/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* Inputs: error.msg"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* Inputs: failed"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* Inputs: topic"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* Outputs: error.msg"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* Outputs: failed"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* Outputs: topicModified"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* "/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="******************************************************************************************************************"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:AuditDetailAssertion&gt;
+            &lt;L7p:Detail stringValue="==&gt; Start ${policy.name}"/&gt;
+            &lt;L7p:Level stringValue="FINE"/&gt;
+        &lt;/L7p:AuditDetailAssertion&gt;
+        &lt;L7p:SetVariable&gt;
+            &lt;L7p:Base64Expression stringValue="JHt0b3BpY30="/&gt;
+            &lt;L7p:VariableToSet stringValue="topicModified"/&gt;
+        &lt;/L7p:SetVariable&gt;
+        &lt;wsp:OneOrMore wsp:Usage="Required"&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:Regex&gt;
+                    &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                    &lt;L7p:CaptureVar stringValue="match"/&gt;
+                    &lt;L7p:OtherTargetMessageVariable stringValue="topic"/&gt;
+                    &lt;L7p:Regex stringValue="^(/.*)?/2\.0/organization/([^/]+)/client/([^/]+)/users/([^/]+)/custom(/.+)?$"/&gt;
+                    &lt;L7p:Replacement stringValue=""/&gt;
+                    &lt;L7p:Target target="OTHER"/&gt;
+                &lt;/L7p:Regex&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue="JHttYXRjaFsxXX0vMi4wL2NsaWVudC91c2Vycy8ke21hdGNoWzRdfS9jdXN0b20ke21hdGNoWzVdfQ=="/&gt;
+                    &lt;L7p:VariableToSet stringValue="topicModified"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// Matches: &amp;lt;prefix&gt;/2.0/organization/&amp;lt;organizationID&gt;/client/&amp;lt;clientId&gt;/users/&amp;lt;userID&gt;/custom/&amp;lt;developer_defined_topic&gt;"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:Regex&gt;
+                    &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                    &lt;L7p:CaptureVar stringValue="match"/&gt;
+                    &lt;L7p:OtherTargetMessageVariable stringValue="topic"/&gt;
+                    &lt;L7p:Regex stringValue="^(/.*)?/2\.0/organization/([^/]+)/users/([^/]+)/custom(/.+)?$"/&gt;
+                    &lt;L7p:Replacement stringValue=""/&gt;
+                    &lt;L7p:Target target="OTHER"/&gt;
+                &lt;/L7p:Regex&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue="JHttYXRjaFsxXX0vMi4wL3VzZXJzLyR7bWF0Y2hbM119L2N1c3RvbSR7bWF0Y2hbNF19"/&gt;
+                    &lt;L7p:VariableToSet stringValue="topicModified"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// Matches: &amp;lt;prefix&gt;/2.0/organization/&amp;lt;organizationID&gt;/users/&amp;lt;userID&gt;/custom/&amp;lt;developer_defined_topic&gt;"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;wsp:All wsp:Usage="Required"&gt;
+                &lt;L7p:Regex&gt;
+                    &lt;L7p:AutoTarget booleanValue="false"/&gt;
+                    &lt;L7p:CaptureVar stringValue="match"/&gt;
+                    &lt;L7p:OtherTargetMessageVariable stringValue="topic"/&gt;
+                    &lt;L7p:Regex stringValue="^(/.*)?/2\.0/organization/([^/]+)/client/([^/]+)/custom(/.+)?$"/&gt;
+                    &lt;L7p:Replacement stringValue=""/&gt;
+                    &lt;L7p:Target target="OTHER"/&gt;
+                &lt;/L7p:Regex&gt;
+                &lt;L7p:SetVariable&gt;
+                    &lt;L7p:Base64Expression stringValue="JHttYXRjaFsxXX0vMi4wL2NsaWVudC9jdXN0b20ke21hdGNoWzRdfQ=="/&gt;
+                    &lt;L7p:VariableToSet stringValue="topicModified"/&gt;
+                &lt;/L7p:SetVariable&gt;
+                &lt;L7p:assertionComment&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// Matches: &amp;lt;prefix&gt;/2.0/organization/&amp;lt;organizationID&gt;/client/&amp;lt;clientId&gt;/custom/&amp;lt;developer_defined_topic&gt;"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:assertionComment&gt;
+            &lt;/wsp:All&gt;
+            &lt;L7p:TrueAssertion&gt;
+                &lt;L7p:AssertionComment assertionComment="included"&gt;
+                    &lt;L7p:Properties mapValue="included"&gt;
+                        &lt;L7p:entry&gt;
+                            &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                            &lt;L7p:value stringValue="// topic did not match any of the 2.0 topics so use the given topic"/&gt;
+                        &lt;/L7p:entry&gt;
+                    &lt;/L7p:Properties&gt;
+                &lt;/L7p:AssertionComment&gt;
+            &lt;/L7p:TrueAssertion&gt;
+            &lt;L7p:assertionComment&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="// update the 2.0 topics so that they match the ones that would have been used to subscribe"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:assertionComment&gt;
+        &lt;/wsp:OneOrMore&gt;
+        &lt;L7p:AuditDetailAssertion&gt;
+            &lt;L7p:Detail stringValue="==&gt; End ${policy.name}"/&gt;
+            &lt;L7p:Level stringValue="FINE"/&gt;
+        &lt;/L7p:AuditDetailAssertion&gt;
+    &lt;/wsp:All&gt;
+&lt;/wsp:Policy&gt;
+</l7:Resource>
+                        </l7:ResourceSet>
+                    </l7:Resources>
+                </l7:Policy>
+            </l7:Resource>
+        </l7:Item>
+        <l7:Item>
+            <l7:Name>MAS-M Extension: Pre-Publish to Client</l7:Name>
+            <l7:Id>d1ed9015a1e2fd925b24499bd0d67b02</l7:Id>
+            <l7:Type>ENCAPSULATED_ASSERTION</l7:Type>
+            <l7:TimeStamp>2017-10-22T22:12:24.613Z</l7:TimeStamp>
+            <l7:Resource>
+                <l7:EncapsulatedAssertion id="d1ed9015a1e2fd925b24499bd0d67b02" version="0">
+                    <l7:Name>MAS-M Extension: Pre-Publish to Client</l7:Name>
+                    <l7:Guid>990646d6-176d-4f06-a2ac-af0e818d79fd</l7:Guid>
+                    <l7:PolicyReference id="d1ed9015a1e2fd925b24499bd0d67aec" resourceUri="http://ns.l7tech.com/2010/04/gateway-management/policies"/>
+                    <l7:EncapsulatedArguments>
+                        <l7:EncapsulatedAssertionArgument>
+                            <l7:Ordinal>1</l7:Ordinal>
+                            <l7:ArgumentName>error.msg</l7:ArgumentName>
+                            <l7:ArgumentType>string</l7:ArgumentType>
+                            <l7:GuiPrompt>false</l7:GuiPrompt>
+                        </l7:EncapsulatedAssertionArgument>
+                        <l7:EncapsulatedAssertionArgument>
+                            <l7:Ordinal>2</l7:Ordinal>
+                            <l7:ArgumentName>failed</l7:ArgumentName>
+                            <l7:ArgumentType>string</l7:ArgumentType>
+                            <l7:GuiPrompt>false</l7:GuiPrompt>
+                        </l7:EncapsulatedAssertionArgument>
+                        <l7:EncapsulatedAssertionArgument>
+                            <l7:Ordinal>3</l7:Ordinal>
+                            <l7:ArgumentName>topic</l7:ArgumentName>
+                            <l7:ArgumentType>string</l7:ArgumentType>
+                            <l7:GuiLabel>Topic: </l7:GuiLabel>
+                            <l7:GuiPrompt>true</l7:GuiPrompt>
+                        </l7:EncapsulatedAssertionArgument>
+                    </l7:EncapsulatedArguments>
+                    <l7:EncapsulatedResults>
+                        <l7:EncapsulatedAssertionResult>
+                            <l7:ResultName>error.msg</l7:ResultName>
+                            <l7:ResultType>string</l7:ResultType>
+                        </l7:EncapsulatedAssertionResult>
+                        <l7:EncapsulatedAssertionResult>
+                            <l7:ResultName>failed</l7:ResultName>
+                            <l7:ResultType>string</l7:ResultType>
+                        </l7:EncapsulatedAssertionResult>
+                        <l7:EncapsulatedAssertionResult>
+                            <l7:ResultName>topicModified</l7:ResultName>
+                            <l7:ResultType>string</l7:ResultType>
+                        </l7:EncapsulatedAssertionResult>
+                    </l7:EncapsulatedResults>
+                    <l7:Properties>
+                        <l7:Property key="allowTracing">
+                            <l7:StringValue>false</l7:StringValue>
+                        </l7:Property>
+                        <l7:Property key="paletteFolder">
+                            <l7:StringValue>internalAssertions</l7:StringValue>
+                        </l7:Property>
+                        <l7:Property key="passMetricsToParent">
+                            <l7:StringValue>false</l7:StringValue>
+                        </l7:Property>
+                        <l7:Property key="policyGuid">
+                            <l7:StringValue>44e5d3be-d0ae-41f9-83d2-f9e3dd534e76</l7:StringValue>
+                        </l7:Property>
+                    </l7:Properties>
+                </l7:EncapsulatedAssertion>
+            </l7:Resource>
+        </l7:Item>
+        <l7:Item>
+            <l7:Name>Publish Message To Client</l7:Name>
+            <l7:Id>f7370df418628b0f050789e387987dd2</l7:Id>
+            <l7:Type>POLICY</l7:Type>
+            <l7:TimeStamp>2017-10-22T22:12:24.659Z</l7:TimeStamp>
+            <l7:Resource>
+                <l7:Policy guid="61efff08-8104-43e4-acbb-35c478691af6" id="f7370df418628b0f050789e387987dd2" version="0">
+                    <l7:PolicyDetail folderId="3f1925f4eef6caf68d5df8b2771b3525" guid="61efff08-8104-43e4-acbb-35c478691af6" id="f7370df418628b0f050789e387987dd2" version="0">
+                        <l7:Name>Publish Message To Client</l7:Name>
+                        <l7:PolicyType>Service Operation</l7:PolicyType>
+                        <l7:Properties>
+                            <l7:Property key="revision">
+                                <l7:LongValue>1</l7:LongValue>
+                            </l7:Property>
+                            <l7:Property key="soap">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                            <l7:Property key="subtag">
+                                <l7:StringValue>publishMessage</l7:StringValue>
+                            </l7:Property>
+                            <l7:Property key="tag">
+                                <l7:StringValue>com.l7tech.external.assertions.mqtt.server.SubscriptionUpdateProcessor</l7:StringValue>
+                            </l7:Property>
+                        </l7:Properties>
+                    </l7:PolicyDetail>
+                    <l7:Resources>
+                        <l7:ResourceSet tag="policy">
+                            <l7:Resource type="policy">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"&gt;
+    &lt;wsp:All wsp:Usage="Required"&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue=" ============================================"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue=" === ***  THIS POLICY IS READ ONLY ***"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue=" === If you have the need to customize this policy"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue=" === please contact CA APIM Support so we can improve customization capability"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue=" ============================================"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="**********************************************************************************************"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* This policy is executed when a message is being delivered to a connected messaging client (because it was published to a topic that they were subscribed to)"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="* Handle messages arriving via the MQTT Broker"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="*  "/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:CommentAssertion&gt;
+            &lt;L7p:Comment stringValue="**********************************************************************************************"/&gt;
+        &lt;/L7p:CommentAssertion&gt;
+        &lt;L7p:AuditAssertion&gt;
+            &lt;L7p:AssertionComment assertionComment="included"&gt;
+                &lt;L7p:Properties mapValue="included"&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="LEFT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="Enable"/&gt;
+                    &lt;/L7p:entry&gt;
+                    &lt;L7p:entry&gt;
+                        &lt;L7p:key stringValue="RIGHT.COMMENT"/&gt;
+                        &lt;L7p:value stringValue="only when Debugging"/&gt;
+                    &lt;/L7p:entry&gt;
+                &lt;/L7p:Properties&gt;
+            &lt;/L7p:AssertionComment&gt;
+            &lt;L7p:Enabled booleanValue="false"/&gt;
+            &lt;L7p:SaveRequest booleanValue="true"/&gt;
+            &lt;L7p:SaveResponse booleanValue="true"/&gt;
+        &lt;/L7p:AuditAssertion&gt;
+        &lt;L7p:AuditDetailAssertion&gt;
+            &lt;L7p:Detail stringValue="==&gt; Start ${policy.name}"/&gt;
+            &lt;L7p:Level stringValue="FINE"/&gt;
+        &lt;/L7p:AuditDetailAssertion&gt;
+        &lt;L7p:SetVariable&gt;
+            &lt;L7p:Base64Expression stringValue="JHt0b3BpY30="/&gt;
+            &lt;L7p:VariableToSet stringValue="topicModified"/&gt;
+        &lt;/L7p:SetVariable&gt;
+        &lt;L7p:Encapsulated&gt;
+            &lt;L7p:EncapsulatedAssertionConfigGuid stringValue="990646d6-176d-4f06-a2ac-af0e818d79fd"/&gt;
+            &lt;L7p:EncapsulatedAssertionConfigName stringValue="MAS-M Extension: Pre-Publish to Client"/&gt;
+            &lt;L7p:NoOpIfConfigMissing booleanValue="true"/&gt;
+            &lt;L7p:Parameters mapValue="included"&gt;
+                &lt;L7p:entry&gt;
+                    &lt;L7p:key stringValue="topic"/&gt;
+                    &lt;L7p:value stringValue="${topic}"/&gt;
+                &lt;/L7p:entry&gt;
+            &lt;/L7p:Parameters&gt;
+        &lt;/L7p:Encapsulated&gt;
+        &lt;L7p:MQTTPublishAssertion&gt;
+            &lt;L7p:BrokerHost stringValue=""/&gt;
+            &lt;L7p:ClientIdentifier stringValue="${clientId}"/&gt;
+            &lt;L7p:ListenPortId goidValue="f7370df418628b0f050789e387987e2d"/&gt;
+            &lt;L7p:OtherTargetMessageVariable stringValue="message"/&gt;
+            &lt;L7p:PublishToBroker booleanValue="false"/&gt;
+            &lt;L7p:RetainMessage stringValue="${retain}"/&gt;
+            &lt;L7p:Target target="OTHER"/&gt;
+            &lt;L7p:TopicName stringValue="${topicModified}"/&gt;
+            &lt;L7p:TopicQOS stringValue="${qos}"/&gt;
+            &lt;L7p:UserName stringValue=""/&gt;
+            &lt;L7p:UserPassword stringValue=""/&gt;
+        &lt;/L7p:MQTTPublishAssertion&gt;
+        &lt;L7p:AuditDetailAssertion&gt;
+            &lt;L7p:Detail stringValue="==&gt; End ${policy.name}"/&gt;
+        &lt;/L7p:AuditDetailAssertion&gt;
+    &lt;/wsp:All&gt;
+&lt;/wsp:Policy&gt;
+</l7:Resource>
+                        </l7:ResourceSet>
+                    </l7:Resources>
+                </l7:Policy>
+            </l7:Resource>
+        </l7:Item>
+        <l7:Item>
+            <l7:Name>MQTT Publish To Client</l7:Name>
+            <l7:Id>f7370df418628b0f050789e387987e26</l7:Id>
+            <l7:Type>POLICY_BACKED_SERVICE</l7:Type>
+            <l7:TimeStamp>2017-10-22T22:12:24.661Z</l7:TimeStamp>
+            <l7:Resource>
+                <l7:PolicyBackedService id="f7370df418628b0f050789e387987e26" version="0">
+                    <l7:Name>MQTT Publish To Client</l7:Name>
+                    <l7:InterfaceName>com.l7tech.external.assertions.mqtt.server.SubscriptionUpdateProcessor</l7:InterfaceName>
+                    <l7:PolicyBackedServiceOperations>
+                        <l7:PolicyBackedServiceOperation>
+                            <l7:PolicyId>f7370df418628b0f050789e387987dd2</l7:PolicyId>
+                            <l7:OperationName>publishMessage</l7:OperationName>
+                        </l7:PolicyBackedServiceOperation>
+                    </l7:PolicyBackedServiceOperations>
+                </l7:PolicyBackedService>
+            </l7:Resource>
+        </l7:Item>
+        <l7:Item>
+            <l7:Name>smartOrder</l7:Name>
+            <l7:Id>12801c042e22233228eb5b18d4cf523d</l7:Id>
+            <l7:Type>SERVICE</l7:Type>
+            <l7:TimeStamp>2017-10-22T22:12:24.782Z</l7:TimeStamp>
+            <l7:Resource>
+                <l7:Service id="12801c042e22233228eb5b18d4cf523d" version="2">
+                    <l7:ServiceDetail folderId="0000000000000000ffffffffffffec76" id="12801c042e22233228eb5b18d4cf523d" version="2">
+                        <l7:Name>smartOrder</l7:Name>
+                        <l7:Enabled>true</l7:Enabled>
+                        <l7:ServiceMappings>
+                            <l7:HttpMapping>
+                                <l7:UrlPattern>/v1/smartOrder*</l7:UrlPattern>
+                                <l7:Verbs>
+                                    <l7:Verb>GET</l7:Verb>
+                                    <l7:Verb>POST</l7:Verb>
+                                    <l7:Verb>PUT</l7:Verb>
+                                    <l7:Verb>DELETE</l7:Verb>
+                                </l7:Verbs>
+                            </l7:HttpMapping>
+                        </l7:ServiceMappings>
+                        <l7:Properties>
+                            <l7:Property key="internal">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                            <l7:Property key="policyRevision">
+                                <l7:LongValue>2</l7:LongValue>
+                            </l7:Property>
+                            <l7:Property key="soap">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                            <l7:Property key="tracingEnabled">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                            <l7:Property key="wssProcessingEnabled">
+                                <l7:BooleanValue>false</l7:BooleanValue>
+                            </l7:Property>
+                        </l7:Properties>
+                    </l7:ServiceDetail>
+                    <l7:Resources>
+                        <l7:ResourceSet tag="policy">
+                            <l7:Resource type="policy" version="1">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;wsp:Policy xmlns:L7p="http://www.layer7tech.com/ws/policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2002/12/policy"&gt;
+    &lt;wsp:All wsp:Usage="Required"&gt;
+        &lt;L7p:MQTTConnectionAssertion&gt;
+            &lt;L7p:BrokerHost stringValue="mqtt"/&gt;
+            &lt;L7p:ClientIdentifier stringValue="mag"/&gt;
+            &lt;L7p:CustomPrivateKeySelecedAlgorithm stringValue="RSA"/&gt;
+            &lt;L7p:CustomPrivateKeySelectedAlias stringValue="ca_msso"/&gt;
+            &lt;L7p:CustomPrivateKeySelectedGoid goidValue="00000000000000000000000000000002"/&gt;
+            &lt;L7p:ProvideWill stringValue=""/&gt;
+            &lt;L7p:SubscriptionUpdatesPolicyId goidValue="f7370df418628b0f050789e387987e26"/&gt;
+            &lt;L7p:Target target="REQUEST"/&gt;
+            &lt;L7p:TlsVersion stringValueNull="null"/&gt;
+            &lt;L7p:UserName stringValue=""/&gt;
+            &lt;L7p:UserPassword stringValue=""/&gt;
+            &lt;L7p:WillMessage stringValue=""/&gt;
+            &lt;L7p:WillRetain stringValue=""/&gt;
+            &lt;L7p:WillTopic stringValue=""/&gt;
+        &lt;/L7p:MQTTConnectionAssertion&gt;
+        &lt;L7p:MQTTPublishAssertion&gt;
+            &lt;L7p:BrokerHost stringValue="mqtt"/&gt;
+            &lt;L7p:ClientIdentifier stringValue="mag"/&gt;
+            &lt;L7p:RetainMessage stringValue="true"/&gt;
+            &lt;L7p:TopicName stringValue="smartOrder"/&gt;
+            &lt;L7p:TopicQOS stringValue="1"/&gt;
+            &lt;L7p:UserName stringValue=""/&gt;
+            &lt;L7p:UserPassword stringValue=""/&gt;
+        &lt;/L7p:MQTTPublishAssertion&gt;
+    &lt;/wsp:All&gt;
+&lt;/wsp:Policy&gt;
+</l7:Resource>
+                        </l7:ResourceSet>
+                    </l7:Resources>
+                </l7:Service>
+            </l7:Resource>
+        </l7:Item>
+    </l7:References>
+    <l7:Mappings>
+        <l7:Mapping action="NewOrExisting" srcId="919abdc5850cb9f9e6abcb2d88c05036" srcUri="https://localhost:8443/restman/1.0/folders/919abdc5850cb9f9e6abcb2d88c05036" type="FOLDER">
+            <l7:Properties>
+                <l7:Property key="FailOnNew">
+                    <l7:BooleanValue>true</l7:BooleanValue>
+                </l7:Property>
+            </l7:Properties>
+        </l7:Mapping>
+        <l7:Mapping action="NewOrExisting" srcId="d1ed9015a1e2fd925b24499bd0d67aec" srcUri="https://localhost:8443/restman/1.0/policies/d1ed9015a1e2fd925b24499bd0d67aec" type="POLICY"/>
+        <l7:Mapping action="NewOrExisting" srcId="d1ed9015a1e2fd925b24499bd0d67b02" srcUri="https://localhost:8443/restman/1.0/encapsulatedAssertions/d1ed9015a1e2fd925b24499bd0d67b02" type="ENCAPSULATED_ASSERTION"/>
+        <l7:Mapping action="NewOrExisting" srcId="3f1925f4eef6caf68d5df8b2771b3525" srcUri="https://localhost:8443/restman/1.0/folders/3f1925f4eef6caf68d5df8b2771b3525" type="FOLDER">
+            <l7:Properties>
+                <l7:Property key="FailOnNew">
+                    <l7:BooleanValue>true</l7:BooleanValue>
+                </l7:Property>
+            </l7:Properties>
+        </l7:Mapping>
+        <l7:Mapping action="NewOrExisting" srcId="f7370df418628b0f050789e387987dd2" srcUri="https://localhost:8443/restman/1.0/policies/f7370df418628b0f050789e387987dd2" type="POLICY"/>
+        <l7:Mapping action="NewOrExisting" srcId="f7370df418628b0f050789e387987e26" srcUri="https://localhost:8443/restman/1.0/policyBackedServices/f7370df418628b0f050789e387987e26" type="POLICY_BACKED_SERVICE"/>
+        <l7:Mapping action="NewOrExisting" srcId="0000000000000000ffffffffffffec76" srcUri="https://localhost:8443/restman/1.0/folders/0000000000000000ffffffffffffec76" type="FOLDER">
+            <l7:Properties>
+                <l7:Property key="FailOnNew">
+                    <l7:BooleanValue>true</l7:BooleanValue>
+                </l7:Property>
+            </l7:Properties>
+        </l7:Mapping>
+        <l7:Mapping action="NewOrExisting" srcId="12801c042e22233228eb5b18d4cf523d" srcUri="https://localhost:8443/restman/1.0/services/12801c042e22233228eb5b18d4cf523d" type="SERVICE"/>
+    </l7:Mappings>
+</l7:Bundle>

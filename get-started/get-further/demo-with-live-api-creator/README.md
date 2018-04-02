@@ -104,7 +104,7 @@ By passing the value "true" to the environment variable ACCEPT_LICENSE in the fi
 - the [CA Live API Creator EULA](live-api-creator/etc/license/CA_Technologies_LiveAPI_License.json)
 - the [CA OTK license](https://github.com/CAAPIM/Docker-MAS/blob/master/LICENSE)
 
-Then, add the MAG license by following the [MAG license tutorial](../../external/otk#licenses).
+Then, add the MAG license by following the [MAG license tutorial](../../external/mag#licenses).
 
 ### Start <a name="ops-start"></a>
 ```

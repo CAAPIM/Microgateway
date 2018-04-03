@@ -14,6 +14,13 @@
 
 - Kubernetes ([documentation](https://docops.ca.com/ca-microgateway/1-0/EN/getting-started-with-the-ca-microgateway/run-the-ca-microgateway-in-kubernetes))
 
+### Signed SSL/TLS certificate provisioning
+- Auto-provisioning of signed SSL/TLS certificates of CA API Gateway, CA Microgateway and microservices
+
+  - Enable Mutual TLS authentication between CA API Gateway, CA Microgateway and microservices
+  - Protect API traffic flow with a JWT from CA Edge API Gateway, to CA Microgateway to microservices
+  - Management of CA Microgateway nodes from a web console
+
 ### Container
 
 - Based on API Gateway 9.3 ([documentation](https://docops.ca.com/ca-api-gateway/9-3/en))

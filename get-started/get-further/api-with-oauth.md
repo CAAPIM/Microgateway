@@ -12,7 +12,7 @@ The exercise sets up a microgateway as an OAuth enforcement point with a central
 (microservice B)-----(microgateway) <--
 ```
 
-- Deploy the CA API [Mobile App Services](https://www.ca.com/us/developers/mas) with OAuth Toolkit (OTK) as OAuth Server
+- Deploy the [CA Containerized API Gateway](https://docops.ca.com/ca-api-gateway/9-3/en/other-gateway-form-factors/using-the-container-gateway) with OAuth Toolkit (OTK) as OAuth Server
 
   *This step will typically be done by a Gateway sysadmin.*
 
@@ -107,8 +107,7 @@ another microservice developer willing to connect to our microservice.
 - Register an OAuth client on the OTK OAuth manager, a web client to configure OAuth resources
 
   Open https://localhost:8443/oauth/manager in your browser then login with the
-  user `arose` and password `StRonG5^)`. (See https://github.com/CAAPIM/Docker-MAS#test-users-and-groups
-  for more accounts)
+  user `admin` and password `password`. 
 
   Click on `Clients`, then `Register a new client`.
 
@@ -130,8 +129,8 @@ another microservice developer willing to connect to our microservice.
        --data "client_secret=<client_secret>" \
        --data "scope=GOOGLE_SEARCH" \
        --data "grant_type=password" \
-       --data "username=arose" \
-       --data "password=StRonG5^)" \
+       --data "username=admin" \
+       --data "password=password" \
       'https://localhost:8443/auth/oauth/v2/token'
   ```
 

@@ -17,7 +17,7 @@ services:
     environment:
       - OTK_KEYSPACE=otk_db
     command:
-      bash setupSchemas.sh
+      bash /get_started/setupSchemas.sh
     volumes:
       - cassandra-otk:/var/lib/cassandra:rw
       

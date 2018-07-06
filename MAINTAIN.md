@@ -8,7 +8,8 @@ The licenses on this repository are trial license, therefore, they need to be re
 
 - CA Microgateway (variable SSG_LICENSE):
   - Docker Compose: [get-started/docker-compose/config/license.env](get-started/docker-compose/config/license.env)
-  - OpenShift: [samples/platforms/openshift/microgateway.yaml](samples/platforms/openshift/microgateway.yaml)
+  - OpenShift: [samples/platforms/openshift/config/config.env](samples/platforms/openshift/config/config.env)
+  - Kubernetes: [samples/platforms/kubernetes/config.yml](samples/platforms/kubernetes/config.yml)
 
 - OTK: license built in the Docker image, see [get-started/external/otk/Dockerfile.otk](get-started/external/otk/Dockerfile.otk)
 

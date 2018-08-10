@@ -147,7 +147,7 @@ objects:
         spec:
           containers:
           - name: consul-server-container
-            image: isl-dsdc.ca.com:5000/apim-gateway/twelvefactorgateway/consul:latest
+            image: consul:latest
             imagePullPolicy: IfNotPresent
             args:
               - agent

@@ -28,7 +28,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.otk
-    hostname: localhost
+    hostname: otk
     ports:
       - "8443:8443"
     env_file:
